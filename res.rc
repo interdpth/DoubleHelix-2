@@ -1,0 +1,1164 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+frmMain DIALOGEX 0, 0, 591, 210
+STYLE DS_SETFONT | DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Double Helix"
+MENU mnuMenu
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "Level",IDC_STATIC,7,7,121,39
+    LTEXT           "Area",IDC_STATIC,17,15,24,9
+    LTEXT           "Room",IDC_STATIC,15,31,24,8
+    COMBOBOX        cboArea,42,14,80,102,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Save",cmdSave,130,31,52,12
+    GROUPBOX        "Controls",IDC_STATIC,7,46,176,63
+    CONTROL         "Edit Foreground",chkForeground,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,56,64,8
+    CONTROL         "Edit Level Layer",chkLevel,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,87,61,71,9
+    CONTROL         "Edit Backlayer",chkBacklayer,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,65,73,9
+    GROUPBOX        "Clipdata:",fraClip,7,154,223,27
+    COMBOBOX        cboClip,13,163,213,136,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL
+    LTEXT           "Static",lblClip,174,19,94,8
+    GROUPBOX        "Tile Information",IDC_STATIC,129,7,144,22
+    LTEXT           "Clip Data:",IDC_STATIC,140,19,32,8
+    CONTROL         "Edit Clip Data",chkClip,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,91,72,61,9
+    GROUPBOX        "Map View",grpMap,189,31,90,105
+    CONTROL         "View Foreground",chkViewF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,50,72,10
+    CONTROL         "View Level Layer",chkViewL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,61,68,11
+    CONTROL         "View BackLayer",chkViewB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,71,70,12
+    GROUPBOX        "Map Coordinates",IDC_STATIC,7,110,66,22
+    LTEXT           "X:0",lblX,13,119,22,8
+    LTEXT           "Y:0",lblY,36,118,29,8
+    COMBOBOX        cboRoom,41,30,85,132,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboSpriteSet,45,134,26,56,CBS_DROPDOWNLIST | CBS_SORT | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Sprite Set:",IDC_STATIC,7,135,38,10
+    CONTROL         "Show Tileset",chkST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,83,121,55,10
+    CONTROL         "Show Map",chkSM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,83,132,58,13
+    GROUPBOX        "Window Option",IDC_STATIC,77,111,106,37
+    CONTROL         "Edit Scrolldata",chkScroll,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,82,61,12
+    CONTROL         "View Clipdata",chkVC,"Button",BS_AUTOCHECKBOX | BS_CENTER | BS_MULTILINE | WS_TABSTOP,138,118,41,22
+    CONTROL         "Edit Doors",chkDoors,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,84,46,10
+    CONTROL         "Edit Sprites",chkSprites,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,11,97,54,10
+    CONTROL         "Show Transparency",chkDTrans,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,195,110,77,8
+    PUSHBUTTON      "Edit Level Palette",cmdLPE,193,142,69,11
+    CONTROL         "Hide Sprite Info",chkHS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,94,64,11
+    COMBOBOX        cboDScroll,235,165,42,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Scroll To Edit:",IDC_STATIC,232,153,45,10
+    CONTROL         "View BackGround",chkViewBG,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,193,81,70,12
+    CONTROL         "Resize Doors",chkResizeDoors,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,95,59,12
+    GROUPBOX        "Current Object",grpBoxObj,291,7,294,188
+    CONTROL         "Animate Sprites",chkDTrans2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,196,124,77,8
+END
+
+frmDoor DIALOGEX 0, 0, 276, 143
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    COMBOBOX        cboOwner,82,58,62,192,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Owner Room:",IDC_STATIC,84,46,45,10
+    COMBOBOX        cboConn,82,71,62,164,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Connects too door:",IDC_STATIC,15,72,62,11
+    GROUPBOX        "ConnecTextEditor Door",IDC_STATIC,149,7,93,77
+    LTEXT           "Door Type:",IDC_STATIC,15,44,37,9
+    COMBOBOX        cboDoorType,15,57,64,132,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Door",fraDoor,7,7,139,125
+    LTEXT           "Door stuff",lblDoor,15,17,107,22
+    PUSHBUTTON      "Save",cmdSaveDoor,19,102,51,11
+    LTEXT           "Door Type:",ICk,155,30,37,8
+    LTEXT           "00",lblDoorType,193,31,17,8
+    LTEXT           "Owner Room:",IDC_STATIC,155,42,46,10
+    LTEXT           "Door: ??",lblCDoor,156,20,41,8
+    LTEXT           "00",lblOwnerRoom,201,42,19,8
+    LTEXT           "Exist Distance:",IDC_STATIC,56,91,50,8
+    EDITTEXT        txtLength,107,88,27,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Add Door",btnAddDoor,159,95,73,14
+    PUSHBUTTON      "Delete This Door",buttonDeleteDoor,160,108,73,14
+END
+
+frmInputBox DIALOG 0, 0, 186, 94
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",cmdInputOK,57,65,50,14
+    EDITTEXT        txtInput,19,50,130,12,ES_AUTOHSCROLL
+    LTEXT           "Enter the value 0 through 0xF in hexadecimal please",lblEnter,13,13,160,33
+END
+
+frmSceneryEditor DIALOG 0, 0, 447, 343
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Scenery"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Graphic",fraGrap,10,6,358,325
+    COMBOBOX        cboSPal,397,172,36,109,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Pallete:",IDC_STATIC,396,161,31,11
+    PUSHBUTTON      "Save",cmdSSave,397,186,33,14
+    PUSHBUTTON      "Edit Foreground",cmdSEditForeground,389,10,46,31,BS_MULTILINE
+    PUSHBUTTON      "Edit Backlayer",cmdSEditBack,389,42,46,31,BS_MULTILINE
+    PUSHBUTTON      "Edit Background",cmdSEditBG,389,77,45,34,BS_MULTILINE
+    COMBOBOX        cboSSize,393,128,39,73,CBS_DROPDOWN | CBS_SORT | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Size:",IDC_STATIC,391,116,42,8
+    LTEXT           "Static",lbltst,373,148,58,10
+    PUSHBUTTON      "Clear",cmdClearScene,397,200,33,16
+    PUSHBUTTON      "Import Background Picture",cmdBGi,375,235,56,32,BS_MULTILINE
+END
+
+frmRoomStuff DIALOG 0, 0, 288, 143
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Extra Room Stuff"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Width:",IDC_STATIC,132,54,32,9
+    LTEXT           "Height:",IDC_STATIC,183,54,29,9
+    EDITTEXT        txtWidth,130,67,25,12,ES_AUTOHSCROLL
+    EDITTEXT        txtHeight,185,67,27,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Foreground",cmdCFore,27,30,70,10,WS_DISABLED
+    PUSHBUTTON      "Level Data",cmdCLevel,27,41,70,11,WS_DISABLED
+    PUSHBUTTON      "Backlayer",cmdCBack,27,53,70,10,WS_DISABLED
+    PUSHBUTTON      "Clip Data",cmdCClip,27,63,70,11
+    LTEXT           "Clear Layer:",IDC_STATIC,39,15,40,10
+    PUSHBUTTON      "Save",cmdROSave,152,87,40,11
+    GROUPBOX        "Resize Layer",IDC_STATIC,118,40,114,65
+    LTEXT           "Layer:",IDC_STATIC,157,13,19,9
+    COMBOBOX        cboLayer,125,26,98,94,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+END
+
+frmMiniMap DIALOG 0, 0, 437, 202
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "MiniMap Editor"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Map",fraMinimap,11,11,205,171
+    GROUPBOX        "Tileset",framt,245,14,120,154
+    LTEXT           "Palette:",IDC_STATIC,221,172,26,9
+    PUSHBUTTON      "Save",cmdMMSave,219,27,24,21
+    COMBOBOX        cboMPal,253,171,25,71,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Area:",IDC_STATIC,287,173,21,11
+    COMBOBOX        cboMAreaC,309,173,74,71,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Horizontal Flip",chkHorz,"Button",BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_MULTILINE | WS_TABSTOP,371,29,48,17
+    CONTROL         "Vertical Flip",chkVert,"Button",BS_AUTOCHECKBOX | BS_CENTER | BS_MULTILINE | WS_TABSTOP,371,59,43,15
+END
+
+frmHeader DIALOGEX 0, 0, 417, 325
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Header Editor"
+MENU mnuHeaderOpt
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "Foreground",IDC_STATIC,15,14,126,116
+    LTEXT           "Offset:",IDC_STATIC,29,100,23,11,WS_DISABLED
+    EDITTEXT        txtFO,25,114,56,12,ES_AUTOHSCROLL | WS_DISABLED
+    GROUPBOX        "Options",IDC_STATIC,20,55,117,43
+    LTEXT           "Transparency:",IDC_STATIC,26,66,49,12
+    GROUPBOX        "Level",IDC_STATIC,141,14,130,58,WS_DISABLED
+    LTEXT           "Offset:",IDC_STATIC,146,56,23,11,WS_DISABLED
+    EDITTEXT        txtLO,171,56,60,12,ES_AUTOHSCROLL | WS_DISABLED
+    GROUPBOX        "Backlayer",IDC_STATIC,141,72,129,59
+    LTEXT           "Offset:",IDC_STATIC,146,119,23,11,WS_DISABLED
+    EDITTEXT        txtBO,171,115,56,12,ES_AUTOHSCROLL | WS_DISABLED
+    GROUPBOX        "Background Image",IDC_STATIC,14,132,252,44,WS_DISABLED
+    LTEXT           "Offset:",IDC_STATIC,146,156,23,11
+    EDITTEXT        txtBIO,171,154,56,12,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "Tileset:",IDC_STATIC,24,193,24,9
+    COMBOBOX        cboTileset,50,191,94,55,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Properties",IDC_STATIC,15,178,135,62
+    LTEXT           "Music:",IDC_STATIC,24,207,24,9
+    COMBOBOX        cboMusic,50,205,94,88,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Effect:",IDC_STATIC,23,223,24,9
+    COMBOBOX        cboEffect,50,220,30,100,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Sprites",IDC_STATIC,289,18,114,119
+    COMBOBOX        cboSprites,351,28,29,67,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Spriteset:",IDC_STATIC,301,85,31,11
+    LTEXT           "",lblNumber,296,46,98,16
+    PUSHBUTTON      "Change",cmdChangeS,337,62,30,14
+    LTEXT           "Compression Type",IDC_STATIC,164,81,60,10,WS_DISABLED
+    LTEXT           "Compression Type",IDC_STATIC,29,26,60,10,WS_DISABLED
+    COMBOBOX        cboCF,27,39,60,130,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboCB,171,95,60,130,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    CTEXT           "Scenery Y Position:",IDC_STATIC,23,81,67,9
+    COMBOBOX        cboSYP,93,80,30,100,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Compression Type",IDC_STATIC,171,26,60,10,WS_DISABLED
+    LTEXT           "Compression Type",IDC_STATIC,25,145,63,10,WS_DISABLED
+    COMBOBOX        cboCBI,25,158,60,130,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboCL,171,38,60,130,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Sprite Group:",IDC_STATIC,296,30,44,8
+    LTEXT           "Event Change:",IDC_STATIC,293,104,50,9
+    COMBOBOX        cboSG,343,87,24,108,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboEC,344,103,24,96,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Offset:",IDC_STATIC,293,120,23,11
+    EDITTEXT        txtSOffset,323,117,64,14,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "Warning: Some changes will not take effect until you have saved the room",IDC_STATIC,15,242,136,17
+    LTEXT           "Control",IDC_STATIC,229,81,24,10,WS_DISABLED
+    COMBOBOX        cboControl3,235,94,29,126,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Control",IDC_STATIC,98,144,24,10,WS_DISABLED
+    COMBOBOX        cboControl1,92,39,37,120,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Control",IDC_STATIC,98,26,24,10,WS_DISABLED
+    COMBOBOX        cboControl2,233,39,32,182,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Control",IDC_STATIC,237,25,24,10,WS_DISABLED
+    COMBOBOX        cboControl4,92,157,37,99,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "For manual editing this header can be found at offset:  00000000",lblHeaderOffset,15,258,126,16
+    LTEXT           "Header Byte Format can be found in DH Help.txt",IDC_STATIC,15,276,110,17
+    COMBOBOX        cboTrans,92,62,30,148,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Save",cmdSave,305,199,50,14
+END
+
+frmTE DIALOG 0, 0, 477, 215
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Text Editor"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         lstOffsets,7,23,56,164,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        txtString,65,7,180,201,ES_MULTILINE | WS_VSCROLL
+    GROUPBOX        "Preview",fraPic,260,7,198,201
+    PUSHBUTTON      "Save",cmdSaveText,7,193,56,15
+    COMBOBOX        cboTextI,7,7,55,171,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+END
+
+fraTBE DIALOGEX 0, 0, 234, 284
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Tile Block Editor"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "Tiles",fraTTileset,7,7,87,257
+    GROUPBOX        "TSA Editor",IDC_STATIC,101,46,121,143
+    PUSHBUTTON      "Save Block",cmdSaveBlock,173,191,47,16
+    GROUPBOX        "Part 2",IDC_STATIC,164,57,50,59
+    LTEXT           "Pal:",IDC_STATIC,169,73,14,8
+    COMBOBOX        cbopallettetsa2,184,75,28,136,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Vert Flip",vertchk2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,168,88,43,9
+    CONTROL         "Hor Flip",chkHor2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,168,100,38,8
+    GROUPBOX        "Part 1",IDC_STATIC,108,57,50,59
+    LTEXT           "Pal:",IDC_STATIC,113,73,14,8
+    COMBOBOX        cbopallettetsa,128,75,28,99,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Vert Flip",vertchk,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,112,90,43,9
+    CONTROL         "Hor Flip",chkHor,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,112,100,38,8
+    GROUPBOX        "Part 4",IDC_STATIC,163,118,50,59
+    LTEXT           "Pal:",IDC_STATIC,169,134,14,8
+    COMBOBOX        cbopallettetsa4,183,133,28,99,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Vert Flip",vertchk4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,167,151,43,9
+    CONTROL         "Hor Flip",chkHor4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,167,162,38,8
+    GROUPBOX        "Part 3",IDC_STATIC,107,118,50,59
+    LTEXT           "Pal:",IDC_STATIC,113,134,14,8
+    COMBOBOX        cbopallettetsa3,127,133,28,119,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Vert Flip",vertchk3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,111,150,43,9
+    CONTROL         "Hor Flip",chkHor3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,111,161,38,8
+    LTEXT           "Use the tileset window to choose your block to edit",IDC_STATIC,161,13,50,36
+    COMBOBOX        cboTP,140,192,25,94,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Tiles Pal:",IDC_STATIC,102,194,31,9
+END
+
+fraSS DIALOGEX 0, 0, 226, 170
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    LTEXT           "Scroll through the list on the right, when done click ok to choose your new sprite.",IDC_STATIC,13,23,118,25
+    GROUPBOX        "Sprite",fraSpriteSS,16,49,106,87
+    LTEXT           "Sprite: 0",lblSpriteblah,149,15,37,9
+    PUSHBUTTON      "OK",cmdSSOk,78,140,56,19
+    PUSHBUTTON      "Cancel",cmdSSCancel,13,141,60,19
+    PUSHBUTTON      "Next",cmdNext,152,52,40,15
+    PUSHBUTTON      "Previous",cmdPrev,152,28,43,15
+    PUSHBUTTON      "Add Object",btnAddObject,151,79,50,14
+    PUSHBUTTON      "Delete Object",btnDeleteObj,149,112,50,14
+END
+
+fraStat DIALOG 0, 0, 469, 258
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Stat Editor"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "Save",cmdSavestats,214,28,50,14
+    LISTBOX         lstNumbers,15,20,73,231,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Sprite List:",IDC_STATIC,13,9,86,8
+    GROUPBOX        "Sprite Status",IDC_STATIC,91,18,192,233
+    LTEXT           "Health:",IDC_STATIC,100,30,26,9
+    LTEXT           "Damage:",IDC_STATIC,99,41,31,13
+    LTEXT           "Resistances:",IDC_STATIC,101,55,42,11
+    GROUPBOX        "ZM Drop percentages",IDC_STATIC,93,137,94,113
+    LTEXT           "Small HP",IDC_STATIC,101,147,34,10
+    LTEXT           "Large HP",IDC_STATIC,143,146,31,10
+    LTEXT           "Missile",IDC_STATIC,104,186,24,10
+    CTEXT           "Super Missile",IDC_STATIC,132,187,50,10
+    CTEXT           "Power Bomb",IDC_STATIC,118,218,47,10
+    EDITTEXT        txtshp,101,157,32,12,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        txtlhp,143,157,32,12,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        txtm,101,196,32,12,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        txtpb,125,227,32,12,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        txtsm,143,197,32,12,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        txtHealth,133,29,42,12,ES_AUTOHSCROLL
+    EDITTEXT        txtDMG,133,41,41,12,ES_AUTOHSCROLL
+    GROUPBOX        "MF unknowns",IDC_STATIC,187,137,88,113
+    LTEXT           "Unknown1:",IDC_STATIC,193,170,37,10
+    LTEXT           "Unknown2:",IDC_STATIC,193,186,41,10
+    LTEXT           "Unknown3:",IDC_STATIC,193,203,38,10
+    EDITTEXT        txtu1,236,170,36,12,ES_AUTOHSCROLL
+    EDITTEXT        txtu2,237,186,36,12,ES_AUTOHSCROLL
+    EDITTEXT        txtu3,237,205,36,12,ES_AUTOHSCROLL
+    GROUPBOX        "Sprite Preview",IDC_STATIC,283,17,172,192
+    LTEXT           "DMG ???",IDC_STATIC,192,151,37,10
+    EDITTEXT        txtud,235,149,36,12,ES_AUTOHSCROLL
+    CONTROL         "Charge Beam and Pistol",chkBit1,"Button",BS_AUTOCHECKBOX | BS_LEFTTEXT | WS_TABSTOP,94,70,91,10
+    CONTROL         "Beam and Bombs",chkBit2,"Button",BS_AUTOCHECKBOX | BS_LEFTTEXT | WS_TABSTOP,108,82,77,14
+    CONTROL         "Super Missiles",chkBit4,"Button",BS_AUTOCHECKBOX | BS_LEFTTEXT | WS_TABSTOP,122,97,64,13
+    CONTROL         "Missiles",chkBit8,"Button",BS_AUTOCHECKBOX | BS_LEFTTEXT | WS_TABSTOP,126,111,60,11
+    CONTROL         "Power Bombs",chkBit10,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,195,70,59,10
+    CONTROL         "Speed Booster and Screw Attack",chkBit20,"Button",BS_AUTOCHECKBOX | BS_CENTER | BS_MULTILINE | WS_TABSTOP,195,82,56,25
+    CONTROL         "Can Be Frozen",chkBit40,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,196,108,64,13
+    CONTROL         "Unused",chkBit80,"Button",BS_AUTOCHECKBOX | BS_CENTER | WS_TABSTOP,177,122,51,11
+END
+
+fraSSE DIALOGEX 0, 0, 458, 252
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Spriteset Editor"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    LISTBOX         lstSprites,7,23,42,213,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Spriteset to edit",IDC_STATIC,7,13,51,10
+    GROUPBOX        "Tiles Preview",fraTiles,265,13,180,90
+    GROUPBOX        "Palette Preview",fraPal,263,103,179,95
+    LISTBOX         lstPopulation,59,115,68,118,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CTEXT           "Sprites Populating Set",IDC_STATIC,64,91,46,18
+    GROUPBOX        "Sprite Preview",IdSprPrev,135,140,60,96
+    GROUPBOX        "Sprite Set Details",IDC_STATIC,61,17,198,70
+    LTEXT           "Pal Data:",lblPaletteInfo,67,27,180,23
+    LTEXT           "Sprite Data",lblSpriteInfo,65,53,180,24
+    COMBOBOX        cboSlot,197,111,58,94,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CTEXT           "Sprite Slot",IDC_STATIC,195,97,60,8
+    PUSHBUTTON      "Save Set",cmdSaveSet,383,203,57,15
+    LTEXT           "",lblBlah,194,124,68,9
+    LTEXT           "Sprite:",IDC_STATIC,137,97,46,11
+    EDITTEXT        txtSV,137,111,49,12,ES_CENTER | ES_AUTOHSCROLL
+    PUSHBUTTON      "Set Sprite",cmdSetSprite,139,126,48,13
+END
+
+frmOAM DIALOGEX 0, 0, 491, 501
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Sprite Editor"
+MENU mnuSEE
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    LISTBOX         lstSprites,7,32,46,462,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Tiles Preview",fraTiles,63,300,208,173
+    GROUPBOX        "Palette Preview",fraPal,280,300,192,168
+    GROUPBOX        "Sprite Preview",fraSprPreview,59,7,110,123
+    GROUPBOX        "Frame Offset",IDC_STATIC,296,7,177,51
+    PUSHBUTTON      "Go to Offset",cmdGTO,298,34,62,17
+    GROUPBOX        "Parts ",fraParts,62,162,421,94
+    COMBOBOX        cboParts,95,179,37,94,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Part:",IDC_STATIC,69,182,17,9
+    LTEXT           "Base Pal:",IDC_STATIC,67,219,36,8
+    COMBOBOX        cboBPal,103,217,30,57,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Frame info",fraFrame,295,59,176,102
+    LTEXT           "Frame:",IDC_STATIC,297,72,22,8
+    COMBOBOX        cboFrameIndex,321,69,27,166,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Frame Pointer:",IDC_STATIC,353,72,48,12
+    EDITTEXT        txtFPOff,401,69,50,12,ES_AUTOHSCROLL
+    LTEXT           "Timer:",IDC_STATIC,376,83,24,9
+    EDITTEXT        txtTimer,401,83,50,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Save Frame Data",cmdSFD,299,85,62,11,WS_DISABLED
+    LTEXT           "Flip:",IDC_STATIC,333,212,15,9
+    CONTROL         "Horizontal",chkHorz,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,353,209,48,14
+    CONTROL         "Vertical",chkVert,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,355,222,48,14
+    LTEXT           "Shape:",IDC_STATIC,243,213,23,11
+    COMBOBOX        cboShape,267,213,61,102,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Size:",IDC_STATIC,247,228,17,11
+    COMBOBOX        cboSize,267,228,61,109,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Animation Preview",fraSprAnimPreview,187,7,95,123
+    LTEXT           "Tile Number:",lblTileNumber,67,204,45,8
+    PUSHBUTTON      "New Frame",btnNewFrame,299,101,59,14
+    PUSHBUTTON      "Copy Frame",btnCopyFrame,300,119,60,14
+    PUSHBUTTON      "Save Frame Info",IDC_BUTTON3,394,103,62,14
+    PUSHBUTTON      "Add Part",btnAddPartZ,189,179,50,15
+    PUSHBUTTON      "Copy Part",btnCopyPart,137,179,51,15
+    COMBOBOX        cboX,186,214,35,124,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboY,186,232,40,137,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "XPos",IDC_STATIC,160,219,18,8
+    LTEXT           "YPos",IDC_STATIC,160,232,18,8
+    PUSHBUTTON      "Reload from Offset",IDC_BUTTON5,393,120,67,14
+    LTEXT           "Reloading a blank frame will reset it",IDC_STATIC,384,139,84,17
+    LTEXT           "Static",lblOAM1,397,179,19,8
+    LTEXT           "Static",lblOAM2,433,179,19,8
+    LTEXT           "Static",lblOAM0,334,180,19,8
+    PUSHBUTTON      "Save",cmdSave,362,15,50,14
+    PUSHBUTTON      "Save to new offset",cmdSaveToFree,417,15,51,25
+    COMBOBOX        cboPriority,103,233,30,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "BG Priority",IDC_STATIC,67,233,34,8
+    LTEXT           "Load Pal 1",IDC_STATIC,280,263,48,12
+    PUSHBUTTON      "Load GFX1",btnLoadGFX1,193,262,60,14
+    PUSHBUTTON      "Delete Frame",cmdDeleteFrame,301,138,50,14
+    LTEXT           "Tile GFX1",IDC_STATIC,70,265,48,12
+    EDITTEXT        txtGFX1,117,263,50,12,ES_AUTOHSCROLL
+    LTEXT           "Tile GFX2",IDC_STATIC,70,286,48,12
+    EDITTEXT        txtGFX2,117,284,50,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Load  GFX2",btnLoadGFX2,198,280,50,14
+    PUSHBUTTON      "Load Pal",IDC_BUTTON8,400,260,50,14
+    EDITTEXT        txtFPOff3,336,263,50,12,ES_AUTOHSCROLL
+    LTEXT           "Load Pal 2",IDC_STATIC,279,279,48,12
+    PUSHBUTTON      "Load Pal",IDC_BUTTON9,399,277,50,14
+    EDITTEXT        txtFPOff4,335,279,50,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Delete Part",cmdDeletePart,243,180,53,15
+    PUSHBUTTON      "Save as C Header",btnCHeader,362,44,72,14
+    COMBOBOX        cboFrameTableCombo,306,17,48,120,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboOAMSelection,7,14,48,142,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+frmClipboard DIALOG 0, 0, 307, 202
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Clipboard"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "Erase",cmdErase,106,9,56,13
+    COMBOBOX        cboCBNo,55,9,37,197,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Tiles",fraTiles,12,25,179,170
+    GROUPBOX        "Info",fraInfo,194,26,106,64
+    LTEXT           "Static",lblForeground,199,37,89,11
+    LTEXT           "Static",lblLevel,199,49,89,11
+    LTEXT           "Static",lblBackLayer,199,62,89,11
+    LTEXT           "Static",lblClipdata,199,73,89,11
+    LTEXT           "Clipboard:",IDC_STATIC,14,11,34,8
+    PUSHBUTTON      "Import Clipboard",IDC_BUTTON1,205,109,82,12,NOT WS_VISIBLE | WS_DISABLED
+    PUSHBUTTON      "Export Clipboard",IDC_BUTTON2,206,121,81,13,NOT WS_VISIBLE | WS_DISABLED
+END
+
+frmECE DIALOG 0, 0, 349, 191
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Elevator Connection Editor"
+FONT 8, "MS Sans Serif"
+BEGIN
+    COMBOBOX        cboConnect,243,49,40,180,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Save",cmdSaveConn,243,66,41,11
+    GROUPBOX        "Connection",IDC_STATIC,13,14,207,113,BS_CENTER
+    LTEXT           "Source Area",IDC_STATIC,58,28,45,12
+    LTEXT           "Dest Area",IDC_STATIC,145,28,62,16
+    LTEXT           "Source Room:",IDC_STATIC,57,61,48,12
+    LTEXT           "Source Room:",IDC_STATIC,145,61,48,12
+    LTEXT           "Source Door:",IDC_STATIC,57,97,48,12
+    LTEXT           "Dest Door:",IDC_STATIC,145,97,48,12
+END
+
+frmLPE DIALOG 0, 0, 361, 166
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "The LevelPalette Editor"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "0",lblC1,279,32,59,17
+    SCROLLBAR       hsbC1,202,52,133,8
+    LTEXT           "0",lblC2,279,71,59,20
+    SCROLLBAR       hsbC2,200,95,135,8
+    LTEXT           "0",lblC3,277,111,59,20
+    SCROLLBAR       hsbC3,200,131,135,8
+    LTEXT           "Red",IDC_STATIC,170,51,14,14
+    LTEXT           "Green",IDC_STATIC,170,94,30,10
+    LTEXT           "Blue",IDC_STATIC,170,131,15,8
+    PUSHBUTTON      "Apply New Colors",cmdANC,167,15,63,17
+    PUSHBUTTON      "Save Colors",cmdSaveColors,168,32,63,15
+END
+
+fraBGI DIALOGEX 0, 0, 521, 338
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Importer"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "Import",cmdBG,354,170,50,14
+    CTEXT           "Image must be 256x256, 256x512, 512x256 please choose a radio box below for the right one, if not exactly that size there will be errors",IDC_STATIC,343,24,72,59
+    CONTROL         "256x256",rdo0,"Button",BS_AUTORADIOBUTTON,359,81,45,17
+    CONTROL         "512x256",rdo1,"Button",BS_AUTORADIOBUTTON,359,100,42,17
+    CONTROL         "256x512",rdo2,"Button",BS_AUTORADIOBUTTON,359,118,41,17
+    GROUPBOX        "Static",IDC_STATIC,7,4,319,324
+    COMBOBOX        cboBGPalette,401,201,25,99,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Slot for Palette:",IDC_STATIC,390,191,50,8
+    DEFPUSHBUTTON   "Save To ROM",cmdSave,385,219,54,14
+    PUSHBUTTON      "Select File",cmdSelFile,379,241,75,21
+    GROUPBOX        "Import BG",IDC_STATIC,333,14,94,171,BS_CENTER
+    GROUPBOX        "Import Tileset",IDC_STATIC,429,14,84,171
+    DEFPUSHBUTTON   "Import",cmdTS,449,170,50,14
+    LTEXT           "The basic 0x80 tiles will automatically be added to the tileset you are responsible for the level specific tiles you have 5 palettes to work with",IDC_STATIC,439,26,65,90
+END
+
+frmInsert DIALOG 0, 0, 186, 95
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,129,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,129,24,50,14
+END
+
+frmScroll DIALOGEX 0, 0, 158, 161
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    EDITTEXT        txtByte1,55,55,40,14,ES_AUTOHSCROLL
+    EDITTEXT        txtByte2,55,73,40,14,ES_AUTOHSCROLL
+    EDITTEXT        txtByte3,55,94,40,14,ES_AUTOHSCROLL
+    EDITTEXT        txtByte4,55,115,40,14,ES_AUTOHSCROLL
+    EDITTEXT        txtLong,65,136,40,14,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "Byte 1",frmScroll,25,55,27,8
+    LTEXT           "Byte 2",IDC_STATIC,25,77,22,8
+    LTEXT           "Byte 3",IDC_STATIC,25,98,22,8
+    LTEXT           "Byte 4",IDC_STATIC,25,118,22,8
+    LTEXT           "As 4 bytes",IDC_STATIC,25,137,35,8
+    PUSHBUTTON      "Add Scroll",btnAddScroll,30,17,50,14
+    PUSHBUTTON      "Delete Scroll",btnDeleteScroll,90,19,50,14
+END
+
+frmMapData DIALOGEX 0, 0, 213, 124
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Old Compressed Size:",IDC_STATIC,7,82,70,8
+    LTEXT           "Static",lblOldCompressed,81,82,19,8
+    LTEXT           "Current Decompresssed Size",IDC_STATIC,7,98,92,8
+    LTEXT           "Static",lblCurrentSize,108,100,19,8
+    LTEXT           "Current Sprite Objects:",IDC_STATIC,7,25,76,8
+    LTEXT           "Static",lblSpriteObjectCount,91,26,19,8
+    LTEXT           "Current Doors:",IDC_STATIC,7,45,49,8
+    LTEXT           "Static",lblCurDoorCount,69,45,19,8
+    LTEXT           "Current Scrolls:",IDC_STATIC,7,65,50,8
+    LTEXT           "Static",lblCurLabelCount,72,65,19,8
+END
+
+frmExpandAndRepoint DIALOGEX 0, 0, 311, 178
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,198,157,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,254,157,50,14
+    COMBOBOX        IDC_COMBO1,23,57,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO2,86,57,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Current Offset",IDC_STATIC,23,90,48,8
+    LTEXT           "New Offset",IDC_STATIC,89,92,38,8
+    LTEXT           "Repoint Type",IDC_STATIC,24,46,44,8
+    LTEXT           "Repoint Thing",IDC_STATIC,90,45,45,8
+    COMBOBOX        IDC_COMBO3,148,55,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Value",IDC_STATIC,151,45,18,8
+    PUSHBUTTON      "Get new Offset",IDC_BUTTON1,145,92,62,14
+    PUSHBUTTON      "Repoint And Save",IDC_BUTTON3,218,91,62,14
+END
+
+frmMain1 DIALOGEX 0, 0, 893, 365
+STYLE DS_SETFONT | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_WINDOWEDGE | WS_EX_APPWINDOW
+CAPTION "Double Helix"
+MENU mnuMenu
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "Level",IDC_STATIC,7,7,121,39
+    LTEXT           "Area",IDC_STATIC,17,15,24,9
+    LTEXT           "Room",IDC_STATIC,15,31,24,8
+    COMBOBOX        cboArea,42,14,80,102,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Save",cmdSave,130,31,52,12
+    GROUPBOX        "Controls",IDC_STATIC,7,46,176,63
+    CONTROL         "Edit Foreground",chkForeground,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,56,64,8
+    CONTROL         "Edit Level Layer",chkLevel,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,54,71,9
+    CONTROL         "Edit Backlayer",chkBacklayer,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,65,73,9
+    GROUPBOX        "Clipdata:",fraClip,7,154,223,27
+    COMBOBOX        cboClip,13,163,213,136,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL
+    LTEXT           "Static",lblClip,174,19,94,8
+    GROUPBOX        "Tile Information",IDC_STATIC,129,7,148,22
+    LTEXT           "Clip Data:",IDC_STATIC,140,19,32,8
+    CONTROL         "Edit Clip Data",chkClip,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,65,61,9
+    GROUPBOX        "Map View",grpMap,189,40,87,81
+    CONTROL         "View Foreground",chkViewF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,50,72,10
+    CONTROL         "View Level Layer",chkViewL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,61,68,11
+    CONTROL         "View BackLayer",chkViewB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,71,70,12
+    GROUPBOX        "Map Coordinates",IDC_STATIC,7,110,66,22
+    LTEXT           "X:0",lblX,13,119,22,8
+    LTEXT           "Y:0",lblY,36,118,29,8
+    COMBOBOX        cboRoom,41,30,85,132,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboSpriteSet,45,134,26,56,CBS_DROPDOWNLIST | CBS_SORT | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Sprite Set:",IDC_STATIC,7,135,38,10
+    CONTROL         "Show Tileset",chkST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,83,121,55,10
+    CONTROL         "Show Map",chkSM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,83,132,58,13
+    GROUPBOX        "Window Option",IDC_STATIC,77,111,106,37
+    CONTROL         "Edit Scrolldata",chkScroll,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,82,61,12
+    CONTROL         "View Clipdata",chkVC,"Button",BS_AUTOCHECKBOX | BS_CENTER | BS_MULTILINE | WS_TABSTOP,138,118,41,22
+    CONTROL         "Edit Doors",chkDoors,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,84,46,10
+    CONTROL         "Edit Sprites",chkSprites,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,11,97,54,10
+    CONTROL         "Show Transparency",chkDTrans,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,191,110,77,8
+    PUSHBUTTON      "Edit Level Palette",cmdLPE,194,122,69,11
+    CONTROL         "Hide Sprite Info",chkHS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,94,64,11
+    COMBOBOX        cboDScroll,235,165,42,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Scroll To Edit:",IDC_STATIC,232,153,45,10
+    CONTROL         "View BackGround",chkViewBG,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,193,81,70,12
+    CONTROL         "Resize Doors",chkResizeDoors,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,95,59,12
+    PUSHBUTTON      "Button1",btnTest,185,138,50,14
+END
+
+fraMain DIALOGEX 0, 8, 295, 190
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE
+MENU mnuMenu
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "Level",IDC_STATIC,7,6,121,39
+    LTEXT           "Area",IDC_STATIC,17,15,24,9
+    LTEXT           "Room",IDC_STATIC,15,31,24,8
+    COMBOBOX        cboArea,42,14,80,102,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Save",cmdSave,130,31,52,12
+    GROUPBOX        "Controls",IDC_STATIC,7,46,176,63
+    CONTROL         "Edit Foreground",chkForeground,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,56,64,8
+    CONTROL         "Edit Level Layer",chkLevel,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,56,71,9
+    CONTROL         "Edit Backlayer",chkBacklayer,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,69,73,9
+    GROUPBOX        "Clipdata:",fraClip,7,154,223,27
+    COMBOBOX        cboClip,13,163,213,136,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL
+    LTEXT           "Static",lblClip,174,19,94,8
+    GROUPBOX        "Tile Information",IDC_STATIC,129,6,144,22
+    LTEXT           "Clip Data:",IDC_STATIC,140,19,32,8
+    CONTROL         "Edit Clip Data",chkClip,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,72,61,9
+    GROUPBOX        "Map View",grpMap,189,31,90,105
+    CONTROL         "View Foreground",chkViewF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,50,72,10
+    CONTROL         "View Level Layer",chkViewL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,61,68,11
+    CONTROL         "View BackLayer",chkViewB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,71,70,12
+    GROUPBOX        "Map Coordinates",IDC_STATIC,7,110,66,22
+    LTEXT           "X:0",lblX,13,119,22,8
+    LTEXT           "Y:0",lblY,36,118,29,8
+    COMBOBOX        cboRoom,41,30,85,132,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboSpriteSet,45,134,26,56,CBS_DROPDOWNLIST | CBS_SORT | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Sprite Set:",IDC_STATIC,7,135,38,10
+    CONTROL         "Show Tileset",chkST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,83,121,55,10
+    CONTROL         "Show Map",chkSM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,83,132,58,13
+    GROUPBOX        "Window Option",IDC_STATIC,77,111,106,37
+    CONTROL         "Edit Scrolldata",chkScroll,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,82,61,12
+    CONTROL         "View Clipdata",chkVC,"Button",BS_AUTOCHECKBOX | BS_CENTER | BS_MULTILINE | WS_TABSTOP,138,118,41,22
+    CONTROL         "Edit Doors",chkDoors,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,84,46,10
+    CONTROL         "Edit Sprites",chkSprites,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,11,97,54,10
+    CONTROL         "Show Transparency",chkDTrans,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,195,110,77,8
+    PUSHBUTTON      "Edit Level Palette",cmdLPE,193,142,69,11
+    CONTROL         "Hide Sprite Info",chkHS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,94,64,11
+    COMBOBOX        cboDScroll,235,165,42,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Scroll To Edit:",IDC_STATIC,232,153,45,10
+    CONTROL         "View BackGround",chkViewBG,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,193,81,70,12
+    CONTROL         "Resize Doors",chkResizeDoors,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,95,59,12
+    CONTROL         "Animate Sprites",chkDTrans2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,196,124,77,8
+END
+
+frmMainExperiment DIALOGEX 0, 0, 893, 365
+STYLE DS_SETFONT | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_WINDOWEDGE | WS_EX_APPWINDOW
+CAPTION "Double Helix"
+MENU mnuMenu
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    CONTROL         "",tabMain,"SysTabControl32",0x0,7,14,306,224
+END
+
+frmSamusEditor DIALOGEX 0, 0, 495, 250
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Gra"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_COMBO1,27,14,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Pose",IDC_STATIC,7,16,16,8
+    COMBOBOX        IDC_COMBO6,146,18,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Cur Frame",IDC_STATIC,102,20,34,8
+    GROUPBOX        "Graphics",IDC_STATIC,20,126,188,104
+    COMBOBOX        IDC_COMBO7,272,18,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Direction",IDC_STATIC,228,21,29,8
+    GROUPBOX        "Suit Status",IDC_STATIC,297,95,62,104
+    CONTROL         "Check2",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,305,110,39,12
+    CONTROL         "Check2",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,304,122,39,10
+    CONTROL         "Check2",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,306,131,39,10
+    CONTROL         "Check2",IDC_CHECK5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,307,143,39,10
+    CONTROL         "Check2",IDC_CHECK6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,308,155,39,12
+    CONTROL         "Check2",IDC_CHECK7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,306,166,39,10
+    CONTROL         "Check2",IDC_CHECK8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,308,176,39,10
+    CONTROL         "Check2",IDC_CHECK9,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,310,187,39,10
+    COMBOBOX        IDC_COMBO8,383,17,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Event",IDC_STATIC,339,21,20,8
+    LTEXT           "Status",IDC_STATIC,17,94,149,8
+    CONTROL         "Holding Missiles",IDC_CHECK10,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,315,53,62,12
+    COMBOBOX        IDC_COMBO9,150,35,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Absorb X Timer",IDC_STATIC,85,38,49,8
+    GROUPBOX        "BEam Status",IDC_STATIC,388,92,62,104
+    CONTROL         "Check2",IDC_CHECK11,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,396,107,39,12
+    CONTROL         "Check2",IDC_CHECK12,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,395,119,39,10
+    CONTROL         "Check2",IDC_CHECK13,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,397,128,39,10
+    CONTROL         "Check2",IDC_CHECK14,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,398,140,39,10
+    CONTROL         "Check2",IDC_CHECK15,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,399,152,39,12
+    CONTROL         "Check2",IDC_CHECK16,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,397,163,39,10
+    CONTROL         "Check2",IDC_CHECK17,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,399,173,39,10
+    CONTROL         "Check2",IDC_CHECK18,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,401,184,39,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    frmMain, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 585
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 203
+    END
+
+    frmDoor, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 242
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 132
+    END
+
+    frmInputBox, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 87
+    END
+
+    frmSceneryEditor, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 440
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 335
+    END
+
+    frmRoomStuff, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 281
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 141
+    END
+
+    frmMiniMap, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 430
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 195
+    END
+
+    frmHeader, DIALOG
+    BEGIN
+        LEFTMARGIN, 6
+        RIGHTMARGIN, 416
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 318
+    END
+
+    frmTE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 470
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 208
+        HORZGUIDE, 187
+    END
+
+    fraTBE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 227
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 279
+        HORZGUIDE, 279
+    END
+
+    fraSS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 213
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 167
+    END
+
+    fraStat, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 461
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 251
+    END
+
+    fraSSE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 451
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 245
+    END
+
+    frmOAM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 484
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 494
+    END
+
+    frmClipboard, DIALOG
+    BEGIN
+        LEFTMARGIN, 6
+        RIGHTMARGIN, 300
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 195
+    END
+
+    frmECE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 342
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 184
+    END
+
+    frmLPE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 354
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 159
+    END
+
+    fraBGI, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 513
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 331
+        HORZGUIDE, 328
+    END
+
+    frmInsert, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
+
+    frmScroll, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 149
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 159
+    END
+
+    frmMapData, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 206
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 117
+    END
+
+    frmExpandAndRepoint, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 304
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 171
+    END
+
+    frmMain1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 887
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 358
+    END
+
+    fraMain, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 289
+        TOPMARGIN, 6
+        BOTTOMMARGIN, 183
+    END
+
+    frmMainExperiment, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 887
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 358
+    END
+
+    frmSamusEditor, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 488
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 243
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+mnuMenu MENU
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "&Open",                       mnuOpen
+    END
+    POPUP "General Tools"
+    BEGIN
+        MENUITEM "Text Editor",                 mnuTE
+        MENUITEM "Minimap",                     mnuMini
+        MENUITEM "Edit TSA",                    mnuTSA
+        MENUITEM "Stat Editor",                 mnuSE
+        MENUITEM "Clip Board",                  mnuClipboard
+        MENUITEM "Spriteset Editor",            mnuSSE
+        MENUITEM "Sprite Editor",               mnuSOE
+        MENUITEM "IPS patch applier",           mnuIPSP
+        MENUITEM "Dump As Area",                ID_DAA
+        MENUITEM "Switch GUI",                  ID_GENERALTOOLS_SWITCHGUI
+    END
+    POPUP "Room Tools"
+    BEGIN
+        MENUITEM "Header Editor",               mnuHeader
+        MENUITEM "Room Options",                mnuRS
+        MENUITEM "Export Bitmap of Room",       mnuEB
+        MENUITEM "Export Room",                 mnuER, GRAYED
+        MENUITEM "Import Room",                 mnuIR, GRAYED
+        MENUITEM "Insert Stuff",                mnuInsert
+    END
+END
+
+mnuHeaderOpt MENU
+BEGIN
+    POPUP "&Tools", GRAYED
+    BEGIN
+        MENUITEM "Restore Header",              mnuRH
+        MENUITEM "Restore this header",         mnuRTH
+        MENUITEM "Restore all headers",         mnuRAH
+        MENUITEM "Restore Area Headers",        mnuRAH2
+        MENUITEM "Backup All Headers",          MNUBAH
+        MENUITEM "Backup Area headers",         mnuBAH2
+        MENUITEM "Backup Current Header",       mnuBCH
+    END
+END
+
+mnuSEE MENU
+BEGIN
+    POPUP "Sprite Options"
+    BEGIN
+        MENUITEM "Export Graphics",             mnuEG
+        MENUITEM "Import Graphics",             mnuIG
+        MENUITEM "Export Palette",              mnuEP
+        MENUITEM "Import Palette",              mnuIP
+        MENUITEM "Save Pal",                    mnuSP
+        MENUITEM "Save GFX",                    cmdSG
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+frmMain DLGINIT
+BEGIN
+    cboArea, 0x403, 6, 0
+0x7241, 0x6165, 0x0073, 
+    cboClip, 0x403, 9, 0
+0x6c43, 0x7069, 0x6164, 0x6174, "\000" 
+    cboRoom, 0x403, 5, 0
+0x6f52, 0x6d6f, "\000" 
+    cboSpriteSet, 0x403, 2, 0
+0x0030, 
+    0
+END
+
+frmMain1 DLGINIT
+BEGIN
+    cboArea, 0x403, 6, 0
+0x7241, 0x6165, 0x0073, 
+    cboClip, 0x403, 9, 0
+0x6c43, 0x7069, 0x6164, 0x6174, "\000" 
+    cboRoom, 0x403, 5, 0
+0x6f52, 0x6d6f, "\000" 
+    cboSpriteSet, 0x403, 2, 0
+0x0030, 
+    0
+END
+
+frmOAM DLGINIT
+BEGIN
+    cboOAMSelection, 0x403, 8, 0
+0x7053, 0x6972, 0x6574, 0x0073, 
+    cboOAMSelection, 0x403, 6, 0
+0x6153, 0x756d, 0x0073, 
+    0
+END
+
+fraMain DLGINIT
+BEGIN
+    cboArea, 0x403, 6, 0
+0x7241, 0x6165, 0x0073, 
+    cboClip, 0x403, 9, 0
+0x6c43, 0x7069, 0x6164, 0x6174, "\000" 
+    cboRoom, 0x403, 5, 0
+0x6f52, 0x6d6f, "\000" 
+    cboSpriteSet, 0x403, 2, 0
+0x0030, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON7               ICON                    "icon5.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+frmMain AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+frmHeader AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+frmDoor AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+frmScroll AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+fraSS AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+frmMapData AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+fraBGI AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+frmExpandAndRepoint AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+frmOAM AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+frmMain1 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+fraSSE AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+fraMain AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+frmMainExperiment AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+frmSamusEditor AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

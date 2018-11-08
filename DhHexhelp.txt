@@ -1,0 +1,888 @@
+This Document was made in collabration with 
+interdpth - http://interdpth.blogspot.com
+unsane
+pjboy - http://interdpth.arc-nova.org/PJs%20stuff
+and jigglysaint
+What can I do to ZM and MF with a hexeditor that interdpth didn't feel like implenting in to Double Helix.
+
+Well...
+
+ALWAYS BACKUP IF YOU HAVE NO CLUE WHAT YOU'RE DOING.
+This guide will have a general section, and a specific ROM
+
+Probably geared more towards ZM
+
+How do I manually edit SpriteSets?
+
+Ok, spritesets are easy!
+
+First you get your spriteset number you can find this with the spriteset editor. 
+
+Then you do this formula
+
+For fusion - SpriteSetNo*4 + 0x79ADD8
+
+For ZM     - (SpriteSetNo * 4) + 0x75F31C
+
+I use the popular roms. 
+
+Next you'll see 4 bytes, if you don't know what a pointer is...
+you'll see something like this
+
+56341208
+Now reverse these 
+
+you'll have 
+8123456
+Take the 8 off and go the address, you'll now be in the spriteset yay!
+
+What's it all mean?
+
+Each sprite in the table takes two bytes.
+
+Byte 1 tells it what sprite it is
+Byte 2 tells where to load it's palette and graphics in RAM 
+
+and it reads until both byte 1 and byte 2 are 0 then the table is done
+
+there can be a total of 16 spriteslots
+but I really don't reccomend that 
+
+Just use a couple, I was going to put an auto corrector in, but didn't feel like coding the functions for it, sorry. If your sprite won't insert correctly via DH close DH, go to do this method of insertion if the sprite is big and doesn't look right in game, try deleting a sprite entry. 
+
+
+Area Connection Time.
+durrr what's an area connection
+
+Well kids, an area connection allows you to traverse through elevators and the like
+
+It works like this
+srcArea Door DstArea
+
+They come in pairs of two 
+
+So you'll see srcArea Door dstArea srcArea Door dstArea
+
+
+How they work well that's simple
+
+Say you want to connect area 0 to area 1 with door 5 in area 0 and door 10 in area 1
+the hex will be 
+
+000501011000
+
+
+There you go!
+
+
+Now for the offsets
+0x05EEB8 for ZM
+0x06945c for MF
+
+
+
+*******************************************************
+*                   ZM SECTION                        *
+*******************************************************
+--PHYSICS--
+max non-boost speeds (nop for infinite): 00829a and 0082ae
+on-ground bombjump height: 08006b3a
+in-air bombjump height: 08006b00
+ 
+--PALETTES--
+power static: 2376a8
+power unmorph 1: 237848
+power unmorph 2: 237868
+power shortshot: 237708
+power longshot: 237728
+power damage/sa 1: 2377a8
+power damage/sa 2: 2377c8
+power short charge 1: 237a68
+varia static: 237be8
+varia longshot: 237c68
+varia unmorph 1: 237d88
+varia unmorph 2: 237da8
+varia damage 1: 237ce8
+varia damage 2: 237d08
+zero static: 2387e8
+normal shot: 3270e8
+long shot: 327108
+ice shot: 327128
+wave shot: 327148
+emo shot (?): 327168
+chozodia door: 5e0040
+mb room sprite: 2fe230
+ 
+--ENEMIES--
+geemer speed: 01693a
+zoomer speed: 016940
+ai pointer list start: 75e8c0
+ridley entry point vertical: 032548
+ridley entry point horizontal: 0324d0-0324d4
+ 
+--TEXT--
+brinstar area popup text: 442e4a
+others follow
+ 
+--OTHER--
+missile door health: 345cb6
+starting pose: 060608
+starting horizontal position: 33e60a and 33e60f
+starting vertical position: 0606cc
+starting area/room/door ids: 060f5c
+for circle of light, set fg pointer to 0874d9c0, bg0 decomp to 45 (not all tilesets work)
+bomb timer 1: 05205c
+bomb timer 2: 0521a2
+bomb timer speed 1: 05218e
+bomb timer speed 2: 0521b6
+bomb status changer: 052062 (2002 to skip second timer)
+First values in the following list are the distance in quarter pixels from the arm cannon at which the projectiles will appear, and the second value is its actual speed.
+ 
+missile:
+051c1c
+051bc8
+ 
+soup:
+051d6c
+051d18
+ 
+short:
+050bbc
+050b80
+ 
+long:
+050cb4
+050c78
+ 
+ice+:
+050dbc
+050d64
+ 
+wave+:
+0510b6
+05107a
+ 
+plasma+:
+051222
+0511e4
+ 
+charged:
+051498
+05145c
+ 
+cl:
+05159c
+051554
+ 
+ci+:
+0516b4
+05164c
+ 
+cw+:
+0517c0
+051766
+ 
+cp+:
+05194c
+0518ec
+ 
+ep:
+0513ac
+051370
+ 
+epc:
+051ae0
+051a98
+ 
+ 
+[2008-07-04 23:58:11] <uNsaner> speed values for horizontal shinespark are at 080073c6 and 080073d4
+[2008-07-05 00:00:22] <uNsaner> vertical is at 080073d8
+[2008-07-05 00:09:12] <uNsaner> yum
+[2008-07-05 00:09:21] <uNsaner> i found diagonal left shinespark speed
+[2008-07-05 00:09:26] <uNsaner> both vertical and horizonta
+[2008-07-05 00:09:27] <uNsaner> l
+[2008-07-05 00:10:00] <uNsaner> 080073ae/080073b4
+-- those codes are reused (good job guys!)
+***************************************************************
+*                 MF section                                  *
+***************************************************************
+Damage values
+Short:							4FFEA
+Long:							4FFFC
+Ice Long:						5001A
+Ice:							5002C
+Wave Long Ice:						50052
+Wave Long:						50064
+Wave Ice:						5007E
+Wave:							50090
+Plasma Long Ice Wave:					500BE
+Plasma Long Wave:					500D8
+Plasma Long Ice / Plasma Ice Wave:			500FA
+Plasma Ice:						5010C
+Plasma Long / Plasma Wave:				50126
+Plasma:							50138
+Charge Short:						5015C
+Charge Long:						50174
+Charge Ice Long:					50192
+Charge Ice:						501A4
+Charge Wave Long Ice:					501CA
+Charge Wave Long:					501DC
+Charge Wave Ice:					501F6
+Charge Wave:						50208
+Charge Plasma Long Ice Wave:				5023C
+Charge Plasma Long Wave:				50256
+Charge Plasma Long Ice / Charge Plasma Ice Wave:	50278
+Charge Plasma Ice:					5028A
+Charge Plasma Long / Charge Plasma Wave:		502A4
+Charge Plasma:						502B6
+Charge Pistol:						502F8
+Missile:						50A30
+Super Missile:						50ACC
+Bomb:							50B50
+Pointers to various palettes for Samus (not including the arm cannon)
+ 
+				|---------Fusion suit---------| |----------Varia suit---------| |---------Gravity suit--------| |---------Omega suit---------|
+Suit:				28DD7C                          28DD9C                          28DDBC                          28DDDC
+Charge beam flash:		28ECFC; 28ED1C; 28ED3C; 28ED5C; 28ED7C; 28ED9C; 28EDBC; 28EDDC; 28EDFC; 28EE1C; 28EE3C; 28EE5C; 28EE7C; 28EE9C; 28EEBC; 28EEDC
+Wide beam flash:		28EEFC; 28EF1C; 28EF3C; 28EF5C; 28EF7C; 28EF9C; 28EFBC; 28EFDC; 28EFFC; 28F01C; 28F03C; 28F05C; 28F07C; 28F09C; 28F0BC; 28F0DC
+Plasma beam flash:		28F0FC; 28F11C; 28F13C; 28F15C; 28F17C; 28F19C; 28F1BC; 28F1DC; 28F1FC; 28F21C; 28F23C; 28F25C; 28F27C; 28F29C; 28F2BC; 28F2DC
+Wave beam flash:		28F2FC; 28F31C; 28F33C; 28F35C; 28F37C; 28F39C; 28F3BC; 28F3DC; 28F3FC; 28F41C; 28F43C; 28F45C; 28F47C; 28F49C; 28F4BC; 28F4DC
+Ice beam flash:			28F4FC; 28F51C; 28F53C; 28F55C; 28F57C; 28F59C; 28F5BC; 28F5DC; 28F5FC; 28F61C; 28F63C; 28F65C; 28F67C; 28F69C; 28F6BC; 28F6DC
+ 
+Invincibility:				28DDFC
+Screw attack:				28DE3C; 28DE5C
+Shinespark:				28DE9C; 28DEBC
+Dying:					28DEDC
+Frozen:					28E0FC
+Absorbing an x-parasite:		28E13C; 28E15C; 28E17C; 28E19C; 28E1BC; 28E1DC; 28E1FC; 28E21C; 28E23C; 28E25C; 28E27C; 28E29C; 28E2BC; 28E2DC; 28E31C; 28E35C; 28E37C; 28E39C; 28E3BC; 28E3DC; 28E3FC; 28E41C
+ 
+Loading:		28E43C; 28E45C; 28E47C; 28E49C; 28E4BC; 28E4DC; 28E4FC; 28E51C; 28E53C; 28E55C
+|-------------Fusion suit-------------| |--------------Varia suit-------------| |-------------Gravity suit------------| |--------------Omega suit-------------|
+28E57C; 28E59C; 28E5BC; 28E5DC; 28E5FC; 28E61C; 28E63C; 28E65C; 28E67C; 28E69C; 28E6BC; 28E6DC; 28E6FC; 28E71C; 28E73C; 28E75C; 28E77C; 28E79C; 28E7BC; 28E7DC
+ 
+			|---------Fusion suit---------| |----------Varia suit---------| |---------Gravity suit--------| |---------Omega suit---------|
+Saving:			28F6FC; 28F71C; 28F73C; 28F75C; 28F77C; 28F79C; 28F7BC; 28F7DC; 28F7FC; 28F81C; 28F83C; 28F85C; 28F87C; 28F89C; 28F8BC; 28F8DC
+ 
+ 
+SA-X's palette:		2E7D60
+ 
+ 
+Missiles per expansion:		6C3D6
+Energy per expansion:		6C40A
+Power bombs per expansion:	6C428
+ 
+ 
+When in slow-mode:
+Vertical acceleration:				4EE2
+Max. vertical/horizontal speed:			4EE6
+Horizontal in-air acceleration:			4EEA
+Max. horizontal in-air speed:			4EEC
+Max. horizontal in-air morphball speed:		4EF0
+Horizontal acceleration:			4EF4
+ 
+When not in slow-mode:
+Vertical/horizontal acceleration:		4F12
+Max. vertical speed:				4F16
+Horizontal in-air acceleration:			4F1A
+Max. horizontal in-air morphball speed:		4F1E
+Max. horizontal in-air speed:			4F38
+Max. horizontal speed:				4F3C
+ 
+When speed boosting:
+Max. in-air horizontal speed:			4F2E
+ 
+ 
+Rightwards sparking speed:	9CE4
+Leftwards sparking speed:	9CF4
+Rightwards wall-jump speed:	92E8
+Leftwards wall-jump speed:	9310
+Rightwards ladder speed:	8776
+Leftwards ladder speed:		8788
+ 
+ 
+Event list:
+All ones encased in quotes are adam
+ 
+00	"Go to quarantine bay"
+01	"Quarantine bay is just ahead"
+02	Killed quarintine bay hornoad
+03	"Level 0 doors unlocked"
+04	"Actually, go download missiles"
+05	Skippable by going into next room: "Data room is just ahead, right there, you didn't need to talk to me really"
+06	In missile download room
+07	Downloaded missiles <--compatible with my patch
+08	Elevator's down
+09	"Elevator's down, go beat Arachnus while I fix it"
+0A	Morphbal-get
+0B	"Go to SRX and then talk to me some more"
+0C	Entered elevator room that SA-X destroys
+0D	Entered elevator area
+0E	"Elevator's broke, but I'm lazy, I'll let some unknown agent fix it for me. Also go clean the stabilizers for me"
+0F	Charge beam-get
+10	All stabilizers cleared
+11	"Go to TRO and exterminate our unknown intruder"
+12	"Actually, it's the SA-X, so run. And get bombs while you're at it, after unlocking level 1 doors of course"
+13	Level 1 doors unlocked
+14	Skippable by getting bombs "You've released level 1 doors! now go get bombs"
+15	In bombs download room
+16	Downloaded bombs
+17	SA-X blown up return route
+18	Used alternate room exit
+19	Hi-jump-get - Cacoons - SA-X blown up return route
+1A	Escaped SA-X
+1B	"Right, you know the pattern: Sector 1, then 2, and what comes next? That's right, 4"
+1C	"Remember Serris from Metroid II? Well now you have to go kill it"
+1D	Speed booster-get
+1E	Skippable by entering pump control unit "Empty" <--why you have to lower the water
+1F	Entered pump control unit
+20	Water level lowered
+21	"Head on to PYR to get EVEN MORE POWERFUL MISSILES (and no, I still haven't fixed the main deck elevator yet)
+22	"Of course, the room is conviniently blocked by level 2 doors, unlocking those could let the x parasites in, but they could just go through the walls anyways
+23	Level 2 doors unlocked
+24	Skippable by getting super missiles "'Congratulations, you unlocked level 2, now get the missiles already damnit"
+25	In super missile download room
+26	Download super missiles
+27	Reached end of pre-BOX room
+28	Wild BOX escaped <--can't skip this
+29	"Unfortunatly, ARC is sub-zero...in kelvin...so lets head off to NOC 'cause I forgot to send varia suit in that download"
+2A	Left above navagation room
+2B	"Does Samus suspect anything?" "What? Who the fuck are you?" "Oh shit, wrong number" "hmm"
+2C	Above convosation over
+2D	Skippable by going straight to NOC "No, not this sector, NOC (some people...)"
+2E	In NOC navagation room
+2F	"Ya know, I think 'varia' might be a typo, meh. But dejavu eh? You're vulnerable to the X again! But this time shooting them *will* work"
+30	SA-X enters
+31	Escaped SA-X
+32	Core-X exits data room
+33	Varia suit-get
+34	Reached top of post-Mega-X room
+35	"Hm, you should really get plasma beam, especially since you can't get ice beam, although, we can still get some ice missiles! Yeah! Lets get to ARC already then
+36	"Hah, another security level, and I'm still not gonna tell you where it is!"
+37	Unlocked level 3 doors
+38	Skippable by getting ice missiles "'Congratulations, you unlocked level 2, now get the missiles already damnit". Ya know, I feel like I've said this before..."
+39	In ice missile download room
+3A	Downloaded ice missiles
+3B	"Meltdown! Apperently the cooling machine for the boiler broke, I knew we should have put the boiler in ARC"
+3C	Wide beam-get
+3D	Cooling unit operational
+3E	"Remember when I said that some unknown agent would fix the main deck elevator, well...I just turned the power on, and it works...coincidently there might be survivors up there..."
+3F	Etecoons and Dachora's released
+40	"How exactly did they get out of that room? The door was closed when you got to it wasn't it? Anyways, go go power bombs!"
+41	"Just to make sure you know where you're going, now get off of my lawn!"
+42	Downloaded power bombs <--compatible with my patch
+43	SA-X enters
+44	Escaped SA-X
+45	"Samus, come to me." <--I still don't get why he can't just tell here then and there
+46	Power cuts out
+47	"Be a dear and go get me a can of power will ya?"
+48	Entered Yakuza's room
+49	Space jump-get
+4A	Auxiliary power engaged
+4B	"Well you have me again! But no doors or elevators, but they don't matter right(?)"
+4C	Engaged with SA-X
+4D	Escaped SA-X
+4E	Plasma beam-get
+4F	"What, NOOO, NOT PLASMA BEAM. Oh crap crap crap, you go to ARC, I gotta go..."
+50	"Remember Nightmare from Metroid II, ya know, the one that could manipulate gravity, go kill it"
+51	Gravity suit-get
+52	In security room
+53	Unlocked level 4 doors
+54	"Oh shit, intended sequence break [role secret message]"
+55	In data room
+56	Downloaded diffusion missiles
+57	"Oh hey, wtf, we didn't send those. >_> <_<;. Well now that you have them, go finish BOX"
+58	":o BOX has become much stronger (only 2/3 stronger actually). Also, don't go into the no Samus zone, because...er...the SA-X is tracking you down...yeah"
+59	Reached end of pre-restricted zone room
+5A	BOXquake
+5B	Wave beam-get
+5C	Reached dead end in restricted zone
+5D	60 seconds to detachment of Restricted Laboratory
+5E	Escaped
+5F	"Damn it Samus, you killed all the metroids, again" "......" "Are you mute or something" "..... sorry I was just thinking of monologue to think of"
+60	Screw attack-get
+61	"Samus, you're done here, we don't need you anymore" "I don't work for you, I hunt my own bountry" "We don't care! Just go to your damn ship"
+62	Doors don't open...
+63	"How am I meant to go to my ship when you've locked me in here!" "Ugh, it's that time of the month again" "That's it, I am sooo destroying this planet"
+64	"Just make sure the ship isn't on the planet"
+65	Entered SA-X fight room
+66	Ice beam-lose
+67	Orbit change implemented
+68	Skippable by entering ship room: I don't know how to get this event
+69	Entering ship room
+6A	Omega metroid kills SA-X
+6B	Ice beam-get
+6C	Killed omega metroid
+6D	Escaped planet
+ 
+ 
+List of every enemy's AI pointer
+ 
+0	08014941
+1	080149C5
+2	08014ACD
+3	08014B9D
+4	08014B9D
+5	08014B9D
+6	08014B9D
+7	08014B9D
+8	08014B9D
+9	08014B9D
+A	08014B9D
+B	08014B9D
+C	08014B9D
+D	08014B9D
+E	08014B65
+F	08014B9D
+10	08014B9D
+11	08017BD9
+12	0801D775
+13	0801E401
+14	0802BC5D
+15	0801DA15
+16	08030C39
+17	0801E771
+18	0801EFD1
+19	0802A639
+1A	08020285
+1B	08020C25
+1C	08021589
+1D	0802191D
+1E	0802B40D
+1F	0801F971
+20	08030569
+21	0802AC25
+22	0802FE7D
+23	08030F91
+24	08031011
+25	08030FE9
+26	08045151
+27	080450C1
+28	0802C509
+29	0802C509
+2A	0802C509
+2B	0802D49D
+2C	0802D3A1
+2D	0802D3A1
+2E	0802D3A1
+2F	0802D3A1
+30	0802D3A1
+31	0803B46D
+32	0801570D
+33	08021EE1
+34	08015691
+35	0802F529
+36	08015691
+37	080228E1
+38	0801561D
+39	0802345D
+3A	080246BD
+3B	0802727D
+3C	080281C5
+3D	08028D0D
+3E	0802999D
+3F	08025D81
+40	080156B9
+41	08029ECD
+42	08029ECD
+43	08029ECD
+44	08025D81
+45	08025D81
+46	08057BE1
+47	08025D81
+48	08025D81
+49	08025D81
+4A	0801E771
+4B	080470A1
+4C	0805886D
+4D	08058E71
+4E	0801E771
+4F	0801E771
+50	0801E771
+51	0805D605
+52	0802D901
+53	0803A205
+54	08044FD5
+55	0805397D
+56	0802EAA1
+57	0802EAA1
+58	0802EAA1
+59	0802EAA1
+5A	08031A81
+5B	080336CD
+5C	08033489
+5D	080339BD
+5E	0803426D
+5F	08034805
+60	08035885
+61	0803563D
+62	0803854D
+63	08031A81
+64	08039045
+65	080397F9
+66	080397F9
+67	080397F9
+68	080397F9
+69	08039EA1
+6A	0803A7E9
+6B	0803A7E9
+6C	0803C1D5
+6D	0803D5A5
+6E	0803E0C9
+6F	0803E5CD
+70	0803EC45
+71	0803F365
+72	0803F9F5
+73	08040BE5
+74	08041745
+75	08041E15
+76	0801D775
+77	0803893D
+78	08042005
+79	08042005
+7A	08042005
+7B	08042005
+7C	08042005
+7D	08042005
+7E	08042005
+7F	08042005
+80	08042391
+81	08042391
+82	08042391
+83	08042391
+84	08042391
+85	08042391
+86	08042391
+87	08042391
+88	08042729
+89	08042B55
+89	08042B55
+8A	08042D55
+8B	080281C5
+8C	08018265
+8D	08018CAD
+8E	0804378D
+8F	08043229
+90	08043229
+91	08043229
+92	08043229
+93	08043229
+94	08043229
+95	08043229
+96	08043229
+97	08043229
+98	08043229
+99	08043229
+9A	08043229
+9B	08043229
+9C	08043229
+9D	08043229
+9E	08043229
+9F	08030285
+A0	080199A9
+A1	080473BD
+A2	08040BE5
+A3	0803B46D
+A4	0804A3B5
+A5	0804A891
+A6	08048F35
+A7	0804AD69
+A8	0804B325
+A9	0804BBC9
+AA	08014C25
+AB	08014CE5
+AC	08014DD5
+AD	0804C119
+AE	0804C349
+AF	08026889
+B0	0804C579
+B1	0804C661
+B2	0804378D
+B3	0804CDF5
+B4	08040BE5
+B5	0803A7E9
+B6	0804E76D
+B7	0804E915
+B8	0804E521
+B9	08015781
+BA	0804F465
+BB	0804F891
+BC	08019D5D
+BD	0804FB31
+BE	080505F1
+BF	08051921
+C0	0801B251
+C1	080515B1
+C2	0802EAA1
+C3	08055ED9
+C4	08056A49
+C5	08056D79
+C6	080571A1
+C7	080572BD
+C8	08057379
+C9	0801B9A1
+CA	08059055
+CB	0805AFC1
+CC	0805B759
+CD	0801C661
+CE	08060681
+ 
+ 
+Unknowns for every enemy
+ 
+___________________________
+|0		0000 0000 0000| X-parasite target (floats in circles)
+|1		0000 0000 0000| X-parasite target (floats diagonally; rebounds walls and ceilings)
+|2		0000 0000 0000| X-parasite target (floats sideways; rebounds walls)
+|3		0000 0000 0000|
+|4		0000 0000 0000|
+|5		0000 0000 0000|
+|6		0000 0000 0000| Ship's body
+|7		0000 0000 0000| Navagation board
+|8		0000 0000 0000| Navagation board lights
+|9		0000 0000 0000| Navagation screen
+|A		0000 0000 0000| Save pad
+|B		0000 0000 0000|
+|C		0000 0000 0000|
+|D		0000 0000 0000| Ship's beams
+|E		0000 0000 0000| Ability target
+|F		0000 0000 0000|
+|10		0000 0000 0000|
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|8F		0000 0000 0400| Eye door
+|90		0000 0000 0400| Eye door
+|91		0000 0000 0400| Eye door
+|92		0000 0000 0400| Eye door
+|93		0000 0000 0400| Eye door
+|94		0000 0000 0400| Eye door
+|95		0000 0000 0400| Eye door
+|96		0000 0000 0400| Eye door
+|97		0000 0000 0400| Eye door
+|98		0000 0000 0400| Eye door
+|99		0000 0000 0400| Eye door
+|9A		0000 0000 0400| Eye door
+|9B		0000 0000 0400| Eye door
+|9C		0000 0000 0400| Eye door
+|9D		0000 0000 0400| Eye door
+|9E		0000 0000 0400| Eye door
+|A3		0000 0000 0400|
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|2B		0000 0400 0000| Missile spire
+|41		0000 0400 0000| Missile spire core
+|42		0000 0400 0000| Missile spire core
+|43		0000 0400 0000| Missile spire core
+|78		0000 0400 0000| Missile spire core; purple
+|79		0000 0400 0000| Missile spire core; purple
+|7A		0000 0400 0000| Missile spire core; purple
+|7B		0000 0400 0000| Missile spire core; purple
+|7C		0000 0400 0000| Missile spire core; purple
+|7D		0000 0400 0000| Missile spire core; purple
+|7E		0000 0400 0000| Missile spire core; purple
+|7F		0000 0400 0000| Missile spire core; purple
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|63		0064 007C 0320| Blue pre-evolved ki-hunter bug
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________ ???Enemy clones???
+|80		00C8 012C 020C| Power bomb spire...
+|81		00C8 012C 020C| Power bomb spire...
+|82		00C8 012C 020C| Power bomb spire...
+|83		00C8 012C 020C| Power bomb spire...
+|84		00C8 012C 020C| Power bomb spire...
+|85		00C8 012C 020C| Power bomb spire...
+|86		00C8 012C 020C| Power bomb spire...
+|87		00C8 012C 020C| Power bomb spire...
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|8B		0175 028A 0001| Golden crab
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|22		01A8 012C 012C| Recharger screen; recharger screen glare
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|6A		01F4 01F4 0018| Red fish
+|A2		01F4 01F4 0018| Gold space pirate
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|6E		0209 01F4 0003| Floating glitch enemy
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|37		020B 01F4 0001| Zombie
+|3D		020B 01F4 0001| ???Ability???
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|6D		026E 0190 0002| Underwater fire-swirling snail
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|71		02A2 012C 0032| Rio-esque with big metal arms
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|14		02CA 012C 000A| Wall space pirate
+|73		02CA 012C 000A| Floor space pirate
+|A8		02CA 012C 000A| Post-frozen-ridley ceiling enemies
+|B3		02CA 012C 000A| Fish space pirate
+|B4		02CA 012C 000A| Underwater space pirate
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|60		02D1 012C 0003| Fune
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|13		02D3 012C 0001| Armoured skree; no armour
+|18		02D3 012C 0001| Mini-arachnus
+|61		02D3 012C 0001| Fune
+|BE		02D3 012C 0001|
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|3B		0305 00FA 0001| ARC sideways skree
+|5A		0305 00FA 0001| TRO red bug
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|88		031A 00C8 001E| Ripper
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|BD		032E 00C8 000A|
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|3E		0322 00DC 0002| Hopper; shoots spikes when hit
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________(Maybe these don't ever respawn)
+|12		0337 00C8 0001| X-parasite host Hornoad
+|1B		0337 00C8 0001| Prototype metroid
+|31		0337 00C8 0001|
+|33		0337 00C8 0001| Skree
+|3C		0337 00C8 0001|
+|5B		0337 00C8 0001| Ki-hunter
+|5C		0337 00C8 0001| Ki-hunter
+|64		0337 00C8 0001| PYR flying ki-hunter
+|6B		0337 00C8 0001|
+|6F		0337 00C8 0001| NOC puffer
+|72		0337 00C8 0001| ARC flat blue enemies
+|76		0337 00C8 0001| Quarantine bay Hornoad
+|B5		0337 00C8 0001|
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|A4		0369 0096 0001|
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|A5		036A 0096 0000| Respawning bug???
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|6C		039B 0064 0001|
+|70		039B 0064 0001| NOC bug
+|A9		039B 0064 0001| TRO red flat hopping bug
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|AD		03E8 0000 0018| Energy tank enemy
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|39		03F4 000A 0002|
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+___________________________
+|11		0400 0000 0000|
+|15		0400 0000 0000|
+|16		0400 0000 0000|
+|17		0400 0000 0000|
+|19		0400 0000 0000| Navagation platform
+|1A		0400 0000 0000| Ship's head
+|1C		0400 0000 0000| [used by pre-boss core-x]
+|1D		0400 0000 0000| Room name pop-up
+|1E		0400 0000 0000| Data platform; Data downloader lights
+|1F		0400 0000 0000| Save dock; Data downloader
+|20		0400 0000 0000|
+|21		0400 0000 0000| Recharger; Pop-up
+|23		0400 0000 0000|
+|24		0400 0000 0000|
+|25		0400 0000 0000|
+|26		0400 0000 0000|
+|27		0400 0000 0000|
+|28		0400 0000 0000|
+|29		0400 0000 0000|
+|2A		0400 0000 0000| Recharge platform
+|2C		0400 0000 0000|
+|2D		0400 0000 0000|
+|2E		0400 0000 0000|
+|2F		0400 0000 0000|
+|30		0400 0000 0000|
+|32		0400 0000 0000|
+|34		0400 0000 0000| Static (white?) x-parasite
+|35		0400 0000 0000|
+|36		0400 0000 0000| White X-parasite
+|38		0400 0000 0000| X-parasite
+|3A		0400 0000 0000| Arachnus
+|3F		0400 0000 0000| Arachnus' core-x
+|40		0400 0000 0000| Pre-boss core-x x-parasites
+|44		0400 0000 0000|
+|45		0400 0000 0000| Eye door's roots
+|46		0400 0000 0000|
+|47		0400 0000 0000| Eye door's hitbox
+|48		0400 0000 0000|
+|49		0400 0000 0000|
+|4A		0400 0000 0000|
+|4B		0400 0000 0000| Zazabi
+|4C		0400 0000 0000|
+|4D		0400 0000 0000|
+|4E		0400 0000 0000|
+|4F		0400 0000 0000|
+|50		0400 0000 0000|
+|51		0400 0000 0000| Yakuza
+|52		0400 0000 0000|
+|53		0400 0000 0000|
+|54		0400 0000 0000| Nettori
+|55		0400 0000 0000|
+|56		0400 0000 0000|
+|57		0400 0000 0000|
+|58		0400 0000 0000|
+|59		0400 0000 0000|
+|5D		0400 0000 0000|
+|5F		0400 0000 0000|
+|62		0400 0000 0000|
+|65		0400 0000 0000|
+|66		0400 0000 0000|
+|67		0400 0000 0000|
+|68		0400 0000 0000|
+|69		0400 0000 0000|
+|74		0400 0000 0000|
+|75		0400 0000 0000| Missile hatch
+|77		0400 0000 0000|
+|89		0400 0000 0000|
+|8A		0400 0000 0000|
+|8C		0400 0000 0000|
+|8D		0400 0000 0000|
+|8E		0400 0000 0000|
+|9F		0400 0000 0000|
+|A0		0400 0000 0000|
+|A1		0400 0000 0000| Elevator pad
+|A6		0400 0000 0000| Serris
+|A7		0400 0000 0000|
+|AA		0400 0000 0000|
+|AB		0400 0000 0000|
+|AC		0400 0000 0000|
+|AF		0400 0000 0000|
+|B0		0400 0000 0000|
+|B1		0400 0000 0000|
+|B2		0400 0000 0000|
+|B6		0400 0000 0000|
+|B7		0400 0000 0000|
+|B8		0400 0000 0000|
+|B9		0400 0000 0000|
+|BA		0400 0000 0000|
+|BB		0400 0000 0000|
+|BC		0400 0000 0000|
+|BF		0400 0000 0000| [Used in first eye door room]
+|C0		0400 0000 0000| SA-X
+|C1		0400 0000 0000|
+|C2		0400 0000 0000|
+|C3		0400 0000 0000|
+|C4		0400 0000 0000|
+|C5		0400 0000 0000|
+|C6		0400 0000 0000|
+|C7		0400 0000 0000|
+|C8		0400 0000 0000|
+|C9		0400 0000 0000| Omega Metroid
+|CA		0400 0000 0000|
+|CB		0400 0000 0000| Ridley
+|CC		0400 0000 0000|
+|CD		0400 0000 0000|
+|CE		0400 0000 0000|
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯

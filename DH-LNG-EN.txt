@@ -1,0 +1,22 @@
+[MainMenu]
+
+Popup,"Open"
+SubUp,"Le File" 
+Popup,"Gene"
+SubUp,"Text Edit"
+SubUp,"Minimap"
+SubUp,"Edit TSA"
+SubUp,"Clip"
+SubUp,"IPS"
+Popup,"Tools"
+SubUp,"Header"
+SubUp,"Spriteset Editor"
+SubUp,"Sprite Editor"
+SubUp,"Room Options"
+SubUp,"Export Bitmap of Room"
+SubUp,"Export Room"
+SubUp,"Import Room"
+SubUp,"Insert Stuff"
+[END]
+
+

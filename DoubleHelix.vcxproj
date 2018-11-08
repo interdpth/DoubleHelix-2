@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CF72C827-4139-46D4-A027-036E657C2E75}</ProjectGuid>
+    <RootNamespace>DoubleHelix</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>14.0.24720.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>C:\GLEW\lib\Release\Win32;C:\Users\Endeavor\Documents\GitHub\RD1Enginesource\Debug;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>C:\GLEW\bin\Release\Win32;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\GLEW\include\GL;C:\Users\Endeavor\Documents\GitHub\RD1Enginesource\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Users\Endeavor\Documents\GitHub\RD1Enginesource;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Endeavor\Documents\GitHub\RD1Enginesource;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <BrowseInformation>true</BrowseInformation>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+      <SuppressStartupBanner>false</SuppressStartupBanner>
+      <AdditionalOptions>/EDITANDCONTINUE %(AdditionalOptions)</AdditionalOptions>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <AdditionalDependencies>RD1Engined.lib;opengl32.lib;Msimg32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Profile>true</Profile>
+      <ShowProgress>LinkVerbose</ShowProgress>
+    </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS; -D_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <StringPooling>true</StringPooling>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>winmm.lib %(AdditionalOptions)</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalDependencies>RD1Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AppData.cpp" />
+    <ClCompile Include="DHProject.cpp" />
+    <ClCompile Include="fraMainProc.cpp" />
+    <ClCompile Include="BGImportEditor.cpp" />
+    <ClCompile Include="cClipboard.cpp" />
+    <ClCompile Include="Clipboard.cpp" />
+    <ClCompile Include="clsScroll.cpp" />
+    <ClCompile Include="cOAMEdit.cpp" />
+    <ClCompile Include="cSSE.cpp" />
+    <ClCompile Include="cStatEd.cpp" />
+    <ClCompile Include="cTED.cpp" />
+    <ClCompile Include="cTSAEditorClass.cpp" />
+    <ClCompile Include="Door Connections.cpp" />
+    <ClCompile Include="DynIO.cpp" />
+    <ClCompile Include="frmDoor.cpp" />
+    <ClCompile Include="frmMapData.cpp" />
+    <ClCompile Include="frmRepoint.cpp" />
+    <ClCompile Include="globals.cpp" />
+    <ClCompile Include="GlobalVars.cpp" />
+    <ClCompile Include="HeaderEditor.cpp" />
+    <ClCompile Include="Insert.cpp" />
+    <ClCompile Include="IPSPatch.cpp" />
+    <ClCompile Include="LevelPaletteEditor.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapWindow.cpp" />
+    <ClCompile Include="MinimapEditor.cpp" />
+    <ClCompile Include="MinimapEditorClass.cpp" />
+    <ClCompile Include="nFunctions.cpp" />
+    <ClCompile Include="frmOAM.cpp" />
+    <ClCompile Include="OAMWinProcedureInit.cpp" />
+    <ClCompile Include="PaletteEditor.cpp" />
+    <ClCompile Include="RightMouseClick.cpp" />
+    <ClCompile Include="ROMFile.cpp" />
+    <ClCompile Include="RoomOptions.cpp" />
+    <ClCompile Include="SceneryEditor.cpp" />
+    <ClCompile Include="sChecks.cpp" />
+    <ClCompile Include="sCombo.cpp" />
+    <ClCompile Include="ScrollBarHandle.cpp" />
+    <ClCompile Include="Scrolls.cpp" />
+    <ClCompile Include="sList.cpp" />
+    <ClCompile Include="frmScrolls.cpp" />
+    <ClCompile Include="Sprite Selector.cpp" />
+    <ClCompile Include="SpriteEditor.cpp" />
+    <ClCompile Include="StatEditor.cpp" />
+    <ClCompile Include="stxts.cpp" />
+    <ClCompile Include="TabControls.cpp" />
+    <ClCompile Include="TextEditor.cpp" />
+    <ClCompile Include="TilesetWindow.cpp" />
+    <ClCompile Include="Translation.cpp" />
+    <ClCompile Include="TSAEditor.cpp" />
+    <ClCompile Include="UIState.cpp" />
+    <ClCompile Include="UndoBuffer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AppData.h" />
+    <ClInclude Include="cClipboard.h" />
+    <ClInclude Include="clsScroll.h" />
+    <ClInclude Include="cOAMEdit.h" />
+    <ClInclude Include="cSSE.h" />
+    <ClInclude Include="cStatEd.h" />
+    <ClInclude Include="cTextEditor.h" />
+    <ClInclude Include="cTSAEditorClass.h" />
+    <ClInclude Include="Dec.h" />
+    <ClInclude Include="DHProject.h" />
+    <ClInclude Include="Door Connections.h" />
+    <ClInclude Include="DynIO.h" />
+    <ClInclude Include="ExpandAndRepointResource.h" />
+    <ClInclude Include="fraMainProc.h" />
+    <ClInclude Include="frmRepoint.h" />
+    <ClInclude Include="GlobalFunctions.h" />
+    <ClInclude Include="globals.h" />
+    <ClInclude Include="GlobalVars.h" />
+    <ClInclude Include="IPSPatch.h" />
+    <ClInclude Include="MainHeader.h" />
+    <ClInclude Include="MainWindow.h" />
+    <ClInclude Include="mmD.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="ResourceAndDefines.h" />
+    <ClInclude Include="sChecks.h" />
+    <ClInclude Include="sCombo.h" />
+    <ClInclude Include="sList.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="stxts.h" />
+    <ClInclude Include="TabControls.h" />
+    <ClInclude Include="TextEditorHeader.h" />
+    <ClInclude Include="UIState.h" />
+    <ClInclude Include="wndBGImport.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon5.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="res.aps" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="fusionSpritePositions.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="res.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+    </PropertyGroup>
+  </Target>
+</Project>

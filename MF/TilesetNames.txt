@@ -1,0 +1,100 @@
+0 - Debug Rooms 1
+1 - TRO 1
+2 - Unused Ridley-X 1
+3 - Restricted NOC Entry 1
+4 - Ridley-X 1
+5 - TRO 2
+6 - Operations Deck 1
+7 - Yakuza Boss 1
+8 - Pink Hall 1
+9 - Zazabi Boss 1
+A - Navigation Room 1
+B - To Wrecked Hangar 1
+C - Save Room 1
+D - Recharge Room 1
+E - Hot SRX 1
+F - Data Room 1
+10 - Unused Hangar 1
+11 - To SRX 1
+12 - Yellow Main Deck 1
+13 - Arachnus Boss 1
+14 - SRX Down 1
+15 - TRO Down 1
+16 - PYR Down 1
+17 - AQA Down 1
+18 - ARC Down 1
+19 - NOC Down 1
+1A - Wrecked Operations Deck 1
+1B - To Arachnus 1
+1C - Lobby 1
+1D - Main Elevator Up 1
+1E - To Wrecked Hangar 2
+1F - TRO 3
+20 - Secret TRO 1
+21 - To LV3 Unlock 1
+22 - To BOX 1
+23 - TRO Up 1
+24 - PYR Up 1
+25 - AQA Up 1
+26 - ARC Up 1
+27 - NOC Up 1
+28 - Hot PYR 1
+29 - SRX Caves 1
+2A - Hot PYR 2
+2B - AQA 1
+2C - NOC 1
+2D - Security Room 1
+2E - SRX Main 1
+2F - AQA 2
+30 - ARC Main 1
+31 - Cold ARC 1
+32 - To Infected Armor Parts 1
+33 - Main Boiler Control Room 1
+34 - Secret AQA 1
+35 - Main Boiler 1
+36 - Infested Central Reactor 1
+37 - Central Reactor Core 1
+38 - To Auxiliary Power 1
+39 - Nightmare Boss 1
+3A - Infested TRO 1
+3B - Nettori Boss 1
+3C - Habitation Deck 1
+3D - Habitation Deck 2
+3E - NOC Caves 1
+3F - PowerDown Operations 1
+40 - Zazabi Boss 2
+41 - Zazabi Boss 3
+42 - Restricted Lab 1
+43 - Blue Tech 1
+44 - Blue Tech 2
+45 - Infected Parts/Ridley 1
+46 - Infected Parts/Ridley 2
+47 - Main Boiler 2
+48 - Green Tech 1
+49 - SRX Main 2
+4A - TRO Main 1
+4B - PYR Main 1
+4C - AQA Main 1
+4D - ARC Main 2
+4E - NOC Main 1
+4F - SRX Up 1
+50 - Restricted Lab 2
+51 - Serris Boss 1
+52 - Main Boiler 3
+53 - Restricted Lab 3
+54 - To Restricted Lab 1
+55 - Red Restricted Lab 1
+56 - Water Control 1
+57 - Chargebeam Boss 1
+58 - To Ridley-X 1
+59 - Operations Room 1
+5A - To Serris 1
+5B - To Serris 2
+5C - Dead Nettori 1
+5D - NOC 2
+5E - Sector Intermission 1
+5F - Dead Infestation TRO 1
+60 - Hangar 1
+61 - Wrecked Hangar 1
+62 - *JUMBLED SHIT*
+63 - *DO NOT SELECT THIS OR BEYOND*

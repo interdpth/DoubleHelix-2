@@ -1,0 +1,80 @@
+0 - Debug Rooms 1
+1 - Bottom Norfair 1
+2 - Brown Crateria 1
+3 - Brown Crateria 2
+4 - MF White Sector 1
+5 - MF White Main Deck 1
+6 - Bottom Norfair 2
+7 - Elevator to Ridley 1
+8 - Blue Brinstar 1
+9 - Kraid Boss 1
+A - MF Blood TRO 1
+B - Crateria Landing Site 1
+C - Broken Chozo 1
+D - Upper Norfair 1
+E - Temple Norfair 1
+F - Middle Norfair 1
+10 - Lower Norfair 1
+11 - Brown Brinstar 1
+12 - Bridgeway 1
+13 - Brown Norfair 1
+14 - Item Room 1
+15 - Crateria Landing Site 2
+16 - Gray Kraid 1
+17 - Red Ridley 1
+18 - Green Ridley 1
+19 - Purple Ridley 1
+1A - Mother Brain 1
+1B - Save Room 1
+1C - Unused Debug 1
+1D - Purple Kraid 1
+1E - Bottom Norfair 2
+1F - Blue Crateria 1
+20 - Blue Crateria 2
+21 - Green Brinstar 1
+22 - Brinstar Caves 1
+23 - Wrecked Tourian 1
+24 - Green Crateria 1
+25 - Temple Brinstar 1
+26 - Green Chozodia 1
+27 - Green Kraid 1
+28 - Tourian 1
+29 - Tourian 2
+2A - Map Room 1
+2B - Unused Debug 2
+2C - Purple Mother Ship 1
+2D - Purple Mother Ship 2
+2E - Mothership Launchbay 1
+2F - Mothership Control Room 1
+30 - Green Chozodia 1
+31 - Outside Mothership 1
+32 - Mothership Entry 1
+33 - Purple Kraid 2
+34 - Temple Chozodia 1
+35 - Brinstar Elevators 1
+36 - Green Crateria 2
+37 - Power Grip Pillar 1
+38 - Chozo Trial 1
+39 - Temple Chozodia 2
+3A - Temple Chozodia 3
+3B - Temple Chozodia 4
+3C - Temple Chozodia 5
+3D - Bottom Norfair 3
+3E - Mothership Control Room 2
+3F - Mothership Control Room 3
+40 - Bottom Norfair 4
+41 - Brinstar Trial 1
+42 - Save Room 2
+43 - Crateria Landing Site 3
+44 - Bottom Norfair 5
+45 - Wrecked Mother Brain 1
+46 - Outside Mothership 2
+47 - Mothership Entry 2
+48 - Brinstar to Tourian 1
+49 - Blue Crateria 3
+4A - Inner Temple Chozodia 1
+4B - Map Room 2
+4C - Ridley Boss 1
+4D - Mecha Ridley Boss 1
+4E - Green Map Room 1
+4F - *DO NOT SELECT THIS OR BEYOND*

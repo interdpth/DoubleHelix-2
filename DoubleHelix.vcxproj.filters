@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="DHProject.cpp" />
+    <ClCompile Include="clsScroll.cpp" />
+    <ClCompile Include="cOAMEdit.cpp" />
+    <ClCompile Include="cSSE.cpp" />
+    <ClCompile Include="cStatEd.cpp" />
+    <ClCompile Include="cTED.cpp" />
+    <ClCompile Include="cTSAEditorClass.cpp" />
+    <ClCompile Include="Door Connections.cpp" />
+    <ClCompile Include="DynIO.cpp" />
+    <ClCompile Include="globals.cpp" />
+    <ClCompile Include="GlobalVars.cpp" />
+    <ClCompile Include="HeaderEditor.cpp" />
+    <ClCompile Include="Insert.cpp" />
+    <ClCompile Include="IPSPatch.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MinimapEditor.cpp" />
+    <ClCompile Include="MinimapEditorClass.cpp" />
+    <ClCompile Include="nFunctions.cpp" />
+    <ClCompile Include="OAMWinProcedureInit.cpp" />
+    <ClCompile Include="PaletteEditor.cpp" />
+    <ClCompile Include="RightMouseClick.cpp" />
+    <ClCompile Include="ROMFile.cpp" />
+    <ClCompile Include="RoomOptions.cpp" />
+    <ClCompile Include="SceneryEditor.cpp" />
+    <ClCompile Include="Sprite Selector.cpp" />
+    <ClCompile Include="SpriteEditor.cpp" />
+    <ClCompile Include="StatEditor.cpp" />
+    <ClCompile Include="TextEditor.cpp" />
+    <ClCompile Include="TilesetWindow.cpp" />
+    <ClCompile Include="Translation.cpp" />
+    <ClCompile Include="UIState.cpp" />
+    <ClCompile Include="UndoBuffer.cpp" />
+    <ClCompile Include="cClipboard.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="BGImportEditor.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Clipboard.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="frmDoor.cpp">
+      <Filter>Editor\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="frmMapData.cpp">
+      <Filter>Editor\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="frmOAM.cpp">
+      <Filter>Editor\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="frmRepoint.cpp">
+      <Filter>Editor\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="frmScrolls.cpp">
+      <Filter>Editor\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="sChecks.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="sCombo.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrollBarHandle.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Scrolls.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="sList.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="TabControls.cpp" />
+    <ClCompile Include="fraMainProc.cpp" />
+    <ClCompile Include="AppData.cpp" />
+    <ClCompile Include="stxts.cpp" />
+    <ClCompile Include="TSAEditor.cpp" />
+    <ClCompile Include="LevelPaletteEditor.cpp" />
+    <ClCompile Include="MapWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="clsScroll.h" />
+    <ClInclude Include="cOAMEdit.h" />
+    <ClInclude Include="cSSE.h" />
+    <ClInclude Include="cStatEd.h" />
+    <ClInclude Include="cTextEditor.h" />
+    <ClInclude Include="cTSAEditorClass.h" />
+    <ClInclude Include="Dec.h" />
+    <ClInclude Include="DHProject.h" />
+    <ClInclude Include="Door Connections.h" />
+    <ClInclude Include="DynIO.h" />
+    <ClInclude Include="ExpandAndRepointResource.h" />
+    <ClInclude Include="GlobalFunctions.h" />
+    <ClInclude Include="globals.h" />
+    <ClInclude Include="GlobalVars.h" />
+    <ClInclude Include="IPSPatch.h" />
+    <ClInclude Include="MainHeader.h" />
+    <ClInclude Include="MainWindow.h" />
+    <ClInclude Include="mmD.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="ResourceAndDefines.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TextEditorHeader.h" />
+    <ClInclude Include="UIState.h" />
+    <ClInclude Include="wndBGImport.h" />
+    <ClInclude Include="cClipboard.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="frmRepoint.h">
+      <Filter>Editor\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="sChecks.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sCombo.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sList.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="TabControls.h" />
+    <ClInclude Include="fraMainProc.h" />
+    <ClInclude Include="AppData.h" />
+    <ClInclude Include="stxts.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon5.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="res.aps" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="fusionSpritePositions.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="framework">
+      <UniqueIdentifier>{49d5abf5-fa80-4028-9efd-fd61f503140c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="io">
+      <UniqueIdentifier>{5aa48237-c698-4081-a80a-e41b92bb32f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{5f41d3ee-ef77-47a7-b838-19d4cf91035b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{adae8887-5069-4dbf-a603-38197f163816}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Dialogs">
+      <UniqueIdentifier>{73011bbb-0f5b-4b5c-958b-57e708d6a2c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Doors">
+      <UniqueIdentifier>{53d29fab-8e85-47fe-b549-335df618833c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AppStuff">
+      <UniqueIdentifier>{6b276e7b-a5ea-4a6e-8f72-117c522bde5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SamusEditor">
+      <UniqueIdentifier>{84c209ea-7cee-4f22-aa14-070a5449e533}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

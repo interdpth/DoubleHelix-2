@@ -1,0 +1,96 @@
+00 - None
+01 - Brinstar
+02 - Title Screen
+03 - Item Room
+04 - Intro
+05 - Chozo Statue Map
+06 - Norfair
+07 - Kraid's Lair
+08 - Escape
+09 - File Select
+0A - Elevator to Hell
+0B - Boss Killed
+0C - Map Rooms
+0D - Chozo Ruins Depths
+0E - Chozo Ruins
+0F - Chozo Ruins
+10 - Ridley in Space
+11 - Ridley Lands
+12 - Chozo Statue Map Delayed
+13 - System Scan
+14 - "Shot Down" sequence
+15 - Chozo Voice SFX
+16 - Chozo Voice SFX
+17 - Unused 1
+18 - Unused 2
+19 - Brinstar (Faster)
+1A - Mission Accomplished!
+1B - Credits
+1C - ?
+1D - ?
+1E - ?
+1F - ?
+20 - ?
+21 - ?
+22 - ?
+23 - ?
+24 - ?
+25 - ?
+26 - ?
+27 - ?
+28 - ?
+29 - ?
+2a - ?
+2b - ?
+2c - ?
+2d - ?
+2e - ?
+2f - ?
+30 - ? 
+31 - ?
+32 - Ridley's Lair
+33 - ?
+34 - Kraid Battle; with intro.
+35 - Ridley Battle
+36 - Samus's Intro
+37 - Item gained fanfare
+39 - Unused 3
+3A - Powerup/Recharge
+3B - Tourian
+3C - Pushy Purple Worm
+3D - Mother Brain
+3E - Larva Nest
+3F - Wasp Larva
+40 - Imago
+41 - Meta-Ridley fight
+42 - Unknown Item Acquisition
+43 - Chozo Guardian With Intro
+44 - Hungry Metroids
+45 - Tripped Alarm
+46 - Space Pirate Mother Ship
+47 - ?
+48 - Mother Brain Sees You!
+49 - Chased by Pirates
+4A - Full Suit Acquired!
+4B - Kraid Battle
+4C - Ridley Battle
+4D - Meta-Ridley Battle
+4E - Chozo Guardian
+4F - Larva Nest (Delayed)
+50 - Crateria
+51 - ? 
+52 - ?
+53 - ?
+54 - ?
+55 - ?
+56 - ?
+57 - ?
+58 - ?
+59 - ?
+5A - Chozo Ruins
+5B - Map Room
+5C - Save Room
+5D - Unused 1
+5E - Space Pirate Mother Ship 
+5F - Norfair Music
+60 - ??????????

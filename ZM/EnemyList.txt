@@ -1,0 +1,108 @@
+00 - ?????????
+01 - Morphball
+02 - Bomb Gate
+03 - Space Jump 
+04 - Long Beam
+05 - Norfair
+06 - Chozo thing
+07 - Kraid 
+08 - Generic 
+09 - Zipline
+0A - Standing Chozo
+0B - Bomb     Chozo
+0C - Standing Chozo
+0D - Ice Beam Chozo
+0E - Standing Chozo
+0F - Speed    Chozo
+10 - Standing Chozo 
+11 - Hi Jump  Chozo 
+12 - Sitting  Chozo
+13 - Varia    Chozo 
+14 - Wave     Chozo
+15 - Standing Chozo
+16 - ScrewAtk Chozo
+17 - ScrewAtk Chozo
+18 - Norfair
+19 - Ridley
+1A - Norfair
+1B - Map 
+1C - Norfair
+1D - Norfair
+1E - Norfair
+1F - Gunship
+20 - Acid Worm
+21 - Save Room
+22 - Norfair
+23 - Space Pirates
+24 - Ridley
+25 - Bug Hives
+26 - Geemers
+27 - Zipline
+28 - Elevator
+29 - Norfair Worm
+2A - Ceiling Worm
+2B - Norfair
+2C - Acid Worm 
+2D - Abnormal Enemies
+2E - Bomb Gate
+2F - Gravity Suit
+30 - Space Jump
+31 - Norfair
+32 - Space Pirates
+33 - Little Bugs
+34 - Zipline 
+35 - Pirates 
+36 - Metroids 
+37 - ???????
+38 - Norfair
+39 - Space Pirates
+3A - Norfair 
+3B - Save Room
+3C - Space Pirates
+3D - ??????? 
+3E - ???????
+3F - ???????
+40 - ???????
+41 - Gravity Block
+42 - ???????
+43 - Mother Brain
+44 - Abnormal Position
+45 - Elevator
+46 - Zipline
+47 - Norfair
+48 - Norfair Worm
+49 - Vines
+4A - Imago
+4B - Crocomire
+4C - Destroyed by Bugs 
+4D - Power Suit Boss
+4E - Sidehopper
+4F - Some unknown
+50 - Elevator 
+51 - Elevator
+52 - Rising Pillar
+53 - Norfair
+54 - Long Beam Chozo
+55 - Ridley
+56 - Kraid & Ridley Statue
+57 - Generic
+58 - Save Room
+59 - Space Pirates
+5A - Fishie fish
+5B - Gravity Block
+5C - Geki Tai Machine
+5D - Space Pirate ship
+5E - Generic 
+5F - Zipline
+60 - Space Pirates
+61 - Norfair Worm 
+62 - Unknown Item Block
+63 - Space Pirate Ship
+64 - Space Pirates
+65 - Mecha Ridley
+67 - Map Room
+68 - Space Pirates
+69 - Norfair 
+6A - Generic
+6B - Generic
+6C - Generic
