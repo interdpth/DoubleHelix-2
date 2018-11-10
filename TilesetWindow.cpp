@@ -125,14 +125,17 @@ LRESULT CALLBACK TilesetProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 		hdc = BeginPaint(hWnd, &ps);
 		GetWindowRect(hWnd, &coord);
 	//	
-		if (GlobalVars::gblVars->imgTileset->_isGL)
+		if (GlobalVars::gblVars->imgTileset)
 		{
-			GlobalVars::gblVars->imgTileset->glInstance->UpdateDisplay();
-		}
-		else
-		{
-			GlobalVars::gblVars->imgTileset->Blit(hdc, 0, 0, coord.right - coord.left, coord.bottom - coord.top, 0, nVScroll[sTileset] * 16);
+			if (GlobalVars::gblVars->imgTileset->_isGL)
+			{
+				GlobalVars::gblVars->imgTileset->glInstance->UpdateDisplay();
+			}
+			else
+			{
+				GlobalVars::gblVars->imgTileset->Blit(hdc, 0, 0, coord.right - coord.left, coord.bottom - coord.top, 0, nVScroll[sTileset] * 16);
 
+			}
 		}
 		DrawTileRect(hdc, mpTileset, 16);
 		

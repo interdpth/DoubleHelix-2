@@ -14,10 +14,9 @@ GlobalVars::GlobalVars()
 	OAMED = false;;
 
 	TextEditor = new MetroidTextEditor();
-	throw new exception("Backbuffer will need to be inited in engine");
-	//ThisBackBuffer.Create(1024, 1024);
+	
 	imgTileset = NULL;
-	StatEditor = new cStatEd(RD1Engine::theGame->currentRomType);
+//	StatEditor = new cStatEd(RD1Engine::theGame->currentRomType);
 	BGi = new wndBGImport();
 }
 

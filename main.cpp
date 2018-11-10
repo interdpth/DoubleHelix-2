@@ -127,7 +127,7 @@ void TabResize()
 	GetWindowRect(hCurrentTab, &currentTabWindow);
 	GetWindowRect(hTabControl, &tabControl);
 	GetWindowRect(UiState::stateManager->GetMapWindow(), &mapWindow);
-	MoveWindow(UiState::stateManager->GetTilesetWindow(), 8, tabControl.bottom-tabControl.top + 8, tilesetWindow.right - tilesetWindow.left, tilesetWindow.bottom - tilesetWindow.top, 1);
+	MoveWindow(UiState::stateManager->GetTilesetWindow(), 8, tabControl.bottom - tabControl.top + 8, tilesetWindow.right - tilesetWindow.left, tilesetWindow.bottom - tilesetWindow.top, 1);
 	MoveWindow(UiState::stateManager->GetMapWindow(), tabControl.right + 16, 8, mapWindow.right - mapWindow.left, mapWindow.bottom - mapWindow.top, 1);
 
 	GetWindowRect(UiState::stateManager->GetTilesetWindow(), &tilesetWindow);
@@ -257,7 +257,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		return 0;
 	}
 	switch (LOWORD(wParam))
-	{	
+	{
 	case mnuEB:
 		if (currentRomType == -1)
 			return 0;
@@ -481,13 +481,13 @@ HWND tabs[6];
 
 			tabs[4] = CreateDialog(hGlobal, MAKEINTRESOURCE(fraSS), hTabControl, SSProc);
 
-			hCurrentTab = tabs[0];												 
-																									 
-																									 //SendMessage(hTabControl, )
+			hCurrentTab = tabs[0];
+
+			//SendMessage(hTabControl, )
 
 
 			ShowWindow(hCurrentTab, 1);
-		
+
 		}
 		ClearGlobals();
 
@@ -770,13 +770,13 @@ int WINAPI      WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCm
 	ExtendedOptWND = NULL;
 	Logger::log = new Logger();
 	LeakFinder::finder = new LeakFinder();
-	RD1Engine::theGame = new RD1Engine(SupportedTitles::titleUnsupport,NULL, NULL, NULL);
+
 	//init stufff
 	GlobalVars::gblVars = new GlobalVars();
 
 
 	GBAGraphics::VRAM = new GBAGraphics();
-
+	RD1Engine::theGame = new RD1Engine(SupportedTitles::titleUnsupport, NULL, NULL, NULL, NULL);
 	cSSE::SpriteSet = new cSSE();
 
 
@@ -1023,7 +1023,7 @@ int             ClearGlobals()
 	SceneWnd = NULL;
 	SceneGraph = NULL;
 	TSScene = NULL;
-	
+
 	//memset(&ZMSpritePos, 0, sizeof(ZMSpritePos));
 
 	SceneryPic.Destroy();

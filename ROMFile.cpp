@@ -378,7 +378,7 @@ void OpenRom()
 		EnableMenuItem(GetMenu(hwndMain()), 0, MF_BYPOSITION | MF_GRAYED);
 		GBA.ROM = fopen(GBA.FileLoc, "r+b");
 		MemFile::currentFile = new MemFile(GBA.FileLoc);
-		RD1Engine::theGame = new RD1Engine(theTitle, &GlobalVars::gblVars->frameTables->OAMFrameTable, GlobalVars::gblVars->BGImage, GlobalVars::gblVars->TileImage);
+		RD1Engine::theGame = new RD1Engine(theTitle, &GlobalVars::gblVars->frameTables->OAMFrameTable, GlobalVars::gblVars->BGImage, GlobalVars::gblVars->TileImage, GlobalVars::gblVars->imgTileset);
 
 
 
@@ -429,7 +429,7 @@ void OpenRom()
 
 		}
 		Combos[cArea].SetListIndex(0);
-		GlobalVars::gblVars->StatEditor->Switch();
+		//GlobalVars::gblVars->StatEditor->Switch();
 		GlobalVars::gblVars->TextEditor->Create(currentRomType, hGlobal, TextPicProc);
 		unsigned long BIC = 0;
 		MemFile::currentFile->seek(0x7c0430);
@@ -438,7 +438,7 @@ void OpenRom()
 		{
 			BGiInstall = 1;
 		}
-		SendMessage(GlobalVars::gblVars->frameControls, WM_COMMAND, 0x000103ee, 0);
+		//SendMessage(GlobalVars::gblVars->frameControls, WM_COMMAND, 0x000103ee, 0);
 		UiState::stateManager->UpdateMapObjectWindow();
 		delete[] fileLoc;
 	}
