@@ -158,9 +158,9 @@ LRESULT CALLBACK TilesetProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 		InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
 		break;
 	case WM_SIZE:
-		if (RD1Engine::theGame&&RD1Engine::theGame->mgrTileset)
+		if (RD1Engine::theGame&&RD1Engine::theGame->mgrTileset && GlobalVars::gblVars->imgTileset)
 		{
-			RD1Engine::theGame->mgrTileset->DrawTileset(GlobalVars::gblVars->imgTileset);
+			RD1Engine::theGame->mgrTileset->DrawTileset(&GlobalVars::gblVars->imgTileset);
 		}
 		break;
 	case WM_DESTROY:

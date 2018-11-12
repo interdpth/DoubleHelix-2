@@ -112,7 +112,7 @@ bool ProcessControls2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		return true;
 		break;
 	case ID_DAA:
-		RD1Engine::theGame->DumpAreaAsImage("heyman.bmp");
+		RD1Engine::theGame->DumpAreaAsImage("heyman.bmp", GlobalVars::gblVars->imgTileset, &SpriteImage);
 		return true;
 		break;
 	}
@@ -196,7 +196,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 	case cboSpriteSet:
 		if (HIWORD(wParam) == CBN_SELCHANGE)
 		{
-			RD1Engine::theGame->mainRoom->LoadUpSprites(Combos[cSpriteSet].GetListIndex());
+			RD1Engine::theGame->mainRoom->LoadUpSprites(Combos[cSpriteSet].GetListIndex(), &SpriteImage);
 			RD1Engine::theGame->DrawStatus.dirty = true;
 			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
 
@@ -356,7 +356,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		{
 			int room = Combos[cRoom].GetListIndex();
 			Combos[cSpriteSet].SetListIndex(0);
-			RD1Engine::theGame->LoadRoom(Combos[cArea].GetListIndex(), Combos[cRoom].GetListIndex());
+			RD1Engine::theGame->LoadRoom(Combos[cArea].GetListIndex(), Combos[cRoom].GetListIndex(), GlobalVars::gblVars->imgTileset,&SpriteImage);
 			ShowWindow(ExtendedOptWND, SW_HIDE);
 
 			DumpLayers();
@@ -384,6 +384,9 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 			LoadScrollControls(RD1Engine::theGame->mgrScrolls->GetScrollInfo());
 			UpdateHeaderControls();
 			DrawLevel();
+			InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
+			//memset(&DrawState, 0, sizeof(drawstate));
+			SendMessage(UiState::stateManager->GetMapWindow(), WM_SIZE, 1, 1);
 			MyTSAEditor.DrawThisTileset();
 			MyTSAEditor.LoadTSA();
 			loadit = true;

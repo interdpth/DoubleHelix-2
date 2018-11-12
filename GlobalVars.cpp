@@ -7,6 +7,7 @@ GlobalVars::GlobalVars()
 	frameControls = 0;
 	frameTables = NULL;
 	SSE=false;
+	StatEditor = NULL;
 	ReadObjectDetailsFromROM = false;
 	
 	memset(AppPath,0,1024);
@@ -14,7 +15,8 @@ GlobalVars::GlobalVars()
 	OAMED = false;;
 
 	TextEditor = new MetroidTextEditor();
-	
+	BGImage = new TileBuffer();
+	TileImage = new TileBuffer();
 	imgTileset = NULL;
 //	StatEditor = new cStatEd(RD1Engine::theGame->currentRomType);
 	BGi = new wndBGImport();

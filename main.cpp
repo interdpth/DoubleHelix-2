@@ -226,7 +226,7 @@ bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPar
 		return true;
 		break;
 	case ID_DAA:
-		RD1Engine::theGame->DumpAreaAsImage("heyman.bmp");
+		RD1Engine::theGame->DumpAreaAsImage("heyman.bmp",  GlobalVars::gblVars->imgTileset, &SpriteImage);
 		return true;
 		break;
 	}
@@ -508,7 +508,8 @@ HWND tabs[6];
 
 
 		clrIndex = 0;
-		//GlobalVars::gblVars->imgTileset->Create(512, 1024);
+		GlobalVars::gblVars->imgTileset = new Image();
+		GlobalVars::gblVars->imgTileset->Create(512, 1024);
 
 
 		chkDoTrans.value(1);

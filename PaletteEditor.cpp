@@ -88,7 +88,7 @@ BOOL CALLBACK   LPProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 
          break;
       case cmdANC:
-		  RD1Engine::theGame->mgrTileset->DrawTileset(GlobalVars::gblVars->imgTileset);
+		  RD1Engine::theGame->mgrTileset->DrawTileset(&GlobalVars::gblVars->imgTileset);
          RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
          RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
          RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);

@@ -77,7 +77,7 @@ void Draw(HDC hdc)
 
 	
 
-	BitBlt(hdc, 0, 0, viewRect.right, viewRect.bottom, RD1Engine::theGame->ThisBackBuffer.DC(), nHScroll[sHMap] * 16, nVScroll[sVMap] * 16, SRCCOPY);
+	BitBlt(hdc, 0, 0, viewRect.right, viewRect.bottom, RD1Engine::theGame->ThisBackBuffer.DC(), 0, 0, SRCCOPY);
 	
 	if (GlobalVars::gblVars->ViewClip.value() != 1) 
 	{

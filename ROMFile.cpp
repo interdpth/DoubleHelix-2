@@ -283,7 +283,10 @@ int LoadROM() {
 	{
 		SetUpCombos(i);
 	}
-	RD1Engine::theGame->mainRoom->mgrSpriteObjects->PopulateSpriteArray(GlobalVars::gblVars->AppPath, (int)RD1Engine::theGame->thisTitle);
+
+	//GlobalVars::gblVars->AppPath
+		
+
 	return 0;
 }
 
@@ -377,8 +380,23 @@ void OpenRom()
 		GameConfiguration::mainCFG = new GameConfiguration(currentRomType);
 		EnableMenuItem(GetMenu(hwndMain()), 0, MF_BYPOSITION | MF_GRAYED);
 		GBA.ROM = fopen(GBA.FileLoc, "r+b");
+
+		char buffer[512] = { 0 };
+		unsigned long tmp = 0;
+
+
+		char filepath2[1024] = { 0 };
+		if ((strlen(filepath2) + 20) >= 1024) {
+			MessageBox(0, "Please move your file someplace else as the path is too long.", "Error.", MB_OK);
+			return ;
+		}
+		if (!(int)theTitle) sprintf(filepath2, "%s\\SpriteList.txt", GlobalVars::gblVars->AppPath);
+		if ((int)theTitle) sprintf(filepath2, "%s\\MF_oam.txt", GlobalVars::gblVars->AppPath);
+		GlobalVars::gblVars->frameTables = new OamFrameTable((int)theTitle, filepath2);
+
+
 		MemFile::currentFile = new MemFile(GBA.FileLoc);
-		RD1Engine::theGame = new RD1Engine(theTitle, &GlobalVars::gblVars->frameTables->OAMFrameTable, GlobalVars::gblVars->BGImage, GlobalVars::gblVars->TileImage, GlobalVars::gblVars->imgTileset);
+		RD1Engine::theGame = new RD1Engine(theTitle, GlobalVars::gblVars->frameTables, GlobalVars::gblVars->BGImage, GlobalVars::gblVars->TileImage, GlobalVars::gblVars->imgTileset);
 
 
 
@@ -438,7 +456,7 @@ void OpenRom()
 		{
 			BGiInstall = 1;
 		}
-		//SendMessage(GlobalVars::gblVars->frameControls, WM_COMMAND, 0x000103ee, 0);
+		SendMessage(GlobalVars::gblVars->frameControls, WM_COMMAND, 0x000103ee, 0);
 		UiState::stateManager->UpdateMapObjectWindow();
 		delete[] fileLoc;
 	}
