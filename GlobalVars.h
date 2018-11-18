@@ -9,6 +9,7 @@
 #include "OamFrameTable.h"
 #include "backbuffer.h"
 #include "cStatEd.h"
+#include "SamusEditorClass.h"
 BOOL CALLBACK  TextEditorProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 class cOAMEdit;
 class cStatEd;
@@ -49,7 +50,7 @@ public:
 
     cStatEd* StatEditor;
 	
-
+	SamusEditorClass* sec;
 	HWND frameControls;
 	MetroidTextEditor* TextEditor;
 	OamFrameTable* frameTables;

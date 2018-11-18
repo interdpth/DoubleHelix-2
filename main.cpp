@@ -26,6 +26,7 @@
 #include "LeakFinder.h"
 #include <commctrl.h>
 #include "fraMainProc.h"
+BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 #pragma comment(lib, "comctl32.lib")
 HWND hTabControl; // tab control handle
 HWND hCurrentTab; // tab dialog handle
@@ -313,6 +314,13 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		ShowWindow(cOAMEdit::OamEditor->_oamWindow, SW_SHOW);
 		break;
 
+	case ID_GENERALTOOLS_SAMUSEDITOR:
+		if (GlobalVars::gblVars->sec->hwndSamusEditor == NULL)
+		{
+			CreateDialog(hGlobal, MAKEINTRESOURCE(frmSamusEditor), 0, SamusProc);
+			ShowWindow(GlobalVars::gblVars->sec->hwndSamusEditor, SW_SHOW);
+		}
+		break;
 	case mnuSSE:
 		if (currentRomType == -1)
 			return 0;

@@ -79,6 +79,8 @@
     <ClCompile Include="TSAEditor.cpp" />
     <ClCompile Include="LevelPaletteEditor.cpp" />
     <ClCompile Include="MapWindow.cpp" />
+    <ClCompile Include="frmSamusEditor.cpp" />
+    <ClCompile Include="SamusEditorClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clsScroll.h" />
@@ -124,6 +126,8 @@
     <ClInclude Include="fraMainProc.h" />
     <ClInclude Include="AppData.h" />
     <ClInclude Include="stxts.h" />
+    <ClInclude Include="SupportedTitles.h" />
+    <ClInclude Include="SamusEditorClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res.rc" />

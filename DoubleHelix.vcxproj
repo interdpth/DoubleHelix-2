@@ -132,6 +132,7 @@
     <ClCompile Include="frmDoor.cpp" />
     <ClCompile Include="frmMapData.cpp" />
     <ClCompile Include="frmRepoint.cpp" />
+    <ClCompile Include="frmSamusEditor.cpp" />
     <ClCompile Include="globals.cpp" />
     <ClCompile Include="GlobalVars.cpp" />
     <ClCompile Include="HeaderEditor.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="RightMouseClick.cpp" />
     <ClCompile Include="ROMFile.cpp" />
     <ClCompile Include="RoomOptions.cpp" />
+    <ClCompile Include="SamusEditorClass.cpp" />
     <ClCompile Include="SceneryEditor.cpp" />
     <ClCompile Include="sChecks.cpp" />
     <ClCompile Include="sCombo.cpp" />
@@ -193,11 +195,13 @@
     <ClInclude Include="mmD.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ResourceAndDefines.h" />
+    <ClInclude Include="SamusEditorClass.h" />
     <ClInclude Include="sChecks.h" />
     <ClInclude Include="sCombo.h" />
     <ClInclude Include="sList.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="stxts.h" />
+    <ClInclude Include="SupportedTitles.h" />
     <ClInclude Include="TabControls.h" />
     <ClInclude Include="TextEditorHeader.h" />
     <ClInclude Include="UIState.h" />

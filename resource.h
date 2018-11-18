@@ -362,6 +362,7 @@
 #define IDC_CHECK8                      1303
 #define IDC_CHECK9                      1304
 #define IDC_CHECK10                     1305
+#define cboPoseitem                     1306
 #define IDC_CHECK11                     1314
 #define IDC_CHECK12                     1315
 #define IDC_CHECK13                     1316
@@ -404,14 +405,15 @@
 #define ID_DAS                          40035
 #define ID_DAA                          40036
 #define ID_GENERALTOOLS_SWITCHGUI       40037
+#define ID_GENERALTOOLS_SAMUSEDITOR     40038
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        159
-#define _APS_NEXT_COMMAND_VALUE         40038
-#define _APS_NEXT_CONTROL_VALUE         1298
+#define _APS_NEXT_COMMAND_VALUE         40039
+#define _APS_NEXT_CONTROL_VALUE         1307
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

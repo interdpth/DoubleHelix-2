@@ -23,6 +23,7 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CF72C827-4139-46D4-A027-036E657C2E75}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{CF72C827-4139-46D4-A027-036E657C2E75}.Debug|Any CPU.Build.0 = Debug|Win32
 		{CF72C827-4139-46D4-A027-036E657C2E75}.Debug|ARM.ActiveCfg = Debug|Win32
 		{CF72C827-4139-46D4-A027-036E657C2E75}.Debug|Win32.ActiveCfg = Debug|Win32
 		{CF72C827-4139-46D4-A027-036E657C2E75}.Debug|Win32.Build.0 = Debug|Win32
@@ -33,6 +34,7 @@ Global
 		{CF72C827-4139-46D4-A027-036E657C2E75}.Release|Win32.Build.0 = Release|Win32
 		{CF72C827-4139-46D4-A027-036E657C2E75}.Release|x64.ActiveCfg = Release|Win32
 		{26083525-A22A-4A3F-9439-694B1E399106}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{26083525-A22A-4A3F-9439-694B1E399106}.Debug|Any CPU.Build.0 = Debug|Win32
 		{26083525-A22A-4A3F-9439-694B1E399106}.Debug|ARM.ActiveCfg = Debug|Win32
 		{26083525-A22A-4A3F-9439-694B1E399106}.Debug|Win32.ActiveCfg = Debug|Win32
 		{26083525-A22A-4A3F-9439-694B1E399106}.Debug|Win32.Build.0 = Debug|Win32

@@ -448,7 +448,7 @@ void OpenRom()
 		}
 		Combos[cArea].SetListIndex(0);
 		//GlobalVars::gblVars->StatEditor->Switch();
-		GlobalVars::gblVars->TextEditor->Create(currentRomType, hGlobal, TextPicProc);
+ 		GlobalVars::gblVars->TextEditor->Create(currentRomType, hGlobal, TextPicProc);
 		unsigned long BIC = 0;
 		MemFile::currentFile->seek(0x7c0430);
 		MemFile::currentFile->fread(&BIC, 1, 4, GBA.ROM);
