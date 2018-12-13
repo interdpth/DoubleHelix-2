@@ -156,7 +156,7 @@ int DrawLevel() {
 	//   GlobalVars::gblVars->checkBoxViewF.value(i);
 	//	GlobalVars::gblVars->checkBoxViewL.value(i);
 	//	GlobalVars::gblVars->checkBoxViewB.value(i);
-	RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+	RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
 	//}
 	CurMapWidth = buffLeveldata->X;
 	CurMapHeight = buffLeveldata->Y;
@@ -341,7 +341,7 @@ void OpenRom()
 	}
 	if (fileLoc[0])
 	{
-
+		DataContainer* tmp2;
 		sprintf(GBA.FileLoc, "%s", fileLoc);
 		char prefix[3];
 		GBA.REDIT = fopen(GBA.FileLoc, "r+b");
@@ -394,9 +394,12 @@ void OpenRom()
 		if ((int)theTitle) sprintf(filepath2, "%s\\MF_oam.txt", GlobalVars::gblVars->AppPath);
 		GlobalVars::gblVars->frameTables = new OamFrameTable((int)theTitle, filepath2);
 
-
+		tmp2 = GameConfiguration::mainCFG->GetDataContainer("ZoomStates")  ;
+//		GlobalVars::gblVars->zoomLevel = (float)tmp2->DataArray[0];
+		memcpy(&GlobalVars::gblVars->zoomLevel, &tmp2->DataArray[0], sizeof(float));
+		float level = (float)GlobalVars::gblVars->zoomLevel;
 		MemFile::currentFile = new MemFile(GBA.FileLoc);
-		RD1Engine::theGame = new RD1Engine(theTitle, GlobalVars::gblVars->frameTables, GlobalVars::gblVars->BGImage, GlobalVars::gblVars->TileImage, GlobalVars::gblVars->imgTileset);
+		RD1Engine::theGame = new RD1Engine(theTitle, GlobalVars::gblVars->frameTables, &GlobalVars::gblVars->BGImage, GlobalVars::gblVars->TileImage, GlobalVars::gblVars->imgTileset);
 
 
 

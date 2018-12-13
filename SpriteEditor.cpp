@@ -103,7 +103,7 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 			// SendMessage(hWnd,WM_COMMAND,0x000104a7,0);
 
 			//we have our ID to use apply
-			//Before we do any setting lets find out if there will be enough data to hold on this else we'll error the fuck up
+			//Before we do any setting lets find out if there will be enough data to hold on this else we'll error 
 
 			RD1Engine::theGame->mainRoom->mgrEntities->spriteset[theSpriteSet->Population.GetListIndex()].spriteID = (unsigned char)id;
 

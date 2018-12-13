@@ -449,7 +449,7 @@ LRESULT CALLBACK OAMPalProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 	int i = 0;
 	int j = 0;
 
-	Frame* theFrame;
+	Frame* theFrame=NULL;
 	if (cOAMEdit::OamEditor->currentFrames != NULL)
 	{
 		theFrame = cOAMEdit::OamEditor->currentFrames->GetStaticFrame();

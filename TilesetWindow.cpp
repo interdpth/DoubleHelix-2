@@ -35,7 +35,7 @@ LRESULT CALLBACK TilesetProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 
 			Tile = (GetX(lParam) / 16) + ((GetY(lParam) / 16) + nVScroll[sTileset]) * 16;
 			//memset(&IsTSA,0,sizeof(IsTSA));
-			MyTSAEditor.LoadTSA();
+			//MyTSAEditor.LoadTSA();
 
 
 		}
@@ -113,7 +113,7 @@ LRESULT CALLBACK TilesetProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 			mpTileset.sX = GetX(lParam) / 16;
 		}
 		InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
-		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
+		
 
 		break;
 
@@ -154,7 +154,7 @@ LRESULT CALLBACK TilesetProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 		mpMap.Width = 1;
 		mpTileset.Width = mpMap.Width;
 		mpTileset.Height = mpMap.Height;
-		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
+		
 		InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
 		break;
 	case WM_SIZE:

@@ -38,11 +38,6 @@ void Draw(HDC hdc)
 	RECT viewRect; 
 	GetWindowRect(UiState::stateManager->GetMapWindow(), &viewRect);
 
-	//viewRect.top = 0;
-	//viewRect.left = toolsRect.right;
-	//viewRect.right = mainRect.right - toolsRect.right;
-	//viewRect.bottom = mainRect.bottom - 16;
-
 
 	MapManager* mgrMap;
 	if (RD1Engine::theGame != NULL&&RD1Engine::theGame->mainRoom != NULL)
@@ -76,8 +71,16 @@ void Draw(HDC hdc)
 	}
 
 	
-
-	BitBlt(hdc, 0, 0, viewRect.right, viewRect.bottom, RD1Engine::theGame->ThisBackBuffer.DC(), 0, 0, SRCCOPY);
+	float z = (float)GlobalVars::gblVars->zoomLevel;
+	if (z < 1.0)
+	{
+		z = 1.0;
+	}
+	float adjustWidth = (float)((float)viewRect.right *z);
+	float adjustHeight = (float)((float)viewRect.bottom*z);
+	int w = (int)(adjustWidth);
+	int h = (int)(adjustHeight);
+	StretchBlt(hdc, 0, 0, (int) adjustWidth,(int)adjustHeight, RD1Engine::theGame->ThisBackBuffer.DC(), 0, 0, viewRect.right, viewRect.bottom,  SRCCOPY);
 	
 	if (GlobalVars::gblVars->ViewClip.value() != 1) 
 	{
@@ -90,11 +93,15 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 
 	char *buffer = new char[256];
 	memset(buffer, 0, 256);
-	MapManager* mgrMap;
+	MapManager* mgrMap=NULL;
 	if (RD1Engine::theGame!=NULL&&RD1Engine::theGame->mainRoom!=NULL)
 	{
 		mgrMap = RD1Engine::theGame->mainRoom->mapMgr;
 	}
+
+	float zoom = 1;
+
+
 	nMapBuffer* Layer;
 	PAINTSTRUCT ps;
 	HDC hdc;
@@ -116,7 +123,6 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 	{
 	case WM_CREATE:
 		GetWindowRect(GetDlgItem(hWnd, grpMap), &toolsRect);
-	
 
 		break;
 	case WM_COPYDATA:
@@ -150,13 +156,17 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		InvalidateRect(hWnd, 0, 1);
 		break;
 	case WM_LBUTTONDOWN:
+		if (mgrMap == NULL || !mgrMap->created)
+		{
+			break;
+		}
 
 		if (wParam & MK_LBUTTON) {
-			editingStates thisState = RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetState();//Wait what
+			editingStates thisState = mgrMap->GetState()->GetState();//Wait what
 			if (thisState == editingStates::SPRITE) {
 				int spriteno = Gimmeasprite(((GetX(lParam) / 16) + nHScroll[sHMap]), ((GetY(lParam) / 16) + nVScroll[sVMap]));
-				RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetObjId(spriteno);
-				RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetAction(editingActions::MOVE);
+				mgrMap->GetState()->SetObjId(spriteno);
+				mgrMap->GetState()->SetAction(editingActions::MOVE);
 			}
 			else if (thisState == editingStates::DOOR)
 			{
@@ -165,21 +175,21 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 					int doornum = RD1Engine::theGame->mgrDoors->GetDoor(RD1Engine::theGame->mainRoom->Room, ((GetX(lParam) / 16) + nHScroll[sHMap]), ((GetY(lParam) / 16) + nVScroll[sVMap]));
 					if (doornum != 0xffffffff)
 					{
-						RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetObjId(RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[doornum]);
-						RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetAction(editingActions::MOVE);
+						mgrMap->GetState()->SetObjId(RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[doornum]);
+						mgrMap->GetState()->SetAction(editingActions::MOVE);
 
 					}
 				}
 			}
 			else if (thisState == editingStates::SCROLL)
 			{
-				if (RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetAction() != editingActions::MOVE)
+				if (mgrMap->GetState()->GetAction() != editingActions::MOVE)
 				{
 					int scrollid = RD1Engine::theGame->mgrScrolls->Findmeascroll(((GetX(lParam) / 16) + nHScroll[sHMap]), ((GetY(lParam) / 16) + nVScroll[sVMap]), cboScroll.GetListIndex());
 					if (scrollid != 0xffffffff)
 					{
-						RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetObjId(scrollid);
-						RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetAction(editingActions::MOVE);
+						mgrMap->GetState()->SetObjId(scrollid);
+						mgrMap->GetState()->SetAction(editingActions::MOVE);
 					}
 				}
 			}
@@ -193,19 +203,23 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 
 		break;
 	case WM_RBUTTONDOWN:
+		if (mgrMap == NULL || !mgrMap->created)
+		{
+			break;
+		}
 		if (LOWORD(wParam) == MK_RBUTTON) {
 			//HandleRightClick(hWnd, message, wParam, lParam, GlobalVars::gblVars->ScrollCheck.value() == 1);
-			editingStates thisState = RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetState();//Wait what
+			editingStates thisState = mgrMap->GetState()->GetState();//Wait what
 			if ((thisState != editingStates::SPRITE  && thisState != editingStates::DOOR) || (thisState == editingStates::DOOR &&  SendMessage(GetDlgItem(hwndMain(), chkResizeDoors), BM_GETCHECK, 0, 0) == 1))
 			{
-				RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetAction(editingActions::RESIZE);
+				mgrMap->GetState()->SetAction(editingActions::RESIZE);
 			}
 			else
 			{
 				if (thisState == editingStates::DOOR)
 				{
 					int doornum = RD1Engine::theGame->mgrDoors->GetDoor(RD1Engine::theGame->mainRoom->Room,((GetX(lParam) / 16) + nHScroll[sHMap]), ((GetY(lParam) / 16) + nVScroll[sVMap]));
-					RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetObjId(doornum);
+					mgrMap->GetState()->SetObjId(doornum);
 					if (td != -1) {
 						UiState::stateManager->ShowObj();
 						RD1Engine::theGame->mgrDoors->LoadThisDoor(doornum);
@@ -215,8 +229,8 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 				}
 				else if (thisState == editingStates::SPRITE) {
 					int spriteno = Gimmeasprite(((GetX(lParam) / 16) + nHScroll[sHMap]), ((GetY(lParam) / 16) + nVScroll[sVMap]));
-					RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetObjId(spriteno);
-					SFSS = spriteno;
+					mgrMap->GetState()->SetObjId(spriteno);
+					SpriteTabIndex = spriteno;
 					UiState::stateManager->ShowObj();
 					LoadCurSprite();
 				}
@@ -224,7 +238,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 					int scrollid = RD1Engine::theGame->mgrScrolls->Findmeascroll(((GetX(lParam) / 16) + nHScroll[sHMap]), ((GetY(lParam) / 16) + nVScroll[sVMap]), cboScroll.GetListIndex());
 					if (scrollid != 0xffffffff)
 					{
-						RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetObjId(scrollid);
+						mgrMap->GetState()->SetObjId(scrollid);
 
 
 						UiState::stateManager->ShowObj();
@@ -236,21 +250,32 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		}
 		break;
 	case WM_RBUTTONUP:
-
-		RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetAction(editingActions::PLACETILE);//Return to default action
+		if (mgrMap == NULL || !mgrMap->created)
+		{
+			break;
+		}
+		mgrMap->GetState()->SetAction(editingActions::PLACETILE);//Return to default action
 		break;
 	case WM_LBUTTONUP:
-		RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetAction(editingActions::PLACETILE);
+		if (mgrMap == NULL || !mgrMap->created)
+		{
+			break;
+		}
+		mgrMap->GetState()->SetAction(editingActions::PLACETILE);
 
 		break;
 	case WM_MOUSEMOVE:
 	{
+		if (mgrMap == NULL || !mgrMap->created)
+		{
+			break;
+		}
 		if (!RD1Engine::theGame || !RD1Engine::theGame->mainRoom ||!RD1Engine::theGame->mainRoom->mapMgr ||  !RD1Engine::theGame->mainRoom->mapMgr||!RD1Engine::theGame->mainRoom->mapMgr->created)
 		{
 			return 0;
 		}
-		editingStates thisState = RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetState();
-		editingActions thisAction = RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetAction();
+		editingStates thisState = mgrMap->GetState()->GetState();
+		editingActions thisAction = mgrMap->GetState()->GetAction();
 		if (thisAction == editingActions::RESIZE && LOWORD(wParam) == MK_RBUTTON) {
 			if (thisState == editingStates::SCROLL) {
 
@@ -280,11 +305,11 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		{
 			poo = Combos[cClip].GetListIndex();
 
-			//Combos[cClip].SetListIndex(mgrMap->GetLayer(MapManager::Clipdata)->TileBuf2D[((GetX(lParam) / 16) + nHScroll[sHMap]) + ((GetY(lParam) / 16) + nVScroll[sVMap])* (mgrMap->GetLayer(MapManager::LevelData)->X)]);
+			Combos[cClip].SetListIndex(mgrMap->GetLayer(MapManager::Clipdata)->TileBuf2D[((GetX(lParam) / 16) + nHScroll[sHMap]) + ((GetY(lParam) / 16) + nVScroll[sVMap])* (mgrMap->GetLayer(MapManager::LevelData)->X)]);
 
 			GetWindowText(Combos[cClip].GetHwnd(), cBuf, 200);
 			SetWindowText(GetDlgItem(GlobalVars::gblVars->frameControls, lblClip), cBuf);
-			Combos[cClip].SetListIndex(poo);
+			//Combos[cClip].SetListIndex(poo);
 		
 		}
 		sprintf(cBuf, "X: %X", ((GetX(lParam) / 16) + nHScroll[sHMap]));
@@ -365,7 +390,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 				Layer->UndoBuff->Set(Layer->X*Layer->Y * 2, Layer->TileBuf2D);
 				Layer->CopyData->Paste(&Layer->TileBuf2D[mpMap.sX + (mpMap.sY*Layer->X)]); //mpMap.sX+( mpMap.sY*Layer->X)]);
 				
-				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
 				
 				InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 0);
 				return TRUE;

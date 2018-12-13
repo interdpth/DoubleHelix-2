@@ -109,8 +109,10 @@ void InitUI()
 }
 void DrawSamus()
 {
-	if (samusBuffer)delete samusBuffer;
-
+	if (samusBuffer)
+	{
+		delete samusBuffer;
+	}
 	SamusBase* base = mf;
 
 	samusBuffer = new BackBuffer();
@@ -119,7 +121,7 @@ void DrawSamus()
 	GlobalVars::gblVars->sec->SetupPreview(base);
 
 	GFX = new Image();
-	GFX->Create(256, 128);
+	GFX->Create(256, 256);
 	long pal[512] = { 0 };
 
 
@@ -172,7 +174,8 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		case cboPoseitem:
 			if (HIWORD(wParam) == CBN_SELCHANGE)
 			{
-				mf->SamusPose = cboPose.GetListIndex();
+				string myText = cboPose.GetText(cboPose.GetListIndex());
+				mf->SamusPose = poseLookup[myText];
 				mf->Logic();
 				mf->Load();
 				mf->PackSamus();

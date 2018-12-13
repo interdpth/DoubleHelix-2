@@ -397,7 +397,7 @@ int DrawThisScene(unsigned char Scene){
 				{
 					for(x = 0; x < 32; ++x)
 					{
-						SceneryPic.Draw(*GlobalVars::gblVars->BGImage,x*8 + scrX*256	,y*8+ scrY*256 ,  RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer)->TileBuf2D[i]);
+						SceneryPic.Draw(GlobalVars::gblVars->BGImage,x*8 + scrX*256	,y*8+ scrY*256 ,  RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer)->TileBuf2D[i]);
 						
 						i++;
 					}
@@ -420,7 +420,7 @@ int DrawThisScene(unsigned char Scene){
 				{
 					for(x = 0; x < 32; ++x)
 					{
-						SceneryPic.Draw(*GlobalVars::gblVars->BGImage,x*8 + scrX*256	,y*8+ scrY*256 ,  RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer)->TileBuf2D[i]);
+						SceneryPic.Draw(GlobalVars::gblVars->BGImage,x*8 + scrX*256	,y*8+ scrY*256 ,  RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer)->TileBuf2D[i]);
 						
 						i++;
 					}
@@ -444,7 +444,7 @@ int DrawThisScene(unsigned char Scene){
 				{
 					for(x = 0; x < 32; ++x)
 					{
-						SceneryPic.Draw(*GlobalVars::gblVars->BGImage,x*8 + scrX*256	,y*8+ scrY*256 ,  RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround)->TileBuf2D[i]);
+						SceneryPic.Draw(GlobalVars::gblVars->BGImage,x*8 + scrX*256	,y*8+ scrY*256 ,  RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround)->TileBuf2D[i]);
 						
 						i++;
 					}
@@ -473,7 +473,7 @@ int DrawGraphicTiles(){
 	for(i = 0; i <1024;i++){ 
 		X = (i%64)*8;
 		Y = (i/64)*8;
-		SceneryTiles.Draw(*GlobalVars::gblVars->BGImage,X  ,Y , (Pal*0x1000) +	(i)  );
+		SceneryTiles.Draw(GlobalVars::gblVars->BGImage,X  ,Y , (Pal*0x1000) +	(i)  );
 		
 	}
 	//}

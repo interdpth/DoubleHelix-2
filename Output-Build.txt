@@ -1,0 +1,107 @@
+------ Build started: Project: DoubleHelix, Configuration: Release Win32 ------
+Compiling...
+UndoBuffer.cpp
+.\UndoBuffer.cpp(39) : warning C4996: 'std::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        c:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include\xutility(2550) : see declaration of 'std::copy'
+TSAEditor.cpp
+Translation.cpp
+TilesetWindow.cpp
+Tileset.cpp
+tilebuffer.cpp
+TextEditor.cpp
+.\TextEditor.cpp(200) : warning C4018: '<' : signed/unsigned mismatch
+.\TextEditor.cpp(245) : warning C4018: '<' : signed/unsigned mismatch
+.\TextEditor.cpp(236) : warning C4101: 'stupidstring' : unreferenced local variable
+.\TextEditor.cpp(235) : warning C4101: 'buf' : unreferenced local variable
+.\TextEditor.cpp(354) : warning C4309: '=' : truncation of constant value
+.\TextEditor.cpp(362) : warning C4018: '<' : signed/unsigned mismatch
+Structures.cpp
+StatEditor.cpp
+.\StatEditor.cpp(164) : warning C4244: '=' : conversion from 'unsigned short' to 'unsigned char', possible loss of data
+SpriteStructure.cpp
+Sprites.cpp
+SpriteLoaders.cpp
+SpriteEditor.cpp
+.\SpriteEditor.cpp(105) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+.\SpriteEditor.cpp(413) : warning C4244: '=' : conversion from 'unsigned long' to 'unsigned short', possible loss of data
+.\SpriteEditor.cpp(416) : warning C4244: '=' : conversion from 'unsigned long' to 'unsigned short', possible loss of data
+Sprite Selector.cpp
+Scrolls.cpp
+ScrollClass.cpp
+ScrollBarHandle.cpp
+SceneryEditor.cpp
+RoomOptions.cpp
+Room.cpp
+Compiling...
+ROMFile.cpp
+.\ROMFile.cpp(315) : warning C4244: 'argument' : conversion from 'unsigned long' to 'unsigned char', possible loss of data
+.\ROMFile.cpp(355) : warning C4018: '<' : signed/unsigned mismatch
+RightMouseClick.cpp
+reundoclass.cpp
+PaletteEditor.cpp
+oldfunctions.cpp
+OAM.CPP
+OAM Editor.cpp
+.\OAM Editor.cpp(601) : warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+.\OAM Editor.cpp(648) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+.\OAM Editor.cpp(652) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+.\OAM Editor.cpp(669) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+.\OAM Editor.cpp(835) : warning C4244: '=' : conversion from 'unsigned long' to 'unsigned short', possible loss of data
+nFunctions.cpp
+.\nFunctions.cpp(701) : warning C4244: 'argument' : conversion from 'long' to 'unsigned short', possible loss of data
+MinimapEditor.cpp
+.\MinimapEditor.cpp(265) : warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+MapWindow.cpp
+main.cpp
+.\main.cpp(996) : warning C4244: '=' : conversion from 'unsigned long' to 'unsigned char', possible loss of data
+.\main.cpp(1025) : warning C4018: '<' : signed/unsigned mismatch
+macros.cpp
+lz77.cpp
+.\lz77.cpp(24) : warning C4333: '>>' : right shift by too large amount, data loss
+.\lz77.cpp(25) : warning C4333: '>>' : right shift by too large amount, data loss
+.\lz77.cpp(26) : warning C4333: '>>' : right shift by too large amount, data loss
+LevelPaletteEditor.cpp
+IPSPatch.cpp
+.\IPSPatch.cpp(35) : warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+.\IPSPatch.cpp(38) : warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+Insert.cpp
+Import.cpp
+image.cpp
+HeaderEditor.cpp
+.\HeaderEditor.cpp(88) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+.\HeaderEditor.cpp(89) : warning C4244: 'argument' : conversion from 'long' to 'unsigned char', possible loss of data
+.\HeaderEditor.cpp(96) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+.\HeaderEditor.cpp(105) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+.\HeaderEditor.cpp(114) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+.\HeaderEditor.cpp(122) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+globals.cpp
+Compiling...
+GBAMethods.cpp
+.\GBAMethods.cpp(951) : warning C4018: '<' : signed/unsigned mismatch
+.\GBAMethods.cpp(969) : warning C4018: '<' : signed/unsigned mismatch
+frmDoor.cpp
+.\frmDoor.cpp(170) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+.\frmDoor.cpp(171) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+.\frmDoor.cpp(172) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+.\frmDoor.cpp(173) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+Doors.cpp
+.\Doors.cpp(19) : warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+.\Doors.cpp(29) : warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+Door Connections.cpp
+cprs_lz.cpp
+copy.cpp
+ConnectionEditor.cpp
+Clipboard.cpp
+.\Clipboard.cpp(45) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+BGImportEditor.cpp
+backbuffer.cpp
+Compiling resources...
+Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+Linking...
+Generating code
+Finished generating code
+Embedding manifest...
+Build log was saved at "file://c:\Users\Matt\Desktop\DoubleHelixsrc\DoubleHelix\Release\BuildLog.htm"
+DoubleHelix - 0 error(s), 42 warning(s)
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========

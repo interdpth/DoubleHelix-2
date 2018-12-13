@@ -1,5 +1,7 @@
 #pragma once
 #include <Windows.h>
+#include <string>
+using namespace std;
 class sCombo
 {
 public:
@@ -15,6 +17,7 @@ public:
 	int Init(HWND sComboHwnd);
 	int Disable();
 	int Enable();
+	string    GetText(int index);
 	//storing states
 	bool inited;
 	int val;

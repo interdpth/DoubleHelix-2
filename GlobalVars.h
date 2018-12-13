@@ -20,7 +20,7 @@ public:
 	~GlobalVars();
 	
 	static GlobalVars * gblVars;
-	TileBuffer*      BGImage;
+	TileBuffer     BGImage;
 	TileBuffer*		TileImage;
 	clsUIScroll scrColors[3];
 	//sChecks    CheckBoxes[256];
@@ -58,6 +58,7 @@ public:
 	Image* imgTileset;
 	
 	wndBGImport*  BGi;
+	float zoomLevel;
 	bool SSE;
 	bool ReadObjectDetailsFromROM;
 	

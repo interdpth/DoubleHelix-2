@@ -45,9 +45,9 @@
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\GLEW\lib\Release\Win32;C:\Users\Endeavor\Documents\GitHub\RD1Enginesource\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\Endeavor\Downloads\grit-src-0.8.6\grit_src\libgrit;C:\GLEW\lib\Release\Win32;C:\Users\Endeavor\Downloads\grit-src-0.8.6\grit_src\cldib;C:\Users\Endeavor\Documents\GitHub\RD1Enginesource\Debug;$(LibraryPath)</LibraryPath>
     <ExecutablePath>C:\GLEW\bin\Release\Win32;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>C:\GLEW\include\GL;C:\Users\Endeavor\Documents\GitHub\RD1Enginesource\;$(IncludePath)</IncludePath>
+    <IncludePath>C:\GLEW\include\GL;C:\Users\Endeavor\Downloads\grit-src-0.8.6\grit_src\libgrit;C:\Users\Endeavor\Downloads\grit-src-0.8.6\grit_src\cldib;C:\Users\Endeavor\Documents\GitHub\RD1Enginesource;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
@@ -62,7 +62,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>

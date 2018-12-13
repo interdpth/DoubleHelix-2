@@ -978,6 +978,12 @@ BEGIN
         MENUITEM "Export Room",                 mnuER, GRAYED
         MENUITEM "Import Room",                 mnuIR, GRAYED
         MENUITEM "Insert Stuff",                mnuInsert
+        POPUP "Zoom"
+        BEGIN
+            MENUITEM "Normal",                      ID_ZOOM_NORMAL
+            MENUITEM "1.5",                         ID_ZOOM_1
+            MENUITEM "2",                           ID_ZOOM_2
+        END
     END
 END
 

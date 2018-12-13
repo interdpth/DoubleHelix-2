@@ -36,8 +36,6 @@ EXT HWND wndHE;
 #define Vertical	2
 
 
-EXT unsigned long ZMSpritePos[0xFF][2]; //1st is Sprite ID 2nd array is X and Y respectively
-
 EXT Image       SceneryPic;
 EXT Image       SceneryTiles;
 
@@ -108,7 +106,7 @@ EXT int movingScrollIndex;
 
 
 #define vSS 31
-EXT int SFSS;
+EXT int SpriteTabIndex;
 EXT int dispic;
 EXT HWND hwndSS;
 

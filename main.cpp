@@ -67,27 +67,21 @@ bool UpdateSprites()
 
 bool RefreshTileset()
 {
-
+	bool retVal = false;
 	if (RD1Engine::theGame && RD1Engine::theGame->mgrTileset && RD1Engine::theGame->mgrTileset->animTiles)
 	{
-		if (RD1Engine::theGame->mgrTileset->animTiles->Animate())
+		retVal = RD1Engine::theGame->mgrTileset->animTiles->Animate();
+			
+			if(retVal)
 		{
 
 			RD1Engine::theGame->mgrTileset->Render(GlobalVars::gblVars->imgTileset);
 		}
 	}
-	return true;
+	return retVal;
 }
 
-void UpdateTileset()
-{
 
-	if (RD1Engine::theGame && RD1Engine::theGame->mgrTileset)
-	{
-		RD1Engine::theGame->mgrTileset->GetTileset(GlobalVars::gblVars->imgTileset, RD1Engine::theGame->mainRoom->Area, RD1Engine::theGame->mainRoom->roomHeader.bTileset, RD1Engine::theGame->mainRoom->roomHeader.lBg3);
-		RefreshTileset();
-	}
-}
 int             sMessage(char *messagestring)
 {
 	MessageBox(hwndMain(), messagestring, NULL, MB_OK);
@@ -128,7 +122,7 @@ void TabResize()
 	GetWindowRect(hCurrentTab, &currentTabWindow);
 	GetWindowRect(hTabControl, &tabControl);
 	GetWindowRect(UiState::stateManager->GetMapWindow(), &mapWindow);
-	MoveWindow(UiState::stateManager->GetTilesetWindow(), 8, tabControl.bottom - tabControl.top + 8, tilesetWindow.right - tilesetWindow.left, tilesetWindow.bottom - tilesetWindow.top, 1);
+	MoveWindow(UiState::stateManager->GetTilesetWindow(), 8, tabControl.bottom - tabControl.top + 8, tilesetWindow.right - tilesetWindow.left+16, tilesetWindow.bottom - tilesetWindow.top, 1);
 	MoveWindow(UiState::stateManager->GetMapWindow(), tabControl.right + 16, 8, mapWindow.right - mapWindow.left, mapWindow.bottom - mapWindow.top, 1);
 
 	GetWindowRect(UiState::stateManager->GetTilesetWindow(), &tilesetWindow);
@@ -280,7 +274,21 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		ShowWindow(GlobalVars::gblVars->BGi->me, 1);
 		break;
 
-
+	case ID_ZOOM_NORMAL:
+		GlobalVars::gblVars->zoomLevel = 1.0;
+        GameConfiguration::mainCFG->GetDataContainer("ZoomStates")->Value = 0;
+		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
+		break;
+	case ID_ZOOM_1:
+		GlobalVars::gblVars->zoomLevel = 1.5;
+		GameConfiguration::mainCFG->GetDataContainer("ZoomStates")->Value = 1;
+		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
+		break;
+	case ID_ZOOM_2:
+		GlobalVars::gblVars->zoomLevel = 2.0;
+		GameConfiguration::mainCFG->GetDataContainer("ZoomStates")->Value = 2;
+		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
+		break;
 	case mnuIPSP:
 		if (currentRomType == -1)
 			return 0;
@@ -499,8 +507,7 @@ HWND tabs[6];
 		}
 		ClearGlobals();
 
-
-		InitPosArray();
+		
 		hwndMain(hwnd);
 		UiState::stateManager->InitTileset();
 		UiState::stateManager->InitMap();
@@ -523,9 +530,6 @@ HWND tabs[6];
 		chkDoTrans.value(1);
 		GlobalVars::gblVars->checkBoxshowmap.value(1);
 		GlobalVars::gblVars->checkBoxshowtileset.value(1);
-
-
-
 
 
 		//CreateDialog(hGlobal, MAKEINTRESOURCE(frmSceneryEditor), 0, SceneProc);
@@ -644,7 +648,7 @@ HWND tabs[6];
 				if (RD1Engine::theGame&&RD1Engine::theGame->mainRoom&&RD1Engine::theGame->mainRoom->mapMgr)
 				{
 					RD1Engine::theGame->DrawStatus.dirty = true;
-					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
 					InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
 					InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 				}
@@ -657,7 +661,7 @@ HWND tabs[6];
 				if (RD1Engine::theGame&&RD1Engine::theGame->mainRoom&&RD1Engine::theGame->mainRoom->mapMgr)
 				{
 					RD1Engine::theGame->DrawStatus.dirty = true;
-					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
 					InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
 					InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 				}
@@ -776,6 +780,8 @@ HANDLE handle_out;
 int WINAPI      WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	hwndHeader = NULL;
+	FreeImage_Initialise();
+
 	ExtendedOptWND = NULL;
 	Logger::log = new Logger();
 	LeakFinder::finder = new LeakFinder();
@@ -822,6 +828,7 @@ int WINAPI      WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCm
 	mgr->UpdateWindow();
 
 	delete mgr;
+	FreeImage_DeInitialise();
 	delete GameConfiguration::mainCFG;
 	delete GlobalVars::gblVars;
 	delete GBAGraphics::VRAM;
@@ -1040,7 +1047,7 @@ int             ClearGlobals()
 
 	memset(&DoorConnections, 0, sizeof(DoorConnections));
 	for (i = 0; i < 15; i++)
-		nHScroll[i] = nVScroll[i] = nMaxHScroll[i] = nMaxVScroll[i] = 0;
+		nHScroll[sHMap]= nVScroll[sVMap] = nMaxHScroll[i] = nMaxVScroll[i] = 0;
 	for (i = 0; i < 11; i++)
 		nDisplayWidth[i] = nDisplayHeight[i] = 0;
 	memset(&GBAGraphics::VRAM->BGBuf, 0, sizeof(GBAGraphics::VRAM->BGBuf));

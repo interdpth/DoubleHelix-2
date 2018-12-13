@@ -18,7 +18,7 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 	case WM_INITDIALOG:
 		hwndSS = hWnd;
 		dispic=0;
-		SFSS=0;
+		SpriteTabIndex=0;
 		break;
 		
 		
@@ -30,12 +30,12 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		switch(LOWORD(wParam)){
 		case btnAddObject:
 			RD1Engine::theGame->mainRoom->mgrSpriteObjects->AddSpriteObject(Combos[cSpriteSet].GetListIndex());
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
 
 			break;
 		case btnDeleteObj:
 			RD1Engine::theGame->mainRoom->mgrSpriteObjects->DeleteSpriteObject(Combos[cSpriteSet].GetListIndex(), RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetObjId());
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
 			RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetObjId(0);
 			UiState::stateManager->ShowObj();
 			break;
@@ -44,14 +44,14 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 					return 0;
 				break;
 			case cmdPrev:
-				if((dispic-1)<0) return 0;
+				if(dispic==0) return 0;
 				  dispic-=1;
 				  sprintf(buf,"Sprite: %d",dispic);
 				  SetWindowText(GetDlgItem(hWnd,lblSpriteblah),buf);
 				  InvalidateRect(hwndSS,0,1);
 				break;
 			case cmdNext:
-				if((dispic+1 >=RD1Engine::theGame->mgrOAM->maxsprite)) return 0;
+				if((dispic+1)==RD1Engine::theGame->mgrOAM->maxsprite) return 0;
 				  dispic+=1;
 				  sprintf(buf,"Sprite: %d",dispic);
 				  SetWindowText(GetDlgItem(hWnd,lblSpriteblah),buf);
@@ -59,7 +59,7 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 				break;
 			case cmdSSOk:
                  SetCurSprite();
-				 RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+				 RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
                  ShowWindow(hWnd,SW_HIDE);
 				break;
 		
@@ -78,7 +78,7 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 
 
 		//GetWindowRect(GetDlgItem(hWnd,fraSpriteSS),&sprdst);
-		targetFrame->theSprite->PreviewSprite.GetFullImage()->Blit(hdc, 230, 59,
+		targetFrame->theSprite->PreviewSprite.GetFullImage()->Blit(hdc, 64, 100,
 			targetFrame->theSprite->Borders.right- targetFrame->theSprite->Borders.left,
 			targetFrame->theSprite->Borders.bottom - targetFrame->theSprite->Borders.top,
 			0,
@@ -121,38 +121,43 @@ int SetCurSprite(){
 int beta; 
     switch(Combos[cSpriteSet].GetListIndex()){
 			case  0:
-				beta = RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Enemies[SFSS].Creature/0x10;
-				RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Enemies[SFSS].Creature= beta*16 + dispic+1;
+				beta = RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Enemies[SpriteTabIndex].Creature/0x10;
+				RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Enemies[SpriteTabIndex].Creature= beta*16 + dispic+1;
 				//RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Enemies[SFSS].Creature=beta;
              
 			   break;
             case 1:
-				beta = RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Enemies[SFSS].Creature/0x10;
-				RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Enemies[SFSS].Creature= beta*16 + dispic+1;
+				beta = RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Enemies[SpriteTabIndex].Creature/0x10;
+				RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Enemies[SpriteTabIndex].Creature= beta*16 + dispic+1;
 			   break;
 			case 2:
-			beta = RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Enemies[SFSS].Creature/0x10;
-				RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Enemies[SFSS].Creature= beta*16 + dispic+1;
+			beta = RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Enemies[SpriteTabIndex].Creature/0x10;
+				RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Enemies[SpriteTabIndex].Creature= beta*16 + dispic+1;
 			   break;
 	}
 return 0;
 }
 int LoadCurSprite(){     //Sets dispic for starting.
-	if(SFSS==-1)
+	if(SpriteTabIndex==-1)
 	{
 		return -1;
 	}
-    switch(Combos[cSpriteSet].GetListIndex()){
-			case  0:
-             dispic = ((RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Enemies[SFSS].Creature)&0xf)-1;
-			   break;
-            case 1:
-				dispic = ((RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Enemies[SFSS].Creature)&0xf)-1;
-			   break;
-			case 2:
-				dispic = ((RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2].Enemies[SFSS].Creature)&0xf)-1;
-			   break;
-	}
+
+	SpriteObjectManager* mgrSpriteObjects = RD1Engine::theGame->mainRoom->mgrSpriteObjects;;
+	nEnemyList* SpriteObjects = NULL;
+	int newValue = Combos[cSpriteSet].GetListIndex();
+	if (mgrSpriteObjects)
+	{
+		if(newValue && mgrSpriteObjects->SpriteObjects.size()>=newValue) {
 	
+			SpriteObjects = &mgrSpriteObjects->SpriteObjects[newValue];
+	
+		}
+	}
+	if (SpriteObjects && SpriteObjects->Enemies.size() != 0)
+	{
+		dispic = ((SpriteObjects->Enemies[SpriteTabIndex].Creature) & 0xf) - 1;
+	}
+
 	return 0;
 }

@@ -74,13 +74,13 @@
     </ClCompile>
     <ClCompile Include="TabControls.cpp" />
     <ClCompile Include="fraMainProc.cpp" />
-    <ClCompile Include="AppData.cpp" />
     <ClCompile Include="stxts.cpp" />
     <ClCompile Include="TSAEditor.cpp" />
     <ClCompile Include="LevelPaletteEditor.cpp" />
     <ClCompile Include="MapWindow.cpp" />
     <ClCompile Include="frmSamusEditor.cpp" />
     <ClCompile Include="SamusEditorClass.cpp" />
+    <ClCompile Include="AppData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clsScroll.h" />
@@ -124,10 +124,10 @@
     </ClInclude>
     <ClInclude Include="TabControls.h" />
     <ClInclude Include="fraMainProc.h" />
-    <ClInclude Include="AppData.h" />
     <ClInclude Include="stxts.h" />
     <ClInclude Include="SupportedTitles.h" />
     <ClInclude Include="SamusEditorClass.h" />
+    <ClInclude Include="AppData.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res.rc" />

@@ -40,6 +40,16 @@ int             sCombo::Clear()
 	SendMessage(hCombo, CB_RESETCONTENT, 0, 0);
 	return 0;
 }
+
+string        sCombo::GetText(int index)
+{
+
+	char returnVal[1024] = { 0 };
+	 SendMessage(hCombo, CB_GETLBTEXT, index, (LPARAM)returnVal);
+	
+	return string(returnVal);
+}
+
 long            sCombo::GetListIndex()
 {
 

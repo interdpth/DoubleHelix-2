@@ -408,7 +408,7 @@ void UiState::ResizeMap(HWND srcNeighbor)
 
 			x = x > 4 * 16 ? x : 4 * 16;
 			y = y > 4 * 16 ? y : 4 * 16;
-			if ((viewRect.right / 16) + nVScroll[1] > x)
+			if ((viewRect.right / 16) + nHScroll[sHMap] > x)
 			{
 				viewRect.right -= ((viewRect.right / 16) + nHScroll[sHMap] - x - 1) * 16;
 				viewRect.right >>= 4;
