@@ -54,7 +54,7 @@
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>C:\Users\Endeavor\Documents\GitHub\RD1Enginesource;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Endeavor\Documents\GitHub\RD1Enginesource;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\GLEW\lib\Release\Win32;C:\Users\Endeavor\Documents\GitHub\RD1Enginesource\Release;C:\Users\Endeavor\Documents\GitHub\RD1Enginesource;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -92,7 +92,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS; -D_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader />
@@ -111,7 +111,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>RD1Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>RD1Engine.lib;FreeImage.lib;opengl32.lib;Msimg32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
