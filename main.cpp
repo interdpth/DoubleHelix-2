@@ -122,13 +122,21 @@ void TabResize()
 	GetWindowRect(hCurrentTab, &currentTabWindow);
 	GetWindowRect(hTabControl, &tabControl);
 	GetWindowRect(UiState::stateManager->GetMapWindow(), &mapWindow);
-	MoveWindow(UiState::stateManager->GetTilesetWindow(), 8, tabControl.bottom - tabControl.top + 8, tilesetWindow.right - tilesetWindow.left+16, tilesetWindow.bottom - tilesetWindow.top, 1);
+	MoveWindow(UiState::stateManager->GetTilesetWindow(), 8, tabControl.bottom - tabControl.top + 8, tilesetWindow.right - tilesetWindow.left, tilesetWindow.bottom - tilesetWindow.top, 1);
 	MoveWindow(UiState::stateManager->GetMapWindow(), tabControl.right + 16, 8, mapWindow.right - mapWindow.left, mapWindow.bottom - mapWindow.top, 1);
 
 	GetWindowRect(UiState::stateManager->GetTilesetWindow(), &tilesetWindow);
+	int width = (mainRect.right - mainRect.left);
+	int newRight = mapWindow.right + 32;
+	newRight = newRight > width ? newRight : width;
 
-	//MoveWindow(UiState::stateManager->GetWindow(), mainRect.left, mainRect.top, tilesetWindow.bottom, mapWindow.right+32, 1);
+	int height = (mainRect.bottom - mainRect.top);
+	int newBottom =tilesetWindow.bottom + 32;
+	newBottom = newBottom > height ? newBottom : height;
+
 	UiState::stateManager->ResizeMap(hTabControl);
+	MoveWindow(UiState::stateManager->GetWindow(), mainRect.left, mainRect.top, newRight, newBottom, 1);
+	
 }
 
 void LoadCombos(sCombo* Combo, char *FileName, int Max = 255)
@@ -724,6 +732,7 @@ HWND tabs[6];
 
 		if (lParam != 0)
 		{
+			TabResize();
 			if (UiState::stateManager->GetWindowState() == WindowState::SINGLE)
 			{
 

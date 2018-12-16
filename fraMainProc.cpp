@@ -355,8 +355,17 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		if (HIWORD(wParam) == CBN_SELCHANGE)
 		{
 			int room = Combos[cRoom].GetListIndex();
-			Combos[cSpriteSet].SetListIndex(0);
+			
 			RD1Engine::theGame->LoadRoom(Combos[cArea].GetListIndex(), Combos[cRoom].GetListIndex(), GlobalVars::gblVars->imgTileset,&SpriteImage);
+			Combos[cSpriteSet].Clear();
+			for (int i = 0; i < RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects.size(); i++)
+			{
+				char numstr[4] = { 0 };
+				sprintf(numstr, "%d", i);
+				Combos[cSpriteSet].Additem(numstr);
+
+			}
+			Combos[cSpriteSet].SetListIndex(0);
 			ShowWindow(ExtendedOptWND, SW_HIDE);
 
 			DumpLayers();

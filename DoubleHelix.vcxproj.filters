@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="fusionSpritePositions.txt" />
+    <Text Include="ZeroMissionSpritePositions.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="framework">
