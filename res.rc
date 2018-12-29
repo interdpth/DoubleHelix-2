@@ -360,7 +360,7 @@ CAPTION "Sprite Editor"
 MENU mnuSEE
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    LISTBOX         lstSprites,7,32,46,462,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         lstSprites,7,7,46,462,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Tiles Preview",fraTiles,63,300,208,173
     GROUPBOX        "Palette Preview",fraPal,280,300,192,168
     GROUPBOX        "Sprite Preview",fraSprPreview,59,7,110,123
@@ -422,7 +422,6 @@ BEGIN
     PUSHBUTTON      "Delete Part",cmdDeletePart,243,180,53,15
     PUSHBUTTON      "Save as C Header",btnCHeader,362,44,72,14
     COMBOBOX        cboFrameTableCombo,306,17,48,120,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        cboOAMSelection,7,14,48,142,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
 END
 
 frmClipboard DIALOG 0, 0, 307, 202
@@ -477,25 +476,27 @@ BEGIN
     PUSHBUTTON      "Save Colors",cmdSaveColors,168,32,63,15
 END
 
-fraBGI DIALOGEX 0, 0, 521, 338
+fraBGI DIALOGEX 0, 0, 547, 338
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Importer"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    DEFPUSHBUTTON   "Import",cmdBG,354,170,50,14
-    CTEXT           "Image must be 256x256, 256x512, 512x256 please choose a radio box below for the right one, if not exactly that size there will be errors",IDC_STATIC,343,24,72,59
-    CONTROL         "256x256",rdo0,"Button",BS_AUTORADIOBUTTON,359,81,45,17
-    CONTROL         "512x256",rdo1,"Button",BS_AUTORADIOBUTTON,359,100,42,17
-    CONTROL         "256x512",rdo2,"Button",BS_AUTORADIOBUTTON,359,118,41,17
-    GROUPBOX        "Static",IDC_STATIC,7,4,319,324
-    COMBOBOX        cboBGPalette,401,201,25,99,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Slot for Palette:",IDC_STATIC,390,191,50,8
-    DEFPUSHBUTTON   "Save To ROM",cmdSave,385,219,54,14
-    PUSHBUTTON      "Select File",cmdSelFile,379,241,75,21
-    GROUPBOX        "Import BG",IDC_STATIC,333,14,94,171,BS_CENTER
-    GROUPBOX        "Import Tileset",IDC_STATIC,429,14,84,171
-    DEFPUSHBUTTON   "Import",cmdTS,449,170,50,14
+    DEFPUSHBUTTON   "Import",cmdBG,321,46,50,14
+    CTEXT           "Image must be 256x256, 256x512, 512x256 please choose a radio box below for the right one, if not exactly that size there will be errors",IDC_STATIC,459,107,72,59
+    GROUPBOX        "Imported  Image",IDC_STATIC,7,7,167,108
+    COMBOBOX        cboBGPalette,342,87,25,99,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Offset:",IDC_STATIC,319,20,50,8
     LTEXT           "The basic 0x80 tiles will automatically be added to the tileset you are responsible for the level specific tiles you have 5 palettes to work with",IDC_STATIC,439,26,65,90
+    GROUPBOX        "Palette",IDC_STATIC,193,15,125,103
+    GROUPBOX        "Tilemap",IDC_STATIC,7,149,167,108
+    GROUPBOX        "Raw tiles",IDC_STATIC,186,148,167,108
+    EDITTEXT        IDC_EDIT1,319,30,40,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "Import",cmdBG2,363,176,50,14
+    LTEXT           "Offset:",IDC_STATIC,361,150,50,8
+    EDITTEXT        IDC_EDIT2,361,160,40,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "Import",cmdBG3,9,282,50,14
+    LTEXT           "Offset:",IDC_STATIC,7,256,50,8
+    EDITTEXT        IDC_EDIT3,7,266,40,14,ES_AUTOHSCROLL
 END
 
 frmInsert DIALOG 0, 0, 186, 95
@@ -609,51 +610,51 @@ BEGIN
     PUSHBUTTON      "Button1",btnTest,185,138,50,14
 END
 
-fraMain DIALOGEX 0, 8, 295, 190
+fraMain DIALOGEX 0, 8, 307, 192
 STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE
 MENU mnuMenu
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    GROUPBOX        "Level",IDC_STATIC,7,6,121,39
-    LTEXT           "Area",IDC_STATIC,17,15,24,9
-    LTEXT           "Room",IDC_STATIC,15,31,24,8
-    COMBOBOX        cboArea,42,14,80,102,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "Save",cmdSave,130,31,52,12
-    GROUPBOX        "Controls",IDC_STATIC,7,46,176,63
-    CONTROL         "Edit Foreground",chkForeground,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,56,64,8
-    CONTROL         "Edit Level Layer",chkLevel,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,56,71,9
-    CONTROL         "Edit Backlayer",chkBacklayer,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,69,73,9
-    GROUPBOX        "Clipdata:",fraClip,7,154,223,27
-    COMBOBOX        cboClip,13,163,213,136,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL
-    LTEXT           "Static",lblClip,174,19,94,8
-    GROUPBOX        "Tile Information",IDC_STATIC,129,6,144,22
-    LTEXT           "Clip Data:",IDC_STATIC,140,19,32,8
-    CONTROL         "Edit Clip Data",chkClip,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,72,61,9
-    GROUPBOX        "Map View",grpMap,189,31,90,105
-    CONTROL         "View Foreground",chkViewF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,50,72,10
-    CONTROL         "View Level Layer",chkViewL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,61,68,11
-    CONTROL         "View BackLayer",chkViewB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,71,70,12
-    GROUPBOX        "Map Coordinates",IDC_STATIC,7,110,66,22
-    LTEXT           "X:0",lblX,13,119,22,8
-    LTEXT           "Y:0",lblY,36,118,29,8
-    COMBOBOX        cboRoom,41,30,85,132,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        cboSpriteSet,45,134,26,56,CBS_DROPDOWNLIST | CBS_SORT | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Sprite Set:",IDC_STATIC,7,135,38,10
-    CONTROL         "Show Tileset",chkST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,83,121,55,10
-    CONTROL         "Show Map",chkSM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,83,132,58,13
-    GROUPBOX        "Window Option",IDC_STATIC,77,111,106,37
-    CONTROL         "Edit Scrolldata",chkScroll,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,82,61,12
-    CONTROL         "View Clipdata",chkVC,"Button",BS_AUTOCHECKBOX | BS_CENTER | BS_MULTILINE | WS_TABSTOP,138,118,41,22
-    CONTROL         "Edit Doors",chkDoors,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,84,46,10
-    CONTROL         "Edit Sprites",chkSprites,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,11,97,54,10
-    CONTROL         "Show Transparency",chkDTrans,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,195,110,77,8
-    PUSHBUTTON      "Edit Level Palette",cmdLPE,193,142,69,11
-    CONTROL         "Hide Sprite Info",chkHS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,94,64,11
-    COMBOBOX        cboDScroll,235,165,42,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Scroll To Edit:",IDC_STATIC,232,153,45,10
-    CONTROL         "View BackGround",chkViewBG,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,193,81,70,12
-    CONTROL         "Resize Doors",chkResizeDoors,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,95,59,12
-    CONTROL         "Animate Sprites",chkDTrans2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,196,124,77,8
+    GROUPBOX        "Level",IDC_STATIC,7,9,121,39
+    LTEXT           "Area",IDC_STATIC,17,18,24,9
+    LTEXT           "Room",IDC_STATIC,15,34,24,8
+    COMBOBOX        cboArea,42,17,80,102,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Save",cmdSave,130,34,52,12
+    GROUPBOX        "Controls",IDC_STATIC,7,49,176,63
+    CONTROL         "Edit Foreground",chkForeground,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,59,64,8
+    CONTROL         "Edit Level Layer",chkLevel,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,59,71,9
+    CONTROL         "Edit Backlayer",chkBacklayer,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,72,73,9
+    GROUPBOX        "Clipdata:",fraClip,7,158,223,27
+    COMBOBOX        cboClip,13,166,213,136,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL
+    LTEXT           "0 - None",lblClip,177,22,94,8
+    GROUPBOX        "Tile Information",IDC_STATIC,129,11,144,23
+    LTEXT           "Clip Data:",IDC_STATIC,140,22,32,8
+    CONTROL         "Edit Clip Data",chkClip,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,75,61,9
+    GROUPBOX        "Map View",grpMap,189,34,90,105
+    CONTROL         "View Foreground",chkViewF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,53,72,10
+    CONTROL         "View Level Layer",chkViewL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,64,68,11
+    CONTROL         "View BackLayer",chkViewB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,74,70,12
+    GROUPBOX        "Map Coordinates",IDC_STATIC,7,113,66,22
+    LTEXT           "X:0",lblX,13,122,22,8
+    LTEXT           "Y:0",lblY,36,121,29,8
+    COMBOBOX        cboRoom,41,33,85,132,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboSpriteSet,45,137,26,56,CBS_DROPDOWNLIST | CBS_SORT | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Sprite Set:",IDC_STATIC,7,138,38,10
+    CONTROL         "Show Tileset",chkST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,83,124,55,10
+    CONTROL         "Show Map",chkSM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,83,135,58,13
+    GROUPBOX        "Window Option",IDC_STATIC,77,114,106,37
+    CONTROL         "Edit Scrolldata",chkScroll,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,85,61,12
+    CONTROL         "View Clipdata",chkVC,"Button",BS_AUTOCHECKBOX | BS_CENTER | BS_MULTILINE | WS_TABSTOP,138,121,41,22
+    CONTROL         "Edit Doors",chkDoors,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,87,46,10
+    CONTROL         "Edit Sprites",chkSprites,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,11,100,54,10
+    CONTROL         "Show Transparency",chkDTrans,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,195,113,77,8
+    PUSHBUTTON      "Edit Level Palette",cmdLPE,193,145,69,11
+    CONTROL         "Hide Sprite Info",chkHS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,97,64,11
+    COMBOBOX        cboDScroll,235,168,42,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Scroll To Edit:",IDC_STATIC,232,156,45,10
+    CONTROL         "View BackGround",chkViewBG,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,193,84,70,12
+    CONTROL         "Resize Doors",chkResizeDoors,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,98,59,12
+    CONTROL         "Animate",chkAnimates,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,196,127,77,8
 END
 
 frmMainExperiment DIALOGEX 0, 0, 893, 365
@@ -663,20 +664,20 @@ CAPTION "Double Helix"
 MENU mnuMenu
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    CONTROL         "",tabMain,"SysTabControl32",0x0,7,14,306,224
+    CONTROL         "",tabMain,"SysTabControl32",0x0,7,11,367,201
 END
 
 frmSamusEditor DIALOGEX 0, 0, 495, 250
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Gra"
+CAPTION "Samus Graphics"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    COMBOBOX        cboPoseitem,154,72,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboPoseitem,160,72,48,137,CBS_DROPDOWN |  WS_VSCROLL | WS_TABSTOP
     LTEXT           "Pose",IDC_STATIC,134,74,16,8
-    COMBOBOX        IDC_COMBO6,146,18,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO6,146,18,48,40,CBS_DROPDOWN |  WS_VSCROLL | WS_TABSTOP
     LTEXT           "Cur Frame",IDC_STATIC,102,20,34,8
     GROUPBOX        "Graphics",IDC_STATIC,20,126,188,104
-    COMBOBOX        IDC_COMBO7,272,18,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO7,272,18,48,30,CBS_DROPDOWN |  WS_VSCROLL | WS_TABSTOP
     LTEXT           "Direction",IDC_STATIC,228,21,29,8
     GROUPBOX        "Suit Status",IDC_STATIC,297,95,62,104
     CONTROL         "Check2",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,305,110,39,12
@@ -687,11 +688,11 @@ BEGIN
     CONTROL         "Check2",IDC_CHECK7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,306,166,39,10
     CONTROL         "Check2",IDC_CHECK8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,308,176,39,10
     CONTROL         "Check2",IDC_CHECK9,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,310,187,39,10
-    COMBOBOX        IDC_COMBO8,383,17,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO8,383,17,48,30,CBS_DROPDOWN |  WS_VSCROLL | WS_TABSTOP
     LTEXT           "Event",IDC_STATIC,339,21,20,8
     LTEXT           "Status",IDC_STATIC,36,97,149,8
     CONTROL         "Holding Missiles",IDC_CHECK10,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,315,53,62,12
-    COMBOBOX        IDC_COMBO9,150,35,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO9,150,35,48,30,CBS_DROPDOWN |  WS_VSCROLL | WS_TABSTOP
     LTEXT           "Absorb X Timer",IDC_STATIC,85,38,49,8
     GROUPBOX        "BEam Status",IDC_STATIC,388,92,62,104
     CONTROL         "Check2",IDC_CHECK11,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,396,107,39,12
@@ -846,9 +847,9 @@ BEGIN
     fraBGI, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 513
+        RIGHTMARGIN, 539
         TOPMARGIN, 7
-        BOTTOMMARGIN, 331
+        BOTTOMMARGIN, 328
         HORZGUIDE, 328
     END
 
@@ -895,9 +896,9 @@ BEGIN
     fraMain, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 289
+        RIGHTMARGIN, 301
         TOPMARGIN, 6
-        BOTTOMMARGIN, 183
+        BOTTOMMARGIN, 185
     END
 
     frmMainExperiment, DIALOG
@@ -954,7 +955,7 @@ mnuMenu MENU
 BEGIN
     POPUP "File"
     BEGIN
-        MENUITEM "&Open",                       mnuOpen
+        MENUITEM "Open ROM",                    mnuOpen
     END
     POPUP "General Tools"
     BEGIN
@@ -1014,6 +1015,59 @@ BEGIN
     END
 END
 
+mnuInsert MENU
+BEGIN
+    POPUP "General Import"
+    BEGIN
+        POPUP "Background"
+        BEGIN
+            POPUP "RAW file"
+            BEGIN
+                MENUITEM "256x256",                     ID_BACKGROUND_256X256
+                MENUITEM "512x256",                     ID_BACKGROUND_512X256
+                MENUITEM "256x512",                     ID_BACKGROUND_256X512
+            END
+            POPUP "Image"
+            BEGIN
+                MENUITEM "256x256",                     ID_BACKGROUND_256X256
+                MENUITEM "512x256",                     ID_BACKGROUND_512X256
+                MENUITEM "256x512",                     ID_BACKGROUND_256X512
+            END
+        END
+        POPUP "Custom Background"
+        BEGIN
+            POPUP "Raw File"
+            BEGIN
+                MENUITEM "256x256",                     ID_BACKGROUND_256X256
+                MENUITEM "512x256",                     ID_BACKGROUND_512X256
+                MENUITEM "256x512",                     ID_BACKGROUND_256X512
+            END
+            POPUP "Image"
+            BEGIN
+                MENUITEM "256x256",                     ID_BACKGROUND_256X256
+                MENUITEM "512x256",                     ID_BACKGROUND_512X256
+                MENUITEM "256x512",                     ID_BACKGROUND_256X512
+            END
+        END
+        POPUP "OAM"
+        BEGIN
+            MENUITEM "Raw Image",                   ID_OAM_RAWIMAGE
+            MENUITEM "Image",                       ID_OAM_IMAGE
+        END
+        POPUP "Tileset"
+        BEGIN
+            MENUITEM "Raw Image",                   ID_TILESET_RAWIMAGE
+            MENUITEM "Image",                       ID_TILESET_IMAGE
+        END
+    END
+    POPUP "Specific Input"
+    BEGIN
+        MENUITEM "Import Pal",                  ID_SPECIFICINPUT_IMPORTPAL
+        MENUITEM "Import Tiles",                ID_SPECIFICINPUT_IMPORTTILES
+        MENUITEM "Import Tilemap",              ID_SPECIFICINPUT_IMPORTTILEMAP
+    END
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -1046,15 +1100,6 @@ BEGIN
     0
 END
 
-frmOAM DLGINIT
-BEGIN
-    cboOAMSelection, 0x403, 8, 0
-0x7053, 0x6972, 0x6574, 0x0073, 
-    cboOAMSelection, 0x403, 6, 0
-0x6153, 0x756d, 0x0073, 
-    0
-END
-
 fraMain DLGINIT
 BEGIN
     cboArea, 0x403, 6, 0
@@ -1065,6 +1110,43 @@ BEGIN
 0x6f52, 0x6d6f, "\000" 
     cboSpriteSet, 0x403, 2, 0
 0x0030, 
+    0
+END
+
+fraBGI DLGINIT
+BEGIN
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x3030, "\000" 
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x3130, "\000" 
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x3230, "\000" 
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x3330, "\000" 
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x3430, "\000" 
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x3530, "\000" 
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x3630, "\000" 
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x3730, "\000" 
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x3830, "\000" 
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x3930, "\000" 
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x4130, "\000" 
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x4230, "\000" 
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x4330, "\000" 
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x4430, "\000" 
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x4530, "\000" 
+    cboBGPalette, 0x403, 5, 0
+0x7830, 0x4630, "\000" 
     0
 END
 
@@ -1152,6 +1234,17 @@ END
 frmSamusEditor AFX_DIALOG_LAYOUT
 BEGIN
     0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    ID_IMPORT_OAM           "HEY"
 END
 
 #endif    // English (United States) resources

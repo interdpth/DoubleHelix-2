@@ -1,6 +1,7 @@
 #include "MainHeader.h"
 #include "TilesetManager.h"
 #include "BaseGame.h"
+#include "globals.h"
 #define Tileset 0
 #define BG 1
 
@@ -19,56 +20,56 @@ wndBGImport::~wndBGImport()
 	delete[] tilemap;
 }
 
+HMENU importMenu;
 
 BOOL CALLBACK BGiProc(HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam)
 {
 	HDC hdc;
 	PAINTSTRUCT ps;
 	int i=0;
-	char  str[16][4]={"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"};
 	char  FileStuff[1024]={0};
+	wndBGImport* thisClass = GlobalVars::gblVars->BGi;
 	switch (message)
 	{
 		
 		case WM_INITDIALOG: 
-			GlobalVars::gblVars->BGi->me=hwnd;
-			GlobalVars::gblVars->BGi->picloaded=0;
-			GlobalVars::gblVars->BGi->cboPal.Init(GetDlgItem(hwnd,cboBGPalette));
-			for(i=0;i<16;i++)
-			{
-			    GlobalVars::gblVars->BGi->cboPal.Additem(str[i]);
-			}
-			    GlobalVars::gblVars->BGi->cboPal.SetListIndex(8);
+			thisClass->me=hwnd;
+			importMenu = LoadMenu(hGlobal, MAKEINTRESOURCE(mnuInsert));
+			SetMenu(hwnd, importMenu);
+			thisClass->picloaded=0;
+			thisClass->cboPal.Init(GetDlgItem(hwnd,cboBGPalette));
+			
+			    thisClass->cboPal.SetListIndex(8);
 			
 			break;
         case WM_COMMAND:
             switch(LOWORD(wParam)){
             case cmdTS:
 
-	           if(GlobalVars::gblVars->BGi->picloaded){
-				   GlobalVars::gblVars->BGi->Type = Tileset;
-            // sprintf(GlobalVars::gblVars->BGi->FileString,"D:\\Documents and Settings\\Matt\\Desktop\\Romhacking\\tiles.png");
-				 GlobalVars::gblVars->BGi->MakeFiles();
-				 GlobalVars::gblVars->BGi->LoadFiles();
-				 GlobalVars::gblVars->BGi->DelFiles();
-				 GlobalVars::gblVars->BGi->Draw();
+	           if(thisClass->picloaded){
+				   thisClass->Type = Tileset;
+            // sprintf(thisClass->FileString,"D:\\Documents and Settings\\Matt\\Desktop\\Romhacking\\tiles.png");
+				 thisClass->MakeFiles();
+				 thisClass->LoadFiles();
+				 thisClass->DelFiles();
+				 thisClass->Draw();
 				}
 
 				break;
 			case cmdBG:
-				if(GlobalVars::gblVars->BGi->picloaded){
-				GlobalVars::gblVars->BGi->Type=BG;
-            // sprintf(GlobalVars::gblVars->BGi->FileString,"D:\\Documents and Settings\\Matt\\Desktop\\Romhacking\\tiles.png");
-				 GlobalVars::gblVars->BGi->MakeFiles();
-				 GlobalVars::gblVars->BGi->LoadFiles();
-				 GlobalVars::gblVars->BGi->DelFiles();
-				 GlobalVars::gblVars->BGi->Draw();
+				if(thisClass->picloaded){
+				thisClass->Type=BG;
+            // sprintf(thisClass->FileString,"D:\\Documents and Settings\\Matt\\Desktop\\Romhacking\\tiles.png");
+				 thisClass->MakeFiles();
+				 thisClass->LoadFiles();
+				 thisClass->DelFiles();
+				 thisClass->Draw();
 				}
 				break;
           
 			case cmdSelFile:
 				if(GBA.ReturnFileName("Please Select a file\0*.*\0",FileStuff,1024)){
-                     sprintf(GlobalVars::gblVars->BGi->FileString,"%s",FileStuff);
+                     sprintf(thisClass->FileString,"%s",FileStuff);
 					 for(i =strlen(FileStuff);i>0;i--){
                         if(FileStuff[i]==0x5C){
                             break;
@@ -79,23 +80,23 @@ BOOL CALLBACK BGiProc(HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam
 
 					 }
                     SetWindowText(GetDlgItem(hwnd,lblFileName),&FileStuff[i+1]);
-					GlobalVars::gblVars->BGi->picloaded=1;
+					thisClass->picloaded=1;
 				}
 				
 				break;
 
             case cboBGPalette:
 				   if(HIWORD(wParam) == CBN_SELCHANGE){
-					   GlobalVars::gblVars->BGi->palpos=(unsigned char)GlobalVars::gblVars->BGi->cboPal.GetListIndex();
+					   thisClass->palpos=(unsigned char)thisClass->cboPal.GetListIndex();
 				   }
 					   break;
 			case cmdSave:
-				switch(GlobalVars::gblVars->BGi->Type){
+				switch(thisClass->Type){
 				case Tileset:
-					GlobalVars::gblVars->BGi->SaveCustTileset();
+					thisClass->SaveCustTileset();
 					break;
 				case BG:
-					GlobalVars::gblVars->BGi->SaveCustBGROM();
+					thisClass->SaveCustBGROM();
 					break;
 					
 					
@@ -110,7 +111,7 @@ BOOL CALLBACK BGiProc(HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam
 	    case WM_PAINT:
 		hdc = BeginPaint(hwnd, &ps);
 		
-		GlobalVars::gblVars->BGi->Pic.Blit(hdc, 15,23,GlobalVars::gblVars->BGi->pW*8,GlobalVars::gblVars->BGi->pH*8,0,0);
+		thisClass->Pic.Blit(hdc, 15,23,thisClass->pW*8,thisClass->pH*8,0,0);
         //DrawTileRect(hdc,mpSTS,8);
 		EndPaint(hwnd, &ps);
 		break;

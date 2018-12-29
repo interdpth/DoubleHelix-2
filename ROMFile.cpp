@@ -161,10 +161,10 @@ int DrawLevel() {
 	CurMapWidth = buffLeveldata->X;
 	CurMapHeight = buffLeveldata->Y;
 	GetWindowRect(UiState::stateManager->GetMapWindow(), &rcMap);
-	nMaxHScroll[sHMap] = (buffLeveldata->X - (rcMap.right - rcMap.left) / 16);//BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->X/16;	// maximum H scroll
-	nMaxVScroll[sVMap] = (buffLeveldata->Y - (rcMap.bottom - rcMap.top) / 16);		// maximu
-	ChangeScrollbars(hwndMain(), 1, sVMap);
-	ChangeScrollbars(hwndMain(), 0, sHMap);
+	MapHorizScroll->SetMax (buffLeveldata->X - (rcMap.right - rcMap.left) / 16);//BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->X/16;	// maximum H scroll
+	MapVertScroll->SetMax (buffLeveldata->Y - (rcMap.bottom - rcMap.top) / 16);		// maximu
+	MapVertScroll->ChangeScrollbars( 1, sVMap);
+	MapHorizScroll->ChangeScrollbars(0, sHMap);
 	/*   frmMain.hsbMap.max = (ThisRoom.X) - 25
 	frmMain.vsbMap.max = (ThisRoom.Y) - 17
 	#define sHMap 1

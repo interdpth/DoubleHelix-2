@@ -39,14 +39,20 @@ clsUIScroll scrMapH;
 clsUIScroll scrTSV;
 GBAGraphics* TheVRAM;
 nMapBuffer* GetActiveBuffer();
-
+void CheckZoom(int zoomid);
 int             i;
 #define theTimer 2242443242
+
+//Update the sprites
 bool UpdateSprites()
 {
 
 	bool updateWindow = false;
 	if (!RD1Engine::theGame)
+	{
+		return false;
+	}
+	if (GlobalVars::gblVars->chkAnimatez.value() == 0)
 	{
 		return false;
 	}
@@ -62,17 +68,22 @@ bool UpdateSprites()
 			}
 		}
 	}
-	return false;
+	return updateWindow;
 }
 
+//Refresh the tileset
 bool RefreshTileset()
 {
+	if (GlobalVars::gblVars->chkAnimatez.value() == 0)
+	{
+		return false;
+	}
 	bool retVal = false;
 	if (RD1Engine::theGame && RD1Engine::theGame->mgrTileset && RD1Engine::theGame->mgrTileset->animTiles)
 	{
 		retVal = RD1Engine::theGame->mgrTileset->animTiles->Animate();
-			
-			if(retVal)
+
+		if (retVal)
 		{
 
 			RD1Engine::theGame->mgrTileset->Render(GlobalVars::gblVars->imgTileset);
@@ -81,24 +92,30 @@ bool RefreshTileset()
 	return retVal;
 }
 
-
+//Wrapper for MessageBox
 int             sMessage(char *messagestring)
 {
 	MessageBox(hwndMain(), messagestring, NULL, MB_OK);
 	return 0;
 }
-bool inited = false;
+
+
+//Get the current window
 HWND hwndMain()
 {
 	return UiState::stateManager->GetWindow();
 
 }
 
+//Set hwnd main
 void hwndMain(HWND window)
 {
 	UiState::stateManager->SetWindow(window);
 }
+bool inited;
 
+
+///Resizes everythning on main window
 void TabResize()
 {
 	RECT tabControl;
@@ -107,38 +124,34 @@ void TabResize()
 	RECT mapWindow;
 	RECT mainRect;
 
-	GetWindowRect(hTabControl, &tabControl);
-	GetWindowRect(hCurrentTab, &currentTabWindow);
-	GetWindowRect(UiState::stateManager->GetMapWindow(), &mapWindow);
-	GetWindowRect(UiState::stateManager->GetTilesetWindow(), &tilesetWindow);
-	GetWindowRect(UiState::stateManager->GetWindow(), &mainRect);
 
+//Inside of current tab
+	if (!inited)
+	{
+		UiState::AutoRect(hTabControl, &tabControl);
+		MoveWindow(hTabControl, 0, 0,  tabControl.right + 8, tabControl.bottom+20, 0);
+		UiState::AutoRect(hCurrentTab, &currentTabWindow);
 
-
-	MoveWindow(hTabControl, 0, 0, currentTabWindow.right - currentTabWindow.left + 16, currentTabWindow.bottom - currentTabWindow.top, 1);
-	MoveWindow(hCurrentTab, 0, 32, currentTabWindow.right - currentTabWindow.left, currentTabWindow.bottom - currentTabWindow.top, 1);
-	GetWindowRect(hTabControl, &tabControl);
-
-	GetWindowRect(hCurrentTab, &currentTabWindow);
-	GetWindowRect(hTabControl, &tabControl);
-	GetWindowRect(UiState::stateManager->GetMapWindow(), &mapWindow);
-	MoveWindow(UiState::stateManager->GetTilesetWindow(), 8, tabControl.bottom - tabControl.top + 8, tilesetWindow.right - tilesetWindow.left, tilesetWindow.bottom - tilesetWindow.top, 1);
-	MoveWindow(UiState::stateManager->GetMapWindow(), tabControl.right + 16, 8, mapWindow.right - mapWindow.left, mapWindow.bottom - mapWindow.top, 1);
-
-	GetWindowRect(UiState::stateManager->GetTilesetWindow(), &tilesetWindow);
-	int width = (mainRect.right - mainRect.left);
-	int newRight = mapWindow.right + 32;
-	newRight = newRight > width ? newRight : width;
-
-	int height = (mainRect.bottom - mainRect.top);
-	int newBottom =tilesetWindow.bottom + 32;
-	newBottom = newBottom > height ? newBottom : height;
-
-	UiState::stateManager->ResizeMap(hTabControl);
-	MoveWindow(UiState::stateManager->GetWindow(), mainRect.left, mainRect.top, newRight, newBottom, 1);
+		inited = true;
+	}
 	
+	UiState::AutoRect(hTabControl, &tabControl);
+	MoveWindow(hCurrentTab, 0, 25, tabControl.right, tabControl.bottom - 30, 0);
+
+	UiState::stateManager->ResizeTileset(hTabControl);
+
+
+	GetWindowRect(UiState::stateManager->GetTilesetWindow(), &tilesetWindow);
+	UiState::AutoRect(hwndMain(), &tabControl);
+
+	//Now resize map to take up 
+	UiState::stateManager->ResizeMap(hTabControl);
+
+	InvalidateRect(hwndMain(), 0, true);
 }
 
+
+///Loads a cobomo box
 void LoadCombos(sCombo* Combo, char *FileName, int Max = 255)
 {
 
@@ -161,8 +174,6 @@ void LoadCombos(sCombo* Combo, char *FileName, int Max = 255)
 
 			Combo->Additem(buffer);
 		}
-
-
 
 
 		fclose(text);
@@ -196,6 +207,8 @@ bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPar
 	HWND            debug = NULL;
 	int someval = 0;
 	RD1Engine* mainGame = NULL;
+	if (currentRomType == -1)
+		return false;
 	if (RD1Engine::theGame)
 	{
 		mainGame = RD1Engine::theGame;
@@ -229,7 +242,7 @@ bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPar
 		return true;
 		break;
 	case ID_DAA:
-		RD1Engine::theGame->DumpAreaAsImage("heyman.bmp",  GlobalVars::gblVars->imgTileset, &SpriteImage);
+		RD1Engine::theGame->DumpAreaAsImage("heyman.bmp", GlobalVars::gblVars->imgTileset, &SpriteImage);
 		return true;
 		break;
 	}
@@ -279,22 +292,29 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		}
 		break;
 	case mnuInsert:
+		if (currentRomType == -1)
+			return 0;
 		ShowWindow(GlobalVars::gblVars->BGi->me, 1);
 		break;
 
 	case ID_ZOOM_NORMAL:
+		if (currentRomType == -1)
+			return 0;
 		GlobalVars::gblVars->zoomLevel = 1.0;
-        GameConfiguration::mainCFG->GetDataContainer("ZoomStates")->Value = 0;
+		GameConfiguration::mainCFG->GetDataContainer("ZoomStates")->Value = 0;
+		CheckZoom(0);
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
 		break;
 	case ID_ZOOM_1:
 		GlobalVars::gblVars->zoomLevel = 1.5;
 		GameConfiguration::mainCFG->GetDataContainer("ZoomStates")->Value = 1;
+		CheckZoom(1);
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
 		break;
 	case ID_ZOOM_2:
 		GlobalVars::gblVars->zoomLevel = 2.0;
 		GameConfiguration::mainCFG->GetDataContainer("ZoomStates")->Value = 2;
+		CheckZoom(2);
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
 		break;
 	case mnuIPSP:
@@ -331,6 +351,8 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		break;
 
 	case ID_GENERALTOOLS_SAMUSEDITOR:
+		if (currentRomType == -1)
+			return 0;
 		if (GlobalVars::gblVars->sec->hwndSamusEditor == NULL)
 		{
 			CreateDialog(hGlobal, MAKEINTRESOURCE(frmSamusEditor), 0, SamusProc);
@@ -430,6 +452,9 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 
 		break;
 	case mnuRR:
+
+		if (currentRomType == -1)
+			return 0;
 		ShowWindow(hwndResize, SW_SHOW);
 		break;
 
@@ -440,6 +465,8 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 	return 0;
 }
 HWND tabs[6];
+sChecks door;
+
 ; BOOL CALLBACK   DialogProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
 	int blah;
@@ -459,7 +486,7 @@ HWND tabs[6];
 		{
 			tabs[h] = NULL;
 		}
-
+		inited = false;
 		if (UiState::stateManager->GetWindowState() == WindowState::EXPERT)
 		{
 			INITCOMMONCONTROLSEX commCon;
@@ -506,6 +533,7 @@ HWND tabs[6];
 			tabs[4] = CreateDialog(hGlobal, MAKEINTRESOURCE(fraSS), hTabControl, SSProc);
 
 			hCurrentTab = tabs[0];
+			
 
 			//SendMessage(hTabControl, )
 
@@ -515,7 +543,7 @@ HWND tabs[6];
 		}
 		ClearGlobals();
 
-		
+
 		hwndMain(hwnd);
 		UiState::stateManager->InitTileset();
 		UiState::stateManager->InitMap();
@@ -532,7 +560,7 @@ HWND tabs[6];
 
 		clrIndex = 0;
 		GlobalVars::gblVars->imgTileset = new Image();
-		GlobalVars::gblVars->imgTileset->Create(512, 1024);
+		GlobalVars::gblVars->imgTileset->Create(300, 512);
 
 
 		chkDoTrans.value(1);
@@ -563,9 +591,7 @@ HWND tabs[6];
 		nMaxVScroll[sTileset] = (256 - nDisplayHeight[sTileset] + 7) / 8;
 
 		ChangeScrollbars(hwnd, vsbScroll, sTileset);
-		ChangeScrollbars(hwnd, vsbMap, sVMap);
-		blah = GetLastError();
-		ChangeScrollbars(hwnd, hsbMap, sHMap);
+
 
 		for (i = 0; i < 3; i++)
 		{
@@ -601,8 +627,15 @@ HWND tabs[6];
 		{
 		case TCN_SELCHANGE: // ******* message sent because someone changed the tab selection (clicked on another tab)
 		{
+			int curTab = TabCtrl_GetCurSel(hTabControl);
+			if (currentRomType == -1 && curTab != 0)
+			{
+				TabCtrl_SetCurSel(hTabControl, 0);
+				break;
+			}
 			ShowWindow(hCurrentTab, 0); // we don't want the current tab, kill it
-			switch (TabCtrl_GetCurSel(hTabControl))
+
+			switch (curTab)
 			{
 			case 0:
 				if (!tabs[0])
@@ -620,22 +653,57 @@ HWND tabs[6];
 				if (!tabs[2])
 				{
 				}
-				hCurrentTab = tabs[2];
+				if (GlobalVars::gblVars->chkBoxED.value())
+				{
+					hCurrentTab = tabs[2];
+					RD1Engine::theGame->mgrDoors->LoadThisDoor(0);
+				}
+				else
+				{
+					sMessage("Please check Edit Doors before going to this tab.");
+					TabCtrl_SetCurSel(hTabControl, 0);
+
+					hCurrentTab = tabs[0];
+				}
 				break;
 			case 3:
 				if (!tabs[3])
 				{
+				}	
+				if (GlobalVars::gblVars->ScrollCheck.value())
+				{
+					hCurrentTab = tabs[3];
+					LoadScrollInfo(0, RD1Engine::theGame->mgrScrolls->GetScrollInfo());
 				}
-				hCurrentTab = tabs[3];
+				else
+				{
+					sMessage("Please check Edit Scrolls before going to this tab.");
+					TabCtrl_SetCurSel(hTabControl, 0);
+					hCurrentTab = tabs[0];
+				}
 				break;
 			case 4:
 				if (!tabs[4])
 				{
 				}
-				hCurrentTab = tabs[4];
+				if (GlobalVars::gblVars->checkBoxchkES.value())
+				{
+					hCurrentTab = tabs[4];
+					SpriteTabIndex = 0;
+					UiState::stateManager->ShowObj();
+					LoadCurSprite();
+				}
+				else
+				{
+					sMessage("Please check Edit Sprites before going to this tab.");
+					TabCtrl_SetCurSel(hTabControl, 0);
+					hCurrentTab = tabs[0];
+				}
 				break;
 			}
 			ShowWindow(hCurrentTab, 1);
+			RECT k;
+
 			//Resize 
 			TabResize();
 			return TRUE;
@@ -670,7 +738,6 @@ HWND tabs[6];
 				{
 					RD1Engine::theGame->DrawStatus.dirty = true;
 					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
-					InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
 					InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 				}
 			}
@@ -1023,6 +1090,7 @@ int             SetUpCombos(int combon)
 	return 0;
 }
 
+//Setups vars
 int             ClearGlobals()
 {
 	int             i = 0;
@@ -1031,16 +1099,12 @@ int             ClearGlobals()
 
 	InputHwnd = NULL;
 
-	// wcTileset=NULL;
-
-	//
 
 	memset(&TilesetRect, 0, sizeof(TilesetRect));
-	// TileCurs=(RectBuff)NULL;
+	
 	hwndResize = NULL;
 	wndHE = NULL;
-	//for (i = 0; i < 0xC0; i++)
-	//   memset(&cOAMManager::mgrOAM->MFSprSize[i], 0, sizeof(unsigned long));
+	
 	movingDoors = 0;
 	movingDoorIndex = -1;
 	movingSprite = 0;
@@ -1048,19 +1112,14 @@ int             ClearGlobals()
 	SceneWnd = NULL;
 	SceneGraph = NULL;
 	TSScene = NULL;
-
-	//memset(&ZMSpritePos, 0, sizeof(ZMSpritePos));
-
-	SceneryPic.Destroy();
+SceneryPic.Destroy();
 	SceneryTiles.Destroy();
 
 	memset(&DoorConnections, 0, sizeof(DoorConnections));
-	for (i = 0; i < 15; i++)
-		nHScroll[sHMap]= nVScroll[sVMap] = nMaxHScroll[i] = nMaxVScroll[i] = 0;
+
 	for (i = 0; i < 11; i++)
 		nDisplayWidth[i] = nDisplayHeight[i] = 0;
 	memset(&GBAGraphics::VRAM->BGBuf, 0, sizeof(GBAGraphics::VRAM->BGBuf));
-	//	memset(&BaseGame::theGame->mgrTileset->TSA, 0, sizeof(BaseGame::theGame->mgrTileset->TSA));
 
 	if (GlobalVars::gblVars->imgTileset)
 	{
@@ -1073,6 +1132,7 @@ int             ClearGlobals()
 	return 0;
 }
 
+//Loads arcair config
 int             LoadConfigFile(char *ConfigLoc)
 {
 	char            stringchk[256] =

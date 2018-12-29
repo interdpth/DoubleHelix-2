@@ -41,7 +41,7 @@ public:
 	sChecks checkBoxshowmap;
 	sChecks checkBoxshowtileset;
 
-
+	sChecks chkAnimatez;
 	sChecks checkBoxViewBL;
 	sChecks checkBoxsMove;
 	sChecks checkBoxsResize;

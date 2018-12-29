@@ -170,8 +170,8 @@ int cClipboard::CopyTiles(LPARAM lParam, int surface) {//Surface is where to pla
 													   //Just do it in order
 	//
 	//MapManager* mm = BaseGame::theGame->mainRoom->mapMgr;
-	//int baseX = (GetX(lParam) / 16) +nHScroll[sHMap];
-	//int baseY = (GetY(lParam) / 16) + nVScroll[sVMap];
+	//int baseX = (GetX(lParam) / 16) +MapHorizScroll->GetIndex();
+	//int baseY = (GetY(lParam) / 16) + MapVertScroll->GetIndex();
 	//int thisX = 0, thisY = 0;
 	////Since whe have the base this should be rather easy.
 	//int i = 0;//Tile counter

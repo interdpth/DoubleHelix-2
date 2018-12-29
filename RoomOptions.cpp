@@ -9,6 +9,8 @@ void ClearLayer(nMapBuffer* clearLayer) {
 	clearLayer->Dirty = 1;
 	clearLayer->SDirty = 1;
 }
+
+//stores a layer to a buffer, and copies the proper portion, idk if it works right now.
 void ResizeLayer(nMapBuffer* buffLayer, int newWidth, int newHeight) {
 	unsigned long copysize = 0;
 	unsigned short *roombuff = new unsigned short[0x10000];
@@ -21,13 +23,15 @@ void ResizeLayer(nMapBuffer* buffLayer, int newWidth, int newHeight) {
 	memcpy(buffLayer->TileBuf2D, roombuff, copysize);
 	buffLayer->X = newWidth;
 	buffLayer->Y = newHeight;
-	memset(buffLayer->TileBuf2D, 0, 0x20000);
+    
+	delete[] buffLayer->TileBuf2D;
+	buffLayer->TileBuf2D = new unsigned short[copysize / 2];
 	memcpy(roombuff, buffLayer->TileBuf2D, copysize);
 	delete[]roombuff;
 
-
-
 }
+
+//Windows procedure for this window
 BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam) {
 	char buf[256];
 	unsigned int X = 0;
@@ -68,9 +72,9 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 		case cmdROSave:
 			MessageBox(hWnd, "Automatically Saving the Room and applying effects", "Warning", MB_OK);
 
-			GetWindowText(GetDlgItem(hWnd, txtWidth), buf, 2);
+			GetWindowText(GetDlgItem(hWnd, txtWidth), buf, 8);
 			sscanf(buf, "%x", &X);
-			GetWindowText(GetDlgItem(hWnd, txtHeight), buf, 2);
+			GetWindowText(GetDlgItem(hWnd, txtHeight), buf, 8);
 			sscanf(buf, "%x", &Y);
 			//make a new copy of RoomBuff the size of the new Width and Height
 
@@ -171,7 +175,7 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 		case cmdCBack:
 			ClearLayer(buffBackLayer);
 
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage,  				&GlobalVars::gblVars->BGImage,true, true,true, false, false, false, 0);
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage,&GlobalVars::gblVars->BGImage,true, true,true, false, false, false, 0);
 			break;
 		case cmdCClip:
 

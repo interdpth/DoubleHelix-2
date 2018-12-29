@@ -316,11 +316,6 @@ int cOAMEdit::DrawSelObj(HDC hdc) {
 int cOAMEdit::Create() {
 	int i = 0;
 	char sillystring[16] = { 0 };
-	//Init all the combos
-	cboEditingType.Init(GetDlgItem(_oamWindow, cboOAMSelection));
-	cboEditingType.Additem("Sprites");
-	cboEditingType.Additem("Samus");
-	cboEditingType.SetListIndex(0);
 	cboFrameTable.Init(GetDlgItem(_oamWindow, cboFrameTableCombo));
 	cboXPos.Init(GetDlgItem(_oamWindow, cboX));
 	cboYPos.Init(GetDlgItem(_oamWindow, cboY));

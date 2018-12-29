@@ -2,7 +2,6 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="DHProject.cpp" />
-    <ClCompile Include="clsScroll.cpp" />
     <ClCompile Include="cOAMEdit.cpp" />
     <ClCompile Include="cSSE.cpp" />
     <ClCompile Include="cStatEd.cpp" />
@@ -81,9 +80,11 @@
     <ClCompile Include="frmSamusEditor.cpp" />
     <ClCompile Include="SamusEditorClass.cpp" />
     <ClCompile Include="AppData.cpp" />
+    <ClCompile Include="WindowScrollbar.cpp" />
+    <ClCompile Include="clsScroll.cpp" />
+    <ClCompile Include="MapUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="clsScroll.h" />
     <ClInclude Include="cOAMEdit.h" />
     <ClInclude Include="cSSE.h" />
     <ClInclude Include="cStatEd.h" />
@@ -128,6 +129,9 @@
     <ClInclude Include="SupportedTitles.h" />
     <ClInclude Include="SamusEditorClass.h" />
     <ClInclude Include="AppData.h" />
+    <ClInclude Include="WindowScrollbar.h" />
+    <ClInclude Include="clsScroll.h" />
+    <ClInclude Include="MapUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res.rc" />

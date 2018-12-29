@@ -2,7 +2,7 @@
 #ifndef EXT
 #define EXT extern
 #endif
-
+#include "WindowScrollbar.h"
 #include "SprGBuf.h"
 #include "ResourceAndDefines.h"
 #include "Door Connections.h"
@@ -12,6 +12,7 @@
 #include "GlobalFunctions.h"
 #include "sChecks.h"
 #include "sCombo.h"
+
 //int DrawPSprite( SprGBuf* SpriteDetails);
 //int DecodeSprite(SprGBuf* tSprite,unsigned long Offset);
 EXT WINDOWPLACEMENT IsTSA;
@@ -23,7 +24,7 @@ EXT HWND SceneWnd;
 EXT HWND SceneGraph;
 EXT HWND TSScene;
 EXT HWND hwndMM;
-
+class WindowScrollBar;
 
 EXT HINSTANCE hGlobal;
 EXT RECT  TilesetRect;
@@ -41,6 +42,9 @@ EXT Image       SceneryTiles;
 
 EXT Drc         DoorConnections;
 
+
+EXT WindowScrollbar* MapHorizScroll;
+EXT WindowScrollbar* MapVertScroll;
 //PLEASE REMOVE ASAP.
 EXT int			nHScroll[32];
 EXT int			nVScroll[32];

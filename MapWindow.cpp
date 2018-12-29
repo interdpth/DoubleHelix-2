@@ -6,6 +6,7 @@
 #include "clsRoomScrolls.h"
 #include "TilesetManager.h"
 #include "UiState.h"
+#include "MapUtils.h"
 RECT toolsRect;
 extern HWND hTabControl;
 extern HANDLE handle_out;
@@ -87,7 +88,7 @@ void Draw(HDC hdc)
 		DrawTileRect(hdc, mpMap, 16);
 	}
 }
-
+MapUtils* utils; 
 LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
 
@@ -118,19 +119,36 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 	RECT Drawme;
 	int blitareax = 0, blitareay = 0;
 	char cBuf[200];
-	int td = 0;
+	int copypasteflag = 0;
+	int curX = GetX(lParam) / 16;
+	int curY = GetY(lParam) / 16;
+	int actualX = curX;
+	if (MapHorizScroll != NULL) {
+		actualX += MapHorizScroll->GetIndex();
+	}
+		
+	int actualY = curY; 
+	if (MapVertScroll != NULL) {
+		actualY += MapVertScroll->GetIndex();
+	}
+
 	switch (message)
 	{
 	case WM_CREATE:
-		GetWindowRect(GetDlgItem(hWnd, grpMap), &toolsRect);
-
+		utils = new MapUtils(mgrMap);
+		GetWindowRect(GetDlgItem(UiState::stateManager->GetWindow(), grpMap), &toolsRect);
+		MapHorizScroll = new WindowScrollbar(hWnd, false);
+		MapVertScroll = new WindowScrollbar(hWnd, true);
+		MapVertScroll->ChangeScrollbars( vsbMap, sVMap);
+		
+		MapHorizScroll->ChangeScrollbars( hsbMap, sHMap);
 		break;
 	case WM_COPYDATA:
 	case WM_COPY:
-		td = 1;
+		copypasteflag = 1;
 		break;
 	case WM_PASTE:
-		td = 1;
+		copypasteflag = 1;
 		break;
 	
 	case WM_PAINT:
@@ -143,16 +161,14 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 
 				EndPaint(hWnd, &ps);
 				ReleaseDC(hWnd, hdc);
-			
-			//DeleteDC(BaseGame::theGame->mainRoom->mapMgr->ThisBackBuffer->DC());
 		}
 		break;
 	case WM_VSCROLL:	// exact same idea, but V scroll instead of H scrollFindMeAScroll
-		UpdateScroll(hWnd, wParam, 1, vsbMap, sVMap);
+		MapVertScroll->UpdateScroll(wParam, 1, vsbMap, sVMap);
 		InvalidateRect(hWnd, 0, 1);
 		break;
 	case WM_HSCROLL:
-		UpdateScroll(hWnd, wParam, NULL, hsbMap, sHMap);
+		MapHorizScroll->UpdateScroll(wParam, NULL, hsbMap, sHMap);
 		InvalidateRect(hWnd, 0, 1);
 		break;
 	case WM_LBUTTONDOWN:
@@ -163,41 +179,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 
 		if (wParam & MK_LBUTTON) {
 			editingStates thisState = mgrMap->GetState()->GetState();//Wait what
-			if (thisState == editingStates::SPRITE) {
-				int spriteno = Gimmeasprite(((GetX(lParam) / 16) + nHScroll[sHMap]), ((GetY(lParam) / 16) + nVScroll[sVMap]));
-				mgrMap->GetState()->SetObjId(spriteno);
-				mgrMap->GetState()->SetAction(editingActions::MOVE);
-			}
-			else if (thisState == editingStates::DOOR)
-			{
-				if (RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetAction() != editingActions::MOVE)
-				{
-					int doornum = RD1Engine::theGame->mgrDoors->GetDoor(RD1Engine::theGame->mainRoom->Room, ((GetX(lParam) / 16) + nHScroll[sHMap]), ((GetY(lParam) / 16) + nVScroll[sVMap]));
-					if (doornum != 0xffffffff)
-					{
-						mgrMap->GetState()->SetObjId(RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[doornum]);
-						mgrMap->GetState()->SetAction(editingActions::MOVE);
-
-					}
-				}
-			}
-			else if (thisState == editingStates::SCROLL)
-			{
-				if (mgrMap->GetState()->GetAction() != editingActions::MOVE)
-				{
-					int scrollid = RD1Engine::theGame->mgrScrolls->Findmeascroll(((GetX(lParam) / 16) + nHScroll[sHMap]), ((GetY(lParam) / 16) + nVScroll[sVMap]), cboScroll.GetListIndex());
-					if (scrollid != 0xffffffff)
-					{
-						mgrMap->GetState()->SetObjId(scrollid);
-						mgrMap->GetState()->SetAction(editingActions::MOVE);
-					}
-				}
-			}
-			else if (thisState == editingStates::MAP)
-			{
-				EditLayers(wParam, lParam);
-			}
-
+			utils->HandleLeftClick(thisState, actualX, actualY, Combos[cSpriteSet].GetListIndex(), wParam, lParam);
 		}
 		return 0;
 
@@ -210,43 +192,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		if (LOWORD(wParam) == MK_RBUTTON) {
 			//HandleRightClick(hWnd, message, wParam, lParam, GlobalVars::gblVars->ScrollCheck.value() == 1);
 			editingStates thisState = mgrMap->GetState()->GetState();//Wait what
-			if ((thisState != editingStates::SPRITE  && thisState != editingStates::DOOR) || (thisState == editingStates::DOOR &&  SendMessage(GetDlgItem(hwndMain(), chkResizeDoors), BM_GETCHECK, 0, 0) == 1))
-			{
-				mgrMap->GetState()->SetAction(editingActions::RESIZE);
-			}
-			else
-			{
-				if (thisState == editingStates::DOOR)
-				{
-					int doornum = RD1Engine::theGame->mgrDoors->GetDoor(RD1Engine::theGame->mainRoom->Room,((GetX(lParam) / 16) + nHScroll[sHMap]), ((GetY(lParam) / 16) + nVScroll[sVMap]));
-					mgrMap->GetState()->SetObjId(doornum);
-					if (td != -1) {
-						UiState::stateManager->ShowObj();
-						RD1Engine::theGame->mgrDoors->LoadThisDoor(doornum);
-						UiState::stateManager->ShowObj();
-						return 0;
-					}
-				}
-				else if (thisState == editingStates::SPRITE) {
-					int spriteno = Gimmeasprite(((GetX(lParam) / 16) + nHScroll[sHMap]), ((GetY(lParam) / 16) + nVScroll[sVMap]));
-					mgrMap->GetState()->SetObjId(spriteno);
-					SpriteTabIndex = spriteno;
-					UiState::stateManager->ShowObj();
-					LoadCurSprite();
-				}
-				else if (thisState == editingStates::SCROLL) {
-					int scrollid = RD1Engine::theGame->mgrScrolls->Findmeascroll(((GetX(lParam) / 16) + nHScroll[sHMap]), ((GetY(lParam) / 16) + nVScroll[sVMap]), cboScroll.GetListIndex());
-					if (scrollid != 0xffffffff)
-					{
-						mgrMap->GetState()->SetObjId(scrollid);
-
-
-						UiState::stateManager->ShowObj();
-						LoadScrollInfo(scrollid, RD1Engine::theGame->mgrScrolls->GetScrollInfo());
-					}
-				}
-				InvalidateRect(hWnd, 0, 1);
-			}
+			utils->HandleRightClick(thisState, actualX, actualY, Combos[cSpriteSet].GetListIndex());
 		}
 		break;
 	case WM_RBUTTONUP:
@@ -279,8 +225,8 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		if (thisAction == editingActions::RESIZE && LOWORD(wParam) == MK_RBUTTON) {
 			if (thisState == editingStates::SCROLL) {
 
-				int scrollid = RD1Engine::theGame->mgrScrolls->Findmeascroll(((GetX(lParam) / 16) + nHScroll[sHMap]), ((GetY(lParam) / 16) + nVScroll[sVMap]), cboScroll.GetListIndex());
-				if (scrollid != 0xffffffff)
+				int scrollid = RD1Engine::theGame->mgrScrolls->Findmeascroll(actualX, actualY, cboScroll.GetListIndex());
+				if (scrollid != -1)
 				{
 					RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetObjId(scrollid);
 				}
@@ -294,8 +240,8 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		}
 		else
 		{
-			mpMap.sY = GetY(lParam) / 16;
-			mpMap.sX = GetX(lParam) / 16;
+			mpMap.sY = curY;
+			mpMap.sX = curX;
 
 		}
 		InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
@@ -305,16 +251,16 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		{
 			poo = Combos[cClip].GetListIndex();
 
-			Combos[cClip].SetListIndex(mgrMap->GetLayer(MapManager::Clipdata)->TileBuf2D[((GetX(lParam) / 16) + nHScroll[sHMap]) + ((GetY(lParam) / 16) + nVScroll[sVMap])* (mgrMap->GetLayer(MapManager::LevelData)->X)]);
+			Combos[cClip].SetListIndex(mgrMap->GetLayer(MapManager::Clipdata)->TileBuf2D[actualX + (actualY)* (mgrMap->GetLayer(MapManager::LevelData)->X)]);
 
 			GetWindowText(Combos[cClip].GetHwnd(), cBuf, 200);
 			SetWindowText(GetDlgItem(GlobalVars::gblVars->frameControls, lblClip), cBuf);
 			//Combos[cClip].SetListIndex(poo);
 		
 		}
-		sprintf(cBuf, "X: %X", ((GetX(lParam) / 16) + nHScroll[sHMap]));
+		sprintf(cBuf, "X: %X", actualX);
 		SetWindowText(GetDlgItem(GlobalVars::gblVars->frameControls, lblX), cBuf);
-		sprintf(cBuf, "Y: %X", ((GetY(lParam) / 16) + nVScroll[sVMap]));
+		sprintf(cBuf, "Y: %X", actualY);
 		SetWindowText(GetDlgItem(GlobalVars::gblVars->frameControls, lblY), cBuf);
 		if (wParam == MK_LBUTTON)
 		{

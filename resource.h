@@ -307,7 +307,9 @@
 #define cboDScroll                      1251
 #define cmdBG                           1252
 #define lblHeaderOffset                 1253
+#define cmdBG2                          1253
 #define btnAddDoor                      1254
+#define cmdBG3                          1254
 #define grpBoxObj                       1256
 #define IDC_EDIT1                       1257
 #define txtByte1                        1257
@@ -363,6 +365,7 @@
 #define IDC_CHECK9                      1304
 #define IDC_CHECK10                     1305
 #define cboPoseitem                     1306
+#define chkAnimates                     1307
 #define IDC_CHECK11                     1314
 #define IDC_CHECK12                     1315
 #define IDC_CHECK13                     1316
@@ -410,14 +413,31 @@
 #define ID_ZOOM_NORMAL                  40040
 #define ID_ZOOM_1                       40041
 #define ID_ZOOM_2                       40042
+#define ID_IMPORT_CUSTOMBACKGROUND      40043
+#define ID_IMPORT_OAM                   40044
+#define ID_IMPORT_TILESET               40045
+#define ID_BACKGROUND_RAWFILE           40046
+#define ID_BACKGROUND_IMAGE             40047
+#define ID_CUSTOMBACKGROUND_RAWFILE     40048
+#define ID_CUSTOMBACKGROUND_IMAGE       40049
+#define ID_OAM_RAWIMAGE                 40050
+#define ID_OAM_IMAGE                    40051
+#define ID_TILESET_RAWIMAGE             40052
+#define ID_TILESET_IMAGE                40053
+#define ID_SPECIFICINPUT_IMPORTPAL      40054
+#define ID_SPECIFICINPUT_IMPORTTILES    40055
+#define ID_SPECIFICINPUT_IMPORTTILEMAP  40056
+#define ID_BACKGROUND_256X256           40057
+#define ID_BACKGROUND_512X256           40058
+#define ID_BACKGROUND_256X512           40059
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        159
-#define _APS_NEXT_COMMAND_VALUE         40043
-#define _APS_NEXT_CONTROL_VALUE         1307
+#define _APS_NEXT_RESOURCE_VALUE        160
+#define _APS_NEXT_COMMAND_VALUE         40060
+#define _APS_NEXT_CONTROL_VALUE         1308
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

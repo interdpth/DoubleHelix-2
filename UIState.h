@@ -8,6 +8,7 @@
 #include "clsRoomScrolls.h"
 #include "DoorManager.h"
 #include "BaseGame.h"
+#include "GlobalVars.h"
 //yuck
 #include "globals.h"
 extern HINSTANCE hGlobal;
@@ -34,7 +35,8 @@ public:
 	UiState();
 	UiState(WindowState newState);
 	~UiState();
-	
+	static void AutoRect(HWND src, RECT* tgt);
+	void ResizeTileset(HWND srcNeighbor);
 	static UiState* stateManager;
 	void ShowObj();
 	int InitMap();

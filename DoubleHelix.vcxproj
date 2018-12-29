@@ -45,16 +45,16 @@
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\Endeavor\Downloads\grit-src-0.8.6\grit_src\libgrit;C:\GLEW\lib\Release\Win32;C:\Users\Endeavor\Downloads\grit-src-0.8.6\grit_src\cldib;C:\Users\Endeavor\Documents\GitHub\RD1Enginesource\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\grit\libgrit;C:\GLEW\lib\Release\Win32;..\grit\cldib;..\RD1Enginesource\Debug;$(LibraryPath)</LibraryPath>
     <ExecutablePath>C:\GLEW\bin\Release\Win32;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>C:\GLEW\include\GL;C:\Users\Endeavor\Downloads\grit-src-0.8.6\grit_src\libgrit;C:\Users\Endeavor\Downloads\grit-src-0.8.6\grit_src\cldib;C:\Users\Endeavor\Documents\GitHub\RD1Enginesource;$(IncludePath)</IncludePath>
+    <IncludePath>C:\GLEW\include\GL;..\grit\libgrit;..\grit\cldib;..\RD1Enginesource;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\Endeavor\Documents\GitHub\RD1Enginesource;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\GLEW\lib\Release\Win32;C:\Users\Endeavor\Documents\GitHub\RD1Enginesource\Release;C:\Users\Endeavor\Documents\GitHub\RD1Enginesource;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\RD1Enginesource;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\GLEW\lib\Release\Win32;..\RD1Enginesource\Release;..\RD1Enginesource;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -116,12 +116,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppData.cpp" />
+    <ClCompile Include="clsScroll.cpp" />
     <ClCompile Include="DHProject.cpp" />
     <ClCompile Include="fraMainProc.cpp" />
     <ClCompile Include="BGImportEditor.cpp" />
     <ClCompile Include="cClipboard.cpp" />
     <ClCompile Include="Clipboard.cpp" />
-    <ClCompile Include="clsScroll.cpp" />
     <ClCompile Include="cOAMEdit.cpp" />
     <ClCompile Include="cSSE.cpp" />
     <ClCompile Include="cStatEd.cpp" />
@@ -140,6 +140,7 @@
     <ClCompile Include="IPSPatch.cpp" />
     <ClCompile Include="LevelPaletteEditor.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapUtils.cpp" />
     <ClCompile Include="MapWindow.cpp" />
     <ClCompile Include="MinimapEditor.cpp" />
     <ClCompile Include="MinimapEditorClass.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="TSAEditor.cpp" />
     <ClCompile Include="UIState.cpp" />
     <ClCompile Include="UndoBuffer.cpp" />
+    <ClCompile Include="WindowScrollbar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppData.h" />
@@ -192,6 +194,7 @@
     <ClInclude Include="IPSPatch.h" />
     <ClInclude Include="MainHeader.h" />
     <ClInclude Include="MainWindow.h" />
+    <ClInclude Include="MapUtils.h" />
     <ClInclude Include="mmD.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ResourceAndDefines.h" />
@@ -205,6 +208,7 @@
     <ClInclude Include="TabControls.h" />
     <ClInclude Include="TextEditorHeader.h" />
     <ClInclude Include="UIState.h" />
+    <ClInclude Include="WindowScrollbar.h" />
     <ClInclude Include="wndBGImport.h" />
   </ItemGroup>
   <ItemGroup>

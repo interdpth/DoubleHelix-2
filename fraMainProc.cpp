@@ -12,11 +12,18 @@ void SaveState()
 }
 
 
-void LoadState(map<string, int> * mapping)
+void CheckZoom(int zoomid)
 {
-
+	HMENU mainMenu = GetMenu(UiState::stateManager->GetWindow());
+	
+		int zoomIDs[3] = { ID_ZOOM_NORMAL,ID_ZOOM_1, ID_ZOOM_2 };
+		for (int i = 0; i < 3; i++)
+		{
+			CheckMenuItem(mainMenu, zoomIDs[i], MF_UNCHECKED);
+		}
+		CheckMenuItem(mainMenu, zoomIDs[zoomid], MF_CHECKED);
+				
 }
-
 void DisableByState(sChecks* chkToUse)
 {
 	int curval = chkToUse->value();
@@ -249,7 +256,9 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
 		}
 		break;
-	
+	case  chkAnimates:
+		GlobalVars::gblVars->checkBoxLevel.value(!GlobalVars::gblVars->checkBoxLevel.value());
+		break;
 	case chkLevel:
 		DisableByState(&GlobalVars::gblVars->checkBoxLevel);
 		RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetState(editingStates::MAP);
@@ -446,6 +455,9 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 	{
 
 	case WM_INITDIALOG:
+		RECT k;
+		/*UiState::AutoRect(hwnd, &k);
+		MoveWindow(hwnd, k.left, k.top + 8, k.right, k.bottom, true);*/
 		GlobalVars::gblVars->frameControls = hwnd;
 		CurObjT = 0;
 		CurObjNo = 0;
@@ -481,22 +493,24 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 		GlobalVars::gblVars->chkMC[3].SetCnt(GetDlgItem(hwnd, chkClip2));
 		chkDoTrans.SetCnt(GetDlgItem(hwnd, chkDTrans));
 		chkDoTrans.value(1);
+		chkDoTrans.SetCnt(GetDlgItem(hwnd, chkDTrans));
 		GlobalVars::gblVars->checkBoxshowmap.value(1);
 		GlobalVars::gblVars->checkBoxshowtileset.value(1);
+		GlobalVars::gblVars->chkAnimatez.SetCnt(GetDlgItem(hwnd, chkAnimates));
+		GlobalVars::gblVars->chkAnimatez.value(1);
 
 
 
 
+		CreateDialog(hGlobal, MAKEINTRESOURCE(frmSceneryEditor), 0, SceneProc);
 
-		//CreateDialog(hGlobal, MAKEINTRESOURCE(frmSceneryEditor), 0, SceneProc);
+		
 
-		//
+		CreateDialog(hGlobal, MAKEINTRESOURCE(fraTBE), 0, TSAProc);
 
-		//CreateDialog(hGlobal, MAKEINTRESOURCE(fraTBE), 0, TSAProc);
-
-		//CreateDialog(hGlobal, MAKEINTRESOURCE(frmClipboard), 0, ClipBoardProc);
-		//CreateDialog(hGlobal, MAKEINTRESOURCE(fraBGI), 0, BGiProc);
-		//CreateDialog(hGlobal, MAKEINTRESOURCE(frmLPE), 0, LPProc);
+		CreateDialog(hGlobal, MAKEINTRESOURCE(frmClipboard), 0, ClipBoardProc);
+		CreateDialog(hGlobal, MAKEINTRESOURCE(fraBGI), 0, BGiProc);
+		CreateDialog(hGlobal, MAKEINTRESOURCE(frmLPE), 0, LPProc);
 
 
 		for (int i = 0; i < 3; i++)

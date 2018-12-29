@@ -55,14 +55,14 @@ void UiState::SetWindow(HWND thisWindow)
 
 }
 
-WindowState UiState :: SetWindowState(WindowState theState)
+WindowState UiState::SetWindowState(WindowState theState)
 {
 	_theState = theState;
-	
+
 	return _theState;
 }
 
-HWND UiState ::GetWindow()
+HWND UiState::GetWindow()
 {
 	return _theWindow;
 }
@@ -70,14 +70,15 @@ HWND UiState ::GetWindow()
 void UiState::MakeWindow()
 {
 	DestroyWindow(_theWindow);
-	if(_theState == WindowState::MULTI)
+	if (_theState == WindowState::MULTI)
 	{
 		_theString = MAKEINTRESOURCE(frmMain);
 	}
-	else if(_theState == WindowState::EXPERT)	
+	else if (_theState == WindowState::EXPERT)
 	{
 		_theString = MAKEINTRESOURCE(frmMainExperiment);
-	}else
+	}
+	else
 	{
 		_theString = MAKEINTRESOURCE(frmMain1);
 	}
@@ -85,13 +86,13 @@ void UiState::MakeWindow()
 
 void UiState::UpdateWindow()
 {
-	MakeWindow();	
-	DialogBoxParamA(hGlobal, _theString, 0, DialogProc ,0L);
+	MakeWindow();
+	DialogBoxParamA(hGlobal, _theString, 0, DialogProc, 0L);
 }
 
 
 void UiState::ShowObj() {
-	
+
 	return;
 	if (!RD1Engine::theGame || !RD1Engine::theGame->mainRoom || !RD1Engine::theGame->mainRoom || !RD1Engine::theGame->mainRoom->mapMgr->created)
 	{
@@ -217,7 +218,7 @@ int  UiState::InitTileset() {
 	{
 		targetWnd = _theWindow;
 		x = 13;
-		y =350;
+		y = 350;
 		flags |= WS_CHILD;
 	}
 	else
@@ -250,10 +251,10 @@ int UiState::InitMap()
 										// wcMap.hbrBackground = GetStockObject( WHITE_BRUSH);				   // white background brush 
 	wcMap.lpszMenuName = NULL;    // name of menu resource 
 	wcMap.lpszClassName = "MapClass";  // name of window class 
-	HWND targetWnd=0;
+	HWND targetWnd = 0;
 	int flags = WS_VISIBLE | WS_HSCROLL | WS_VSCROLL;
 
-									   // Register the window class. 
+	// Register the window class. 
 
 	RegisterClassEx(&wcMap);
 	DestroyWindow(_mapWindow);
@@ -275,7 +276,7 @@ int UiState::InitMap()
 		flags |= WS_BORDER | WS_SIZEBOX | WS_TABSTOP;
 	}
 	//Create the Window
-	_mapWindow = CreateWindowEx(NULL, "MapClass", "Map",  flags, x, y, width, height, targetWnd, NULL, hGlobal, 0);
+	_mapWindow = CreateWindowEx(NULL, "MapClass", "Map", flags, x, y, width, height, targetWnd, NULL, hGlobal, 0);
 
 	ShowWindow(_mapWindow, SW_SHOW);
 
@@ -295,139 +296,132 @@ HWND UiState::GetMapWindow()
 void UiState::ResizeMap(HWND srcNeighbor)
 {
 	RECT viewRect;
+	memset(&viewRect, 0, sizeof(RECT));
 	HWND hWnd = this->GetMapWindow();
-	int x, y;
+	int width = 16 * 4;
+	int  height = 16 * 4;;
 	MapManager* mgrMap = RD1Engine::theGame->mainRoom->mapMgr;
 	RECT srcCoords;
 	GetWindowRect(srcNeighbor, &srcCoords);
-	if (this->GetWindowState() == WindowState::MULTI)
+
+	GetWindowRect(hWnd, &viewRect);
+
+
+	RECT toolsRect;
+	RECT mainRect;
+	GetWindowRect(hTabControl, &toolsRect);
+	GetWindowRect(GetWindow(), &mainRect);
+
+
+	viewRect.top = 0;
+	viewRect.left = toolsRect.right + 1;
+	viewRect.right = mainRect.right - toolsRect.right - toolsRect.left - mainRect.left - 16;
+	viewRect.bottom = mainRect.bottom - mainRect.top;
+
+	if (RD1Engine::theGame &&  RD1Engine::theGame->mainRoom&&mgrMap && mgrMap->created)
 	{
-		if (RD1Engine::theGame &&  RD1Engine::theGame->mainRoom&&mgrMap && mgrMap->created)
+
+		MapManager* mgrMap;
+		if (RD1Engine::theGame != NULL&&RD1Engine::theGame->mainRoom != NULL)
 		{
-			GetWindowRect(hWnd, &viewRect);
-			viewRect.right = viewRect.right - viewRect.left;
-			viewRect.bottom = viewRect.bottom - viewRect.top;
-			x = mgrMap->GetLayer(MapManager::LevelData)->X;
-			y = mgrMap->GetLayer(MapManager::LevelData)->Y;
-
-			x = x > 4 * 16 ? x : 4 * 16;
-			y = y > 4 * 16 ? y : 4 * 16;
-			if ((viewRect.right / 16) + nVScroll[1] > x)
-			{
-				viewRect.right -= ((viewRect.right / 16) + nHScroll[sHMap] - x - 1) * 16;
-				viewRect.right >>= 4;
-				viewRect.right <<= 4;
-			}
-			if ((viewRect.bottom / 16) + nVScroll[sVMap] > y) {
-				viewRect.bottom -= ((viewRect.bottom / 16) + nVScroll[sVMap] - x - 1) * 16;
-				viewRect.bottom >>= 4;
-				viewRect.bottom <<= 4;
-			}
+			mgrMap = RD1Engine::theGame->mainRoom->mapMgr;
+			nMapBuffer* c = mgrMap->GetLayer(3);
+			if (c) {
 
 
+				if (viewRect.right > c->X * 16)
+				{
+					viewRect.right = c->X * 16;
+				}
 
-
-
-			//if((que.bottom/16)>BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Y) que.bottom = (BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Y / 16)*16 +16;//+20;
-			MoveWindow(hWnd, srcCoords.right-srcCoords.left+32, 20, viewRect.right - srcCoords.left, viewRect.bottom-20, 1);//+16 is for scrollbar
-																		  /*Take the current size
-																		  Vertical (que.bottom/16
-																		  We are displaying (que.bottom/16) tiles
-																		  There's a total of BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Y tiles
-																		  */
-																		  //GetWindowRect(hWnd,&que);
-																		  //que.right = que.right - que.left;
-																		  //que.bottom = que.bottom - que.top;
-			nMaxHScroll[sHMap] = x - (viewRect.right / 16); // maximum H scroll
-
-
-			nMaxVScroll[sVMap] = y - ((viewRect.bottom / 16));
-
-
-			//UpdateScroll(hWnd, wParam, 1, vsbMap, sVMap);
-
-			//UpdateScroll(hWnd, wParam, NULL, hsbMap, sHMap);
-		}
-	}
-	else
-	{
-		if (RD1Engine::theGame &&  RD1Engine::theGame->mainRoom&&mgrMap && mgrMap->created)
-		{
-			GetWindowRect(hWnd, &viewRect);
-			
-
-			RECT toolsRect;
-			RECT mainRect;
-			GetWindowRect(hTabControl, &toolsRect);
-			GetWindowRect(UiState::stateManager->GetWindow(), &mainRect);
-
-			
-			RECT viewRect;
-			
-
-			viewRect.top = 0;
-			viewRect.left = toolsRect.right- mainRect.left;
-			viewRect.right = mainRect.right - toolsRect.right;
-			viewRect.bottom = mainRect.bottom - 16;
-
-
-			MapManager* mgrMap;
-			if (RD1Engine::theGame != NULL&&RD1Engine::theGame->mainRoom != NULL)
-			{
-				mgrMap = RD1Engine::theGame->mainRoom->mapMgr;
-				nMapBuffer* c = mgrMap->GetLayer(3);
-				if (c) {
-
-
-					if (viewRect.right > c->X * 16)
-					{
-						viewRect.right = c->X * 16;
-					}
-
-					if (viewRect.bottom > c->Y * 16)
-					{
-						viewRect.bottom = c->Y * 16;
-					}
+				if (viewRect.bottom > c->Y * 16)
+				{
+					viewRect.bottom = c->Y * 16;
 				}
 			}
+		}
 
 
 
-			if (viewRect.right < 64)
-			{
-				viewRect.right = 64;
-			}
-			if (viewRect.bottom < 64)
-			{
-				viewRect.bottom = 64;
-			}
+		width = mgrMap->GetLayer(MapManager::LevelData)->X;
+		height = mgrMap->GetLayer(MapManager::LevelData)->Y;
 
-
-			x = mgrMap->GetLayer(MapManager::LevelData)->X;
-			y = mgrMap->GetLayer(MapManager::LevelData)->Y;
-
-			x = x > 4 * 16 ? x : 4 * 16;
-			y = y > 4 * 16 ? y : 4 * 16;
-			if ((viewRect.right / 16) + nHScroll[sHMap] > x)
-			{
-				viewRect.right -= ((viewRect.right / 16) + nHScroll[sHMap] - x - 1) * 16;
-				viewRect.right >>= 4;
-				viewRect.right <<= 4;
-			}
-			if ((viewRect.bottom / 16) + nVScroll[sVMap] > y) {
-				viewRect.bottom -= ((viewRect.bottom / 16) + nVScroll[sVMap] - x - 1) * 16;
-				viewRect.bottom >>= 4;
-				viewRect.bottom <<= 4;
-			}
-
-			//srcCoords.right - srcCoords.left + 32, 20, viewRect.right - srcCoords.left
-			//if((que.bottom/16)>BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Y) que.bottom = (BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Y / 16)*16 +16;//+20;
-			MoveWindow(hWnd, viewRect.left, 20, viewRect.right, viewRect.bottom - 16, 1);
-
-			nMaxHScroll[sHMap] = x/16 - (viewRect.right / 16); // maximum H scroll
-
-
-			nMaxVScroll[sVMap] = y / 16 - ((viewRect.bottom / 16));
+		width = width > 4 * 16 ? width : 4 * 16;
+		height = height > 4 * 16 ? height : 4 * 16;
+		if ((viewRect.right / 16) + MapHorizScroll->GetIndex() > width)
+		{
+			viewRect.right -= ((viewRect.right / 16) + MapHorizScroll->GetIndex() - width - 1) * 16;
+			viewRect.right >>= 4;
+			viewRect.right <<= 4;
+		}
+		if ((viewRect.bottom / 16) + MapVertScroll->GetIndex() > height) {
+			viewRect.bottom -= ((viewRect.bottom / 16) + MapVertScroll->GetIndex() - width - 1) * 16;
+			viewRect.bottom >>= 4;
+			viewRect.bottom <<= 4;
 		}
 	}
+
+	//srcCoords.right - srcCoords.left + 32, 20, viewRect.right - srcCoords.left
+	//if((que.bottom/16)>BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Y) que.bottom = (BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Y / 16)*16 +16;//+20;
+
+	if (viewRect.bottom < 64)
+	{
+		viewRect.bottom = 64;
+		width = 16 * 4;
+	}
+	if (viewRect.right < 64)
+	{
+		viewRect.right = 64;
+		height = 16 * 4;
+	}
+
+	GetWindowRect(hwndMain(), &mainRect);
+	
+	viewRect.right = viewRect.right > mainRect.right ? mainRect.right : viewRect.right;
+	viewRect.bottom = viewRect.bottom> mainRect.bottom ? mainRect.bottom : viewRect.bottom;
+	MoveWindow(GetMapWindow(), viewRect.left, 20, viewRect.right, viewRect.bottom-20, 0);
+
+	MapHorizScroll->SetMax(width - (viewRect.right / 16)); // maximum H scroll
+
+
+	MapVertScroll->SetMax(height - ((viewRect.bottom / 16)));
+}
+
+
+void UiState::ResizeTileset(HWND srcNeighbor)
+{
+	RECT viewRect;
+	HWND hWnd = this->GetTilesetWindow();
+	int x, y;
+	MapManager* mgrMap = RD1Engine::theGame->mainRoom->mapMgr;
+	RECT srcCoords;
+	AutoRect(srcNeighbor, &srcCoords);
+
+
+	AutoRect(hWnd, &viewRect);
+
+
+	RECT toolsRect;
+	RECT mainRect;
+	AutoRect(hTabControl, &toolsRect);
+	AutoRect(UiState::stateManager->GetWindow(), &mainRect);
+
+
+	Image* tileset = GlobalVars::gblVars->imgTileset;
+
+	viewRect.right = tileset->Width + 8;
+	viewRect.top = toolsRect.top+toolsRect.bottom +4;
+
+	viewRect.left = toolsRect.left;
+	// mainRect.right - toolsRect.right;
+	viewRect.bottom = 280;;;// -16;
+    MoveWindow(hWnd, viewRect.left, viewRect.top, viewRect.right, viewRect.bottom , 0);
+}
+
+//Turns rect into point, point
+void UiState ::AutoRect(HWND src, RECT* tgt)
+{
+	GetWindowRect(src, tgt);
+	tgt->bottom -= tgt->top;
+	tgt->right -= tgt->top;
 }

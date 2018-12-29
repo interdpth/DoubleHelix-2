@@ -1,6 +1,8 @@
 #include "MainHeader.h"
 #include "MapManager.h"
 #include "GBAGraphics.h"
+#include "GlobalVars.h"
+#include "MapUtils.h"
 BOOL CALLBACK	SceneProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam){
 	
 	
@@ -157,6 +159,8 @@ int InitSceneryWindow(){
 LRESULT CALLBACK SWProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam){
 	HDC hdc;
 	PAINTSTRUCT ps;
+	MapUtils* nMap = new MapUtils(RD1Engine::theGame->mainRoom->mapMgr);
+
 	int x=0,y=0,add=0;
 	switch(SceneType){
 	case 0:
@@ -193,18 +197,18 @@ LRESULT CALLBACK SWProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		case 0:
 			
 			//BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer)->TileBuf2D[(GetX(lParam)/8) + ((GetY(lParam)/8)*32)+add ] = SceneTile;
-			EditThisLayer(RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer),lParam,0,SceneTile,8);
+			nMap->EditThisLayer(RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer),lParam,0,SceneTile,8);
 			
 			DrawThisScene(SceneType);
 			break;
 		case 1:
 			//BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer)->TileBuf2D[(GetX(lParam)/8) + ((GetY(lParam)/8)*32)+add] = SceneTile;
-			EditThisLayer(RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer),lParam,0,SceneTile,8);
+			nMap->EditThisLayer(RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer),lParam,0,SceneTile,8);
 			DrawThisScene(SceneType);
 			break;
 		case 2:
 			//BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround)->TileBuf2D[(GetX(lParam)/8) + ((GetY(lParam)/8)*32)+add ] = SceneTile;
-			EditThisLayer(RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround),lParam,0,SceneTile,8);
+			nMap->EditThisLayer(RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround),lParam,0,SceneTile,8);
 			DrawThisScene(SceneType);
 			break;
 		}
@@ -213,8 +217,8 @@ LRESULT CALLBACK SWProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 	    	SmP[0]=1;//Has been selected
 			SmP[1]=1;//In use 
 		    SceneryCopySource=1;
-			mpScene.sX = (GetX(lParam)/8);// +nHScroll[sHMap])/16;
-			mpScene.sY = (GetY(lParam)/8);//+ nVScroll[sVMap]);
+			mpScene.sX = (GetX(lParam)/8);// +MapHorizScroll->GetIndex())/16;
+			mpScene.sY = (GetY(lParam)/8);//+ MapVertScroll->GetIndex());
 			mpScene.cX = mpScene.sX;
 			mpScene.cY = mpScene.sY;
 			mpScene.Width = 1;
