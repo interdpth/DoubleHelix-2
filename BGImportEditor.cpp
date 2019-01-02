@@ -244,7 +244,7 @@ for(i=0;i<3;i++){ //Choses i val
 RD1Engine::theGame->mgrTileset->SaveTileset(RD1Engine::theGame->mainRoom->roomHeader.bTileset);
 SaveHeader(2);
 //BaseGame::theGame->mgrTileset->GetCBG();
-RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 	
  delete[] tempbuff;
  delete[] superbuff;
