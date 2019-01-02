@@ -24,7 +24,6 @@
     <ClCompile Include="ROMFile.cpp" />
     <ClCompile Include="RoomOptions.cpp" />
     <ClCompile Include="SceneryEditor.cpp" />
-    <ClCompile Include="Sprite Selector.cpp" />
     <ClCompile Include="SpriteEditor.cpp" />
     <ClCompile Include="StatEditor.cpp" />
     <ClCompile Include="TextEditor.cpp" />
@@ -83,6 +82,7 @@
     <ClCompile Include="WindowScrollbar.cpp" />
     <ClCompile Include="clsScroll.cpp" />
     <ClCompile Include="MapUtils.cpp" />
+    <ClCompile Include="SpriteSelector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cOAMEdit.h" />
@@ -101,7 +101,6 @@
     <ClInclude Include="IPSPatch.h" />
     <ClInclude Include="MainHeader.h" />
     <ClInclude Include="MainWindow.h" />
-    <ClInclude Include="mmD.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ResourceAndDefines.h" />
     <ClInclude Include="stdafx.h" />
@@ -132,6 +131,7 @@
     <ClInclude Include="WindowScrollbar.h" />
     <ClInclude Include="clsScroll.h" />
     <ClInclude Include="MapUtils.h" />
+    <ClInclude Include="MinimapClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res.rc" />

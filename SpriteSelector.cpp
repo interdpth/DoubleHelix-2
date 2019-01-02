@@ -30,12 +30,12 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		switch(LOWORD(wParam)){
 		case btnAddObject:
 			RD1Engine::theGame->mainRoom->mgrSpriteObjects->AddSpriteObject(Combos[cSpriteSet].GetListIndex());
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
-
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+			UiState::stateManager->ShowObj();
 			break;
 		case btnDeleteObj:
 			RD1Engine::theGame->mainRoom->mgrSpriteObjects->DeleteSpriteObject(Combos[cSpriteSet].GetListIndex(), RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetObjId());
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 			RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetObjId(0);
 			UiState::stateManager->ShowObj();
 			break;
@@ -59,7 +59,7 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 				break;
 			case cmdSSOk:
                  SetCurSprite();
-				 RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+				 RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
                  ShowWindow(hWnd,SW_HIDE);
 				break;
 		

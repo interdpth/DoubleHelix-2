@@ -251,7 +251,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		{
 			poo = Combos[cClip].GetListIndex();
 
-			Combos[cClip].SetListIndex(mgrMap->GetLayer(MapManager::Clipdata)->TileBuf2D[actualX + (actualY)* (mgrMap->GetLayer(MapManager::LevelData)->X)]);
+//			Combos[cClip].SetListIndex(mgrMap->GetLayer(MapManager::Clipdata)->TileBuf2D[actualX + (actualY)* (mgrMap->GetLayer(MapManager::LevelData)->X)]);
 
 			GetWindowText(Combos[cClip].GetHwnd(), cBuf, 200);
 			SetWindowText(GetDlgItem(GlobalVars::gblVars->frameControls, lblClip), cBuf);
@@ -336,7 +336,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 				Layer->UndoBuff->Set(Layer->X*Layer->Y * 2, Layer->TileBuf2D);
 				Layer->CopyData->Paste(&Layer->TileBuf2D[mpMap.sX + (mpMap.sY*Layer->X)]); //mpMap.sX+( mpMap.sY*Layer->X)]);
 				
-				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 				
 				InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 0);
 				return TRUE;

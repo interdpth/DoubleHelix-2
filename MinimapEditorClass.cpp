@@ -1,4 +1,4 @@
-#include "mmD.h"
+#include "MinimapClass.h"
 #include "globals.h"
 #include "resource.h"
 
@@ -37,7 +37,7 @@ int MiniMapClass::Clear() {
 	memset(&Palette, 0, sizeof(Palette));
 	return 0;
 }
-int MiniMapClass::Create(Image* Map, Image* Tileset) {
+int MiniMapClass::Create() {
 	RECT tr;
 	int x = 0;
 	int y = 0;
@@ -57,14 +57,7 @@ int MiniMapClass::Create(Image* Map, Image* Tileset) {
 			MemFile::currentFile->fread(&GBA.GBAPal, 2, 0xA0, GBA.ROM);
 			GBA.DecodePal(GBA.GBAPal, Palette, 0xB, 0);
 			ts.Load(TilesetGraphics, 384);
-		
-		
-			
-			
-
-
 		}
-
 		else
 		{
 			return 1;
@@ -84,7 +77,6 @@ int MiniMapClass::Create(Image* Map, Image* Tileset) {
 			GBA.DecodePal(GBA.GBAPal, Palette, 0xB, 0);
 			ts.Load(TilesetGraphics, 430);
 		}
-
 		else
 		{
 			return 1;

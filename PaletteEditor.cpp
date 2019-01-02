@@ -95,7 +95,7 @@ BOOL CALLBACK   LPProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
          RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
          RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
 		
-		 RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+		 RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
          InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
          InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
          break;

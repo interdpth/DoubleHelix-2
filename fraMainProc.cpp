@@ -11,7 +11,14 @@ void SaveState()
 
 }
 
+void DrawStatusFromUI()
+{
+	RD1Engine::theGame->DrawStatus.Clipdata = GlobalVars::gblVars->ViewClip.value();
 
+	RD1Engine::theGame->DrawStatus.Scrolls = GlobalVars::gblVars->ScrollCheck.value();
+
+	RD1Engine::theGame->DrawStatus.SpriteRect = !GlobalVars::gblVars->chkHideSprites.value();
+}
 void CheckZoom(int zoomid)
 {
 	HMENU mainMenu = GetMenu(UiState::stateManager->GetWindow());
@@ -94,7 +101,7 @@ bool ProcessControls2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		GlobalVars::gblVars->ViewForeground = GlobalVars::gblVars->checkBoxViewF.value() == BST_CHECKED;
 		mainGame->DrawStatus.BG0 = GlobalVars::gblVars->ViewForeground;
 		mainGame->DrawStatus.dirty = true;
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, false);
 		return true;
 		break;
@@ -102,7 +109,7 @@ bool ProcessControls2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		GlobalVars::gblVars->ViewLevel = GlobalVars::gblVars->checkBoxViewL.value() == BST_CHECKED;
 		mainGame->DrawStatus.BG1 = GlobalVars::gblVars->ViewLevel;
 		mainGame->DrawStatus.dirty = true;
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, false);
 		return true;
 		break;
@@ -110,12 +117,8 @@ bool ProcessControls2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		GlobalVars::gblVars->ViewBacklayer = GlobalVars::gblVars->checkBoxViewB.value() == BST_CHECKED;
 		mainGame->DrawStatus.BG2 = GlobalVars::gblVars->ViewBacklayer;
 		mainGame->DrawStatus.dirty = true;
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, false);
-		return true;
-		break;
-	case chkHS:
-		//GlobalVars::gblVars->ViewBacklayer = GlobalVars::gblVars->checkBoxViewB.value() == BST_CHECKED;
 		return true;
 		break;
 	case ID_DAA:
@@ -168,7 +171,9 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 
 	
 	case chkHS:
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+		DrawStatusFromUI();
+		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+		InvalidateRect(hwnd, 0, true);
 		break;
 
 	case mnuIPSP:
@@ -183,12 +188,12 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		if (currentRomType == -1)
 			return 0;
 		RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround)->Dirty = 1;
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		break;
 	case cboClip:
 		if (HIWORD(wParam) == CBN_SELCHANGE)
 		{
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		}
 		break;
 	
@@ -205,7 +210,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		{
 			RD1Engine::theGame->mainRoom->LoadUpSprites(Combos[cSpriteSet].GetListIndex(), &SpriteImage);
 			RD1Engine::theGame->DrawStatus.dirty = true;
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 
 			InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 
@@ -217,14 +222,14 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		if (GBA.ROM &&  GlobalVars::gblVars->ScrollCheck.value() == 1) {
 			RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetState(editingStates::SCROLL);
 			RD1Engine::theGame->DrawStatus.dirty = true;
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 
 		}
 		else {
 			RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetState(editingStates::MAP);
 		}
 		RD1Engine::theGame->DrawStatus.dirty = true;
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		if (GlobalVars::gblVars->ScrollCheck.value()) UiState::stateManager->ShowObj();
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 		break;
@@ -253,7 +258,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 	case cboDScroll:
 		if (HIWORD(wParam) == CBN_SELCHANGE)
 		{
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		}
 		break;
 	case  chkAnimates:
@@ -287,7 +292,8 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 	case chkViewL:
 	case chkViewBG:
 		if (!LoadingLevel)
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+			DrawStatusFromUI();
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		break;
 	case chkSRe:
 		GlobalVars::gblVars->checkBoxsMove.value(0);
@@ -297,8 +303,8 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		break;
 
 	case chkVC:
-
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+		DrawStatusFromUI();
+		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 
 		break;
 	case cboArea:
@@ -466,7 +472,7 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 
 		clrIndex = 0;
 		//GlobalVars::gblVars->imgTileset->Create(512, 1024);
-
+		GlobalVars::gblVars->chkHideSprites.SetCnt(GetDlgItem(hwnd, chkHS));
 		GlobalVars::gblVars->checkBoxForeground.SetCnt(GetDlgItem(hwnd, chkForeground));
 		GlobalVars::gblVars->checkBoxLevel.SetCnt(GetDlgItem(hwnd, chkLevel));
 		GlobalVars::gblVars->checkBoxLevel.value(2);

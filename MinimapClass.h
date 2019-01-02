@@ -11,9 +11,16 @@ public:
 	static MiniMapClass* miniMapEditor;
 	MiniMapClass();
    ~MiniMapClass();
-
-   
-	int Create(Image* map, Image* Tileset);//Sets colors and arrays up
+   HWND hwndMiniMap;
+   HWND hwndMiniTileset;
+   sCombo  MFMap;
+   sCombo  cboPalette;
+   sCombo  cboMArea;
+   sChecks Vert;
+   sChecks Horz;
+   Image*   Tileset;
+   Image*   Map;
+	int Create();//Sets colors and arrays up
     int Clear();//Clears palette and graphics	
 	long   MapList[0xB];
 	unsigned char    TilesetGraphics[0x4000];

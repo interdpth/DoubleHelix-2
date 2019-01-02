@@ -42,7 +42,7 @@ BOOL CALLBACK ScrollWndProc(HWND hwnd, unsigned int message, WPARAM wParam, LPAR
 			RD1Engine::theGame->mgrScrolls->GetScrollInfo()->Scrolls.push_back(blankData);
 			RD1Engine::theGame->mgrScrolls->GetScrollInfo()->Number = RD1Engine::theGame->mgrScrolls->GetScrollInfo()->Scrolls.size();
 			RD1Engine::theGame->DrawStatus.dirty = true;
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 			LoadScrollControls(RD1Engine::theGame->mgrScrolls->GetScrollInfo());
 				break;
 		case btnDeleteScroll:

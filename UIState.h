@@ -35,7 +35,8 @@ public:
 	UiState();
 	UiState(WindowState newState);
 	~UiState();
-	static void AutoRect(HWND src, RECT* tgt);
+	static void MoveOrigin(HWND src, int x, int y, int width, int height, int refresh, RECT* origin);
+	static void AutoRect(HWND src, RECT* tgt, bool zeroOut=false);
 	void ResizeTileset(HWND srcNeighbor);
 	static UiState* stateManager;
 	void ShowObj();

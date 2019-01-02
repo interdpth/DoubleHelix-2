@@ -231,7 +231,7 @@ int  MapUtils::EditThisLayer(nMapBuffer * Layer, WPARAM wParam, LPARAM lParam, b
 	Layer->DrawRect.right = ( mpMap.sX+  mpMap.Width+MapHorizScroll->GetIndex()  );*/
 	Layer->Dirty = Layer->SDirty = 1;
 	RD1Engine::theGame->DrawStatus.dirty = true;
-	RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+	RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 	//DrawLevel();
 	SetWindowText(UiState::stateManager->GetMapWindow(), "Map");
 	InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);

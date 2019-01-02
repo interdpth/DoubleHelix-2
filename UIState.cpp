@@ -311,12 +311,16 @@ void UiState::ResizeMap(HWND srcNeighbor)
 	RECT mainRect;
 	GetWindowRect(hTabControl, &toolsRect);
 	GetWindowRect(GetWindow(), &mainRect);
+	RECT tmpRect; 
+	AutoRect(hTabControl, &tmpRect);
+	RECT tmpRect2;
+	AutoRect(GetWindow(), &tmpRect2);
 
 
 	viewRect.top = 0;
-	viewRect.left = toolsRect.right + 1;
-	viewRect.right = mainRect.right - toolsRect.right - toolsRect.left - mainRect.left - 16;
-	viewRect.bottom = mainRect.bottom - mainRect.top;
+	viewRect.left = toolsRect.right + 1-toolsRect.left + 8;
+	viewRect.right = tmpRect2.right - tmpRect.right-24;// mainRect.right - mainRect.left - toolsRect.right - toolsRect.left - 16;
+	viewRect.bottom = mainRect.bottom - mainRect.top-64;
 
 	if (RD1Engine::theGame &&  RD1Engine::theGame->mainRoom&&mgrMap && mgrMap->created)
 	{
@@ -409,19 +413,37 @@ void UiState::ResizeTileset(HWND srcNeighbor)
 
 	Image* tileset = GlobalVars::gblVars->imgTileset;
 
-	viewRect.right = tileset->Width + 8;
-	viewRect.top = toolsRect.top+toolsRect.bottom +4;
+	viewRect.right = tileset->Width;
+	viewRect.top = toolsRect.top+toolsRect.bottom;
 
 	viewRect.left = toolsRect.left;
 	// mainRect.right - toolsRect.right;
 	viewRect.bottom = 280;;;// -16;
-    MoveWindow(hWnd, viewRect.left, viewRect.top, viewRect.right, viewRect.bottom , 0);
+    MoveWindow(hWnd, 8, viewRect.top, viewRect.right, viewRect.bottom , 0);
+}
+
+void UiState::MoveOrigin(HWND src, int x, int y, int width, int height, int refresh, RECT* origin)
+{
+	MoveWindow(src, x + origin->left, y + origin->top, width, height, 0);
 }
 
 //Turns rect into point, point
-void UiState ::AutoRect(HWND src, RECT* tgt)
+void UiState ::AutoRect(HWND src, RECT* tgt, bool zeroOut)
 {
 	GetWindowRect(src, tgt);
-	tgt->bottom -= tgt->top;
-	tgt->right -= tgt->top;
+	if (tgt->bottom > tgt->top)
+	{
+		tgt->bottom = abs(tgt->bottom - tgt->top);
+	}
+
+	if (tgt->right > tgt->left)
+	{
+		tgt->right = abs(tgt->right - tgt->left);
+	}
+
+	if (zeroOut)
+	{
+		tgt->top = 0;
+		tgt->left = 0;
+	}
 }

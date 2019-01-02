@@ -5,24 +5,16 @@ long ho;
 int CreateMiniMapTileImage(int Width, int Height);
 int CreateMiniMapImage(int Width, int Height);
 int DrawMapLoc(HDC hdc);
-HWND hwndMiniMap;
-HWND hwndMiniTileset;
-sCombo  MFMap;
-sCombo  cboPalette;
-sCombo  cboMArea;
-sChecks Vert;
-sChecks Horz;
-Image*   Tileset;
-Image*   Map;
 
 void Create(int romSwitch)
 {
+
 	RECT tr;
 	int i = 0;
 	char buf[1024] = { 0 };
-	Vert.SetCnt(GetDlgItem(hwndMM, chkVert));
-	Horz.SetCnt(GetDlgItem(hwndMM, chkHorz));	
-	Map = new Image(2048, 2048);
+	MiniMapClass::miniMapEditor->Vert.SetCnt(GetDlgItem(hwndMM, chkVert));
+	MiniMapClass::miniMapEditor->Horz.SetCnt(GetDlgItem(hwndMM, chkHorz));
+	MiniMapClass::miniMapEditor->Map = new Image(2048, 2048);
 
 	GetWindowRect(GetDlgItem(hwndMM, framt), &tr);
 	//Now would be the best time to create an HWND
@@ -30,44 +22,44 @@ void Create(int romSwitch)
 	GetWindowRect(GetDlgItem(hwndMM, fraMinimap), &tr);
 	CreateMiniMapImage(tr.right - tr.left, tr.bottom - tr.top);
 
-	cboPalette.Init(GetDlgItem(hwndMM, cboMPal));
-	cboPalette.Clear();
+	MiniMapClass::miniMapEditor->cboPalette.Init(GetDlgItem(hwndMM, cboMPal));
+	MiniMapClass::miniMapEditor->cboPalette.Clear();
 	for (i = 0; i<9; i++) {
 		sprintf(buf, "%X", i);
-		cboPalette.Additem(buf);
+		MiniMapClass::miniMapEditor->cboPalette.Additem(buf);
 	}
-	cboPalette.SetListIndex(0);
-	cboMArea.Init(GetDlgItem(hwndMM, cboMAreaC));
-	cboMArea.Clear();
+	MiniMapClass::miniMapEditor->cboPalette.SetListIndex(0);
+	MiniMapClass::miniMapEditor->cboMArea.Init(GetDlgItem(hwndMM, cboMAreaC));
+	MiniMapClass::miniMapEditor->cboMArea.Clear();
 	if (!romSwitch)
 	{
-		cboMArea.Additem("Brinstar");
-		cboMArea.Additem("Kraid");
-		cboMArea.Additem("Norfair");
-		cboMArea.Additem("Ridley");
-		cboMArea.Additem("Tourian");
-		cboMArea.Additem("Crateria");
-		cboMArea.Additem("Chozodia");
-		cboMArea.Additem("???");
-		cboMArea.Additem("???");
-		cboMArea.Additem("???");
-		cboMArea.Additem("???");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("Brinstar");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("Kraid");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("Norfair");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("Ridley");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("Tourian");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("Crateria");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("Chozodia");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("???");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("???");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("???");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("???");
 	}
 	else {
-		cboMArea.Additem("Main Deck");
-		cboMArea.Additem("SRX");
-		cboMArea.Additem("TRO");
-		cboMArea.Additem("PYR");
-		cboMArea.Additem("AQA");
-		cboMArea.Additem("NOC");
-		cboMArea.Additem("Debug1");
-		cboMArea.Additem("Debug2");
-		cboMArea.Additem("Debug3");
-		cboMArea.Additem("Uknown");
-		cboMArea.Additem("Uknown");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("Main Deck");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("SRX");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("TRO");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("PYR");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("AQA");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("NOC");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("Debug1");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("Debug2");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("Debug3");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("Uknown");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("Uknown");
 	}
-	MFMap.SetListIndex(0);
-	Tileset = new Image(tr.right - tr.left, tr.bottom - tr.top);
+	MiniMapClass::miniMapEditor->MiniMapClass::miniMapEditor->MFMap.SetListIndex(0);
+	MiniMapClass::miniMapEditor->Tileset = new Image(tr.right - tr.left, tr.bottom - tr.top);
 }
 BOOL CALLBACK  MiniProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam){
 
@@ -78,9 +70,12 @@ BOOL CALLBACK  MiniProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 	{
 	case WM_INITDIALOG:
 		hwndMM = hWnd;
+		if (MiniMapClass::miniMapEditor == NULL)
+		{
+			MiniMapClass::miniMapEditor = new MiniMapClass();
+		}
 		Create(GameConfiguration::mainCFG->RomSwitch);
-		MiniMapClass::miniMapEditor = new MiniMapClass();
-		MiniMapClass::miniMapEditor->Create(Map, Tileset);
+		MiniMapClass::miniMapEditor->Create();
 		break;
 		
 		
@@ -91,12 +86,12 @@ BOOL CALLBACK  MiniProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 	case WM_COMMAND:
 		switch(LOWORD(wParam)){
 		case cboMPal:
-			MiniMapClass::miniMapEditor->DrawTileset(Tileset, cboPalette.GetListIndex());
+			MiniMapClass::miniMapEditor->DrawTileset(MiniMapClass::miniMapEditor->Tileset, MiniMapClass::miniMapEditor->cboPalette.GetListIndex());
 			break;
 		case cboMAreaC:
 			if(HIWORD(wParam) == CBN_SELCHANGE){
-				MiniMapClass::miniMapEditor->DecompressMap(cboMArea.GetListIndex());
-				MiniMapClass::miniMapEditor->DrawMap(Map);
+				MiniMapClass::miniMapEditor->DecompressMap(MiniMapClass::miniMapEditor->cboMArea.GetListIndex());
+				MiniMapClass::miniMapEditor->DrawMap(MiniMapClass::miniMapEditor->Map);
 				drawmm=0;
 			}
 			break;
@@ -146,12 +141,12 @@ LRESULT CALLBACK MiniTilesetProc(HWND hWnd, unsigned int message, WPARAM wParam,
 	{
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		Tileset->Blit(hdc, 0,0,128 ,232,0,0);
+		MiniMapClass::miniMapEditor->Tileset->Blit(hdc, 0,0,128 ,232,0,0);
 		EndPaint(hWnd, &ps);
 		break;
 		
   		case WM_LBUTTONDOWN:
-			MiniMapClass::miniMapEditor->curtile= (cboPalette.GetListIndex() * 0x1000) + (GetX(lParam)/8) + ((GetY(lParam)/8)*	16);
+			MiniMapClass::miniMapEditor->curtile= (MiniMapClass::miniMapEditor->cboPalette.GetListIndex() * 0x1000) + (GetX(lParam)/8) + ((GetY(lParam)/8)*	16);
 			
 			break;
 		case WM_RBUTTONDOWN:
@@ -193,10 +188,10 @@ int CreateMiniMapTileImage(int Width, int Height) {
 									   // Register the window class. 
 	RegisterClassEx(&blab5);
 
-	hwndMiniTileset = CreateWindowEx(NULL, "MapTiles", NULL, WS_TABSTOP | WS_VISIBLE | WS_CHILD, 2, 13, 131, 240, GetDlgItem(hwndMM, framt), 0, hGlobal, 0);
+	MiniMapClass::miniMapEditor->hwndMiniTileset = CreateWindowEx(NULL, "MapTiles", NULL, WS_TABSTOP | WS_VISIBLE | WS_CHILD, 2, 13, 131, 240, GetDlgItem(hwndMM, framt), 0, hGlobal, 0);
 
 
-	ShowWindow(hwndMiniTileset, SW_SHOW);
+	ShowWindow(MiniMapClass::miniMapEditor->hwndMiniTileset, SW_SHOW);
 	return 0;
 }
 
@@ -220,10 +215,10 @@ int CreateMiniMapImage(int Width,int Height){
 	// Register the window class. 
 	RegisterClassEx(&blab6);
 	
-	hwndMiniMap = CreateWindowEx(NULL,"MiniMap",NULL, WS_TABSTOP | WS_VISIBLE|WS_CHILD ,3,12,Width-3,Height-12,GetDlgItem(hwndMM,fraMinimap),0,hGlobal,0);
+	MiniMapClass::miniMapEditor->hwndMiniMap = CreateWindowEx(NULL,"MiniMap",NULL, WS_TABSTOP | WS_VISIBLE|WS_CHILD ,3,12,Width-3,Height-12,GetDlgItem(hwndMM,fraMinimap),0,hGlobal,0);
 	
 	
-	ShowWindow(hwndMiniTileset,SW_SHOW);	
+	ShowWindow(MiniMapClass::miniMapEditor->hwndMiniTileset,SW_SHOW);	
 	return 0;
 }
 LRESULT CALLBACK MiniGraphicProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam){
@@ -237,32 +232,32 @@ LRESULT CALLBACK MiniGraphicProc(HWND hWnd, unsigned int message, WPARAM wParam,
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 		if(currentRomType==1){
-			if(MFMap.GetListIndex()==1){
+			if(MiniMapClass::miniMapEditor->MFMap.GetListIndex()==1){
 				srcx = 15;
 			    srcy=0;
-			}else if(MFMap.GetListIndex() == 2){
+			}else if(MiniMapClass::miniMapEditor->MFMap.GetListIndex() == 2){
 				srcy=15;
 			    srcx=0;
-            }else if(MFMap.GetListIndex() == 3){
+            }else if(MiniMapClass::miniMapEditor->MFMap.GetListIndex() == 3){
                 srcy=15;
 			    srcx=15;
 			}
 		}
-		Map->Blit(hdc, 0,0,256 ,256,0,0);
+		MiniMapClass::miniMapEditor->Map->Blit(hdc, 0,0,256 ,256,0,0);
 		DrawMapLoc(hdc);
 		EndPaint(hWnd, &ps);
 		break;
 	case WM_LBUTTONDOWN:
 
-		MiniMapClass::miniMapEditor->RawMap[(GetX(lParam)/8) + ((GetY(lParam)/8)*32)] = MiniMapClass::miniMapEditor->curtile+(Vert.value() ? 0x800:0)+(Horz.value() ? 0x400:0);
-		MiniMapClass::miniMapEditor->DrawMap(Map);
+		MiniMapClass::miniMapEditor->RawMap[(GetX(lParam)/8) + ((GetY(lParam)/8)*32)] = MiniMapClass::miniMapEditor->curtile+(MiniMapClass::miniMapEditor->Vert.value() ? 0x800:0)+(MiniMapClass::miniMapEditor->Horz.value() ? 0x400:0);
+		MiniMapClass::miniMapEditor->DrawMap(MiniMapClass::miniMapEditor->Map);
 		drawmm=1;
 		break;
 	case WM_RBUTTONDOWN:
  	    RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomX=(GetX(lParam)/8);
 		RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomY=(GetY(lParam)/8);
 
-	InvalidateRect(hwndMiniMap,0,1);
+	InvalidateRect(MiniMapClass::miniMapEditor->hwndMiniMap,0,1);
 		break;
 		
 		
@@ -279,7 +274,7 @@ int MiniMapClass::DrawTileset(Image *tileset, int pal){
 	for(i= 0;i<max;i++){
 		tileset->Draw(ts,(i % 16)*8,(i/16)*8,(pal*0x1000)+i);
 	}
-	InvalidateRect(hwndMiniTileset,0,1);
+	InvalidateRect(MiniMapClass::miniMapEditor->hwndMiniTileset,0,1);
 	return 0;
 }
 
@@ -362,7 +357,7 @@ int DrawMapLoc(HDC hdc){
    int x=0;
    int y=0;
    int ThisArea=Combos[cArea].GetListIndex();
-   int ThisMArea=cboMArea.GetListIndex();
+   int ThisMArea= MiniMapClass::miniMapEditor->cboMArea.GetListIndex();
    int ThisRoom=Combos[cRoom].GetListIndex();
                 //Check to see if the areas are the same 
 	                   //If they aren't do draw

@@ -1,7 +1,7 @@
 #pragma once
 #include "clsScroll.h"
 #include "sChecks.h"
-#include "mmD.h"
+#include "MinimapClass.h"
 #include "cTextEditor.h"
 #include "cStatEd.h"
 #include "wndBGImport.h"
@@ -32,6 +32,7 @@ public:
 	sChecks checkBoxBackground;
 	sChecks checkBoxClip;
 	sChecks chkBoxED;
+	sChecks chkHideSprites;
 	bool ViewForeground;
 	sChecks checkBoxViewF;
 	bool ViewLevel;

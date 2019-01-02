@@ -1,6 +1,6 @@
 #include "MainHeader.h"
 #include "sChecks.h"
-#include "mmD.h"
+#include "MinimapClass.h"
 #include "cClipboard.h"
 #include "clsScroll.h"
 #include "GlobalVars.h"
@@ -129,24 +129,30 @@ void TabResize()
 	if (!inited)
 	{
 		UiState::AutoRect(hTabControl, &tabControl);
-		MoveWindow(hTabControl, 0, 0,  tabControl.right + 8, tabControl.bottom+20, 0);
+		MoveWindow(hTabControl, 1, 8,  tabControl.right + 1, tabControl.bottom+20, 0);
 		UiState::AutoRect(hCurrentTab, &currentTabWindow);
 
 		inited = true;
 	}
 	
 	UiState::AutoRect(hTabControl, &tabControl);
-	MoveWindow(hCurrentTab, 0, 25, tabControl.right, tabControl.bottom - 30, 0);
+	MoveWindow(hCurrentTab, 0, 30, tabControl.right-1, tabControl.bottom - 40, 0);
 
 	UiState::stateManager->ResizeTileset(hTabControl);
 
 
-	GetWindowRect(UiState::stateManager->GetTilesetWindow(), &tilesetWindow);
+	UiState::AutoRect(UiState::stateManager->GetTilesetWindow(), &tilesetWindow);
 	UiState::AutoRect(hwndMain(), &tabControl);
 
 	//Now resize map to take up 
 	UiState::stateManager->ResizeMap(hTabControl);
-
+	UiState::AutoRect(hwndMain(), &tabControl);
+	int height = tabControl.bottom;
+	if (height <tilesetWindow.top + tilesetWindow.bottom)
+	{
+		height = tilesetWindow.top+ tilesetWindow.bottom + 32;
+	}
+	MoveWindow(hwndMain(), tabControl.left, tabControl.top, tabControl.right, height, true);
 	InvalidateRect(hwndMain(), 0, true);
 }
 
@@ -429,7 +435,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			return 0;
 		if (!hwndMM) {
 			CreateDialog(hGlobal, MAKEINTRESOURCE(frmMiniMap), 0, MiniProc);
-
+			MiniMapClass::miniMapEditor->cboMArea.SetListIndex(0);
 		}
 		ShowWindow(hwndMM, SW_SHOW);
 		break;
@@ -724,7 +730,7 @@ sChecks door;
 				if (RD1Engine::theGame&&RD1Engine::theGame->mainRoom&&RD1Engine::theGame->mainRoom->mapMgr)
 				{
 					RD1Engine::theGame->DrawStatus.dirty = true;
-					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 					InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
 					InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 				}
@@ -737,7 +743,7 @@ sChecks door;
 				if (RD1Engine::theGame&&RD1Engine::theGame->mainRoom&&RD1Engine::theGame->mainRoom->mapMgr)
 				{
 					RD1Engine::theGame->DrawStatus.dirty = true;
-					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 					InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 				}
 			}

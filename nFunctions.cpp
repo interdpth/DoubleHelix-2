@@ -81,46 +81,6 @@ int             LoadInput(long val)
 
 
 
-
-
-
-int             DrawClipIdent()
-{
-	int             currclip = Combos[cClip].GetListIndex();
-	RECT            blah;
-	int             thisX = 0;
-	int             thisY = 0;
-	int             x = 0;
-	int             y = 0;
-
-	HBRUSH          curbrush = CreateSolidBrush(RGB(255, 255, 255));
-
-	for (thisY = 0; thisY < RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Y; thisY++)
-	{
-		for (thisX = 0; thisX < RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->X; thisX++)
-		{
-
-			if (RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Clipdata)->TileBuf2D[thisX + (thisY * (RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Clipdata)->X))] == currclip)
-			{
-
-				blah.left = thisX * 16;
-				blah.right = thisX * 16 + 16;
-				blah.top = thisY * 16;
-				blah.bottom = thisY * 16 + 16;
-
-				FrameRect(RD1Engine::theGame->ThisBackBuffer.DC(), &blah, curbrush);
-				
-
-			}
-		}
-	}
-	DeleteObject(curbrush);
-	InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
-	return 0;
-}
-
-
-
 int DoScroll(LPARAM lParam) {
 	if (!movingScroll) {
 		movingScrollIndex = RD1Engine::theGame->mgrScrolls->Findmeascroll(((GetX(lParam) / 16) + MapHorizScroll->GetIndex()), ((GetY(lParam) / 16) + MapVertScroll->GetIndex()), cboScroll.GetListIndex());

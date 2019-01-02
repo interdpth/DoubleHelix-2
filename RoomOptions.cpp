@@ -165,17 +165,17 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 		case cmdCFore:
 			ClearLayer(buffForeground);
 
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 			break;
 		case cmdCLevel:
 			ClearLayer(buffLevel);
 
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 			break;
 		case cmdCBack:
 			ClearLayer(buffBackLayer);
 
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage,&GlobalVars::gblVars->BGImage,true, true,true, false, false, false, 0);
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage,&GlobalVars::gblVars->BGImage, 0);
 			break;
 		case cmdCClip:
 
@@ -193,7 +193,7 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 		break;
 
 		if ((RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer)->Dirty) || (RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Dirty) || (buffForeground->Dirty))
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 
 
 

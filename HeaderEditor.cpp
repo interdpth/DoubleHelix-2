@@ -52,7 +52,7 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 			break;
 		case cmdSave:
 			SaveHeader(1);
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 			//RD1Engine::theGame->mainRoom->LoadUpSprites(0);
 			break;
 		case cmdChangeS:
@@ -96,7 +96,7 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 				RD1Engine::theGame->mainRoom->roomHeader.bTileset = cmTileset.GetListIndex();
 				RD1Engine::theGame->mgrTileset->GetTileset(GlobalVars::gblVars->imgTileset, RD1Engine::theGame->mainRoom->Area, cmTileset.GetListIndex(), RD1Engine::theGame->mainRoom->roomHeader.lBg3);
 				RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround)->Dirty = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Dirty = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer)->Dirty = 1;
-				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 			}
 			break;
 		case cboTrans:
@@ -104,14 +104,14 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 				RD1Engine::theGame->mainRoom->roomHeader.TransForeground = cTransparency.GetListIndex();
 				RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround)->Dirty = 1;
 				RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround)->SDirty = 1;
-				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 			}
 			break;
 		case cboSYP:
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
 
 				RD1Engine::theGame->mainRoom->roomHeader.bSceneryYPos = cSYP.GetListIndex();
-				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 				InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 			}
 			break;

@@ -156,7 +156,7 @@ int DrawLevel() {
 	//   GlobalVars::gblVars->checkBoxViewF.value(i);
 	//	GlobalVars::gblVars->checkBoxViewL.value(i);
 	//	GlobalVars::gblVars->checkBoxViewB.value(i);
-	RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, true, true, true, false, false, false, -1);
+	RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 	//}
 	CurMapWidth = buffLeveldata->X;
 	CurMapHeight = buffLeveldata->Y;
@@ -462,6 +462,13 @@ void OpenRom()
 		SendMessage(GlobalVars::gblVars->frameControls, WM_COMMAND, 0x000103ee, 0);
 		UiState::stateManager->UpdateMapObjectWindow();
 		delete[] fileLoc;
+
+
+		//Init minimap stuff
+					
+					
+					
+					
 	}
 }
 //Loads the prelim data
@@ -547,7 +554,7 @@ void OpenRom()
 //			MiniMapClass::miniMapEditor->cboMArea.SetListIndex(0);
 //			MiniMapClass::miniMapEditor->DecompressMap();
 //			MiniMapClass::miniMapEditor->DrawMap();
-//			MiniMapClass::miniMapEditor->MFMap.Disable();
+//			MiniMapClass::miniMapEditor->MiniMapClass::miniMapEditor->MFMap.Disable();
 //			GlobalVars::gblVars->StatEditor->Switch();
 //			GlobalVars::gblVars->TextEditor->Create(currentRomType, hGlobal, TextPicProc);
 //			unsigned long BIC = 0;
@@ -602,7 +609,7 @@ void OpenRom()
 //			MiniMapClass::miniMapEditor->cboMArea.SetListIndex(0);
 //			MiniMapClass::miniMapEditor->DecompressMap();
 //			MiniMapClass::miniMapEditor->DrawMap();
-//			MiniMapClass::miniMapEditor->MFMap.Enable();
+//			MiniMapClass::miniMapEditor->MiniMapClass::miniMapEditor->MFMap.Enable();
 //			GlobalVars::gblVars->TextEditor->Create(currentRomType, hGlobal, TextPicProc);
 //			GlobalVars::gblVars->StatEditor->Switch();
 //			unsigned long BIC=0;
