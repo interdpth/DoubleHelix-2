@@ -311,6 +311,7 @@ int MiniMapClass::DecompressMap(int area){
 int MiniMapClass::DrawMap(Image* dstImage){
 	unsigned short i =0;
 	dstImage->Clear();
+	dstImage->SetPalette(Palette);
 	for(i = 0; i<DSize/2;i++){
 		dstImage->Draw(ts,(i%32)*8,(i/32)*8,RawMap[i]);
 	}

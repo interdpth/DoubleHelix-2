@@ -435,8 +435,15 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			return 0;
 		if (!hwndMM) {
 			CreateDialog(hGlobal, MAKEINTRESOURCE(frmMiniMap), 0, MiniProc);
-			MiniMapClass::miniMapEditor->cboMArea.SetListIndex(0);
+
 		}
+
+		//Reset form 
+		MiniMapClass::miniMapEditor->cboPalette.SetListIndex(0);
+		MiniMapClass::miniMapEditor->cboMArea.SetListIndex(Combos[cArea].GetListIndex());
+		MiniMapClass::miniMapEditor->DecompressMap(MiniMapClass::miniMapEditor->cboMArea.GetListIndex());
+		MiniMapClass::miniMapEditor->DrawTileset(MiniMapClass::miniMapEditor->Tileset, 0);
+		MiniMapClass::miniMapEditor->DrawMap(MiniMapClass::miniMapEditor->Map);
 		ShowWindow(hwndMM, SW_SHOW);
 		break;
 

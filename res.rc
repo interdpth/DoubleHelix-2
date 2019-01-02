@@ -664,7 +664,7 @@ CAPTION "Double Helix"
 MENU mnuMenu
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    CONTROL         "",tabMain,"SysTabControl32",0x0,7,11,367,201
+    CONTROL         "",tabMain,"SysTabControl32",0x0,7,11,322,201
 END
 
 frmSamusEditor DIALOGEX 0, 0, 495, 250
