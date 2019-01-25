@@ -1,13 +1,13 @@
 #include "MainHeader.h"
 long GetIPSAddress(FILE* fp){
 	unsigned char tmp[4]={0};
-	MemFile::currentFile->fread(tmp,3,1,fp);
+	MemFile::currentFile->fread(tmp,3,1);
 	return  (tmp[0]<<16)|(tmp[1]<<8)|(tmp[2]);
 };
 
 long GetIPSShort(FILE* fp){
     unsigned char tmp[2]={0};
-	MemFile::currentFile->fread(tmp,2,1,fp);
+	MemFile::currentFile->fread(tmp,2,1);
 	return tmp[0]<<8|tmp[1];
 
 }
@@ -24,7 +24,7 @@ int i =0;
 long check=0;
 if(fips==0 || fdst==0) return 0;
 MemFile::currentFile->seek(0);
-MemFile::currentFile->fread(cpatch,5,1,fips);
+MemFile::currentFile->fread(cpatch,5,1);
 if(memcmp(cpatch,"PATCH",5)==0){
 
 	MemFile::currentFile->seek(5);

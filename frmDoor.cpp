@@ -265,7 +265,7 @@ int SaveConnections(){
 	}else{
 		return 0;
 	}
-	MemFile::currentFile->fread(&offset,4,1,fp);
+	MemFile::currentFile->fread(&offset,4,1);
 	MemFile::currentFile->seek(offset-0x8000000);
 	//for(int i = 0;;i+=3){
 	

@@ -101,8 +101,8 @@ BOOL CALLBACK  MiniProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 			ho=((RD1Engine::theGame->RoomOffsets[Combos[cArea].GetListIndex()]-0x8000000) + Combos[cRoom].GetListIndex()*0x3C);
 		
 		MemFile::currentFile->seek(ho+0x35);
-	    MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomX,sizeof(unsigned char),1,GBA.ROM);
-		MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomY,sizeof(unsigned char),1,GBA.ROM);
+	    MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomX,sizeof(unsigned char),1);
+		MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomY,sizeof(unsigned char),1);
 	
 
 			break;
@@ -296,7 +296,7 @@ int MiniMapClass::DecompressMap(int area){
 		}else if(currentRomType==1){
 		 MemFile::currentFile->seek(MapList[area]-0x8000000);
 		}
-		MemFile::currentFile->fread(compBuffer,1,64691,GBA.ROM);
+		MemFile::currentFile->fread(compBuffer,1,64691);
 		DSize=GBA.LZ77UnComp(compBuffer, DecompBuf);
 	
 		RawMap=new unsigned short[DSize/2 +1];
@@ -342,9 +342,9 @@ int MiniMapClass::SaveMap(){
 	    offset=GBA.FindFreeSpace(size+30, 0xFF);
 		MapList[cboMArea.GetListIndex()]=offset+0x8000000;
 		MemFile::currentFile->seek(moffset);
-		MemFile::currentFile->fwrite(MapList,4,0xB,GBA.ROM);
+		MemFile::currentFile->fwrite(MapList,4,0xB);
         MemFile::currentFile->seek(MapList[cboMArea.GetListIndex()]-0x8000000);
-		MemFile::currentFile->fwrite(DecompBuf,1,size,GBA.ROM);
+		MemFile::currentFile->fwrite(DecompBuf,1,size);
 	
 		
 	}

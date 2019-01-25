@@ -15,7 +15,7 @@ if(fp){
   MemFile::currentFile->seek(0);
   switch(DataType){
   case 0: //Menu
-      TransMenu(Directive,fp, hwnd);
+//      TransMenu(Directive,fp, hwnd);
       
 	  break;
   }
@@ -31,39 +31,39 @@ return 0;
 
 
 
-void TransMenu(char* MenuName,FILE* fp,HWND hwnd){
-int isParsing=0;
-char FindMenu[256];
-char Sub[]="SubUp";
-char Popup[]="Popup";
-unsigned short  controls=0;
-int i=0,j=0;  //i will be menu, j will be submenu
-	while(!feof(fp)){
-		fgets(FindMenu, 256, fp);
-		if(!isParsing){
-			if(memcmp(FindMenu,MenuName,strlen(MenuName))){
-			 isParsing=1;
-          
-			}
-		} else {
-           //Determine if menu is sub or popup
-			if(memcmp(FindMenu,Popup,5)==0){
-                  controls=ApplyMenuString(0,&FindMenu[6],hwnd,controls);
-			}else if(memcmp(FindMenu,Sub,3)==0){
-				  controls=ApplyMenuString(1,&FindMenu[4],hwnd,controls);
-            }else if(memcmp(FindMenu,"[END]",5)==0){
-			DrawMenuBar(hwnd);
-            return;
-			}else{
-             DrawMenuBar(hwnd);
-            //return;
-			}
-
-		}
-	}
-
-
-}
+//void TransMenu(char* MenuName,HWND hwnd){
+//int isParsing=0;
+//char FindMenu[256];
+//char Sub[]="SubUp";
+//char Popup[]="Popup";
+//unsigned short  controls=0;
+//int i=0,j=0;  //i will be menu, j will be submenu
+//	while(!feof(fp)){
+//		fgets(FindMenu, 256,fp);
+//		if(!isParsing){
+//			if(memcmp(FindMenu,MenuName,strlen(MenuName))){
+//			 isParsing=1;
+//          
+//			}
+//		} else {
+//           //Determine if menu is sub or popup
+//			if(memcmp(FindMenu,Popup,5)==0){
+//                  controls=ApplyMenuString(0,&FindMenu[6],hwnd,controls);
+//			}else if(memcmp(FindMenu,Sub,3)==0){
+//				  controls=ApplyMenuString(1,&FindMenu[4],hwnd,controls);
+//            }else if(memcmp(FindMenu,"[END]",5)==0){
+//			DrawMenuBar(hwnd);
+//            return;
+//			}else{
+//             DrawMenuBar(hwnd);
+//            //return;
+//			}
+//
+//		}
+//	}
+//
+//
+//}
 
 unsigned short ApplyMenuString(int tMenu,char* string,HWND hwnd, unsigned short Counter ){
 	int tMenuC=Counter>>8;

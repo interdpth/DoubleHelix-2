@@ -20,7 +20,7 @@ enum EditType {
 };
 class cOAMEdit {
 public:
-	int GetSpriteData(FILE* ROM, int id, int titleType);
+	int GetSpriteData( int id, int titleType);
 	cOAMEdit();
 	~cOAMEdit();
 	
@@ -75,10 +75,10 @@ static cOAMEdit* OamEditor;
 	unsigned long Save(void* variableAddress);
 	unsigned long Save(SaveOptions savetype, char* fileName);
 
-	int GetFrames(unsigned long offset, FILE* ROM, int spriteID, int titleType);
+	int GetFrames(unsigned long offset,  int spriteID, int titleType);
 	int SetFrames(int index);
 	int UpdatePartUI(bool updateSizes = true);
-	static int SetupPreview(FILE* ROM, int TitleChoice, Frame* targetFrame);
+	static int SetupPreview( int TitleChoice, Frame* targetFrame);
 	int Create();
 	int LoadTiles(Image* tileImage, Frame* targetFrame);
 };

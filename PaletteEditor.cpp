@@ -51,7 +51,7 @@ BOOL CALLBACK   LPProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
                                                                                             // endcoded 
                                                                                             // pal
 
-			 MemFile::currentFile->fwrite(&GBA.GBAPal[32], sizeof(short), 0x1E0, GBA.ROM); // Read
+			 MemFile::currentFile->fwrite(&GBA.GBAPal[32], sizeof(short), 0x1E0); // Read
 
                                                                     // pal
 
@@ -63,7 +63,7 @@ BOOL CALLBACK   LPProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
                                                                                               // endcoded 
                                                                                               // pal
 
-			MemFile::currentFile->fwrite(&GBA.GBAPal[32], sizeof(short), 0x1E0, GBA.ROM); // Read
+			MemFile::currentFile->fwrite(&GBA.GBAPal[32], sizeof(short), 0x1E0); // Read
 
                                                                     // pal c
 
@@ -71,16 +71,16 @@ BOOL CALLBACK   LPProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
          if (currentRomType == 0)
          {
             MemFile::currentFile->seek(0x31C72E);
-			MemFile::currentFile->fwrite(&GBA.GBAPal[1], sizeof(short), 15, GBA.ROM);
+			MemFile::currentFile->fwrite(&GBA.GBAPal[1], sizeof(short), 15);
 
             MemFile::currentFile->seek(0x3ED51C);
-			MemFile::currentFile->fwrite(&GBA.GBAPal[16], sizeof(short), 16, GBA.ROM);
+			MemFile::currentFile->fwrite(&GBA.GBAPal[16], sizeof(short), 16);
 
          } else if (currentRomType == 1)
          {
 
             MemFile::currentFile->seek(0x40805E);
-			MemFile::currentFile->fwrite(&GBA.GBAPal[1], 2, 47, GBA.ROM);
+			MemFile::currentFile->fwrite(&GBA.GBAPal[1], 2, 47);
 
          }
          GBA.DecodePal(GBA.GBAPal, GBAGraphics::VRAM->PcPalMem, 16, 0);

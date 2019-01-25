@@ -128,7 +128,7 @@ int MetroidTextEditor::DecodeText(unsigned long offset) {
 
 
 		while (!feof(GBA.ROM)) {
-			MemFile::currentFile->fread(&tv, 2, 1, GBA.ROM);
+			MemFile::currentFile->fread(&tv, 2, 1);
 			if (tv == 0xFF00 || tv == 0x41F) break;
 			txtlength++;
 		}
@@ -137,7 +137,7 @@ int MetroidTextEditor::DecodeText(unsigned long offset) {
 
 
 		MemFile::currentFile->seek(offset);
-		MemFile::currentFile->fread(binarystring, 2, txtlength, GBA.ROM);
+		MemFile::currentFile->fread(binarystring, 2, txtlength);
 
 		memset(curtext, 0, 2048);
 		DecodeText(binarystring, txtlength);
@@ -236,7 +236,7 @@ vector<unsigned short>*  MetroidTextEditor::EncodeString( char* txt)
 //
 //
 //		while (!feof(GBA.ROM)) {
-//			MemFile::currentFile->fread(&tv, 2, 1, GBA.ROM);
+//			MemFile::currentFile->fread(&tv, 2, 1);
 //			if (tv == 0xFF00 || tv == 0x41F) break;
 //			txtlength++;
 //		}
@@ -245,7 +245,7 @@ vector<unsigned short>*  MetroidTextEditor::EncodeString( char* txt)
 //
 //
 //		MemFile::currentFile->seek(offset);
-//		MemFile::currentFile->fread(binarystring, 2, txtlength, GBA.ROM);
+//		MemFile::currentFile->fread(binarystring, 2, txtlength);
 //
 //		memset(curtext, 0, 2048);
 //
@@ -328,27 +328,27 @@ int MetroidTextEditor::EncodeText(int TitleChoice) {
 	//Just find it a new home.
 	offset = GBA.FindFreeSpace(strcounter * 2, 0xFF);
 	MemFile::currentFile->seek(offset);
-	MemFile::currentFile->fwrite(encodedData->data(), 2, encodedData->size(), GBA.ROM);
-	MemFile::currentFile->fwrite(&marker, 2, 1, GBA.ROM);
+	MemFile::currentFile->fwrite(encodedData->data(), 2, encodedData->size());
+	MemFile::currentFile->fwrite(&marker, 2, 1);
 	//Now apply changes to lists and tables
 	//Offset=
 	GlobalVars::gblVars->TextEditor->ZMOffsets[GlobalVars::gblVars->TextEditor->cboTxt.GetListIndex()][GlobalVars::gblVars->TextEditor->cOffsets.GetListIndex()] = offset + 0x8000000;
 	if (TitleChoice == 0) {
 		MemFile::currentFile->seek(0x760914);
 		for (i = 0; i<99; i++) {
-			MemFile::currentFile->fwrite(&ZMOffsets[0][i], 4, 1, GBA.ROM);
+			MemFile::currentFile->fwrite(&ZMOffsets[0][i], 4, 1);
 
 		}
 		MemFile::currentFile->seek(0x760660);
 		for (i = 0; i<65; i++) {
-			MemFile::currentFile->fwrite(&ZMOffsets[1][i], 4, 1, GBA.ROM);
+			MemFile::currentFile->fwrite(&ZMOffsets[1][i], 4, 1);
 
 		}
 
 	}
 	else if (TitleChoice == 1) {
 		MemFile::currentFile->seek(0x79EA08);
-		MemFile::currentFile->fwrite(&Offsets, 4, 99, GBA.ROM);
+		MemFile::currentFile->fwrite(&Offsets, 4, 99);
 	}
 	GBA.Reopen();
 	iii = cOffsets.GetListIndex();
@@ -378,9 +378,9 @@ int MetroidTextEditor::Create(int TitleChoice, HINSTANCE MainInstance, WNDPROC w
 		cboTxt.SetListIndex(0);
 	
 		MemFile::currentFile->seek(GameConfiguration::mainCFG->GetDataContainer("TextGFX")->Value);
-		MemFile::currentFile->fread(&Graphics, 1, 0x8000, GBA.ROM);
+		MemFile::currentFile->fread(&Graphics, 1, 0x8000);
 		MemFile::currentFile->seek(GameConfiguration::mainCFG->GetDataContainer("TextPal")->Value);
-		MemFile::currentFile->fread(GBA.GBAPal, 2, 0x10, GBA.ROM);
+		MemFile::currentFile->fread(GBA.GBAPal, 2, 0x10);
 	
 
 		GBA.DecodePal(GBA.GBAPal, FontPal, 16, 0);
@@ -480,7 +480,7 @@ int MetroidTextEditor::ResetList(int TitleChoice) {
 		MemFile::currentFile->seek(0x79E6EC);
 		for (i = 0; i<351; i++) {
 
-			MemFile::currentFile->fread(&Offsets[i], 4, 1, GBA.ROM);
+			MemFile::currentFile->fread(&Offsets[i], 4, 1);
 			sprintf(buffer, "%X", Offsets[i]);
 			cOffsets.Additem(buffer);
 		}

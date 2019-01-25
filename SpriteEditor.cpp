@@ -189,7 +189,7 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 			if (currentRomType == 0) {
 
 				MemFile::currentFile->seek((cSSE::SpriteSet->SpriteSets.GetListIndex() * 4) + 0x75F31C);
-				MemFile::currentFile->fread(&off, sizeof(long), 1, GBA.ROM);
+				MemFile::currentFile->fread(&off, sizeof(long), 1);
 				MemFile::currentFile->seek(off - 0x8000000);
 
 
@@ -197,15 +197,15 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 			}
 			else if (currentRomType == 1) {
 				MemFile::currentFile->seek(cSSE::SpriteSet->SpriteSets.GetListIndex() * 4 + 0x79ADD8);
-				MemFile::currentFile->fread(&off, sizeof(long), 1, GBA.ROM);
+				MemFile::currentFile->fread(&off, sizeof(long), 1);
 				MemFile::currentFile->seek(off - 0x8000000);
 
 
 			}
 
 			for (i = 0; i < cSSE::SpriteSet->total; i++) {
-				MemFile::currentFile->fwrite(&mgr->spriteset[i].spriteID, 1, 1, GBA.ROM);
-				MemFile::currentFile->fwrite(&mgr->spriteset[i].sprdetail, 1, 1, GBA.ROM);
+				MemFile::currentFile->fwrite(&mgr->spriteset[i].spriteID, 1, 1);
+				MemFile::currentFile->fwrite(&mgr->spriteset[i].sprdetail, 1, 1);
 			}
 			SendMessage(hWnd, WM_COMMAND, HIWORD(LBN_SELCHANGE) | LOWORD(lstSprites), 0);
 			//SendMessage(hwndMain(), WM_COMMAND, 0x00010408, 0);

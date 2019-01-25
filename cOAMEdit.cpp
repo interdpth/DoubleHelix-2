@@ -68,12 +68,12 @@ int cOAMEdit::UpdateSize() {
 
 
 
-int cOAMEdit::GetSpriteData(FILE* ROM, int id, int titleType) {//Fillsout the SprGBuf // lstSprite.GetListIndex();
+int cOAMEdit::GetSpriteData( int id, int titleType) {//Fillsout the SprGBuf // lstSprite.GetListIndex();
 	char offset[256] = { 0 };
 	
 	unsigned long theOffset =  GlobalVars::gblVars->frameTables->OAMFrameTable[id].front();
 	if (theOffset == 0) return -1;
-	GetFrames(theOffset,ROM, id, titleType);
+	GetFrames(theOffset, id, titleType);
 	currentFrames->SetStaticFrame(0);
 	currentFrames->GetStaticFrame()->theSprite->id = id;
 
@@ -81,7 +81,7 @@ int cOAMEdit::GetSpriteData(FILE* ROM, int id, int titleType) {//Fillsout the Sp
 	return 0;
 }
 
-int cOAMEdit::GetFrames(unsigned long offset, FILE* ROM, int spriteID, int titleType) {
+int cOAMEdit::GetFrames(unsigned long offset,  int spriteID, int titleType) {
 	
 	int i = 0;
 	if (currentFrames != NULL)
@@ -89,7 +89,7 @@ int cOAMEdit::GetFrames(unsigned long offset, FILE* ROM, int spriteID, int title
 		delete currentFrames; 
 	}
 	
-	currentFrames = new FrameManager(RD1Engine::theGame->_gbaMethods, offset, ROM, spriteID, titleType);
+	currentFrames = new FrameManager(&GBA, offset, spriteID, titleType);
 
 	return 0;
 
@@ -208,7 +208,7 @@ int cOAMEdit::LoadTiles(Image* tileImage, Frame* targetFrame)
 	return 0;
 }
 
- int cOAMEdit::SetupPreview(FILE* ROM,  int TitleChoice, Frame* targetFrame) {
+ int cOAMEdit::SetupPreview(  int TitleChoice, Frame* targetFrame) {
 	/*if (targetFrame->frameInited)
 	{
 		return 0;
@@ -247,11 +247,11 @@ int cOAMEdit::LoadTiles(Image* tileImage, Frame* targetFrame)
 		
 
 		MemFile::currentFile->seek(PalPnt);
-		MemFile::currentFile->fread(&addybuf, 4, 1, ROM);
+		MemFile::currentFile->fread(&addybuf, 4, 1);
 		MemFile::currentFile->seek(addybuf - 0x8000000);
-		//MemFile::currentFile->fread(&transferpal, 1, (paltransfer[x].Size)*2, GBA.ROM);
+		//MemFile::currentFile->fread(&transferpal, 1, (paltransfer[x].Size)*2);
 		memset(GBAGraphics::VRAM->GBASprPal, 0, 0x200);
-		MemFile::currentFile->fread(&transferpal, 1, currentSprite->palsize * 2, ROM);
+		MemFile::currentFile->fread(&transferpal, 1, currentSprite->palsize * 2);
 		//	if(paltransfer[x][1] == 0) continue;
 		memcpy(&GBAGraphics::VRAM->GBASprPal[128], &transferpal, currentSprite->palsize * 2);
 
@@ -265,18 +265,18 @@ int cOAMEdit::LoadTiles(Image* tileImage, Frame* targetFrame)
 		switch (TitleChoice) {
 		case 0:
 			MemFile::currentFile->seek(GFXPnt);
-			MemFile::currentFile->fread(&addybuf, 4, 1, ROM);
+			MemFile::currentFile->fread(&addybuf, 4, 1);
 			MemFile::currentFile->seek(addybuf - 0x8000000);
-			MemFile::currentFile->fread(compBuffer, 1, sizeof(compBuffer), ROM);
+			MemFile::currentFile->fread(compBuffer, 1, sizeof(compBuffer));
 			currentSprite->graphicsize = GBA.LZ77UnComp(compBuffer, decompbuf);
 			memcpy(&currentSprite->PreRAM[0x4000], &decompbuf, currentSprite->graphicsize);
 			break;
 		case 1:
 			currentSprite->graphicsize = RD1Engine::theGame->mgrOAM->MFSprSize[(currentSprite->id - 0x10) << 1];
 			MemFile::currentFile->seek(GFXPnt);
-			MemFile::currentFile->fread(&addybuf, 4, 1, ROM);
+			MemFile::currentFile->fread(&addybuf, 4, 1);
 			MemFile::currentFile->seek(addybuf - 0x8000000);
-			MemFile::currentFile->fread(&currentSprite->PreRAM[0x4000], 1, currentSprite->graphicsize, ROM);
+			MemFile::currentFile->fread(&currentSprite->PreRAM[0x4000], 1, currentSprite->graphicsize);
 			break;
 		}
 
@@ -407,7 +407,7 @@ unsigned long cOAMEdit::Save(SaveOptions savetype, char* variableThing) {
 			int size = 2 + tmpFrame->theSprite->maxparts * 3 + 16;
 			tmpFrame->frameOffset = GBA.FindFreeSpace(size, 0xFF);
 		}
-		RD1Engine::theGame->mgrOAM->SaveSprite(GBA.ROM, savetype, tmpFrame->theSprite, tmpFrame->frameOffset);
+		RD1Engine::theGame->mgrOAM->SaveSprite(savetype, tmpFrame->theSprite, tmpFrame->frameOffset);
 		char wndstr[256] = { 0 };
 
 		

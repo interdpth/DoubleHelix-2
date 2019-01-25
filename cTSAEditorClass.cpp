@@ -194,11 +194,11 @@ int cTSAEditorClass::SaveBlock() {
 		RD1Engine::theGame->mgrTileset->TSA.nTSA[Tile * 4 + i] = block;
 	}
 	//MemFile::currentFile->seek(offset);	
-	//fwrite(&TSA.ID,sizeof(short),1,GBA.ROM);   
-	//fwrite(&TSA.nTSA,sizeof(short),0x1080,GBA.ROM);
+	//fwrite(&TSA.ID,sizeof(short),1);   
+	//fwrite(&TSA.nTSA,sizeof(short),0x1080);
 	unsigned long tileoffset = offset + 2 + Tile * 8;
 	MemFile::currentFile->seek(tileoffset);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mgrTileset->TSA.nTSA[Tile * 4], 2, 4, GBA.ROM);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mgrTileset->TSA.nTSA[Tile * 4], 2, 4);
 	fclose(GBA.ROM);
 	GBA.ROM = fopen(GBA.FileLoc, "r+b");
 	RD1Engine::theGame->mgrTileset->GetTileset(GlobalVars::gblVars->imgTileset, RD1Engine::theGame->mainRoom->Area, roomHeader->bTileset, roomHeader->lBg3);

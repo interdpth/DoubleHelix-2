@@ -242,7 +242,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		else {
 
 
-			SaveLevel(GBA.ROM, BIC);
+			SaveLevel(BIC);
 			UpdateHeaderControls();
 			UiState::stateManager->UpdateMapObjectWindow();
 		}
@@ -371,7 +371,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		{
 			int room = Combos[cRoom].GetListIndex();
 			
-			RD1Engine::theGame->LoadRoom(Combos[cArea].GetListIndex(), Combos[cRoom].GetListIndex(), GlobalVars::gblVars->imgTileset,&SpriteImage);
+			RD1Engine::theGame->LoadRoomSpriteSet(Combos[cArea].GetListIndex(), Combos[cRoom].GetListIndex(), GlobalVars::gblVars->imgTileset,&SpriteImage);
 			Combos[cSpriteSet].Clear();
 			for (int i = 0; i < RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects.size(); i++)
 			{

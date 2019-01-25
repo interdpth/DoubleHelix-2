@@ -169,7 +169,7 @@ GBA.DecodePal(GBA.GBAPal, GBAGraphics::VRAM->PcPalMem, 16, 0);
 
 offsets[1]=GBA.FindFreeSpace(csize,0xFF);
 MemFile::currentFile->seek(offsets[1]);
-MemFile::currentFile->fwrite(tempbuff,1,csize,GBA.ROM);
+MemFile::currentFile->fwrite(tempbuff,1,csize);
 memset(tempbuff,0,32967);
 GBA.Reopen();
 //Convert Buffer to use the pal
@@ -179,7 +179,7 @@ csize=GBA.LZ77Comp(tilesize, (unsigned char*)gfxbuffer, sizeof(gfxbuffer), tempb
 int asize = GBA.LZ77UnComp(tempbuff, superbuff);
 offsets[3]=GBA.FindFreeSpace(csize,0xFF);
 MemFile::currentFile->seek(offsets[3]);
-MemFile::currentFile->fwrite(tempbuff,1,csize,GBA.ROM);
+MemFile::currentFile->fwrite(tempbuff,1,csize);
 memset(tempbuff,0,32967);
 GBA.Reopen();
 
@@ -231,8 +231,8 @@ for (selsize = 0; selsize<3; selsize++) { //Choses i val
 
 
 
-MemFile::currentFile->fwrite(&selsize, 4, 1, GBA.ROM);
-MemFile::currentFile->fwrite(&tempbuff,1,csize,GBA.ROM);
+MemFile::currentFile->fwrite(&selsize, 4, 1);
+MemFile::currentFile->fwrite(&tempbuff,1,csize);
 RD1Engine::theGame->mainRoom->roomHeader.lBackgroundTSA = offsets[2] + 0x8000000;//This might be +4
 
 GBA.Reopen();
@@ -330,7 +330,7 @@ fp=fopen(Files[j],"r+b");
 			
 					tilesize=GBA.ReturnEOF(fp);
 					MemFile::currentFile->seek(0);
-					MemFile::currentFile->fread(gfxbuffer,1,tilesize,fp);
+					MemFile::currentFile->fread(gfxbuffer,1,tilesize);
 			
 				
 				break;
@@ -338,7 +338,7 @@ fp=fopen(Files[j],"r+b");
 				
 					palsize=GBA.ReturnEOF(fp);
 					MemFile::currentFile->seek(0);
-					MemFile::currentFile->fread(GPal,1,palsize,fp);
+					MemFile::currentFile->fread(GPal,1,palsize);
 			
 				break;
 
@@ -346,7 +346,7 @@ fp=fopen(Files[j],"r+b");
 				mapsize=GBA.ReturnEOF(fp);
 				MemFile::currentFile->seek(0);
 			    
-				MemFile::currentFile->fread(&tilemap,1,mapsize,fp);
+				MemFile::currentFile->fread(&tilemap,1,mapsize);
 				
 			
 				break;
@@ -451,7 +451,7 @@ int wndBGImport::SaveCustTileset(){
 
 	////offsets[1] = GBA.FindFreeSpace(csize, 0xFF);
 	////MemFile::currentFile->seek(offsets[1]);
-	////fwrite(tempbuff, 1, csize, GBA.ROM);
+	////fwrite(tempbuff, 1, csize);
 	////memset(tempbuff, 0, 32967);
 	////GBA.Reopen();
 	////Convert Buffer to use the pal
@@ -461,7 +461,7 @@ int wndBGImport::SaveCustTileset(){
 	//int asize = GBA.LZ77UnComp(tempbuff, superbuff);
 	//offsets[3] = GBA.FindFreeSpace(csize, 0xFF);
 	//MemFile::currentFile->seek(offsets[3]);
-	//fwrite(tempbuff, 1, csize, GBA.ROM);
+	//fwrite(tempbuff, 1, csize);
 	//memset(tempbuff, 0, 32967);
 	//GBA.Reopen();
 
@@ -509,9 +509,9 @@ int wndBGImport::SaveCustTileset(){
 	//MemFile::currentFile->seek(offsets[2]);
 	////We need the size somehow :#
 
-	//fwrite(&tilemap, 2, mapsize  , GBA.ROM);
+	//fwrite(&tilemap, 2, mapsize  );
 	//unsigned short writeShit = 0x2;
-	//fwrite(&writeShit, 2, 1, GBA.ROM);
+	//fwrite(&writeShit, 2, 1);
 
 
 	//*gfxPointer = offsets[2] + 0x8000000;//This might be +4

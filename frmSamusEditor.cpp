@@ -282,9 +282,9 @@ LRESULT CALLBACK AnimationSamusProc(HWND hWnd, unsigned int message, WPARAM wPar
 		//	if (!curFrame->frameInited) {
 		//		globalVars->OAMED = true;
 
-		//		oamEditor->SetupPreview(GBA.ROM, currentRomType, curFrame);
+		//		oamEditor->SetupPreview(currentRomType, curFrame);
 		//		oamEditor->LoadTiles(oamEditor->Tiles, curFrame);
-		//		oamManager->DecodeOAM(GBA.ROM, globalVars->OAMED, curFrame->theSprite, curFrame->frameOffset - 0x8000000);
+		//		oamManager->DecodeOAM(globalVars->OAMED, curFrame->theSprite, curFrame->frameOffset - 0x8000000);
 		//		globalVars->OAMED = false;
 		//		oamManager->DrawPSprite(curFrame->theSprite);
 		//		curFrame->frameInited = true;

@@ -203,9 +203,9 @@ int cSSE::SetupPreview(SprGBuf* SprG, int TitleChoice) {
 	SprG->palsize = RD1Engine::theGame->GetPalSize(SprG->id);
 	
 	MemFile::currentFile->seek(PalPnt);
-	MemFile::currentFile->fread(&addybuf, 4, 1, GBA.ROM);
+	MemFile::currentFile->fread(&addybuf, 4, 1);
 	MemFile::currentFile->seek(addybuf - 0x8000000);
-	MemFile::currentFile->fread(&transferpal, 1, (SprG->palsize) * 2, GBA.ROM);
+	MemFile::currentFile->fread(&transferpal, 1, (SprG->palsize) * 2);
 	
 	memcpy(&GBAGraphics::VRAM->GBASprPal[128], &transferpal, SprG->palsize * 2);
 
@@ -216,18 +216,18 @@ int cSSE::SetupPreview(SprGBuf* SprG, int TitleChoice) {
 	switch (TitleChoice) {
 	case 0:
 		MemFile::currentFile->seek(GFXPnt);
-		MemFile::currentFile->fread(&addybuf, 4, 1, GBA.ROM);
+		MemFile::currentFile->fread(&addybuf, 4, 1);
 		MemFile::currentFile->seek(addybuf - 0x8000000);
-		MemFile::currentFile->fread(compBuffer, 1, sizeof(compBuffer), GBA.ROM);
+		MemFile::currentFile->fread(compBuffer, 1, sizeof(compBuffer));
 		size = GBA.LZ77UnComp(compBuffer, decompbuf);
 		memcpy(&SprG->PreRAM[0x4000], &decompbuf, size);
 		break;
 	case 1:
 		size = RD1Engine::theGame->mgrOAM->MFSprSize[(SprG->id - 0x10) << 1];
 		MemFile::currentFile->seek(GFXPnt);
-		MemFile::currentFile->fread(&addybuf, 4, 1, GBA.ROM);
+		MemFile::currentFile->fread(&addybuf, 4, 1);
 		MemFile::currentFile->seek(addybuf - 0x8000000);
-		MemFile::currentFile->fread(&SprG->PreRAM[0x4000], 1, size, GBA.ROM);
+		MemFile::currentFile->fread(&SprG->PreRAM[0x4000], 1, size);
 		break;
 	}
 
@@ -237,7 +237,7 @@ int cSSE::SetupPreview(SprGBuf* SprG, int TitleChoice) {
 	SprG->PreviewSprite.SetPalette(SprG->PreviewPal);
 	memcpy(SprG->PreRAM, cSSE::SpriteSet->SpriteSetData.graphics, 0x8000);
 	SprG->Tiles->Load(SprG->PreRAM, 1024);
-	RD1Engine::theGame->mgrOAM->DecodeOAM(GBA.ROM, GlobalVars::gblVars->OAMED, SprG, GlobalVars::gblVars->frameTables->OAMFrameTable[SprG->id].front());
+	RD1Engine::theGame->mgrOAM->DecodeOAM(GlobalVars::gblVars->OAMED, SprG, GlobalVars::gblVars->frameTables->OAMFrameTable[SprG->id].front());
 	RD1Engine::theGame->mgrOAM->DrawPSprite(SprG);
 	GlobalVars::gblVars->SSE = false;
 	InvalidateRect(me, 0, 1);

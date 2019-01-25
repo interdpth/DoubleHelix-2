@@ -101,36 +101,36 @@ int GetRoomCount(long RoomTableOffset) {
 		unsigned long TheOffset = ((RoomTableOffset - 0x8000000) + i * 0x3C);
 		RHeader tmpHeader;
 		MemFile::currentFile->seek(TheOffset);
-		MemFile::currentFile->fread(&tmpHeader.bTileset, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.bBg0, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.bBg1, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.bBg2, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.lBg3, sizeof(unsigned long), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.lForeground, sizeof(unsigned long), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.lLevelData, sizeof(unsigned long), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.lBackLayer, sizeof(unsigned long), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.lClipData, sizeof(unsigned long), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.lBackgroundTSA, sizeof(unsigned long), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.bUnknown1, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.TransForeground, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.iSep1, sizeof(unsigned short), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.lSpritePointer, sizeof(unsigned long), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.bSpriteIndex1, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.bEventSwitch, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.iSep2, sizeof(unsigned short), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.lSpritePointer2, sizeof(unsigned long), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.bSpriteIndex2, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.bEventSwitch2, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.iSeperator, sizeof(unsigned short), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.lSpritePointer3, sizeof(unsigned long), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.bSpriteIndex3, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.bMiniMapRoomX, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.bMiniMapRoomY, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.bEffect, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.bSceneryYPos, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.bNothing, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.bMusic, sizeof(unsigned char), 1, GBA.ROM);
-		MemFile::currentFile->fread(&tmpHeader.blank, sizeof(unsigned char), 1, GBA.ROM);
+		MemFile::currentFile->fread(&tmpHeader.bTileset, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.bBg0, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.bBg1, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.bBg2, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.lBg3, sizeof(unsigned long), 1);
+		MemFile::currentFile->fread(&tmpHeader.lForeground, sizeof(unsigned long), 1);
+		MemFile::currentFile->fread(&tmpHeader.lLevelData, sizeof(unsigned long), 1);
+		MemFile::currentFile->fread(&tmpHeader.lBackLayer, sizeof(unsigned long), 1);
+		MemFile::currentFile->fread(&tmpHeader.lClipData, sizeof(unsigned long), 1);
+		MemFile::currentFile->fread(&tmpHeader.lBackgroundTSA, sizeof(unsigned long), 1);
+		MemFile::currentFile->fread(&tmpHeader.bUnknown1, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.TransForeground, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.iSep1, sizeof(unsigned short), 1);
+		MemFile::currentFile->fread(&tmpHeader.lSpritePointer, sizeof(unsigned long), 1);
+		MemFile::currentFile->fread(&tmpHeader.bSpriteIndex1, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.bEventSwitch, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.iSep2, sizeof(unsigned short), 1);
+		MemFile::currentFile->fread(&tmpHeader.lSpritePointer2, sizeof(unsigned long), 1);
+		MemFile::currentFile->fread(&tmpHeader.bSpriteIndex2, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.bEventSwitch2, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.iSeperator, sizeof(unsigned short), 1);
+		MemFile::currentFile->fread(&tmpHeader.lSpritePointer3, sizeof(unsigned long), 1);
+		MemFile::currentFile->fread(&tmpHeader.bSpriteIndex3, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.bMiniMapRoomX, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.bMiniMapRoomY, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.bEffect, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.bSceneryYPos, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.bNothing, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.bMusic, sizeof(unsigned char), 1);
+		MemFile::currentFile->fread(&tmpHeader.blank, sizeof(unsigned char), 1);
 
 		if (CheckHeader(&tmpHeader) == true) {
 			roomHeaders.push_back(tmpHeader);
@@ -192,9 +192,9 @@ int             Save(MemFile * fp)
 	{
 
 
-		MapManager::SaveLayer(&GBA, fp, RD1Engine::theGame->mainRoom->roomHeader.bBg0, &RD1Engine::theGame->mainRoom->roomHeader.lForeground, mm->GetLayer(MapManager::ForeGround));
-		MapManager::SaveLayer(&GBA, fp, RD1Engine::theGame->mainRoom->roomHeader.bBg1, &RD1Engine::theGame->mainRoom->roomHeader.lLevelData, mm->GetLayer(MapManager::LevelData));
-		MapManager::SaveLayer(&GBA, fp, RD1Engine::theGame->mainRoom->roomHeader.bBg2, &RD1Engine::theGame->mainRoom->roomHeader.lBackLayer, mm->GetLayer(MapManager::Backlayer));
+		MapManager::SaveLayer(&GBA, RD1Engine::theGame->mainRoom->roomHeader.bBg0, &RD1Engine::theGame->mainRoom->roomHeader.lForeground, mm->GetLayer(MapManager::ForeGround));
+		MapManager::SaveLayer(&GBA, RD1Engine::theGame->mainRoom->roomHeader.bBg1, &RD1Engine::theGame->mainRoom->roomHeader.lLevelData, mm->GetLayer(MapManager::LevelData));
+		MapManager::SaveLayer(&GBA, RD1Engine::theGame->mainRoom->roomHeader.bBg2, &RD1Engine::theGame->mainRoom->roomHeader.lBackLayer, mm->GetLayer(MapManager::Backlayer));
 
 		if (mm->GetLayer(MapManager::Clipdata)->SDirty == 1)
 		{
@@ -207,7 +207,7 @@ int             Save(MemFile * fp)
 				MemFile::currentFile->seek(offset);
 				MemFile::currentFile->fputc(mm->GetLayer(MapManager::Clipdata)->X);
 				MemFile::currentFile->fputc(mm->GetLayer(MapManager::Clipdata)->Y);
-				MemFile::currentFile->fwrite(compBuffer, sizeof(char), tlength, (FILE*)NULL);
+				MemFile::currentFile->fwrite(compBuffer, sizeof(char), tlength);
 			}
 			else
 			{
@@ -218,7 +218,7 @@ int             Save(MemFile * fp)
 	delete[] compBuffer;
 	return 0;
 }
-int SaveLevel(FILE* fp, unsigned long HeaderOffset) {
+int SaveLevel(unsigned long HeaderOffset) {
 
 	MemFile* theFile = MemFile::currentFile;
 	RHeader* roomHeader;
@@ -233,36 +233,36 @@ int SaveLevel(FILE* fp, unsigned long HeaderOffset) {
 		roomHeader = &RD1Engine::theGame->mainRoom->roomHeader;
 
 
-		theFile->fwrite(&roomHeader->bTileset, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->bBg0, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->bBg1, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->bBg2, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->lBg3, sizeof(unsigned long), 1, fp);
-		theFile->fwrite(&roomHeader->lForeground, sizeof(unsigned long), 1, fp);
-		theFile->fwrite(&roomHeader->lLevelData, sizeof(unsigned long), 1, fp);
-		theFile->fwrite(&roomHeader->lBackLayer, sizeof(unsigned long), 1, fp);
-		theFile->fwrite(&roomHeader->lClipData, sizeof(unsigned long), 1, fp);
-		theFile->fwrite(&roomHeader->lBackgroundTSA, sizeof(unsigned long), 1, fp);
-		theFile->fwrite(&roomHeader->bUnknown1, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->TransForeground, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->iSep1, sizeof(unsigned short), 1, fp);
-		theFile->fwrite(&roomHeader->lSpritePointer, sizeof(unsigned long), 1, fp);
-		theFile->fwrite(&roomHeader->bSpriteIndex1, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->bEventSwitch, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->iSep2, sizeof(unsigned short), 1, fp);
-		theFile->fwrite(&roomHeader->lSpritePointer2, sizeof(unsigned long), 1, fp);
-		theFile->fwrite(&roomHeader->bSpriteIndex2, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->bEventSwitch2, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->iSeperator, sizeof(unsigned short), 1, fp);
-		theFile->fwrite(&roomHeader->lSpritePointer3, sizeof(unsigned long), 1, fp);
-		theFile->fwrite(&roomHeader->bSpriteIndex3, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->bMiniMapRoomX, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->bMiniMapRoomY, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->bEffect, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->bSceneryYPos, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->bNothing, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->bMusic, sizeof(unsigned char), 1, fp);
-		theFile->fwrite(&roomHeader->blank, sizeof(unsigned char), 1, fp);
+		theFile->fwrite(&roomHeader->bTileset, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->bBg0, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->bBg1, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->bBg2, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->lBg3, sizeof(unsigned long), 1);
+		theFile->fwrite(&roomHeader->lForeground, sizeof(unsigned long), 1);
+		theFile->fwrite(&roomHeader->lLevelData, sizeof(unsigned long), 1);
+		theFile->fwrite(&roomHeader->lBackLayer, sizeof(unsigned long), 1);
+		theFile->fwrite(&roomHeader->lClipData, sizeof(unsigned long), 1);
+		theFile->fwrite(&roomHeader->lBackgroundTSA, sizeof(unsigned long), 1);
+		theFile->fwrite(&roomHeader->bUnknown1, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->TransForeground, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->iSep1, sizeof(unsigned short), 1);
+		theFile->fwrite(&roomHeader->lSpritePointer, sizeof(unsigned long), 1);
+		theFile->fwrite(&roomHeader->bSpriteIndex1, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->bEventSwitch, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->iSep2, sizeof(unsigned short), 1);
+		theFile->fwrite(&roomHeader->lSpritePointer2, sizeof(unsigned long), 1);
+		theFile->fwrite(&roomHeader->bSpriteIndex2, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->bEventSwitch2, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->iSeperator, sizeof(unsigned short), 1);
+		theFile->fwrite(&roomHeader->lSpritePointer3, sizeof(unsigned long), 1);
+		theFile->fwrite(&roomHeader->bSpriteIndex3, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->bMiniMapRoomX, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->bMiniMapRoomY, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->bEffect, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->bSceneryYPos, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->bNothing, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->bMusic, sizeof(unsigned char), 1);
+		theFile->fwrite(&roomHeader->blank, sizeof(unsigned char), 1);
 
 		RD1Engine::theGame->mgrScrolls->SaveScroll(&GBA);
 		RD1Engine::theGame->mgrDoors->SaveDoors(RD1Engine::theGame->mainRoom->Area);
@@ -454,7 +454,7 @@ void OpenRom()
  		GlobalVars::gblVars->TextEditor->Create(currentRomType, hGlobal, TextPicProc);
 		unsigned long BIC = 0;
 		MemFile::currentFile->seek(0x7c0430);
-		MemFile::currentFile->fread(&BIC, 1, 4, GBA.ROM);
+		MemFile::currentFile->fread(&BIC, 1, 4);
 		if (BIC == 0x78004817)
 		{
 			BGiInstall = 1;
@@ -559,7 +559,7 @@ void OpenRom()
 //			GlobalVars::gblVars->TextEditor->Create(currentRomType, hGlobal, TextPicProc);
 //			unsigned long BIC = 0;
 //			MemFile::currentFile->seek(0x7c0430);
-//			MemFile::currentFile->fread(&BIC, 1, 4, GBA.ROM);
+//			MemFile::currentFile->fread(&BIC, 1, 4);
 //			if (BIC == 0x78004817)
 //			{
 //				BGiInstall = 1;
@@ -614,7 +614,7 @@ void OpenRom()
 //			GlobalVars::gblVars->StatEditor->Switch();
 //			unsigned long BIC=0;
 //			MemFile::currentFile->seek(0x7c0430);
-//			MemFile::currentFile->fread(&BIC, 1, 4, GBA.ROM);
+//			MemFile::currentFile->fread(&BIC, 1, 4);
 //			if (BIC == 0x78004819)
 //			{
 //				BGiInstall = 1;

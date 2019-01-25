@@ -528,7 +528,7 @@ int SaveCurScene(){//0 for BG, 1 for BackLayer, 2 for Foreground
 	while (offset % 4) offset++;//Align
     //WriteDataToROM(compBuffer, newsize, offset);
 	MemFile::currentFile->seek(offset+4);
-	MemFile::currentFile->fwrite(compBuffer,1,newsize,GBA.ROM);
+	MemFile::currentFile->fwrite(compBuffer,1,newsize);
    
    
    /*MemFile::currentFile->seek(offset);
@@ -537,8 +537,8 @@ int SaveCurScene(){//0 for BG, 1 for BackLayer, 2 for Foreground
     filedata [1] = (newsize & 0xff);
     filedata [2] = ((newsize & 0xff00) >> 8);
     filedata [3] = ((newsize & 0xff0000) >> 16);
-	fwrite(filedata,1,4,GBA.ROM);*/
-	//fputc(thisbuf->size,GBA.ROM);
+	fwrite(filedata,1,4);*/
+	//fputc(thisbuf->size);
 	
     sprintf(stroff, "%X", offset);	 
     SetWindowText(Layer, stroff);
@@ -553,7 +553,7 @@ int SaveCurScene(){//0 for BG, 1 for BackLayer, 2 for Foreground
 
 int WriteDataToROM(unsigned char* datastream, unsigned long size,unsigned long offset){
     MemFile::currentFile->seek(offset);
-	MemFile::currentFile->fwrite(datastream,1,size,GBA.ROM);
+	MemFile::currentFile->fwrite(datastream,1,size);
 	
 	
 	

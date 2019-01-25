@@ -41,7 +41,7 @@ int DrawRoom(bool DrawBackLayer, bool DrawLevelLayer, bool DrawForeground);
 
 int InitTileset();
 int InitMap();
-int SaveLevel(FILE* fp, unsigned long HeaderOffset);
+int SaveLevel( unsigned long HeaderOffset);
 
 
 int DrawClipIdent();
@@ -107,5 +107,5 @@ int LoadColor(long Pal);
 int ChangeColor();
 
 int LoadTrans(char* Directive, int DataType, HWND hwnd);
-void TransMenu(char* MenuName, FILE* fp, HWND hwnd);
+void TransMenu(char* MenuName,  HWND hwnd);
 unsigned short ApplyMenuString(int tMenu, char* string, HWND hwnd, unsigned short Counter);

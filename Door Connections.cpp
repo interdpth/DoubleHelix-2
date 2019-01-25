@@ -9,11 +9,11 @@ int EnableConnections(){
 	MemFile::currentFile->seek(GameConfiguration::mainCFG->GetDataContainer("Connections")->Value);
 
 	
-	MemFile::currentFile->fread(&offset,4,1,GBA.ROM);
+	MemFile::currentFile->fread(&offset,4,1);
 	MemFile::currentFile->seek(offset-0x8000000);
 
 	while(1){
-		MemFile::currentFile->fread(&blah,1,3,GBA.ROM);
+		MemFile::currentFile->fread(&blah,1,3);
 		if((blah[0]==0xFF) && (blah[2]==0xFF)) {
 			max = i - 3; 
 			break;

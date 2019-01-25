@@ -251,7 +251,7 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 				}
 
 				id = lstSprite->GetListIndex();
-				oamEditor->GetSpriteData(GBA.ROM, id, currentRomType);//lstSprite.GetListIndex());
+				oamEditor->GetSpriteData(id, currentRomType);//lstSprite.GetListIndex());
 
 				cboFrameTable->Clear();
 
@@ -280,12 +280,12 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 				oamEditor->currentFrames->SetStaticFrame(cboFrames->GetListIndex());
 				//reload pointer
 				tmpFrame = oamEditor->currentFrames->GetStaticFrame();
-				oamEditor->SetupPreview(GBA.ROM, currentRomType, tmpFrame);
+				oamEditor->SetupPreview(currentRomType, tmpFrame);
 				oamEditor->LoadTiles(oamEditor->Tiles, tmpFrame);
 				LoadPartsControl();
 				cboPartNo->SetListIndex(0);
 				oamEditor->UpdatePartUI();
-				oamManager->DecodeOAM(GBA.ROM, globalVars->OAMED, tmpFrame->theSprite, tmpFrame->frameOffset - 0x8000000);
+				oamManager->DecodeOAM(globalVars->OAMED, tmpFrame->theSprite, tmpFrame->frameOffset - 0x8000000);
 				globalVars->OAMED = false;
 				oamManager->DrawPSprite(tmpFrame->theSprite);
 				InvalidateRect(hWnd, 0, 1);
@@ -315,7 +315,7 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			offset = GetCurrentFrameTable();
 			if (offset == 0x0cdcdcdc) break;
 			id = oamEditor->currentFrames->GetStaticFrame()->theSprite->id;
-			oamEditor->GetFrames(offset, GBA.ROM, id, currentRomType);
+			oamEditor->GetFrames(offset, id, currentRomType);
 			oamEditor->currentFrames->SetStaticFrame(0);
 			oamEditor->currentFrames->GetStaticFrame()->theSprite->id = id;
 
@@ -332,9 +332,9 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 
 
 				globalVars->OAMED = true;
-				oamEditor->SetupPreview(GBA.ROM, currentRomType, tmpFrame);
+				oamEditor->SetupPreview(currentRomType, tmpFrame);
 				oamEditor->LoadTiles(oamEditor->Tiles, tmpFrame);
-				oamManager->DecodeOAM(GBA.ROM, globalVars->OAMED, tmpFrame->theSprite, tmpFrame->frameOffset - 0x8000000);
+				oamManager->DecodeOAM(globalVars->OAMED, tmpFrame->theSprite, tmpFrame->frameOffset - 0x8000000);
 				globalVars->OAMED = false;
 				oamManager->DrawPSprite(tmpFrame->theSprite);
 				tmpFrame->frameInited = true;
@@ -670,9 +670,9 @@ LRESULT CALLBACK AnimationProc(HWND hWnd, unsigned int message, WPARAM wParam, L
 			if (!curFrame->frameInited) {
 				globalVars->OAMED = true;
 
-				oamEditor->SetupPreview(GBA.ROM, currentRomType, curFrame);
+				oamEditor->SetupPreview(currentRomType, curFrame);
 				oamEditor->LoadTiles(oamEditor->Tiles, curFrame);
-				oamManager->DecodeOAM(GBA.ROM, globalVars->OAMED, curFrame->theSprite, curFrame->frameOffset - 0x8000000);
+				oamManager->DecodeOAM(globalVars->OAMED, curFrame->theSprite, curFrame->frameOffset - 0x8000000);
 				globalVars->OAMED = false;
 				oamManager->DrawPSprite(curFrame->theSprite);
 				curFrame->frameInited = true;

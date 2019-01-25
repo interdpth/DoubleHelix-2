@@ -333,7 +333,7 @@ int ChangeSprites() {
 
 	MemFile::currentFile->seek(*offsets[set] - 0x8000000);
 	for (i = 0; i < cursz[set]->Max(); i++)
-		MemFile::currentFile->fwrite(&cursz[set]->Enemies[i], 3, 1, GBA.ROM);
+		MemFile::currentFile->fwrite(&cursz[set]->Enemies[i], 3, 1);
 
 
 	//Put 3 bytes to say we're done
@@ -472,36 +472,36 @@ int SaveHeader(unsigned char call) {
 	ho = ((RD1Engine::theGame->RoomOffsets[Combos[cArea].GetListIndex()] - 0x8000000) + Combos[cRoom].GetListIndex() * 0x3C);
 
 	MemFile::currentFile->seek(ho);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bTileset, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bBg0, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bBg1, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bBg2, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lBg3, sizeof(unsigned long), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lForeground, sizeof(unsigned long), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lLevelData, sizeof(unsigned long), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lBackLayer, sizeof(unsigned long), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lClipData, sizeof(unsigned long), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lBackgroundTSA, sizeof(unsigned long), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bUnknown1, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.TransForeground, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.iSep1, sizeof(unsigned short), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer, sizeof(unsigned long), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex1, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bEventSwitch, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.iSep2, sizeof(unsigned short), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer2, sizeof(unsigned long), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex2, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bEventSwitch2, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.iSeperator, sizeof(unsigned short), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer3, sizeof(unsigned long), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex3, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomX, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomY, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bEffect, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bSceneryYPos, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bNothing, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMusic, sizeof(unsigned char), 1, GBA.ROM);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.blank, sizeof(unsigned char), 1, GBA.ROM);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bTileset, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bBg0, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bBg1, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bBg2, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lBg3, sizeof(unsigned long), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lForeground, sizeof(unsigned long), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lLevelData, sizeof(unsigned long), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lBackLayer, sizeof(unsigned long), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lClipData, sizeof(unsigned long), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lBackgroundTSA, sizeof(unsigned long), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bUnknown1, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.TransForeground, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.iSep1, sizeof(unsigned short), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer, sizeof(unsigned long), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex1, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bEventSwitch, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.iSep2, sizeof(unsigned short), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer2, sizeof(unsigned long), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex2, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bEventSwitch2, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.iSeperator, sizeof(unsigned short), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer3, sizeof(unsigned long), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex3, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomX, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomY, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bEffect, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bSceneryYPos, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bNothing, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMusic, sizeof(unsigned char), 1);
+	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.blank, sizeof(unsigned char), 1);
 
 
 	if (call == 0)SendMessage(hwndMain(), WM_COMMAND, cboRoom, 0);
@@ -650,7 +650,7 @@ int BackUpAllHeaders() {
 			MemFile::currentFile->seek(RD1Engine::theGame->RoomOffsets[ai] - 0x8000000);
 			for (ri = 0; ri < lc; ri++) {
 				memset(curpath, 0, 2048);
-				MemFile::currentFile->fread(roomarray, 0x3c, 1, GBA.ROM);
+				MemFile::currentFile->fread(roomarray, 0x3c, 1);
 				strcat(curpath, GlobalVars::gblVars->AppPath);
 				strcat(curpath, "\\ZM\\HdrBackUp\\");
 				//                    strcat(curpath,Combos[cboArea].sList(ai));

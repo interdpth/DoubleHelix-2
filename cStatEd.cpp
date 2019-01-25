@@ -20,7 +20,7 @@ int cStatEd::LoadSprite() {
 	if (currentRomType == 0) {
 		//2b0d68 + (enID * 18)
 		MemFile::currentFile->seek(0x2b0d68 + ((SpritePreview->id) * 18));
-		MemFile::currentFile->fread(&ZMSprite, sizeof(ZMSprite), 1, GBA.ROM);
+		MemFile::currentFile->fread(&ZMSprite, sizeof(ZMSprite), 1);
 		sprintf(buffer, "%d", ZMSprite.health);
 		SetWindowText(Health, buffer);
 		sprintf(buffer, "%d", ZMSprite.Dmg);
@@ -43,9 +43,9 @@ int cStatEd::LoadSprite() {
 	}
 	else if (currentRomType == 1) {
 		MemFile::currentFile->seek(0x2E4D4C + ((SpritePreview->id) * 14));
-		MemFile::currentFile->fread(&FusionSprite, sizeof(FusionSprite), 1, GBA.ROM);
+		MemFile::currentFile->fread(&FusionSprite, sizeof(FusionSprite), 1);
 		// MemFile::currentFile->seek(0x2b0d68 + ((SpritePreview->id)* 18));
-		//MemFile::currentFile->fread(&FusionSprite,sizeof(FusionSprite),1,GBA.ROM);
+		//MemFile::currentFile->fread(&FusionSprite,sizeof(FusionSprite),1);
 		sprintf(buffer, "%d", FusionSprite.Health);
 		SetWindowText(Health, buffer);
 		sprintf(buffer, "%d", FusionSprite.Damage);
@@ -165,7 +165,7 @@ int cStatEd::LoadEnemy() {
 	if (currentRomType == 0) {
 		//2b0d68 + (enID * 18)
 		MemFile::currentFile->seek(0x2b0d68 + ((SpritePreview->id) * 18));
-		MemFile::currentFile->fread(&ZMSprite, sizeof(ZMSprite), 1, GBA.ROM);
+		MemFile::currentFile->fread(&ZMSprite, sizeof(ZMSprite), 1);
 		sprintf(buffer, "%d", ZMSprite.health);
 		SetWindowText(Health, buffer);
 		sprintf(buffer, "%d", ZMSprite.Dmg);
@@ -188,9 +188,9 @@ int cStatEd::LoadEnemy() {
 	}
 	else if (currentRomType == 1) {
 		MemFile::currentFile->seek(0x2E4D4C + ((SpritePreview->id) * 14));
-		MemFile::currentFile->fread(&FusionSprite, sizeof(FusionSprite), 1, GBA.ROM);
+		MemFile::currentFile->fread(&FusionSprite, sizeof(FusionSprite), 1);
 		// MemFile::currentFile->seek(0x2b0d68 + ((SpritePreview->id)* 18));
-		//MemFile::currentFile->fread(&FusionSprite,sizeof(FusionSprite),1,GBA.ROM);
+		//MemFile::currentFile->fread(&FusionSprite,sizeof(FusionSprite),1);
 		sprintf(buffer, "%d", FusionSprite.Health);
 		SetWindowText(Health, buffer);
 		sprintf(buffer, "%d", FusionSprite.Damage);
@@ -250,7 +250,7 @@ int cStatEd::SaveSprite() {
 		sscanf(buffer, "%d", &ZMSprite.PowerBombs);
 
 		MemFile::currentFile->seek(0x2b0d68 + ((SpritePreview->id) * 18));
-		MemFile::currentFile->fwrite(&ZMSprite, 1, 18, GBA.ROM);
+		MemFile::currentFile->fwrite(&ZMSprite, 1, 18);
 		fclose(GBA.ROM);
 		GBA.ROM = fopen(GBA.FileLoc, "r+b");
 		//		LoadSprite();
@@ -272,18 +272,18 @@ int cStatEd::SaveSprite() {
 		GetWindowText(ud, buffer, 256);
 		sscanf(buffer, "%X", &FusionSprite.unknownDamage);
 		MemFile::currentFile->seek(0x2E4D4C + ((SpritePreview->id) * 14));
-		//	fwrite(&FusionSprite,1,14,GBA.ROM);
+		//	fwrite(&FusionSprite,1,14);
 
 
-		MemFile::currentFile->fwrite(&FusionSprite.Health, 2, 1, GBA.ROM);
-		MemFile::currentFile->fwrite(&FusionSprite.Damage, 2, 1, GBA.ROM);
-		MemFile::currentFile->fwrite(&FusionSprite.unknownDamage, 2, 1, GBA.ROM);
-		MemFile::currentFile->fwrite(&res, 1, 1, GBA.ROM);
-		MemFile::currentFile->fwrite(&FusionSprite.unknown6, 1, 1, GBA.ROM);
-		MemFile::currentFile->fwrite(&FusionSprite.unknown1, 2, 1, GBA.ROM);
-		MemFile::currentFile->fwrite(&FusionSprite.unknown2, 2, 1, GBA.ROM);
-		MemFile::currentFile->fwrite(&FusionSprite.unknown3, 2, 1, GBA.ROM);
-		// fwrite(&FusionSprite.end,2,1,GBA.ROM);
+		MemFile::currentFile->fwrite(&FusionSprite.Health, 2, 1);
+		MemFile::currentFile->fwrite(&FusionSprite.Damage, 2, 1);
+		MemFile::currentFile->fwrite(&FusionSprite.unknownDamage, 2, 1);
+		MemFile::currentFile->fwrite(&res, 1, 1);
+		MemFile::currentFile->fwrite(&FusionSprite.unknown6, 1, 1);
+		MemFile::currentFile->fwrite(&FusionSprite.unknown1, 2, 1);
+		MemFile::currentFile->fwrite(&FusionSprite.unknown2, 2, 1);
+		MemFile::currentFile->fwrite(&FusionSprite.unknown3, 2, 1);
+		// fwrite(&FusionSprite.end,2,1);
 
 		GBA.Reopen();
 
@@ -328,12 +328,12 @@ int cStatEd::SetupPreview()
 		GFXPnt = GameConfiguration::mainCFG->GetDataContainer("SpriteGFX")->Value + (SpritePreview->id - 0x10) * 4;
 
 		MemFile::currentFile->seek(0x75EBF8 + (SpritePreview->id - 0x10) * 4);
-		MemFile::currentFile->fread(&off, 4, 1, GBA.ROM);
+		MemFile::currentFile->fread(&off, 4, 1);
 		MemFile::currentFile->seek(off - 0x8000000);
-		MemFile::currentFile->fread(&thiscompheader.check_ten, 1, 1, GBA.ROM);       //Check byte should be 0x10 for lz
-		MemFile::currentFile->fread(&thiscompheader.l3, 1, 1, GBA.ROM);
-		MemFile::currentFile->fread(&thiscompheader.l2, 1, 1, GBA.ROM);
-		MemFile::currentFile->fread(&thiscompheader.l1, 1, 1, GBA.ROM);
+		MemFile::currentFile->fread(&thiscompheader.check_ten, 1, 1);       //Check byte should be 0x10 for lz
+		MemFile::currentFile->fread(&thiscompheader.l3, 1, 1);
+		MemFile::currentFile->fread(&thiscompheader.l2, 1, 1);
+		MemFile::currentFile->fread(&thiscompheader.l1, 1, 1);
 
 		PalPnt = 0x75EEF0 + (SpritePreview->id - 0x10) * 4;
 
@@ -356,9 +356,9 @@ int cStatEd::SetupPreview()
 
 
 	MemFile::currentFile->seek(PalPnt);
-	MemFile::currentFile->fread(&addybuf, 4, 1, GBA.ROM);
+	MemFile::currentFile->fread(&addybuf, 4, 1);
 	MemFile::currentFile->seek(addybuf - 0x8000000);
-	MemFile::currentFile->fread(&transferpal, 1, (RD1Engine::theGame->mainRoom->mgrSpriteObjects->paltransfer[x].Size) * 2, GBA.ROM);
+	MemFile::currentFile->fread(&transferpal, 1, (RD1Engine::theGame->mainRoom->mgrSpriteObjects->paltransfer[x].Size) * 2);
 
 	//	if(paltransfer[x][1] == 0) continue;
 	memcpy(&GBAGraphics::VRAM->GBASprPal[128], &transferpal, (RD1Engine::theGame->mainRoom->mgrSpriteObjects->paltransfer[x].Size) * 2);
@@ -372,24 +372,24 @@ int cStatEd::SetupPreview()
 	{
 	case 0:
 		MemFile::currentFile->seek(GFXPnt);
-		MemFile::currentFile->fread(&addybuf, 4, 1, GBA.ROM);
+		MemFile::currentFile->fread(&addybuf, 4, 1);
 		MemFile::currentFile->seek(addybuf - 0x8000000);
-		MemFile::currentFile->fread(compBuffer, 1, sizeof(compBuffer), GBA.ROM);
+		MemFile::currentFile->fread(compBuffer, 1, sizeof(compBuffer));
 		size = GBA.LZ77UnComp(compBuffer, decompbuf);
 		memcpy(&SpritePreview->PreRAM[0x4000], &decompbuf, size);
 		break;
 	case 1:
 		size = RD1Engine::theGame->mgrOAM->MFSprSize[(SpritePreview->id - 0x10) << 1];
 		MemFile::currentFile->seek(GFXPnt);
-		MemFile::currentFile->fread(&addybuf, 4, 1, GBA.ROM);
+		MemFile::currentFile->fread(&addybuf, 4, 1);
 		MemFile::currentFile->seek(addybuf - 0x8000000);
-		MemFile::currentFile->fread(&SpritePreview->PreRAM[0x4000], 1, size, GBA.ROM);
+		MemFile::currentFile->fread(&SpritePreview->PreRAM[0x4000], 1, size);
 		break;
 	}
 
 
 	SpritePreview->Tiles->Load(SpritePreview->PreRAM, 1023);
-	RD1Engine::theGame->mgrOAM->DecodeOAM(GBA.ROM, GlobalVars::gblVars->OAMED, SpritePreview, GlobalVars::gblVars->frameTables->OAMFrameTable[SpritePreview->id].front());
+	RD1Engine::theGame->mgrOAM->DecodeOAM(GlobalVars::gblVars->OAMED, SpritePreview, GlobalVars::gblVars->frameTables->OAMFrameTable[SpritePreview->id].front());
 	SpritePreview->PreviewSprite.GetFullImage()->Clear();
 	RD1Engine::theGame->mgrOAM->DrawPSprite(SpritePreview);
 	InvalidateRect(me, 0, 1);

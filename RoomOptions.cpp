@@ -87,25 +87,25 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 				ResizeLayer(buffForeground, X, Y);
 				//copy the old level 
 
-				SaveLevel(GBA.ROM, -1);
+				SaveLevel(-1);
 				UpdateHeaderControls();
 				return 0;
 			}
 			else if (i == 1) {
 
 				ResizeLayer(buffLevel, X, Y);
-				SaveLevel(GBA.ROM, -1);
+				SaveLevel(-1);
 				return 0;
 			}
 			else if (i == 2) {
 				ResizeLayer(buffBackLayer, X, Y);
-				SaveLevel(GBA.ROM, -1);
+				SaveLevel(-1);
 				return 0;
 			}
 			else if (i == 3) {
 				ResizeLayer(buffClipLayer, X, Y);
 
-				SaveLevel(GBA.ROM, -1);
+				SaveLevel(-1);
 				return 0;
 			}
 			//Safety Measure

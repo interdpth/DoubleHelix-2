@@ -50,11 +50,11 @@ int MiniMapClass::Create() {
 		if (GBA.ROM) {
 			//Need to read our arrays and translate shit in
 			MemFile::currentFile->seek(0x7601EC);
-			MemFile::currentFile->fread(&MapList, 4, 0xB, GBA.ROM);
+			MemFile::currentFile->fread(&MapList, 4, 0xB);
 			MemFile::currentFile->seek(0x40E0C4);
-			MemFile::currentFile->fread(&TilesetGraphics, 1, 0x3000, GBA.ROM);
+			MemFile::currentFile->fread(&TilesetGraphics, 1, 0x3000);
 			MemFile::currentFile->seek(0x411360);
-			MemFile::currentFile->fread(&GBA.GBAPal, 2, 0xA0, GBA.ROM);
+			MemFile::currentFile->fread(&GBA.GBAPal, 2, 0xA0);
 			GBA.DecodePal(GBA.GBAPal, Palette, 0xB, 0);
 			ts.Load(TilesetGraphics, 384);
 		}
@@ -68,12 +68,12 @@ int MiniMapClass::Create() {
 		if (GBA.ROM) {
 			//Need to read our arrays and translate shit in
 			MemFile::currentFile->seek(0x79BE5C);
-			MemFile::currentFile->fread(&MapList, 4, 0xB, GBA.ROM);
+			MemFile::currentFile->fread(&MapList, 4, 0xB);
 			MemFile::currentFile->seek(0x561fa8);
-			MemFile::currentFile->fread(&TilesetGraphics, 1, 0x4000, GBA.ROM);
+			MemFile::currentFile->fread(&TilesetGraphics, 1, 0x4000);
 			MemFile::currentFile->seek(0x5657AA);
 			GBA.GBAPal[0] = 0;
-			MemFile::currentFile->fread(&GBA.GBAPal[1], 2, 0xE0, GBA.ROM);
+			MemFile::currentFile->fread(&GBA.GBAPal[1], 2, 0xE0);
 			GBA.DecodePal(GBA.GBAPal, Palette, 0xB, 0);
 			ts.Load(TilesetGraphics, 430);
 		}
