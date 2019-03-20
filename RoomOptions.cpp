@@ -73,9 +73,9 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 			MessageBox(hWnd, "Automatically Saving the Room and applying effects", "Warning", MB_OK);
 
 			GetWindowText(GetDlgItem(hWnd, txtWidth), buf, 8);
-			sscanf(buf, "%x", &X);
+			sscanf(buf, "%X", &X);
 			GetWindowText(GetDlgItem(hWnd, txtHeight), buf, 8);
-			sscanf(buf, "%x", &Y);
+			sscanf(buf, "%X", &Y);
 			//make a new copy of RoomBuff the size of the new Width and Height
 
 			//Fill it with zeroes

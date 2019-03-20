@@ -259,7 +259,7 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 
 				for (i = 0; i < thisTable.size(); i++)
 				{
-					sprintf(wndstr, "%x", thisTable[i]);
+					sprintf(wndstr, "%X", thisTable[i]);
 					cboFrameTable->Additem(wndstr);
 				}
 

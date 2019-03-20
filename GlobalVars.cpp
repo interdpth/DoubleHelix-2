@@ -17,7 +17,7 @@ GlobalVars::GlobalVars()
 	TextEditor = new MetroidTextEditor();
 	TileImage = new TileBuffer();
 	imgTileset = NULL;
-//	StatEditor = new cStatEd(RD1Engine::theGame->currentRomType);
+
 	BGi = new wndBGImport();
 	zoomLevel = 1.0;
 }

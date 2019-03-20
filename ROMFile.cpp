@@ -378,6 +378,7 @@ void OpenRom()
 		}
 		currentRomType = (int)theTitle;
 		GameConfiguration::mainCFG = new GameConfiguration(currentRomType);
+
 		EnableMenuItem(GetMenu(hwndMain()), 0, MF_BYPOSITION | MF_GRAYED);
 		GBA.ROM = fopen(GBA.FileLoc, "r+b");
 
@@ -395,12 +396,11 @@ void OpenRom()
 		GlobalVars::gblVars->frameTables = new OamFrameTable((int)theTitle, filepath2);
 
 		tmp2 = GameConfiguration::mainCFG->GetDataContainer("ZoomStates")  ;
-//		GlobalVars::gblVars->zoomLevel = (float)tmp2->DataArray[0];
 		memcpy(&GlobalVars::gblVars->zoomLevel, &tmp2->DataArray[0], sizeof(float));
 		float level = (float)GlobalVars::gblVars->zoomLevel;
 		MemFile::currentFile = new MemFile(GBA.FileLoc);
 		RD1Engine::theGame = new RD1Engine(theTitle, GlobalVars::gblVars->frameTables, &GlobalVars::gblVars->BGImage, GlobalVars::gblVars->TileImage, GlobalVars::gblVars->imgTileset);
-
+		GlobalVars::gblVars->StatEditor = new cStatEd(RD1Engine::theGame->currentRomType);
 
 
 		char filepath[2048];

@@ -57,7 +57,7 @@ LRESULT CALLBACK InputBoxProc(HWND hWnd, unsigned int message, WPARAM wParam, LP
 		if (LOWORD(wParam) == cmdInputOK)
 		{
 			GetWindowText(GetDlgItem(hWnd, txtInput), buf, 4);
-			sscanf(buf, "%x", &choice);
+			sscanf(buf, "%X", &choice);
 			ShowWindow(hWnd, SW_HIDE);
 
 			EndDialog(hWnd, choice);

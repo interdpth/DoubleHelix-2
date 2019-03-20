@@ -430,13 +430,23 @@
 #define ID_BACKGROUND_256X256           40057
 #define ID_BACKGROUND_512X256           40058
 #define ID_BACKGROUND_256X512           40059
+#define ID_MAP_VIEWFOREGROUND           40060
+#define ID_MAP_VIEWLEVELLAYER           40061
+#define ID_MAP_VIEWBACKLAYER            40062
+#define ID_MAP_VIEWBACKGROUND           40063
+#define ID_MAP_SHOWSPRITES              40064
+#define ID_MAP_SHOWSCROLLS              40065
+#define ID_MAP_SHOWCLIPDATA             40066
+#define ID_ROOMTOOLS_EDITLEVELPAL       40067
+#define ID_MAP_SHOWTRANSPARENCY         40068
+#define ID_MAP_ANIMATE                  40069
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        160
-#define _APS_NEXT_COMMAND_VALUE         40060
+#define _APS_NEXT_COMMAND_VALUE         40070
 #define _APS_NEXT_CONTROL_VALUE         1308
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

@@ -97,7 +97,7 @@ bool ProcessControls2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 
 	switch (LOWORD(wParam))
 	{
-	case chkViewF:
+	case ID_MAP_VIEWFOREGROUND:
 		GlobalVars::gblVars->ViewForeground = GlobalVars::gblVars->checkBoxViewF.value() == BST_CHECKED;
 		mainGame->DrawStatus.BG0 = GlobalVars::gblVars->ViewForeground;
 		mainGame->DrawStatus.dirty = true;
@@ -105,7 +105,7 @@ bool ProcessControls2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, false);
 		return true;
 		break;
-	case chkViewL:
+	case ID_MAP_VIEWLEVELLAYER:
 		GlobalVars::gblVars->ViewLevel = GlobalVars::gblVars->checkBoxViewL.value() == BST_CHECKED;
 		mainGame->DrawStatus.BG1 = GlobalVars::gblVars->ViewLevel;
 		mainGame->DrawStatus.dirty = true;
@@ -113,7 +113,7 @@ bool ProcessControls2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, false);
 		return true;
 		break;
-	case chkViewB:
+	case ID_MAP_VIEWBACKLAYER:
 		GlobalVars::gblVars->ViewBacklayer = GlobalVars::gblVars->checkBoxViewB.value() == BST_CHECKED;
 		mainGame->DrawStatus.BG2 = GlobalVars::gblVars->ViewBacklayer;
 		mainGame->DrawStatus.dirty = true;
@@ -163,14 +163,14 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetState(someval == 1 ? editingStates::DOOR : editingStates::MAP);
 		UiState::stateManager->ShowObj();
 		break;
-	case cmdLPE:
+	case ID_ROOMTOOLS_EDITLEVELPAL:
 		// if(crf==-1) return  0;
 		ShowWindow(hwndLPE, 1);
 
 		break;
 
 	
-	case chkHS:
+	case ID_MAP_SHOWSPRITES:
 		DrawStatusFromUI();
 		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		InvalidateRect(hwnd, 0, true);
@@ -184,7 +184,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		break;
 
 
-	case chkDTrans:
+	case ID_MAP_SHOWTRANSPARENCY:
 		if (currentRomType == -1)
 			return 0;
 		RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround)->Dirty = 1;
@@ -261,7 +261,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		}
 		break;
-	case  chkAnimates:
+	case  ID_MAP_ANIMATE:
 		GlobalVars::gblVars->checkBoxLevel.value(!GlobalVars::gblVars->checkBoxLevel.value());
 		break;
 	case chkLevel:
@@ -287,10 +287,10 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetState(editingStates::MAP);
 		UiState::stateManager->ShowObj();
 		break;
-	case chkViewB:
-	case chkViewF:
-	case chkViewL:
-	case chkViewBG:
+	case ID_MAP_VIEWBACKLAYER:
+	case ID_MAP_VIEWFOREGROUND:
+	case ID_MAP_VIEWLEVELLAYER:
+	case ID_MAP_VIEWBACKGROUND:
 		if (!LoadingLevel)
 			DrawStatusFromUI();
 			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
@@ -302,7 +302,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		GlobalVars::gblVars->checkBoxsResize.value(0);
 		break;
 
-	case chkVC:
+	case ID_MAP_SHOWCLIPDATA:
 		DrawStatusFromUI();
 		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 
@@ -350,7 +350,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 
 			for (i = 0; i < LevelCounter; i++)
 			{
-				sprintf(cBuf, "%x", i);
+				sprintf(cBuf, "%X", i);
 				Combos[cRoom].Additem(cBuf);
 
 			}
@@ -472,17 +472,17 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 
 		clrIndex = 0;
 		//GlobalVars::gblVars->imgTileset->Create(512, 1024);
-		GlobalVars::gblVars->chkHideSprites.SetCnt(GetDlgItem(hwnd, chkHS));
+		GlobalVars::gblVars->chkHideSprites.SetCnt(GetDlgItem(hwnd, ID_MAP_SHOWSPRITES));
 		GlobalVars::gblVars->checkBoxForeground.SetCnt(GetDlgItem(hwnd, chkForeground));
 		GlobalVars::gblVars->checkBoxLevel.SetCnt(GetDlgItem(hwnd, chkLevel));
 		GlobalVars::gblVars->checkBoxLevel.value(2);
-		GlobalVars::gblVars->ViewClip.SetCnt(GetDlgItem(hwnd, chkVC));
+		GlobalVars::gblVars->ViewClip.SetCnt(GetDlgItem(hwnd, ID_MAP_SHOWCLIPDATA));
 		GlobalVars::gblVars->checkBoxBackground.SetCnt(GetDlgItem(hwnd, chkBacklayer));
 		GlobalVars::gblVars->ScrollCheck.SetCnt(GetDlgItem(hwnd, chkScroll));
 		GlobalVars::gblVars->checkBoxClip.SetCnt(GetDlgItem(hwnd, chkClip));
-		GlobalVars::gblVars->checkBoxViewF.SetCnt(GetDlgItem(hwnd, chkViewF));
-		GlobalVars::gblVars->checkBoxViewL.SetCnt(GetDlgItem(hwnd, chkViewL));
-		GlobalVars::gblVars->checkBoxViewB.SetCnt(GetDlgItem(hwnd, chkViewB));
+		GlobalVars::gblVars->checkBoxViewF.SetCnt(GetDlgItem(hwnd, ID_MAP_VIEWFOREGROUND));
+		GlobalVars::gblVars->checkBoxViewL.SetCnt(GetDlgItem(hwnd, ID_MAP_VIEWLEVELLAYER));
+		GlobalVars::gblVars->checkBoxViewB.SetCnt(GetDlgItem(hwnd, ID_MAP_VIEWBACKLAYER));
 		GlobalVars::gblVars->checkBoxViewBL.SetCnt(GetDlgItem(hwnd, chkViewBG));
 		GlobalVars::gblVars->checkBoxsMove.SetCnt(GetDlgItem(hwnd, chkSMove));
 		GlobalVars::gblVars->checkBoxsResize.SetCnt(GetDlgItem(hwnd, chkSRe));
@@ -497,12 +497,12 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 		GlobalVars::gblVars->chkMC[1].SetCnt(GetDlgItem(hwnd, chkLevel2));
 		GlobalVars::gblVars->chkMC[2].SetCnt(GetDlgItem(hwnd, chkBacklayer2));
 		GlobalVars::gblVars->chkMC[3].SetCnt(GetDlgItem(hwnd, chkClip2));
-		chkDoTrans.SetCnt(GetDlgItem(hwnd, chkDTrans));
+		chkDoTrans.SetCnt(GetDlgItem(hwnd, ID_MAP_SHOWTRANSPARENCY));
 		chkDoTrans.value(1);
-		chkDoTrans.SetCnt(GetDlgItem(hwnd, chkDTrans));
+		chkDoTrans.SetCnt(GetDlgItem(hwnd, ID_MAP_SHOWTRANSPARENCY));
 		GlobalVars::gblVars->checkBoxshowmap.value(1);
 		GlobalVars::gblVars->checkBoxshowtileset.value(1);
-		GlobalVars::gblVars->chkAnimatez.SetCnt(GetDlgItem(hwnd, chkAnimates));
+		GlobalVars::gblVars->chkAnimatez.SetCnt(GetDlgItem(hwnd, ID_MAP_ANIMATE));
 		GlobalVars::gblVars->chkAnimatez.value(1);
 
 

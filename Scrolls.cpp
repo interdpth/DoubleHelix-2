@@ -9,7 +9,7 @@ void LoadScrollControls( Scroller *scroll)
 	if (scroll->Number >0) {
 		cboScroll.Enable();
 		for (i = 0; i < scroll->Number; i++) {
-			sprintf(cBuf, "%x", i);
+			sprintf(cBuf, "%X", i);
 			cboScroll.Additem(cBuf);
 
 		}
@@ -30,19 +30,19 @@ void LoadScrollInfo(int s,  Scroller *scroll) {
 	memcpy(&bytes, &data, 4);
 
 
-	sprintf(txtbuffer, "%x", bytes[0]);
+	sprintf(txtbuffer, "%X", bytes[0]);
 	SetWindowText(GetDlgItem(ScrollWIn, txtByte1), txtbuffer);
 
-	sprintf(txtbuffer, "%x", bytes[1]);
+	sprintf(txtbuffer, "%X", bytes[1]);
 	SetWindowText(GetDlgItem(ScrollWIn, txtByte2), txtbuffer);
 
-	sprintf(txtbuffer, "%x", bytes[2]);
+	sprintf(txtbuffer, "%X", bytes[2]);
 	SetWindowText(GetDlgItem(ScrollWIn, txtByte3), txtbuffer);
 
-	sprintf(txtbuffer, "%x", bytes[3]);
+	sprintf(txtbuffer, "%X", bytes[3]);
 	SetWindowText(GetDlgItem(ScrollWIn, txtByte4), txtbuffer);
 
-	sprintf(txtbuffer, "%x", data);
+	sprintf(txtbuffer, "%X", data);
 	SetWindowText(GetDlgItem(ScrollWIn, txtLong), txtbuffer);
 
 }

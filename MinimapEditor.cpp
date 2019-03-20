@@ -55,8 +55,8 @@ void Create(int romSwitch)
 		MiniMapClass::miniMapEditor->cboMArea.Additem("Debug1");
 		MiniMapClass::miniMapEditor->cboMArea.Additem("Debug2");
 		MiniMapClass::miniMapEditor->cboMArea.Additem("Debug3");
-		MiniMapClass::miniMapEditor->cboMArea.Additem("Uknown");
-		MiniMapClass::miniMapEditor->cboMArea.Additem("Uknown");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("Unknown");
+		MiniMapClass::miniMapEditor->cboMArea.Additem("Unknown");
 	}
 	MiniMapClass::miniMapEditor->MiniMapClass::miniMapEditor->MFMap.SetListIndex(0);
 	MiniMapClass::miniMapEditor->Tileset = new Image(tr.right - tr.left, tr.bottom - tr.top);
@@ -291,11 +291,8 @@ int MiniMapClass::DecompressMap(int area){
 		RawMap = NULL;
 	}
 	if(GBA.ROM){
-        if(currentRomType==0){
-		 MemFile::currentFile->seek(MapList[area]-0x8000000);
-		}else if(currentRomType==1){
-		 MemFile::currentFile->seek(MapList[area]-0x8000000);
-		}
+        MemFile::currentFile->seek(MapList[area]-0x8000000);
+	
 		MemFile::currentFile->fread(compBuffer,1,64691);
 		DSize=GBA.LZ77UnComp(compBuffer, DecompBuf);
 	

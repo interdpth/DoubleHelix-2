@@ -222,28 +222,28 @@ bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPar
 
 	switch (LOWORD(wParam))
 	{
-	case chkViewF:
+	case ID_MAP_VIEWFOREGROUND:
 		GlobalVars::gblVars->ViewForeground = GlobalVars::gblVars->checkBoxViewF.value() == BST_CHECKED;
 		mainGame->DrawStatus.BG0 = GlobalVars::gblVars->ViewForeground;
 		mainGame->DrawStatus.dirty = true;
 		InvalidateRect(hwnd, 0, false);
 		return true;
 		break;
-	case chkViewL:
+	case ID_MAP_VIEWLEVELLAYER:
 		GlobalVars::gblVars->ViewLevel = GlobalVars::gblVars->checkBoxViewL.value() == BST_CHECKED;
 		mainGame->DrawStatus.BG1 = GlobalVars::gblVars->ViewLevel;
 		mainGame->DrawStatus.dirty = true;
 		InvalidateRect(hwnd, 0, false);
 		return true;
 		break;
-	case chkViewB:
+	case ID_MAP_VIEWBACKLAYER:
 		GlobalVars::gblVars->ViewBacklayer = GlobalVars::gblVars->checkBoxViewB.value() == BST_CHECKED;
 		mainGame->DrawStatus.BG2 = GlobalVars::gblVars->ViewBacklayer;
 		mainGame->DrawStatus.dirty = true;
 		InvalidateRect(hwnd, 0, false);
 		return true;
 		break;
-	case chkHS:
+	case ID_MAP_SHOWSPRITES:
 		//GlobalVars::gblVars->ViewBacklayer = GlobalVars::gblVars->checkBoxViewB.value() == BST_CHECKED;
 		return true;
 		break;
@@ -288,6 +288,8 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			fp = fopen(cBuf, "w+");
 			if (fp)
 			{
+				
+				nMapBuffer* tmap=	RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData);
 				RD1Engine::theGame->ThisBackBuffer.SaveToFile(fp);
 				fclose(fp);
 			}
@@ -405,9 +407,13 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 
 		break;
 	case IDCANCEL:
-		EndDialog(hwnd, 0);
-		EndDialog(DoorWin, 0);
-		EndDialog(hwndResize, 0);
+		if (MessageBox(hwnd, "Wait! Are you sure?", "Leaving so soon?", MB_YESNOCANCEL) == IDYES)
+		{
+			EndDialog(hwnd, 0);
+			EndDialog(DoorWin, 0);
+			EndDialog(hwndResize, 0);
+		}
+	
 		break;
 	case mnuTE:
 		if (currentRomType == -1)
@@ -573,7 +579,7 @@ sChecks door;
 
 		clrIndex = 0;
 		GlobalVars::gblVars->imgTileset = new Image();
-		GlobalVars::gblVars->imgTileset->Create(300, 512);
+		GlobalVars::gblVars->imgTileset->Create(16*17+1, 512);
 
 
 		chkDoTrans.value(1);

@@ -156,7 +156,7 @@ int DoorManager::ConnectDoor(unsigned char TD) {
 	char Buf[512];
 	unsigned char condoor = RD1Engine::theGame->mgrDoors->Doors[TD].rawDoor.DestDoor;
 
-	sprintf(Buf, "Door: %x", TD);
+	sprintf(Buf, "Door: %X", TD);
 	SetWindowText(GetDlgItem(DoorWin, lblCDoor), Buf);
 
 	condoor = RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->Doors[TD].rawDoor.DestDoor].rawDoor.DoorType;

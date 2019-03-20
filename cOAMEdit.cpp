@@ -339,7 +339,11 @@ int cOAMEdit::Create() {
 	{
 		sprintf(sillystring, "%X", i);
 		if (i<16)cboPal.Additem(sillystring);
-		lstSprite.Additem(sillystring);
+		if (!(RD1Engine::theGame->currentRomType == 0 && i < 16))
+		{
+
+			lstSprite.Additem(sillystring);
+		}
 		sprintf(sillystring, "%d", i);
 		if (i < 4)
 		{
