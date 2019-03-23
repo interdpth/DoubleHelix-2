@@ -11,6 +11,8 @@ RECT toolsRect;
 extern HWND hTabControl;
 extern HANDLE handle_out;
 void LoadScrollInfo(int s, Scroller *scroll);
+
+//Returns the cfurrent editable buffer.
 nMapBuffer* GetActiveBuffer() {
 	nMapBuffer* tmpBuf = NULL;
 	if (GlobalVars::gblVars->checkBoxForeground.value() == 1 || GlobalVars::gblVars->chkMC[0].value() == 1)
@@ -32,11 +34,38 @@ nMapBuffer* GetActiveBuffer() {
 
 	return tmpBuf;
 }
+void UpdateStatusText(int actualX, int actualY)
+{
+	MapManager* mgrMap = NULL;
+	RoomClass* theRoom = NULL;
+	char cBuf[256] = { 0 };
+	if (RD1Engine::theGame != NULL&&RD1Engine::theGame->mainRoom != NULL)
+	{
+		theRoom = RD1Engine::theGame->mainRoom;
+		mgrMap = theRoom->mapMgr;
+	}
 
+	if (!mgrMap->GetLayer(4)->TileBuf2D == NULL)
+	{
+		int poo = Combos[cClip].GetListIndex();
+
+		//			Combos[cClip].SetListIndex(mgrMap->GetLayer(MapManager::Clipdata)->TileBuf2D[actualX + (actualY)* (mgrMap->GetLayer(MapManager::LevelData)->X)]);
+
+		GetWindowText(Combos[cClip].GetHwnd(), cBuf, 200);
+		SetWindowText(GetDlgItem(GlobalVars::gblVars->frameControls, lblClip), cBuf);
+		//Combos[cClip].SetListIndex(poo);
+
+	}
+	sprintf(cBuf, "X: %X", actualX);
+	SetWindowText(GetDlgItem(GlobalVars::gblVars->frameControls, lblX), cBuf);
+	sprintf(cBuf, "Y: %X", actualY);
+	SetWindowText(GetDlgItem(GlobalVars::gblVars->frameControls, lblY), cBuf);
+}
+
+//Handles drawing the room
 void Draw(HDC hdc)
 {
-	RECT mainRect;
-	RECT viewRect; 
+	RECT viewRect;
 	GetWindowRect(UiState::stateManager->GetMapWindow(), &viewRect);
 
 
@@ -44,23 +73,23 @@ void Draw(HDC hdc)
 	if (RD1Engine::theGame != NULL&&RD1Engine::theGame->mainRoom != NULL)
 	{
 		mgrMap = RD1Engine::theGame->mainRoom->mapMgr;
-		nMapBuffer* c = mgrMap->GetLayer(3);
-		if (c) {
+		nMapBuffer* clipLayer = mgrMap->GetLayer(3);
+		if (clipLayer) {
 
 
-			if (viewRect.right > c->X*16)
+			if (viewRect.right > clipLayer->X * 16)
 			{
-				viewRect.right = c->X * 16;
+				viewRect.right = clipLayer->X * 16;
 			}
 
-			if (viewRect.bottom > c->Y * 16)
+			if (viewRect.bottom > clipLayer->Y * 16)
 			{
-				viewRect.bottom = c->Y * 16;
+				viewRect.bottom = clipLayer->Y * 16;
 			}
 		}
 	}
 
-	
+
 
 	if (viewRect.right < 64)
 	{
@@ -71,7 +100,7 @@ void Draw(HDC hdc)
 		viewRect.bottom = 64;
 	}
 
-	
+
 	float z = (float)GlobalVars::gblVars->zoomLevel;
 	if (z < 1.0)
 	{
@@ -81,53 +110,137 @@ void Draw(HDC hdc)
 	float adjustHeight = (float)((float)viewRect.bottom*z);
 	int w = (int)(adjustWidth);
 	int h = (int)(adjustHeight);
-	StretchBlt(hdc, 0, 0, (int) adjustWidth,(int)adjustHeight, RD1Engine::theGame->ThisBackBuffer.DC(), 0, 0, viewRect.right, viewRect.bottom,  SRCCOPY);
-	
-	if (GlobalVars::gblVars->ViewClip.value() != 1) 
+	StretchBlt(hdc, 0, 0, (int)adjustWidth, (int)adjustHeight, RD1Engine::theGame->ThisBackBuffer.DC(),
+
+		RD1Engine::theGame->mainRoom->currentHorizScroll * 16, RD1Engine::theGame->mainRoom->currentVertScroll * 16, viewRect.right, viewRect.bottom, SRCCOPY);
+
+	if (GlobalVars::gblVars->ViewClip.value() != 1)
 	{
 		DrawTileRect(hdc, mpMap, 16);
 	}
 }
-MapUtils* utils; 
+MapUtils* utils;
+void HandleCopyPasteMessages(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
+{
+	int copypasteflag = 0;
+	switch (message)
+	{
+
+	case WM_COPYDATA:
+	case WM_COPY:
+		copypasteflag = 1;
+		break;
+	case WM_PASTE:
+		copypasteflag = 1;
+		break;
+	}
+}
+
+void HandleScrolling(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
+{
+	RoomClass* theRoom = NULL;
+	if (RD1Engine::theGame != NULL&&RD1Engine::theGame->mainRoom != NULL)
+	{
+		theRoom = RD1Engine::theGame->mainRoom;
+
+	}
+	switch (message)
+	{
+
+	case WM_VSCROLL:	// exact same idea, but V scroll instead of H scrollFindMeAScroll
+		MapVertScroll->UpdateScroll(wParam, 1, vsbMap, sVMap);
+		if (theRoom != NULL)
+		{
+			RD1Engine::theGame->mainRoom->currentVertScroll = MapVertScroll->GetIndex();
+		}
+		InvalidateRect(hWnd, 0, 1);
+		break;
+	case WM_HSCROLL:
+		MapHorizScroll->UpdateScroll(wParam, NULL, hsbMap, sHMap);
+		if (theRoom != NULL)
+		{
+			RD1Engine::theGame->mainRoom->currentHorizScroll = MapHorizScroll->GetIndex();
+		}
+		InvalidateRect(hWnd, 0, 1);
+	}
+}
+void HandleMouseUpDown(int actualX, int actualY, HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
+{
+	MapManager* mgrMap = NULL;
+	RoomClass* theRoom = NULL;
+	if (RD1Engine::theGame != NULL&&RD1Engine::theGame->mainRoom != NULL)
+	{
+		theRoom = RD1Engine::theGame->mainRoom;
+		mgrMap = theRoom->mapMgr;
+	}
+	if (mgrMap == NULL || !mgrMap->created)
+	{
+		return;
+	}
+
+	switch (message)
+	{
+
+	case WM_LBUTTONDOWN:
+		if (wParam & MK_LBUTTON)
+		{
+			editingStates thisState = mgrMap->GetState()->GetState();//Wait what
+			utils->HandleLeftClick(thisState, actualX, actualY, Combos[cSpriteSet].GetListIndex(), wParam, lParam);
+		}
+		break;
+	case WM_RBUTTONDOWN:
+
+		if (LOWORD(wParam) == MK_RBUTTON)
+		{
+
+			editingStates thisState = mgrMap->GetState()->GetState();//Wait what
+			utils->HandleRightClick(thisState, actualX, actualY, Combos[cSpriteSet].GetListIndex());
+		}
+		break;
+	case WM_RBUTTONUP:
+
+		mgrMap->GetState()->SetAction(editingActions::PLACETILE);//Return to default action
+		break;
+	case WM_LBUTTONUP:
+		mgrMap->GetState()->SetAction(editingActions::PLACETILE);
+		break;
+	}
+}
+
 LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
 
 	char *buffer = new char[256];
 	memset(buffer, 0, 256);
-	MapManager* mgrMap=NULL;
-	if (RD1Engine::theGame!=NULL&&RD1Engine::theGame->mainRoom!=NULL)
+	MapManager* mgrMap = NULL;
+	RoomClass* theRoom = NULL;
+	if (RD1Engine::theGame != NULL&&RD1Engine::theGame->mainRoom != NULL)
 	{
-		mgrMap = RD1Engine::theGame->mainRoom->mapMgr;
+		theRoom = RD1Engine::theGame->mainRoom;
+		mgrMap = theRoom->mapMgr;
 	}
-
-	float zoom = 1;
-
-
 	nMapBuffer* Layer;
 	PAINTSTRUCT ps;
 	HDC hdc;
-	int poo;
-	int i = 0;
-	int dw, dh, x, y, nx, ny;
+
+	int dw, x, y, nx, ny;
 	dw = 0;
-	dh = 0;
+
 	x = 0;
 	y = 0;
 	nx = 0;
 	ny = 0;
-	RECT viewRect;
+
 	RECT Drawme;
-	int blitareax = 0, blitareay = 0;
-	char cBuf[200];
-	int copypasteflag = 0;
+
 	int curX = GetX(lParam) / 16;
 	int curY = GetY(lParam) / 16;
 	int actualX = curX;
 	if (MapHorizScroll != NULL) {
 		actualX += MapHorizScroll->GetIndex();
 	}
-		
-	int actualY = curY; 
+
+	int actualY = curY;
 	if (MapVertScroll != NULL) {
 		actualY += MapVertScroll->GetIndex();
 	}
@@ -139,76 +252,36 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		GetWindowRect(GetDlgItem(UiState::stateManager->GetWindow(), grpMap), &toolsRect);
 		MapHorizScroll = new WindowScrollbar(hWnd, false);
 		MapVertScroll = new WindowScrollbar(hWnd, true);
-		MapVertScroll->ChangeScrollbars( vsbMap, sVMap);
-		
-		MapHorizScroll->ChangeScrollbars( hsbMap, sHMap);
+		MapVertScroll->ChangeScrollbars(vsbMap, sVMap);
+		MapHorizScroll->ChangeScrollbars(hsbMap, sHMap);
+		break;
+
+	case WM_PAINT:
+		if (theRoom != NULL)
+		{
+
+			hdc = BeginPaint(hWnd, &ps);
+
+			Draw(hdc);
+
+			EndPaint(hWnd, &ps);
+			ReleaseDC(hWnd, hdc);
+		}
+		break;
+	case WM_VSCROLL:
+	case WM_HSCROLL:
+		HandleScrolling(hWnd, message, wParam, lParam);
 		break;
 	case WM_COPYDATA:
 	case WM_COPY:
-		copypasteflag = 1;
-		break;
 	case WM_PASTE:
-		copypasteflag = 1;
-		break;
-	
-	case WM_PAINT:
-		if (RD1Engine::theGame &&  RD1Engine::theGame->mainRoom &&  mgrMap)
-		{
-			
-				hdc = BeginPaint(hWnd, &ps);
-
-				Draw(hdc);
-
-				EndPaint(hWnd, &ps);
-				ReleaseDC(hWnd, hdc);
-		}
-		break;
-	case WM_VSCROLL:	// exact same idea, but V scroll instead of H scrollFindMeAScroll
-		MapVertScroll->UpdateScroll(wParam, 1, vsbMap, sVMap);
-		InvalidateRect(hWnd, 0, 1);
-		break;
-	case WM_HSCROLL:
-		MapHorizScroll->UpdateScroll(wParam, NULL, hsbMap, sHMap);
-		InvalidateRect(hWnd, 0, 1);
+		HandleCopyPasteMessages(hWnd, message, wParam, lParam);
 		break;
 	case WM_LBUTTONDOWN:
-		if (mgrMap == NULL || !mgrMap->created)
-		{
-			break;
-		}
-
-		if (wParam & MK_LBUTTON) {
-			editingStates thisState = mgrMap->GetState()->GetState();//Wait what
-			utils->HandleLeftClick(thisState, actualX, actualY, Combos[cSpriteSet].GetListIndex(), wParam, lParam);
-		}
-		return 0;
-
-		break;
 	case WM_RBUTTONDOWN:
-		if (mgrMap == NULL || !mgrMap->created)
-		{
-			break;
-		}
-		if (LOWORD(wParam) == MK_RBUTTON) {
-			//HandleRightClick(hWnd, message, wParam, lParam, GlobalVars::gblVars->ScrollCheck.value() == 1);
-			editingStates thisState = mgrMap->GetState()->GetState();//Wait what
-			utils->HandleRightClick(thisState, actualX, actualY, Combos[cSpriteSet].GetListIndex());
-		}
-		break;
 	case WM_RBUTTONUP:
-		if (mgrMap == NULL || !mgrMap->created)
-		{
-			break;
-		}
-		mgrMap->GetState()->SetAction(editingActions::PLACETILE);//Return to default action
-		break;
 	case WM_LBUTTONUP:
-		if (mgrMap == NULL || !mgrMap->created)
-		{
-			break;
-		}
-		mgrMap->GetState()->SetAction(editingActions::PLACETILE);
-
+		HandleMouseUpDown(actualX, actualY, hWnd, message, wParam, lParam);
 		break;
 	case WM_MOUSEMOVE:
 	{
@@ -216,7 +289,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		{
 			break;
 		}
-		if (!RD1Engine::theGame || !RD1Engine::theGame->mainRoom ||!RD1Engine::theGame->mainRoom->mapMgr ||  !RD1Engine::theGame->mainRoom->mapMgr||!RD1Engine::theGame->mainRoom->mapMgr->created)
+		if (!RD1Engine::theGame || !RD1Engine::theGame->mainRoom || !RD1Engine::theGame->mainRoom->mapMgr || !RD1Engine::theGame->mainRoom->mapMgr || !RD1Engine::theGame->mainRoom->mapMgr->created)
 		{
 			return 0;
 		}
@@ -232,11 +305,10 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 				}
 				UiState::stateManager->ShowObj();
 			}
-			RD1Engine::theGame->mainRoom->mapMgr->Resize(thisState, thisAction, wParam, lParam,&mpMap);
+			RD1Engine::theGame->mainRoom->mapMgr->Resize(thisState, thisAction, wParam, lParam, &mpMap);
 		}
 		else if (LOWORD(wParam) == MK_LBUTTON) {
 			RD1Engine::theGame->mainRoom->mapMgr->MoveObject(lParam);
-
 		}
 		else
 		{
@@ -247,21 +319,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 		//	UiState::stateManager->UpdateMapObjectWindow(); 
-		if (!mgrMap->GetLayer(4)->TileBuf2D == NULL)
-		{
-			poo = Combos[cClip].GetListIndex();
-
-//			Combos[cClip].SetListIndex(mgrMap->GetLayer(MapManager::Clipdata)->TileBuf2D[actualX + (actualY)* (mgrMap->GetLayer(MapManager::LevelData)->X)]);
-
-			GetWindowText(Combos[cClip].GetHwnd(), cBuf, 200);
-			SetWindowText(GetDlgItem(GlobalVars::gblVars->frameControls, lblClip), cBuf);
-			//Combos[cClip].SetListIndex(poo);
-		
-		}
-		sprintf(cBuf, "X: %X", actualX);
-		SetWindowText(GetDlgItem(GlobalVars::gblVars->frameControls, lblX), cBuf);
-		sprintf(cBuf, "Y: %X", actualY);
-		SetWindowText(GetDlgItem(GlobalVars::gblVars->frameControls, lblY), cBuf);
+		UpdateStatusText(actualX, actualY);
 		if (wParam == MK_LBUTTON)
 		{
 			SendMessage(hWnd, 0x201, wParam, lParam);
@@ -275,10 +333,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 	case WM_RBUTTONDBLCLK:
 		///Reset the rects 
 
-		mpMap.Height = 1;
-		mpMap.Width = 1;
-		mpTileset.Width = mpMap.Width;
-		mpTileset.Height = mpMap.Height;
+		UiState::stateManager->ResetCursor();
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 		InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
 		break;
@@ -335,9 +390,9 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 				SetWindowText(UiState::stateManager->GetMapWindow(), "Map- Ctrl + v");
 				Layer->UndoBuff->Set(Layer->X*Layer->Y * 2, Layer->TileBuf2D);
 				Layer->CopyData->Paste(&Layer->TileBuf2D[mpMap.sX + (mpMap.sY*Layer->X)]); //mpMap.sX+( mpMap.sY*Layer->X)]);
-				
+
 				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-				
+
 				InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 0);
 				return TRUE;
 

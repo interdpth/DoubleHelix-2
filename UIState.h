@@ -56,6 +56,8 @@ public:
 	int  InitTileset();
 	HWND GetTilesetWindow();
 	HWND GetMapWindow();
+
+	void ResetCursor();
 	
 private:
 	///Loads from config class

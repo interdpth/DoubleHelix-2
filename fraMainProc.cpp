@@ -242,7 +242,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		else {
 
 
-			SaveLevel(BIC);
+			RD1Engine::theGame->SaveLevel(BIC);
 			UpdateHeaderControls();
 			UiState::stateManager->UpdateMapObjectWindow();
 		}
@@ -408,7 +408,10 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 			LoadScrollControls(RD1Engine::theGame->mgrScrolls->GetScrollInfo());
 			UpdateHeaderControls();
 			DrawLevel();
-			InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
+
+			UiState::stateManager->ResetCursor();
+
+
 			//memset(&DrawState, 0, sizeof(drawstate));
 			SendMessage(UiState::stateManager->GetMapWindow(), WM_SIZE, 1, 1);
 			MyTSAEditor.DrawThisTileset();

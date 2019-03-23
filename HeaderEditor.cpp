@@ -27,6 +27,10 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 
 	unsigned char Width = 0;
 	unsigned char Height = 0;
+	bool drawRoom = false;
+	RD1Engine* game;
+	RHeader* roomHeader=&RD1Engine::theGame->mainRoom->roomHeader;
+	MapManager* mgr = RD1Engine::theGame->mainRoom->mapMgr;
 	int i = 0;
 	switch (message)
 	{
@@ -52,8 +56,8 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 			break;
 		case cmdSave:
 			SaveHeader(1);
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-			//RD1Engine::theGame->mainRoom->LoadUpSprites(0);
+			drawRoom = true; 
+			
 			break;
 		case cmdChangeS:
 			ChangeSprites();
@@ -63,13 +67,13 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
 				switch (comboSpriteSet.GetListIndex()) {
 				case 0:
-					RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex1 = (unsigned char)cSG.GetListIndex();
+					roomHeader->bSpriteIndex1 = (unsigned char)cSG.GetListIndex();
 					break;
 				case 1:
-					RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex2 = (unsigned char)cSG.GetListIndex();
+					roomHeader->bSpriteIndex2 = (unsigned char)cSG.GetListIndex();
 					break;
 				case 2:
-					RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex3 = (unsigned char)cSG.GetListIndex();
+					roomHeader->bSpriteIndex3 = (unsigned char)cSG.GetListIndex();
 					break;
 				}
 			}
@@ -77,56 +81,55 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 		case cboEC:
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
 				{
-					switch (comboSpriteSet.GetListIndex()) {
+					switch (comboSpriteSet.GetListIndex()) 
+					{
 
 					case 0:
-						RD1Engine::theGame->mainRoom->roomHeader.bEventSwitch = (unsigned char)cEC.GetListIndex();
+						roomHeader->bEventSwitch = (unsigned char)cEC.GetListIndex();
 						break;
 					case 1:
-						RD1Engine::theGame->mainRoom->roomHeader.bEventSwitch2 = (unsigned char)cEC.GetListIndex();
+						roomHeader->bEventSwitch2 = (unsigned char)cEC.GetListIndex();
 						break;
-
-
 
 					}
 				}
 				break;
 		case cboTileset:
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
-				RD1Engine::theGame->mainRoom->roomHeader.bTileset = cmTileset.GetListIndex();
-				RD1Engine::theGame->mgrTileset->GetTileset(GlobalVars::gblVars->imgTileset, RD1Engine::theGame->mainRoom->Area, cmTileset.GetListIndex(), RD1Engine::theGame->mainRoom->roomHeader.lBg3);
-				RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround)->Dirty = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Dirty = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer)->Dirty = 1;
-				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+				roomHeader->bTileset = cmTileset.GetListIndex();
+				RD1Engine::theGame->mgrTileset->GetTileset(GlobalVars::gblVars->imgTileset, RD1Engine::theGame->mainRoom->Area, cmTileset.GetListIndex(), roomHeader->lBg3);
+				mgr->GetLayer(MapManager::ForeGround)->Dirty = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Dirty = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer)->Dirty = 1;
+				drawRoom = true;
 			}
 			break;
 		case cboTrans:
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
-				RD1Engine::theGame->mainRoom->roomHeader.TransForeground = cTransparency.GetListIndex();
-				RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround)->Dirty = 1;
-				RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround)->SDirty = 1;
-				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+				roomHeader->TransForeground = cTransparency.GetListIndex();
+				mgr->GetLayer(MapManager::ForeGround)->Dirty = 1;
+				mgr->GetLayer(MapManager::ForeGround)->SDirty = 1;
+				drawRoom = true;
 			}
 			break;
 		case cboSYP:
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
 
-				RD1Engine::theGame->mainRoom->roomHeader.bSceneryYPos = cSYP.GetListIndex();
-				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-				InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
+				roomHeader->bSceneryYPos = cSYP.GetListIndex();
+				drawRoom = true;
+			
 			}
 			break;
 
 		case cboMusic:
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
 
-				RD1Engine::theGame->mainRoom->roomHeader.bMusic = cMusic.GetListIndex();
+				roomHeader->bMusic = cMusic.GetListIndex();
 
 
 			}
 			break;
 		case cboEffect:
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
-				RD1Engine::theGame->mainRoom->roomHeader.bEffect = cEffect.GetListIndex();
+				roomHeader->bEffect = cEffect.GetListIndex();
 			}
 			break;
 			}
@@ -138,7 +141,10 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 		}
 
 	}
-
+	if(drawRoom)
+	{
+		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+	}
 	//	return DefWindowProc(hWnd, message, wParam, lParam);
 	return 0;
 }
@@ -325,7 +331,7 @@ int ChangeSprites() {
 	sprites = LoadInput(cursz[set]->Max());
 	//We now have how many 
 	if (sprites < 0) sprites = 0;
-	if (sprites > 16)sprites =16;
+	if (sprites > 16)sprites = 16;
 	//Then see if sprites is bigger then current sets max
 
 	if (sprites > (cursz[set]->Max()))//Bigger let's find some space

@@ -606,8 +606,8 @@ BEGIN
     PUSHBUTTON      "Button1",btnTest,314,172,50,14
 END
 
-fraMain DIALOGEX 0, 8, 237, 148
-STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE
+fraMain DIALOGEX 0, 8, 226, 148
+STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_VISIBLE
 MENU mnuMenu
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
@@ -615,13 +615,13 @@ BEGIN
     LTEXT           "Area",IDC_STATIC,17,18,24,9
     LTEXT           "Room",IDC_STATIC,15,34,24,8
     COMBOBOX        cboArea,42,17,80,102,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "Save",cmdSave,185,100,45,12
+    PUSHBUTTON      "Save",cmdSave,166,99,45,12
     GROUPBOX        "Controls",IDC_STATIC,7,49,154,63
     CONTROL         "Edit Foreground",chkForeground,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,59,64,8
-    CONTROL         "Edit Level Layer",chkLevel,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,59,71,9
+    CONTROL         "Edit Level Layer",chkLevel,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,59,61,9
     CONTROL         "Edit Backlayer",chkBacklayer,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,72,73,9
-    GROUPBOX        "Clipdata:",fraClip,7,116,223,29
-    COMBOBOX        cboClip,13,127,213,136,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL
+    GROUPBOX        "Clipdata:",fraClip,7,116,211,29
+    COMBOBOX        cboClip,13,127,200,136,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL
     CONTROL         "Edit Clip Data",chkClip,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,75,61,9
     COMBOBOX        cboRoom,41,33,85,132,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
     COMBOBOX        cboSpriteSet,173,14,26,56,CBS_DROPDOWNLIST | CBS_SORT | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
@@ -629,8 +629,8 @@ BEGIN
     CONTROL         "Edit Scrolldata",chkScroll,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,85,61,12
     CONTROL         "Edit Doors",chkDoors,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,87,46,10
     CONTROL         "Edit Sprites",chkSprites,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,11,100,54,10
-    COMBOBOX        cboDScroll,183,66,42,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Scroll to Edit:",IDC_STATIC,184,53,45,10
+    COMBOBOX        cboDScroll,167,65,42,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Scroll to Edit:",IDC_STATIC,168,52,45,10
     CONTROL         "Resize Doors",chkResizeDoors,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,98,59,12
 END
 
@@ -641,7 +641,7 @@ CAPTION "Double Helix"
 MENU mnuMenu
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    CONTROL         "",tabMain,"SysTabControl32",0x0,7,11,322,201
+    CONTROL         "",tabMain,"SysTabControl32",0x0,7,11,235,163
 END
 
 frmSamusEditor DIALOGEX 0, 0, 495, 250
@@ -873,7 +873,7 @@ BEGIN
     fraMain, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 236
+        RIGHTMARGIN, 225
         TOPMARGIN, 6
     END
 

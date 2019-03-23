@@ -125,18 +125,18 @@ void TabResize()
 	RECT mainRect;
 
 
-//Inside of current tab
+	//Inside of current tab
 	if (!inited)
 	{
 		UiState::AutoRect(hTabControl, &tabControl);
-		MoveWindow(hTabControl, 1, 8,  tabControl.right + 1, tabControl.bottom+20, 0);
+		MoveWindow(hTabControl, 1, 8, tabControl.right + 1, tabControl.bottom + 20, 0);
 		UiState::AutoRect(hCurrentTab, &currentTabWindow);
 
 		inited = true;
 	}
-	
+
 	UiState::AutoRect(hTabControl, &tabControl);
-	MoveWindow(hCurrentTab, 0, 30, tabControl.right-1, tabControl.bottom - 40, 0);
+	MoveWindow(hCurrentTab, 0, 30, tabControl.right - 1, tabControl.bottom - 40, 0);
 
 	UiState::stateManager->ResizeTileset(hTabControl);
 
@@ -148,9 +148,9 @@ void TabResize()
 	UiState::stateManager->ResizeMap(hTabControl);
 	UiState::AutoRect(hwndMain(), &tabControl);
 	int height = tabControl.bottom;
-	if (height <tilesetWindow.top + tilesetWindow.bottom)
+	if (height < tilesetWindow.top + tilesetWindow.bottom)
 	{
-		height = tilesetWindow.top+ tilesetWindow.bottom + 32;
+		height = tilesetWindow.top + tilesetWindow.bottom + 32;
 	}
 	MoveWindow(hwndMain(), tabControl.left, tabControl.top, tabControl.right, height, true);
 	InvalidateRect(hwndMain(), 0, true);
@@ -288,8 +288,8 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			fp = fopen(cBuf, "w+");
 			if (fp)
 			{
-				
-				nMapBuffer* tmap=	RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData);
+
+				nMapBuffer* tmap = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData);
 				RD1Engine::theGame->ThisBackBuffer.SaveToFile(fp);
 				fclose(fp);
 			}
@@ -413,7 +413,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			EndDialog(DoorWin, 0);
 			EndDialog(hwndResize, 0);
 		}
-	
+
 		break;
 	case mnuTE:
 		if (currentRomType == -1)
@@ -506,6 +506,10 @@ sChecks door;
 			tabs[h] = NULL;
 		}
 		inited = false;
+		{
+			HICON           hIcon = LoadIcon(hGlobal, MAKEINTRESOURCE(IDI_ICON7));
+			SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+		}
 		if (UiState::stateManager->GetWindowState() == WindowState::EXPERT)
 		{
 			INITCOMMONCONTROLSEX commCon;
@@ -552,7 +556,7 @@ sChecks door;
 			tabs[4] = CreateDialog(hGlobal, MAKEINTRESOURCE(fraSS), hTabControl, SSProc);
 
 			hCurrentTab = tabs[0];
-			
+
 
 			//SendMessage(hTabControl, )
 
@@ -579,7 +583,7 @@ sChecks door;
 
 		clrIndex = 0;
 		GlobalVars::gblVars->imgTileset = new Image();
-		GlobalVars::gblVars->imgTileset->Create(16*17+1, 512);
+		GlobalVars::gblVars->imgTileset->Create(16 * 17 + 1, 512);
 
 
 		chkDoTrans.value(1);
@@ -688,7 +692,7 @@ sChecks door;
 			case 3:
 				if (!tabs[3])
 				{
-				}	
+				}
 				if (GlobalVars::gblVars->ScrollCheck.value())
 				{
 					hCurrentTab = tabs[3];
@@ -902,7 +906,7 @@ int WINAPI      WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCm
 	Tile = 0;
 	keyno = 0;
 
-	HICON           hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON7));
+
 	MP[0] = MP[1] = 0;
 
 	GameConfiguration* tmpConfig = new GameConfiguration(-1);
@@ -1120,10 +1124,10 @@ int             ClearGlobals()
 
 
 	memset(&TilesetRect, 0, sizeof(TilesetRect));
-	
+
 	hwndResize = NULL;
 	wndHE = NULL;
-	
+
 	movingDoors = 0;
 	movingDoorIndex = -1;
 	movingSprite = 0;
@@ -1131,7 +1135,7 @@ int             ClearGlobals()
 	SceneWnd = NULL;
 	SceneGraph = NULL;
 	TSScene = NULL;
-SceneryPic.Destroy();
+	SceneryPic.Destroy();
 	SceneryTiles.Destroy();
 
 	memset(&DoorConnections, 0, sizeof(DoorConnections));

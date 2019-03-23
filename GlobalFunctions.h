@@ -41,7 +41,6 @@ int DrawRoom(bool DrawBackLayer, bool DrawLevelLayer, bool DrawForeground);
 
 int InitTileset();
 int InitMap();
-int SaveLevel( unsigned long HeaderOffset);
 
 
 int DrawClipIdent();

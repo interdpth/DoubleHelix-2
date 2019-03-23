@@ -2,12 +2,13 @@
 #include "GlobalVars.h"
 #include "BaseGame.h"
 int UpdateHeaderControls();
-void ClearLayer(nMapBuffer* clearLayer) {
+void ClearLayer(nMapBuffer* clearLayer, int num) {
 	for (int i = 0; i < clearLayer->X* clearLayer->Y; i++) {
 		clearLayer->TileBuf2D[i] = 0x00;
 	}
 	clearLayer->Dirty = 1;
 	clearLayer->SDirty = 1;
+	if (num != 128)	RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, num);
 }
 
 //stores a layer to a buffer, and copies the proper portion, idk if it works right now.
@@ -23,12 +24,12 @@ void ResizeLayer(nMapBuffer* buffLayer, int newWidth, int newHeight) {
 	memcpy(buffLayer->TileBuf2D, roombuff, copysize);
 	buffLayer->X = newWidth;
 	buffLayer->Y = newHeight;
-    
+
 	delete[] buffLayer->TileBuf2D;
 	buffLayer->TileBuf2D = new unsigned short[copysize / 2];
 	memcpy(roombuff, buffLayer->TileBuf2D, copysize);
 	delete[]roombuff;
-
+	RD1Engine::theGame->SaveLevel(-1);
 }
 
 //Windows procedure for this window
@@ -44,11 +45,15 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 	nMapBuffer* buffLevel;
 	nMapBuffer* buffBackLayer;
 	nMapBuffer* buffClipLayer;
+	MapManager* mgr;
+	RoomClass* curRoom;
 	if (RD1Engine::theGame &&RD1Engine::theGame->mainRoom&& RD1Engine::theGame->mainRoom->mapMgr) {
-		buffForeground = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround);
-		buffLevel = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData);
-		buffBackLayer = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer);
-		buffClipLayer = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Clipdata);
+		curRoom = RD1Engine::theGame->mainRoom;
+		mgr = curRoom->mapMgr;
+		buffForeground = mgr->GetLayer(MapManager::ForeGround);
+		buffLevel = mgr->GetLayer(MapManager::LevelData);
+		buffBackLayer = mgr->GetLayer(MapManager::Backlayer);
+		buffClipLayer = mgr->GetLayer(MapManager::Clipdata);
 	}
 	switch (message)
 	{
@@ -87,31 +92,32 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 				ResizeLayer(buffForeground, X, Y);
 				//copy the old level 
 
-				SaveLevel(-1);
+
 				UpdateHeaderControls();
 				return 0;
 			}
 			else if (i == 1) {
 
 				ResizeLayer(buffLevel, X, Y);
-				SaveLevel(-1);
+
 				return 0;
 			}
 			else if (i == 2) {
 				ResizeLayer(buffBackLayer, X, Y);
-				SaveLevel(-1);
+
 				return 0;
 			}
 			else if (i == 3) {
 				ResizeLayer(buffClipLayer, X, Y);
 
-				SaveLevel(-1);
+
 				return 0;
 			}
 			//Safety Measure
 
 			break;
 		case cboLayer:
+			//What does this really to? TODO
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
 				i = LayerCombo.GetListIndex();
 				if (i == 0) {//Foreground
@@ -163,23 +169,23 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 			break;
 
 		case cmdCFore:
-			ClearLayer(buffForeground);
+			ClearLayer(buffForeground, -1);
 
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+
 			break;
 		case cmdCLevel:
-			ClearLayer(buffLevel);
+			ClearLayer(buffLevel, -1);
 
 			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 			break;
 		case cmdCBack:
-			ClearLayer(buffBackLayer);
+			ClearLayer(buffBackLayer, 0);
 
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage,&GlobalVars::gblVars->BGImage, 0);
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, 0);
 			break;
 		case cmdCClip:
 
-			ClearLayer(buffClipLayer);
+			ClearLayer(buffClipLayer, 128);
 
 			break;
 
@@ -191,17 +197,8 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 
 
 		break;
-
-		if ((RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer)->Dirty) || (RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Dirty) || (buffForeground->Dirty))
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-
-
-
-
 	}
-
-	//	return DefWindowProc(hWnd, message, wParam, lParam);
-	return 0;
+return 0;
 }
 
 int LoadExtensions()
@@ -229,9 +226,6 @@ int LoadExtensions()
 	else {
 		EnableWindow(GetDlgItem(ExtendedOptWND, cmdCBack), 0);
 	}
-
-
-	//if(BaseGame::theGame->mainRoom->roomHeader.bBg3)
 
 	return 0;
 }

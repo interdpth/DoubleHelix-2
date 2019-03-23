@@ -109,31 +109,23 @@ void UiState::ShowObj() {
 
 	hwndMove = MapDataWIn;
 	Width = 390;
-	Height = 300;
+	Height = 200;
 	X = 440;
 	Y = 24;
 
 	if (thisState == editingStates::DOOR) {
 		hwndMove = DoorWin;
-		Width = 450;
-		Height = 250;
-		X = 440;
-		Y = 32;
+		Width = 450;		
 	}
 	else if (thisState == editingStates::SCROLL) {
 
 		hwndMove = ScrollWIn;
 		Width = 450;
-		Height = 250;
-		X = 440;
-		Y = 32;
+		
 	}
 	else if (thisState == editingStates::SPRITE) {
 		hwndMove = hwndSS;
-		Width = 370;
-		Height = 300;
-		X = 440;
-		Y = 24;
+		Width = 350;
 	}
 	else {
 		/*ShowWindow(DoorWin, SW_HIDE);
@@ -414,7 +406,7 @@ void UiState::ResizeTileset(HWND srcNeighbor)
 	Image* tileset = GlobalVars::gblVars->imgTileset;
 
 	viewRect.right = tileset->Width;
-	viewRect.top = toolsRect.top+toolsRect.bottom;
+	viewRect.top = toolsRect.top+toolsRect.bottom-40;
 
 	viewRect.left = toolsRect.left;
 	// mainRect.right - toolsRect.right;
@@ -446,4 +438,12 @@ void UiState ::AutoRect(HWND src, RECT* tgt, bool zeroOut)
 		tgt->top = 0;
 		tgt->left = 0;
 	}
+}
+
+void UiState::ResetCursor()
+{
+	mpMap.Height = 1;
+	mpMap.Width = 1;
+	mpTileset.Width = mpMap.Width;
+	mpTileset.Height = mpMap.Height;
 }

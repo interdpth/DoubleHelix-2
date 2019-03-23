@@ -71,19 +71,21 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		break;
 	case WM_PAINT:
 	{
-		targetFrame = RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites.at(dispic)->GetStaticFrame();
-		
-		hdc = BeginPaint(hWnd, &ps);
+		if (RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites.size() > 0) {
+			targetFrame = RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites.at(dispic)->GetStaticFrame();
+
+			hdc = BeginPaint(hWnd, &ps);
 
 
 
-		//GetWindowRect(GetDlgItem(hWnd,fraSpriteSS),&sprdst);
-		targetFrame->theSprite->PreviewSprite.GetFullImage()->Blit(hdc, 64, 100,
-			targetFrame->theSprite->Borders.right- targetFrame->theSprite->Borders.left,
-			targetFrame->theSprite->Borders.bottom - targetFrame->theSprite->Borders.top,
-			0,
-			0);
-		EndPaint(hWnd, &ps);
+			//GetWindowRect(GetDlgItem(hWnd,fraSpriteSS),&sprdst);
+			targetFrame->theSprite->PreviewSprite.GetFullImage()->Blit(hdc, 64, 100,
+				targetFrame->theSprite->Borders.right - targetFrame->theSprite->Borders.left,
+				targetFrame->theSprite->Borders.bottom - targetFrame->theSprite->Borders.top,
+				0,
+				0);
+			EndPaint(hWnd, &ps);
+		}
 	}
 		break;
 	case WM_MOVE:

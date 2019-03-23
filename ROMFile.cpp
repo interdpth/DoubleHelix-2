@@ -16,141 +16,32 @@ bool LiteralCompare(char* a, char* b);
 
 /*int LoadRoom(){
 int Room = */
-bool IsValidCompression(unsigned char tstByte) {
-
-
-	if (tstByte == 0 || tstByte == 0x10 || tstByte == 0x40 || tstByte == 0x31 || tstByte == 0x45) {
-
-		return true;
-	}
-	printf("Layer had an invalid compression type");
-	return false;
-}
-
-bool IsValidPointer(unsigned long pnt) {
-	if (pnt == 0xffffffff || pnt == 0xffff0000 || pnt == 0x0003fffc) {
-		return false;
-	}
-	unsigned long tstPointer = pnt;
-	tstPointer = tstPointer & 0x8000000;
-	return tstPointer == 0x8000000;
-}
-
-bool CheckHeader(RHeader* tstHeader)
+void CalculateMapScrolls(int width, int height)
 {
-	//Check layer compression
-	if (IsValidCompression(tstHeader->bBg0) == false) {
-		return false;
-	}
-	if (IsValidCompression(tstHeader->bBg1) == false) {
-		return false;
-	}
-	if (IsValidCompression(tstHeader->bBg2) == false) {
-		return false;
-	}
-	if (IsValidCompression(tstHeader->lBg3) == false) {
-		return false;
-	}
-
-	//Check pointers 
-
-
-
-	if (IsValidPointer(tstHeader->lForeground) == false) {
-		return false;
-	}
-
-	if (IsValidPointer(tstHeader->lLevelData) == false) {
-		return false;
-	}
-
-	if (IsValidPointer(tstHeader->lBackLayer) == false) {
-		return false;
-	}
-
-	if (IsValidPointer(tstHeader->lClipData) == false) {
-		return false;
-	}
-
-
-	if (IsValidPointer(tstHeader->lBackgroundTSA) == false) {
-		return false;
-	}
-
-	if (IsValidPointer(tstHeader->lSpritePointer) == false) {
-		return false;
-	}
-
-	if (IsValidPointer(tstHeader->lSpritePointer2) == false) {
-		return false;
-	}
-
-	if (IsValidPointer(tstHeader->lSpritePointer3) == false) {
-		return false;
-	}
-
-
-
-	return true;
-
-}
-int GetRoomCount(long RoomTableOffset) {
-	vector<RHeader> roomHeaders;
-	for (int i = 0; i < 1000; i++)
-	{
-		unsigned long TheOffset = ((RoomTableOffset - 0x8000000) + i * 0x3C);
-		RHeader tmpHeader;
-		MemFile::currentFile->seek(TheOffset);
-		MemFile::currentFile->fread(&tmpHeader.bTileset, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.bBg0, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.bBg1, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.bBg2, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.lBg3, sizeof(unsigned long), 1);
-		MemFile::currentFile->fread(&tmpHeader.lForeground, sizeof(unsigned long), 1);
-		MemFile::currentFile->fread(&tmpHeader.lLevelData, sizeof(unsigned long), 1);
-		MemFile::currentFile->fread(&tmpHeader.lBackLayer, sizeof(unsigned long), 1);
-		MemFile::currentFile->fread(&tmpHeader.lClipData, sizeof(unsigned long), 1);
-		MemFile::currentFile->fread(&tmpHeader.lBackgroundTSA, sizeof(unsigned long), 1);
-		MemFile::currentFile->fread(&tmpHeader.bUnknown1, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.TransForeground, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.iSep1, sizeof(unsigned short), 1);
-		MemFile::currentFile->fread(&tmpHeader.lSpritePointer, sizeof(unsigned long), 1);
-		MemFile::currentFile->fread(&tmpHeader.bSpriteIndex1, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.bEventSwitch, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.iSep2, sizeof(unsigned short), 1);
-		MemFile::currentFile->fread(&tmpHeader.lSpritePointer2, sizeof(unsigned long), 1);
-		MemFile::currentFile->fread(&tmpHeader.bSpriteIndex2, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.bEventSwitch2, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.iSeperator, sizeof(unsigned short), 1);
-		MemFile::currentFile->fread(&tmpHeader.lSpritePointer3, sizeof(unsigned long), 1);
-		MemFile::currentFile->fread(&tmpHeader.bSpriteIndex3, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.bMiniMapRoomX, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.bMiniMapRoomY, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.bEffect, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.bSceneryYPos, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.bNothing, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.bMusic, sizeof(unsigned char), 1);
-		MemFile::currentFile->fread(&tmpHeader.blank, sizeof(unsigned char), 1);
-
-		if (CheckHeader(&tmpHeader) == true) {
-			roomHeaders.push_back(tmpHeader);
-		}
-		else {
-			break;
-		}
-	}
-	return roomHeaders.size();
-}
-
-
-int DrawLevel() {
 	RECT rcMap;
+	GetWindowRect(UiState::stateManager->GetMapWindow(), &rcMap);
+	int newHorizMax = width - (rcMap.right - rcMap.left) / 23;
+	int newVertMax= height - (rcMap.bottom - rcMap.top) /23;		// maximu
+
+	int horizIndex = MapHorizScroll->GetIndex();
+	int vertIndex = MapVertScroll->GetIndex();
+
+
+	MapHorizScroll->SetMax(newHorizMax);//BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->X/16;	// maximum H scroll
+	MapVertScroll->SetMax(newVertMax);
+
+	MapVertScroll->ChangeScrollbars(1, sVMap);
+	MapHorizScroll->ChangeScrollbars(0, sHMap);
+}
+int DrawLevel() {
+
 	int i = 0;
+	RoomClass* room = RD1Engine::theGame->mainRoom;
 	//	GlobalVars::gblVars->imgMap->Clear();
-	nMapBuffer* buffForeground = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround);
-	nMapBuffer* buffLeveldata = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData);
-	nMapBuffer* buffBacklayer = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer);
-	nMapBuffer* buffClipdata = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Clipdata);
+	nMapBuffer* buffForeground = room->mapMgr->GetLayer(MapManager::ForeGround);
+	nMapBuffer* buffLeveldata = room->mapMgr->GetLayer(MapManager::LevelData);
+	nMapBuffer* buffBacklayer = room->mapMgr->GetLayer(MapManager::Backlayer);
+	nMapBuffer* buffClipdata = room->mapMgr->GetLayer(MapManager::Clipdata);
 	
 	//for(i=0;i<2;i++){
 	//   GlobalVars::gblVars->checkBoxViewF.value(i);
@@ -160,11 +51,9 @@ int DrawLevel() {
 	//}
 	CurMapWidth = buffLeveldata->X;
 	CurMapHeight = buffLeveldata->Y;
-	GetWindowRect(UiState::stateManager->GetMapWindow(), &rcMap);
-	MapHorizScroll->SetMax (buffLeveldata->X - (rcMap.right - rcMap.left) / 16);//BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->X/16;	// maximum H scroll
-	MapVertScroll->SetMax (buffLeveldata->Y - (rcMap.bottom - rcMap.top) / 16);		// maximu
-	MapVertScroll->ChangeScrollbars( 1, sVMap);
-	MapHorizScroll->ChangeScrollbars(0, sHMap);
+	CalculateMapScrolls(CurMapWidth, CurMapHeight);
+	room->currentHorizScroll = 0;
+	room->currentVertScroll = 0;
 	/*   frmMain.hsbMap.max = (ThisRoom.X) - 25
 	frmMain.vsbMap.max = (ThisRoom.Y) - 17
 	#define sHMap 1
@@ -175,104 +64,6 @@ int DrawLevel() {
 	return 0;
 }
 
-
-
-
-int             Save(MemFile * fp)
-{
-	MapManager *mm = RD1Engine::theGame->mainRoom->mapMgr;
-	long            offset = 0;
-
-	long            tlength;
-
-	unsigned char*  compBuffer = new unsigned char[64691];
-	memset(compBuffer, 0, 64691);
-
-	if (fp)
-	{
-
-
-		MapManager::SaveLayer(&GBA, RD1Engine::theGame->mainRoom->roomHeader.bBg0, &RD1Engine::theGame->mainRoom->roomHeader.lForeground, mm->GetLayer(MapManager::ForeGround));
-		MapManager::SaveLayer(&GBA, RD1Engine::theGame->mainRoom->roomHeader.bBg1, &RD1Engine::theGame->mainRoom->roomHeader.lLevelData, mm->GetLayer(MapManager::LevelData));
-		MapManager::SaveLayer(&GBA, RD1Engine::theGame->mainRoom->roomHeader.bBg2, &RD1Engine::theGame->mainRoom->roomHeader.lBackLayer, mm->GetLayer(MapManager::Backlayer));
-
-		if (mm->GetLayer(MapManager::Clipdata)->SDirty == 1)
-		{
-			memset(compBuffer, 0, 64691);
-			tlength = GBA.compress(compBuffer, (unsigned char *)mm->GetLayer(MapManager::Clipdata)->TileBuf2D, (mm->GetLayer(MapManager::Clipdata)->X * mm->GetLayer(MapManager::Clipdata)->Y) * 2);
-			offset = GBA.FindFreeSpace(tlength + 4, 0xFF);
-			if (offset != 0)
-			{
-				RD1Engine::theGame->mainRoom->roomHeader.lClipData = 0x8000000 + offset;
-				MemFile::currentFile->seek(offset);
-				MemFile::currentFile->fputc(mm->GetLayer(MapManager::Clipdata)->X);
-				MemFile::currentFile->fputc(mm->GetLayer(MapManager::Clipdata)->Y);
-				MemFile::currentFile->fwrite(compBuffer, sizeof(char), tlength);
-			}
-			else
-			{
-				sMessage("Could not save Clip Data.");
-			}
-		}
-	}
-	delete[] compBuffer;
-	return 0;
-}
-int SaveLevel(unsigned long HeaderOffset) {
-
-	MemFile* theFile = MemFile::currentFile;
-	RHeader* roomHeader;
-	//	GBA.REDIT = fopen(FilePath,"r+b");
-	if (theFile) {
-		//   while(1){ 
-		Save(theFile);
-		//   if(BaseGame::theGame->mainRoom->roomHeader.lBackLayer!=BaseGame::theGame->mainRoom->roomHeader.lLevelData) break;
-	  //	}
-		RD1Engine::theGame->mainRoom->mgrSpriteObjects->SaveSprites(&RD1Engine::theGame->mainRoom->roomHeader);
-		theFile->seek(HeaderOffset);
-		roomHeader = &RD1Engine::theGame->mainRoom->roomHeader;
-
-
-		theFile->fwrite(&roomHeader->bTileset, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->bBg0, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->bBg1, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->bBg2, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->lBg3, sizeof(unsigned long), 1);
-		theFile->fwrite(&roomHeader->lForeground, sizeof(unsigned long), 1);
-		theFile->fwrite(&roomHeader->lLevelData, sizeof(unsigned long), 1);
-		theFile->fwrite(&roomHeader->lBackLayer, sizeof(unsigned long), 1);
-		theFile->fwrite(&roomHeader->lClipData, sizeof(unsigned long), 1);
-		theFile->fwrite(&roomHeader->lBackgroundTSA, sizeof(unsigned long), 1);
-		theFile->fwrite(&roomHeader->bUnknown1, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->TransForeground, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->iSep1, sizeof(unsigned short), 1);
-		theFile->fwrite(&roomHeader->lSpritePointer, sizeof(unsigned long), 1);
-		theFile->fwrite(&roomHeader->bSpriteIndex1, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->bEventSwitch, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->iSep2, sizeof(unsigned short), 1);
-		theFile->fwrite(&roomHeader->lSpritePointer2, sizeof(unsigned long), 1);
-		theFile->fwrite(&roomHeader->bSpriteIndex2, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->bEventSwitch2, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->iSeperator, sizeof(unsigned short), 1);
-		theFile->fwrite(&roomHeader->lSpritePointer3, sizeof(unsigned long), 1);
-		theFile->fwrite(&roomHeader->bSpriteIndex3, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->bMiniMapRoomX, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->bMiniMapRoomY, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->bEffect, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->bSceneryYPos, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->bNothing, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->bMusic, sizeof(unsigned char), 1);
-		theFile->fwrite(&roomHeader->blank, sizeof(unsigned char), 1);
-
-		RD1Engine::theGame->mgrScrolls->SaveScroll(&GBA);
-		RD1Engine::theGame->mgrDoors->SaveDoors(RD1Engine::theGame->mainRoom->Area);
-		RD1Engine::theGame->mainRoom->LoadHeader(HeaderOffset);
-		MemFile::currentFile->Save();
-
-	}
-	//fp = NULL;
-	return 0;
-}
 
 
 
@@ -368,6 +159,7 @@ void OpenRom()
 			Logger::log->LogIt(Logger::ERRORZ, "UNSUPPORTED ROM");
 			throw "UNSUPPORTED ROM";
 			currentRomType = -1;
+			return;
 		}
 		if (GBA.REDIT)
 			fclose(GBA.REDIT);
