@@ -10,6 +10,7 @@
 #include "backbuffer.h"
 #include "cStatEd.h"
 #include "SamusEditorClass.h"
+#include "sMenuItem.h"
 BOOL CALLBACK  TextEditorProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 class cOAMEdit;
 class cStatEd;
@@ -42,12 +43,12 @@ public:
 	sChecks checkBoxshowmap;
 	sChecks checkBoxshowtileset;
 
-	sChecks chkAnimatez;
-	sChecks checkBoxViewBL;
-	sChecks checkBoxsMove;
-	sChecks checkBoxsResize;
-	sChecks checkBoxsView;
-	sChecks checkBoxchkES;
+	sMenuItem chkAnimatez;
+	sMenuItem checkBoxViewBL;
+	sMenuItem checkBoxsMove;
+	sMenuItem checkBoxsResize;
+	sMenuItem checkBoxsView;
+	sMenuItem checkBoxchkES;
 
     cStatEd* StatEditor;
 	

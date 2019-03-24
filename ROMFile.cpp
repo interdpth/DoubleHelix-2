@@ -83,12 +83,6 @@ int LoadROM() {
 
 
 
-
-
-
-
-
-
 extern sCombo cMusic;
 extern sCombo cmTileset;
 
@@ -99,8 +93,6 @@ extern clsUIScroll scrMapH;
 extern clsUIScroll scrTSV;
 extern GBAGraphics* TheVRAM;
 extern nMapBuffer* GetActiveBuffer();
-
-
 
 int             sMessage(char *messagestring);
 
@@ -120,13 +112,7 @@ void OpenRom()
 	{
 		fclose(GBA.ROM);
 	}
-	/*
-	* memset(&ofn, 0, sizeof(ofn));  ofn.lStructSize = sizeof(ofn);
-	* ofn.hwndOwner = NULL;  ofn.lpstrFile = GBA.FileLoc;  ofn.nMaxFile =
-	* sizeof(GBA.FileLoc);  ofn.hInstance = NULL;  ofn.lpstrFilter = "Open
-	* a GBA ROM\0*.gba"; ofn.nFilterIndex = 1;  ofn.Flags=
-	* OFN_FILEMUSTEXIST;   int bRes;   bRes = GetOpenFileName(&ofn);
-	*/
+	
 	{
 		GBA.ReturnFileName(hGlobal, hwndMain(), "Open a GBA ROM\0*.gba", fileLoc, MAX_PATH, 1);
 	}
@@ -254,175 +240,5 @@ void OpenRom()
 		SendMessage(GlobalVars::gblVars->frameControls, WM_COMMAND, 0x000103ee, 0);
 		UiState::stateManager->UpdateMapObjectWindow();
 		delete[] fileLoc;
-
-
-		//Init minimap stuff
-					
-					
-					
-					
 	}
 }
-//Loads the prelim data
-//void OpenRom_old()
-//{
-//	char* fileLoc = new char[MAX_PATH];
-//	memset(fileLoc, 0, MAX_PATH);
-//	sprintf(fileLoc, "%s","C:\\FusionLessonInEvolution\\MetroidHacking\\testRom.gba");
-//	if (RD1Engine::theGame)
-//	{
-//		delete RD1Engine::theGame;
-//		RD1Engine::theGame = NULL;
-//	}
-//	if (GBA.ROM)
-//	{
-//		fclose(GBA.ROM);
-//	}
-//	/*
-//	* memset(&ofn, 0, sizeof(ofn));  ofn.lStructSize = sizeof(ofn);
-//	* ofn.hwndOwner = NULL;  ofn.lpstrFile = GBA.FileLoc;  ofn.nMaxFile =
-//	* sizeof(GBA.FileLoc);  ofn.hInstance = NULL;  ofn.lpstrFilter = "Open
-//	* a GBA ROM\0*.gba"; ofn.nFilterIndex = 1;  ofn.Flags=
-//	* OFN_FILEMUSTEXIST;   int bRes;   bRes = GetOpenFileName(&ofn);
-//	*/
-//	/*{
-//		GBA.ReturnFileName(hGlobal, hwndMain(), "Open a GBA ROM\0*.gba", fileLoc, MAX_PATH, 1);
-//	}*/
-//	if (fileLoc[0])
-//	{
-//	
-//		sprintf(GBA.FileLoc, "%s", fileLoc);
-//		GBA.REDIT = fopen(GBA.FileLoc, "r+b");
-//		char            ROMNAME[0x5] = { '\0' };
-//		char            MZMFILE[0x5] = { '\0' };
-//		char            MFFILE[0x5] = { '\0' };
-//
-//		strcpy(MZMFILE, "BMXE");
-//		strcpy(MFFILE, "AMTE");
-//		fseek(GBA.REDIT, 0xAC,SEEK_SET);
-//		fread(ROMNAME, 1, 0x4, GBA.REDIT);
-//		char            c = 0;
-//
-//
-//		if ((ROMNAME[0] == MZMFILE[0]) && (ROMNAME[1] == MZMFILE[1]) && (ROMNAME[2] == MZMFILE[2]) && (ROMNAME[3] == MZMFILE[3]) &&
-//			(ROMNAME[4] == MZMFILE[4]))
-//		{ // everthing went ok!
-//			currentRomType = 0;
-//			GameConfiguration::mainCFG = new GameConfiguration(0);
-//			GBA.ROM = fopen(GBA.FileLoc, "r+b");
-//			MemFile::currentFile = new MemFile(GBA.FileLoc);
-//			RD1Engine::theGame = new RD1Engine(SupportedTitles::titleZM);
-//			currentRomType = 0;
-//			char quick[2048];
-//
-//			// char que
-//			sprintf(quick, "%s\\ZM\\Music.txt", GlobalVars::gblVars->AppPath);
-//
-//
-//			LoadCombos(&cMusic, quick, 255);
-//
-//
-//
-//
-//
-//			// char que
-//			sprintf(quick, "%s\\ZM\\TilesetNames.txt", GlobalVars::gblVars->AppPath);
-//			LoadCombos(&cmTileset, quick, 255);
-//
-//			LoadROM();
-//			RD1Engine::theGame->mgrDoors->GetDoorArray(GBA.ROM);
-//			RD1Engine::theGame->mgrScrolls->GetScrollArray(GBA.ROM);
-//			InitPosArray();
-//			EnableConnections();
-//			Combos[cClip].Enable();
-//			Combos[cSpriteSet].Enable();
-//			Combos[cRoom].Enable();
-//			Combos[cArea].Enable();
-//			if (DefArea > 7 || DefArea < 0)
-//				Combos[cArea].SetListIndex(0);
-//			else
-//				Combos[cArea].SetListIndex(DefArea);
-//			MiniMapClass::miniMapEditor->Create();
-//			MiniMapClass::miniMapEditor->cboMArea.SetListIndex(0);
-//			MiniMapClass::miniMapEditor->DecompressMap();
-//			MiniMapClass::miniMapEditor->DrawMap();
-//			MiniMapClass::miniMapEditor->MiniMapClass::miniMapEditor->MFMap.Disable();
-//			GlobalVars::gblVars->StatEditor->Switch();
-//			GlobalVars::gblVars->TextEditor->Create(currentRomType, hGlobal, TextPicProc);
-//			unsigned long BIC = 0;
-//			MemFile::currentFile->seek(0x7c0430);
-//			MemFile::currentFile->fread(&BIC, 1, 4);
-//			if (BIC == 0x78004817)
-//			{
-//				BGiInstall = 1;
-//			}
-//			SendMessage(hwndMain(), WM_COMMAND, 0x000103ee, 0);
-//			UiState::stateManager->UpdateMapObjectWindow();
-//			delete[] fileLoc;
-//
-//		}
-//		else if ((ROMNAME[0] == MFFILE[0]) && (ROMNAME[1] == MFFILE[1]) && (ROMNAME[2] == MFFILE[2]) && (ROMNAME[3] == MFFILE[3]) &&
-//			(ROMNAME[4] == MFFILE[4]))
-//		{
-//			currentRomType = 1;
-//			sprintf(GBA.FileLoc, "%s", fileLoc);
-//			MemFile::currentFile = new MemFile(GBA.FileLoc);
-//			RD1Engine::theGame = new RD1Engine(SupportedTitles::titleMF);
-//			GBA.ROM = fopen(GBA.FileLoc, "r+b");
-//			currentRomType = 1;
-//			GameConfiguration::mainCFG = new GameConfiguration(1);
-//			EnableMenuItem(GetMenu(hwndMain()), 0, MF_BYPOSITION | MF_GRAYED);
-//			char quick[2048];
-//
-//			sprintf(quick, "%s\\MF\\Music.txt", GlobalVars::gblVars->AppPath);
-//
-//			LoadCombos(&cMusic, quick, 255);
-//
-//
-//
-//			sprintf(quick, "%s\\MF\\TilesetNames.txt", GlobalVars::gblVars->AppPath);
-//
-//			LoadCombos(&cmTileset, quick, 255);
-//			LoadROM();
-//			RD1Engine::theGame->mgrDoors->GetDoorArray(GBA.ROM);
-//			RD1Engine::theGame->mgrScrolls->GetScrollArray(GBA.ROM);
-//
-//			EnableConnections();
-//			Combos[cClip].Enable();
-//			Combos[cSpriteSet].Enable();
-//			Combos[cRoom].Enable();
-//			Combos[cArea].Enable();
-//			if (DefArea > 10 || DefArea < 0)
-//				Combos[cArea].SetListIndex(0);
-//			else
-//				Combos[cArea].SetListIndex(DefArea);
-//			Combos[cArea].SetListIndex(0);
-//			MiniMapClass::miniMapEditor->Create();
-//			MiniMapClass::miniMapEditor->cboMArea.SetListIndex(0);
-//			MiniMapClass::miniMapEditor->DecompressMap();
-//			MiniMapClass::miniMapEditor->DrawMap();
-//			MiniMapClass::miniMapEditor->MiniMapClass::miniMapEditor->MFMap.Enable();
-//			GlobalVars::gblVars->TextEditor->Create(currentRomType, hGlobal, TextPicProc);
-//			GlobalVars::gblVars->StatEditor->Switch();
-//			unsigned long BIC=0;
-//			MemFile::currentFile->seek(0x7c0430);
-//			MemFile::currentFile->fread(&BIC, 1, 4);
-//			if (BIC == 0x78004819)
-//			{
-//				BGiInstall = 1;
-//			}
-//			SendMessage(hwndMain(), WM_COMMAND, 0x000103ee, 0);
-//			UiState::stateManager->UpdateMapObjectWindow();
-//
-//		}
-//		else
-//		{
-//			sMessage("This is not the correct file.");
-//			fclose(GBA.REDIT);
-//		
-//			currentRomType = -1;
-//		}
-//		if (GBA.REDIT)
-//			fclose(GBA.REDIT);
-//	}
-//}

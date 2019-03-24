@@ -55,24 +55,14 @@
     <ClCompile Include="frmScrolls.cpp">
       <Filter>Editor\Dialogs</Filter>
     </ClCompile>
-    <ClCompile Include="sChecks.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="sCombo.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="ScrollBarHandle.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Scrolls.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="sList.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="TabControls.cpp" />
     <ClCompile Include="fraMainProc.cpp" />
-    <ClCompile Include="stxts.cpp" />
     <ClCompile Include="TSAEditor.cpp" />
     <ClCompile Include="LevelPaletteEditor.cpp" />
     <ClCompile Include="MapWindow.cpp" />
@@ -113,18 +103,8 @@
     <ClInclude Include="frmRepoint.h">
       <Filter>Editor\Dialogs</Filter>
     </ClInclude>
-    <ClInclude Include="sChecks.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="sCombo.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="sList.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="TabControls.h" />
     <ClInclude Include="fraMainProc.h" />
-    <ClInclude Include="stxts.h" />
     <ClInclude Include="SupportedTitles.h" />
     <ClInclude Include="SamusEditorClass.h" />
     <ClInclude Include="AppData.h" />

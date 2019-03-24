@@ -52,7 +52,7 @@ bool UpdateSprites()
 	{
 		return false;
 	}
-	if (GlobalVars::gblVars->chkAnimatez.value() == 0)
+	if (!GlobalVars::gblVars->chkAnimatez.GetCheckState())
 	{
 		return false;
 	}
@@ -74,7 +74,7 @@ bool UpdateSprites()
 //Refresh the tileset
 bool RefreshTileset()
 {
-	if (GlobalVars::gblVars->chkAnimatez.value() == 0)
+	if (!GlobalVars::gblVars->chkAnimatez.GetCheckState())
 	{
 		return false;
 	}
@@ -586,7 +586,7 @@ sChecks door;
 		GlobalVars::gblVars->imgTileset->Create(16 * 17 + 1, 512);
 
 
-		chkDoTrans.value(1);
+		chkDoTrans.SetCheckState(true);
 		GlobalVars::gblVars->checkBoxshowmap.value(1);
 		GlobalVars::gblVars->checkBoxshowtileset.value(1);
 
@@ -709,7 +709,7 @@ sChecks door;
 				if (!tabs[4])
 				{
 				}
-				if (GlobalVars::gblVars->checkBoxchkES.value())
+				if (GlobalVars::gblVars->checkBoxchkES.GetCheckState())
 				{
 					hCurrentTab = tabs[4];
 					SpriteTabIndex = 0;

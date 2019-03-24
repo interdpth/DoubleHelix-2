@@ -47,7 +47,7 @@
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>..\grit\libgrit;C:\GLEW\lib\Release\Win32;..\grit\cldib;..\RD1Enginesource\Debug;$(LibraryPath)</LibraryPath>
     <ExecutablePath>C:\GLEW\bin\Release\Win32;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>C:\GLEW\include\GL;..\grit\libgrit;..\grit\cldib;..\RD1Enginesource;$(IncludePath)</IncludePath>
+    <IncludePath>C:\GLEW\include\GL;..\grit\libgrit;..\grit\cldib;..\RD1Enginesource;..\RNA_UI;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
@@ -80,7 +80,7 @@
       <SuppressStartupBanner>false</SuppressStartupBanner>
       <AdditionalOptions>/EDITANDCONTINUE %(AdditionalOptions)</AdditionalOptions>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalDependencies>RD1Engined.lib;opengl32.lib;Msimg32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>RNA_UId.lib;RD1Engined.lib;opengl32.lib;Msimg32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
       <ShowProgress>LinkVerbose</ShowProgress>
     </Link>
@@ -153,16 +153,12 @@
     <ClCompile Include="RoomOptions.cpp" />
     <ClCompile Include="SamusEditorClass.cpp" />
     <ClCompile Include="SceneryEditor.cpp" />
-    <ClCompile Include="sChecks.cpp" />
-    <ClCompile Include="sCombo.cpp" />
     <ClCompile Include="ScrollBarHandle.cpp" />
     <ClCompile Include="Scrolls.cpp" />
-    <ClCompile Include="sList.cpp" />
     <ClCompile Include="frmScrolls.cpp" />
     <ClCompile Include="SpriteSelector.cpp" />
     <ClCompile Include="SpriteEditor.cpp" />
     <ClCompile Include="StatEditor.cpp" />
-    <ClCompile Include="stxts.cpp" />
     <ClCompile Include="TabControls.cpp" />
     <ClCompile Include="TextEditor.cpp" />
     <ClCompile Include="TilesetWindow.cpp" />
@@ -199,11 +195,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="ResourceAndDefines.h" />
     <ClInclude Include="SamusEditorClass.h" />
-    <ClInclude Include="sChecks.h" />
-    <ClInclude Include="sCombo.h" />
-    <ClInclude Include="sList.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="stxts.h" />
     <ClInclude Include="SupportedTitles.h" />
     <ClInclude Include="TabControls.h" />
     <ClInclude Include="TextEditorHeader.h" />

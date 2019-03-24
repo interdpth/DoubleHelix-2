@@ -39,7 +39,7 @@ void DisableByState(sChecks* chkToUse)
 	GlobalVars::gblVars->checkBoxClip.value(0);
 	GlobalVars::gblVars->checkBoxLevel.value(0);
 	GlobalVars::gblVars->ScrollCheck.value(0);
-	GlobalVars::gblVars->checkBoxchkES.value(0);
+	GlobalVars::gblVars->checkBoxchkES.SetCheckState(false);
 	GlobalVars::gblVars->chkBoxED.value(0);
 
 	SendMessage(GetDlgItem(GlobalVars::gblVars->frameControls, chkResizeDoors), BM_SETCHECK, 0, 0);
@@ -152,8 +152,8 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		}
 		break;
 	case chkSprites:
-		DisableByState(&GlobalVars::gblVars->checkBoxchkES);
-		someval = GlobalVars::gblVars->checkBoxchkES.value();
+	//	DisableByState(&GlobalVars::gblVars->checkBoxchkES);
+		someval = GlobalVars::gblVars->checkBoxchkES.GetCheckState();
 		RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetState(someval == 1 ? editingStates::SPRITE : editingStates::MAP);
 		UiState::stateManager->ShowObj();
 		break;
@@ -296,10 +296,10 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		break;
 	case chkSRe:
-		GlobalVars::gblVars->checkBoxsMove.value(0);
+		GlobalVars::gblVars->checkBoxsMove.SetCheckState(false);
 		break;
 	case chkSMove:
-		GlobalVars::gblVars->checkBoxsResize.value(0);
+		GlobalVars::gblVars->checkBoxsResize.SetCheckState(false);
 		break;
 
 	case ID_MAP_SHOWCLIPDATA:
@@ -486,13 +486,13 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 		GlobalVars::gblVars->checkBoxViewF.SetCnt(GetDlgItem(hwnd, ID_MAP_VIEWFOREGROUND));
 		GlobalVars::gblVars->checkBoxViewL.SetCnt(GetDlgItem(hwnd, ID_MAP_VIEWLEVELLAYER));
 		GlobalVars::gblVars->checkBoxViewB.SetCnt(GetDlgItem(hwnd, ID_MAP_VIEWBACKLAYER));
-		GlobalVars::gblVars->checkBoxViewBL.SetCnt(GetDlgItem(hwnd, chkViewBG));
-		GlobalVars::gblVars->checkBoxsMove.SetCnt(GetDlgItem(hwnd, chkSMove));
-		GlobalVars::gblVars->checkBoxsResize.SetCnt(GetDlgItem(hwnd, chkSRe));
-		GlobalVars::gblVars->checkBoxsView.SetCnt(GetDlgItem(hwnd, chkSView));
+		GlobalVars::gblVars->checkBoxViewBL.Init(UiState::stateManager->GetWindow(), chkViewBG);
+		GlobalVars::gblVars->checkBoxsMove.Init(UiState::stateManager->GetWindow(), chkSMove);
+		GlobalVars::gblVars->checkBoxsResize.Init(UiState::stateManager->GetWindow(), chkSRe);
+		GlobalVars::gblVars->checkBoxsView.Init(UiState::stateManager->GetWindow(), chkSView);
 		GlobalVars::gblVars->checkBoxshowmap.SetCnt(GetDlgItem(hwnd, chkSM));
 		GlobalVars::gblVars->checkBoxshowtileset.SetCnt(GetDlgItem(hwnd, chkST));
-		GlobalVars::gblVars->checkBoxchkES.SetCnt(GetDlgItem(hwnd, chkSprites));
+		GlobalVars::gblVars->checkBoxchkES.Init(UiState::stateManager->GetWindow(), chkSprites);
 		GlobalVars::gblVars->chkBoxED.SetCnt(GetDlgItem(hwnd, chkDoors));
 
 		// GlobalVars::gblVars->CheckBoxes[chkESC].SetCnt(GetDlgItem(Main,chkSprites));
@@ -500,13 +500,13 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 		GlobalVars::gblVars->chkMC[1].SetCnt(GetDlgItem(hwnd, chkLevel2));
 		GlobalVars::gblVars->chkMC[2].SetCnt(GetDlgItem(hwnd, chkBacklayer2));
 		GlobalVars::gblVars->chkMC[3].SetCnt(GetDlgItem(hwnd, chkClip2));
-		chkDoTrans.SetCnt(GetDlgItem(hwnd, ID_MAP_SHOWTRANSPARENCY));
-		chkDoTrans.value(1);
-		chkDoTrans.SetCnt(GetDlgItem(hwnd, ID_MAP_SHOWTRANSPARENCY));
+		chkDoTrans.Init(UiState::stateManager->GetWindow(), ID_MAP_SHOWTRANSPARENCY);
+		chkDoTrans.SetCheckState(true);
+	
 		GlobalVars::gblVars->checkBoxshowmap.value(1);
 		GlobalVars::gblVars->checkBoxshowtileset.value(1);
-		GlobalVars::gblVars->chkAnimatez.SetCnt(GetDlgItem(hwnd, ID_MAP_ANIMATE));
-		GlobalVars::gblVars->chkAnimatez.value(1);
+		GlobalVars::gblVars->chkAnimatez.Init(UiState::stateManager->GetWindow(), ID_MAP_ANIMATE);
+		GlobalVars::gblVars->chkAnimatez.SetCheckState(true);
 
 
 

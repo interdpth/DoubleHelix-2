@@ -12,7 +12,7 @@
 #include "GlobalFunctions.h"
 #include "sChecks.h"
 #include "sCombo.h"
-
+#include "sMenuItem.h"
 //int DrawPSprite( SprGBuf* SpriteDetails);
 //int DecodeSprite(SprGBuf* tSprite,unsigned long Offset);
 EXT WINDOWPLACEMENT IsTSA;
@@ -139,7 +139,7 @@ EXT BackBuffer BBTileset;
 
 
 EXT unsigned char  MPToUse;
-EXT sChecks chkDoTrans;
+EXT sMenuItem chkDoTrans;
 
 
 EXT unsigned char DefRoom;
