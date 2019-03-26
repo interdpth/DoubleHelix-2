@@ -16,19 +16,19 @@ BOOL CALLBACK	SceneProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		SceneType = -1;
 		mpScene.sX=mpScene.sY=-100;
 		SceneWnd  = hWnd;
-		Combos[SBG].Init(GetDlgItem(hWnd,(int)MAKEINTRESOURCE(cboSSize)));
-		Combos[SP].Init(GetDlgItem(hWnd,(int)MAKEINTRESOURCE(cboSPal)));
-		Combos[SBG].Additem("256x256");
-		Combos[SBG].Additem("512x256");
-		Combos[SBG].Additem("256x512");
-		Combos[SBG].SetListIndex(0);
+		cboSBGsize.Init(GetDlgItem(hWnd,(int)MAKEINTRESOURCE(cboSSize)));
+		cboSSPal.Init(GetDlgItem(hWnd,(int)MAKEINTRESOURCE(cboSPal)));
+		cboSBGsize.Additem("256x256");
+		cboSBGsize.Additem("512x256");
+		cboSBGsize.Additem("256x512");
+		cboSBGsize.SetListIndex(0);
 		for(i = 0;i<16;i++){
 			sprintf(palstring,"0x%X",i);
-			Combos[SP].Additem(palstring);
+			cboSSPal.Additem(palstring);
 		}
 		mpScene.Width=mpScene.Height=1;
 		mpScene.sX=mpScene.sY=0;
-		Combos[SP].SetListIndex(6);
+		cboSSPal.SetListIndex(6);
 		InitSceneryWindow();
 		InitTSWindow();
 		DrawGraphicTiles();
@@ -302,7 +302,7 @@ LRESULT CALLBACK TSWProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		break;
 		
 	case WM_LBUTTONDOWN:
-		SceneTile = (Combos[SP].GetListIndex() * 0x1000 )+(GetX(lParam)/8 ) + ((GetY(lParam)/8)* 64);
+		SceneTile = (cboSSPal.GetListIndex() * 0x1000 )+(GetX(lParam)/8 ) + ((GetY(lParam)/8)* 64);
 		sprintf(stuff, "Tile: %X",SceneTile&0x3FF);
 		SetWindowText(GetDlgItem(SceneWnd ,lbltst),stuff);
 		SceneryCopySource=0;
@@ -466,7 +466,7 @@ int DrawThisScene(unsigned char Scene){
 }
 
 int DrawGraphicTiles(){
-	int Pal= Combos[SP].GetListIndex();
+	int Pal= cboSSPal.GetListIndex();
 	int X = 0;
 	int Y = 0;
 	int i = 0;

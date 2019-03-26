@@ -47,13 +47,13 @@ void UpdateStatusText(int actualX, int actualY)
 
 	if (!mgrMap->GetLayer(4)->TileBuf2D == NULL)
 	{
-		int poo = Combos[cClip].GetListIndex();
+		int poo = cboClipData.GetListIndex();
 
-		//			Combos[cClip].SetListIndex(mgrMap->GetLayer(MapManager::Clipdata)->TileBuf2D[actualX + (actualY)* (mgrMap->GetLayer(MapManager::LevelData)->X)]);
+		//			cboClipData.SetListIndex(mgrMap->GetLayer(MapManager::Clipdata)->TileBuf2D[actualX + (actualY)* (mgrMap->GetLayer(MapManager::LevelData)->X)]);
 
-		GetWindowText(Combos[cClip].GetHwnd(), cBuf, 200);
+		GetWindowText(cboClipData.GetHwnd(), cBuf, 200);
 		SetWindowText(GetDlgItem(GlobalVars::gblVars->frameControls, lblClip), cBuf);
-		//Combos[cClip].SetListIndex(poo);
+		//cboClipData.SetListIndex(poo);
 
 	}
 	sprintf(cBuf, "X: %X", actualX);
@@ -185,7 +185,7 @@ void HandleMouseUpDown(int actualX, int actualY, HWND hWnd, unsigned int message
 		if (wParam & MK_LBUTTON)
 		{
 			editingStates thisState = mgrMap->GetState()->GetState();//Wait what
-			utils->HandleLeftClick(thisState, actualX, actualY, Combos[cSpriteSet].GetListIndex(), wParam, lParam);
+			utils->HandleLeftClick(thisState, actualX, actualY, comboSpriteSet.GetListIndex(), wParam, lParam);
 		}
 		break;
 	case WM_RBUTTONDOWN:
@@ -194,7 +194,7 @@ void HandleMouseUpDown(int actualX, int actualY, HWND hWnd, unsigned int message
 		{
 
 			editingStates thisState = mgrMap->GetState()->GetState();//Wait what
-			utils->HandleRightClick(thisState, actualX, actualY, Combos[cSpriteSet].GetListIndex());
+			utils->HandleRightClick(thisState, actualX, actualY, comboSpriteSet.GetListIndex());
 		}
 		break;
 	case WM_RBUTTONUP:

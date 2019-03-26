@@ -208,7 +208,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 	case cboSpriteSet:
 		if (HIWORD(wParam) == CBN_SELCHANGE)
 		{
-			RD1Engine::theGame->mainRoom->LoadUpSprites(Combos[cSpriteSet].GetListIndex(), &SpriteImage);
+			RD1Engine::theGame->mainRoom->LoadUpSprites(comboSpriteSet.GetListIndex(), &SpriteImage);
 			RD1Engine::theGame->DrawStatus.dirty = true;
 			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 
@@ -234,7 +234,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 		break;
 	case cmdSave:
-		BIC = (RD1Engine::theGame->RoomOffsets[Combos[cArea].GetListIndex()] - 0x8000000) + (Combos[cRoom].GetListIndex() * 0x3C);
+		BIC = (RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + (comboRoom.GetListIndex() * 0x3C);
 
 		if (!BIC || (BIC > 0x7FFFFF)) {
 			MessageBox(hwnd, "Uh so something went wrong.", "Boomb", MB_OK);
@@ -312,7 +312,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		{
 
 			fclose(GBA.ROM);
-			area = Combos[cArea].GetListIndex();
+			area = comboArea.GetListIndex();
 			GBA.ROM = fopen(GBA.FileLoc, "r+b");
 			if (currentRomType == 0)
 			{
@@ -346,21 +346,21 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 				}
 
 			}
-			Combos[cRoom].Clear();
+			comboRoom.Clear();
 
 			for (i = 0; i < LevelCounter; i++)
 			{
 				sprintf(cBuf, "%X", i);
-				Combos[cRoom].Additem(cBuf);
+				comboRoom.Additem(cBuf);
 
 			}
 
 
 
 			if (DefRoom >= LevelCounter)
-				Combos[cRoom].SetListIndex(LevelCounter);
+				comboRoom.SetListIndex(LevelCounter);
 			else
-				Combos[cRoom].SetListIndex(DefRoom);
+				comboRoom.SetListIndex(DefRoom);
 
 			PostMessage(hwnd, WM_COMMAND, 0x000103ef, 0); // Simulate room combo 
 														  // clicking.
@@ -369,18 +369,18 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 	case cboRoom:
 		if (HIWORD(wParam) == CBN_SELCHANGE)
 		{
-			int room = Combos[cRoom].GetListIndex();
+			int room = comboRoom.GetListIndex();
 			
-			RD1Engine::theGame->LoadRoomSpriteSet(Combos[cArea].GetListIndex(), Combos[cRoom].GetListIndex(), GlobalVars::gblVars->imgTileset,&SpriteImage);
-			Combos[cSpriteSet].Clear();
+			RD1Engine::theGame->LoadRoomSpriteSet(comboArea.GetListIndex(), comboRoom.GetListIndex(), GlobalVars::gblVars->imgTileset,&SpriteImage);
+			comboSpriteSet.Clear();
 			for (int i = 0; i < RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects.size(); i++)
 			{
 				char numstr[4] = { 0 };
 				sprintf(numstr, "%d", i);
-				Combos[cSpriteSet].Additem(numstr);
+				comboSpriteSet.Additem(numstr);
 
 			}
-			Combos[cSpriteSet].SetListIndex(0);
+			comboSpriteSet.SetListIndex(0);
 			ShowWindow(ExtendedOptWND, SW_HIDE);
 
 			DumpLayers();
@@ -530,26 +530,21 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 
 		}
 
-		Combos[1].Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(IDC_COMBO1))); // GetDlgItem(hwnd,(int)MAKEINTRESOURCE(res))
-		if (Combos[1].val != -1)
-		{
-			Combos[1].SetListIndex(Combos[1].val);
-		}
 		cboScroll.Init(GetDlgItem(hwnd, cboDScroll));
 		cboScroll.Disable();
-		Combos[cArea].Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboArea)));
-		Combos[cRoom].Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboRoom)));
-		Combos[cClip].Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboClip)));
-		Combos[cSpriteSet].Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboSpriteSet)));
-		Combos[cClip].Additem("Clipdata");
-		Combos[cClip].SetListIndex(0);
-		Combos[cSpriteSet].Additem("0");
-		Combos[cSpriteSet].SetListIndex(0);
-		Combos[cRoom].Additem("Rooms");
-		Combos[cRoom].SetListIndex(0);
+		comboArea.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboArea)));
+		comboRoom.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboRoom)));
+		cboClipData.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboClip)));
+		comboSpriteSet.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboSpriteSet)));
+		cboClipData.Additem("Clipdata");
+		cboClipData.SetListIndex(0);
+		comboSpriteSet.Additem("0");
+		comboSpriteSet.SetListIndex(0);
+		comboRoom.Additem("Rooms");
+		comboRoom.SetListIndex(0);
 
-		Combos[cArea].Additem("Areas");
-		Combos[cArea].SetListIndex(0);
+		comboArea.Additem("Areas");
+		comboArea.SetListIndex(0);
 
 		// etArrays();
 		MPToUse = 0;

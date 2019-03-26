@@ -181,8 +181,8 @@ int cSSE::SetupPreview(SprGBuf* SprG, int TitleChoice) {
 
 	int i = 0;
 	int ii = 0;
-	unsigned char* decompbuf = new unsigned char[32687];
-	unsigned char*  compBuffer = new unsigned char[64691];
+	unsigned char* compBuffer= new unsigned char[32687];
+	unsigned char* decompbuf = new unsigned char[64691];
 
 
 	InvalidateRect(me, 0, 1);
@@ -218,7 +218,7 @@ int cSSE::SetupPreview(SprGBuf* SprG, int TitleChoice) {
 		MemFile::currentFile->seek(GFXPnt);
 		MemFile::currentFile->fread(&addybuf, 4, 1);
 		MemFile::currentFile->seek(addybuf - 0x8000000);
-		MemFile::currentFile->fread(compBuffer, 1, sizeof(compBuffer));
+		MemFile::currentFile->fread(compBuffer, 1, 32687);
 		size = GBA.LZ77UnComp(compBuffer, decompbuf);
 		memcpy(&SprG->PreRAM[0x4000], &decompbuf, size);
 		break;

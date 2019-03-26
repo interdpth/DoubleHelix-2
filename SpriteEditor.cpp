@@ -62,7 +62,7 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 	int  id = 0;
 	unsigned long j = 0;
 	RECT wnd;
-	sprite_entry *SE;
+	
 	cEntityManager *entMgr;
 	if (RD1Engine::theGame->mainRoom->mgrEntities)
 	{

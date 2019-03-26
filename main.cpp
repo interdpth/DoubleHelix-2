@@ -446,7 +446,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 
 		//Reset form 
 		MiniMapClass::miniMapEditor->cboPalette.SetListIndex(0);
-		MiniMapClass::miniMapEditor->cboMArea.SetListIndex(Combos[cArea].GetListIndex());
+		MiniMapClass::miniMapEditor->cboMArea.SetListIndex(comboArea.GetListIndex());
 		MiniMapClass::miniMapEditor->DecompressMap(MiniMapClass::miniMapEditor->cboMArea.GetListIndex());
 		MiniMapClass::miniMapEditor->DrawTileset(MiniMapClass::miniMapEditor->Tileset, 0);
 		MiniMapClass::miniMapEditor->DrawMap(MiniMapClass::miniMapEditor->Map);
@@ -794,10 +794,10 @@ sChecks door;
 
 	case	WM_COPYDATA:
 	case WM_COPY:
-		Combos[cArea].SetListIndex(0);
+		comboArea.SetListIndex(0);
 		break;
 	case WM_PASTE:
-		Combos[cArea].SetListIndex(0);
+		comboArea.SetListIndex(0);
 		break;
 	case WM_HSCROLL:
 
@@ -953,122 +953,121 @@ int             SetUpCombos(int combon)
 	   0
 	};
 
-	Combos[cSpriteSet].Clear();
-	Combos[cSpriteSet].Additem("0");
-	Combos[cSpriteSet].Additem("1");
-	Combos[cSpriteSet].Additem("2");
-	Combos[cSpriteSet].SetListIndex(0);
+	comboSpriteSet.Clear();
+	comboSpriteSet.Additem("0");
+	comboSpriteSet.Additem("1");
+	comboSpriteSet.Additem("2");
+	comboSpriteSet.SetListIndex(0);
 	if (combon == cArea)
 	{
-		Combos[combon].Clear();
 		if (currentRomType == 0)
 		{
-			Combos[cArea].Clear();
-			Combos[cA1].Clear();
-			Combos[cA2].Clear();
-			Combos[cdA1].Clear();
-			Combos[cdA2].Clear();
+			comboArea.Clear();
+			cboDoorArea1.Clear();
+			cboDoorArea3.Clear();
+			cboDoorArea2.Clear();
+			cboDoorDoor2.Clear();
 
-			Combos[cArea].Additem("Brinstar");
-			Combos[cA1].Additem("Brinstar");
-			Combos[cA2].Additem("Brinstar");
-			Combos[cdA1].Additem("Brinstar");
-			Combos[cdA2].Additem("Brinstar");
-			Combos[cArea].Additem("Kraid");
-			Combos[cA1].Additem("Kraid");
-			Combos[cA2].Additem("Kraid");
-			Combos[cdA1].Additem("Kraid");
-			Combos[cdA2].Additem("Kraid");
-			Combos[cArea].Additem("Norfair");
-			Combos[cA1].Additem("Norfair");
-			Combos[cA2].Additem("Norfair");
-			Combos[cdA1].Additem("Norfair");
-			Combos[cdA2].Additem("Norfair");
-			Combos[cArea].Additem("Ridley");
-			Combos[cA1].Additem("Ridley");
-			Combos[cA2].Additem("Ridley");
-			Combos[cdA1].Additem("Ridley");
-			Combos[cdA2].Additem("Ridley");
-			Combos[cArea].Additem("Tourian");
-			Combos[cA1].Additem("Tourian");
-			Combos[cA2].Additem("Tourian");
-			Combos[cdA1].Additem("Tourian");
-			Combos[cdA2].Additem("Tourian");
-			Combos[cArea].Additem("Crateria");
-			Combos[cA1].Additem("Crateria");
-			Combos[cA2].Additem("Crateria");
-			Combos[cdA1].Additem("Crateria");
-			Combos[cdA2].Additem("Crateria");
-			Combos[cArea].Additem("Chozodia");
-			Combos[cA1].Additem("Chozodia");
-			Combos[cA2].Additem("Chozodia");
-			Combos[cdA1].Additem("Chozodia");
-			Combos[cdA2].Additem("Chozodia");
+			comboArea.Additem("Brinstar");
+			cboDoorArea1.Additem("Brinstar");
+			cboDoorArea3.Additem("Brinstar");
+			cboDoorArea2.Additem("Brinstar");
+			cboDoorDoor2.Additem("Brinstar");
+			comboArea.Additem("Kraid");
+			cboDoorArea1.Additem("Kraid");
+			cboDoorArea3.Additem("Kraid");
+			cboDoorArea2.Additem("Kraid");
+			cboDoorDoor2.Additem("Kraid");
+			comboArea.Additem("Norfair");
+			cboDoorArea1.Additem("Norfair");
+			cboDoorArea3.Additem("Norfair");
+			cboDoorArea2.Additem("Norfair");
+			cboDoorDoor2.Additem("Norfair");
+			comboArea.Additem("Ridley");
+			cboDoorArea1.Additem("Ridley");
+			cboDoorArea3.Additem("Ridley");
+			cboDoorArea2.Additem("Ridley");
+			cboDoorDoor2.Additem("Ridley");
+			comboArea.Additem("Tourian");
+			cboDoorArea1.Additem("Tourian");
+			cboDoorArea3.Additem("Tourian");
+			cboDoorArea2.Additem("Tourian");
+			cboDoorDoor2.Additem("Tourian");
+			comboArea.Additem("Crateria");
+			cboDoorArea1.Additem("Crateria");
+			cboDoorArea3.Additem("Crateria");
+			cboDoorArea2.Additem("Crateria");
+			cboDoorDoor2.Additem("Crateria");
+			comboArea.Additem("Chozodia");
+			cboDoorArea1.Additem("Chozodia");
+			cboDoorArea3.Additem("Chozodia");
+			cboDoorArea2.Additem("Chozodia");
+			cboDoorDoor2.Additem("Chozodia");
 		}
 		else if (currentRomType == 1)
 		{
-			Combos[cArea].Clear();
-			Combos[cA1].Clear();
-			Combos[cA2].Clear();
-			Combos[cdA1].Clear();
-			Combos[cdA2].Clear();
+			comboArea.Clear();
+			cboDoorArea1.Clear();
+			cboDoorArea3.Clear();
+			cboDoorArea2.Clear();
+			cboDoorDoor2.Clear();
 
-			Combos[cArea].Additem("Main Deck");
-			Combos[cA1].Additem("Main Deck");
-			Combos[cA2].Additem("Main Deck");
-			Combos[cdA1].Additem("Main Deck");
-			Combos[cdA2].Additem("Main Deck");
+			comboArea.Additem("Main Deck");
+			cboDoorArea1.Additem("Main Deck");
+			cboDoorArea3.Additem("Main Deck");
+			cboDoorArea2.Additem("Main Deck");
+			cboDoorDoor2.Additem("Main Deck");
 
-			Combos[cArea].Additem("SRX");
-			Combos[cA1].Additem("SRX");
-			Combos[cA2].Additem("SRX");
-			Combos[cdA1].Additem("SRX");
-			Combos[cdA2].Additem("SRX");
+			comboArea.Additem("SRX");
+			cboDoorArea1.Additem("SRX");
+			cboDoorArea3.Additem("SRX");
+			cboDoorArea2.Additem("SRX");
+			cboDoorDoor2.Additem("SRX");
 
-			Combos[cArea].Additem("TRO");
-			Combos[cA1].Additem("TRO");
-			Combos[cA2].Additem("TRO");
-			Combos[cdA1].Additem("TRO");
-			Combos[cdA2].Additem("TRO");
+			comboArea.Additem("TRO");
+			cboDoorArea1.Additem("TRO");
+			cboDoorArea3.Additem("TRO");
+			cboDoorArea2.Additem("TRO");
+			cboDoorDoor2.Additem("TRO");
 
-			Combos[cArea].Additem("PYR");
-			Combos[cA1].Additem("PYR");
-			Combos[cA2].Additem("PYR");
+			comboArea.Additem("PYR");
+			cboDoorArea1.Additem("PYR");
+			cboDoorArea3.Additem("PYR");
 
-			Combos[cArea].Additem("AQA");
-			Combos[cA1].Additem("AQA");
-			Combos[cA2].Additem("AQA");
-			Combos[cdA1].Additem("AQA");
-			Combos[cdA2].Additem("AQA");
-			Combos[cArea].Additem("ARC");
-			Combos[cA1].Additem("ARC");
-			Combos[cA2].Additem("ARC");
-			Combos[cdA1].Additem("ARC");
-			Combos[cdA2].Additem("ARC");
+			comboArea.Additem("AQA");
+			cboDoorArea1.Additem("AQA");
+			cboDoorArea3.Additem("AQA");
+			cboDoorArea2.Additem("AQA");
+			cboDoorDoor2.Additem("AQA");
+			comboArea.Additem("ARC");
+			cboDoorArea1.Additem("ARC");
+			cboDoorArea3.Additem("ARC");
+			cboDoorArea2.Additem("ARC");
+			cboDoorDoor2.Additem("ARC");
 
-			Combos[cArea].Additem("NOC");
-			Combos[cA1].Additem("NOC");
-			Combos[cA2].Additem("NOC");
-			Combos[cdA1].Additem("NOC");
-			Combos[cdA2].Additem("NOC");
+			comboArea.Additem("NOC");
+			cboDoorArea1.Additem("NOC");
+			cboDoorArea3.Additem("NOC");
+			cboDoorArea2.Additem("NOC");
+			cboDoorDoor2.Additem("NOC");
 
-			Combos[cArea].Additem("Debug1");
-			Combos[cA1].Additem("Debug1");
-			Combos[cA2].Additem("Debug1");
-			Combos[cdA1].Additem("Debug1");
-			Combos[cdA2].Additem("Debug1");
+			comboArea.Additem("Debug1");
+			cboDoorArea1.Additem("Debug1");
+			cboDoorArea3.Additem("Debug1");
+			cboDoorArea2.Additem("Debug1");
+			cboDoorDoor2.Additem("Debug1");
 
-			Combos[cArea].Additem("Debug2");
-			Combos[cA1].Additem("Debug2");
-			Combos[cA2].Additem("Debug2");
-			Combos[cdA1].Additem("Debug2");
-			Combos[cdA2].Additem("Debug2");
+			comboArea.Additem("Debug2");
+			cboDoorArea1.Additem("Debug2");
+			cboDoorArea3.Additem("Debug2");
+			cboDoorArea2.Additem("Debug2");
+			cboDoorDoor2.Additem("Debug2");
 
-			Combos[cArea].Additem("Debug3");
-			Combos[cA1].Additem("Debug3");
-			Combos[cA2].Additem("Debug3");
-			Combos[cdA1].Additem("Debug3");
-			Combos[cdA2].Additem("Debug3");
+			comboArea.Additem("Debug3");
+			cboDoorArea1.Additem("Debug3");
+			cboDoorArea3.Additem("Debug3");
+			cboDoorArea2.Additem("Debug3");
+			cboDoorDoor2.Additem("Debug3");
 		}
 	}
 	else if (combon == cClip)
@@ -1087,11 +1086,11 @@ int             SetUpCombos(int combon)
 
 		}
 
-		LoadCombos(&Combos[cClip], quick, 255);
+		LoadCombos(&cboClipData, quick, 255);
 
 		/* FILE *          text = fopen(quick, "rt");
 
-		 Combos[cClip].Clear();
+		 cboClipData.Clear();
 		 if (text)
 		 {
 			while (!feof(text))
@@ -1103,12 +1102,12 @@ int             SetUpCombos(int combon)
 			   if ((cs[strlen(cs) - 1] == 0xD) || (cs[strlen(cs) - 1] == 0xA))
 				  cs[strlen(cs) - 1] = 0;
 
-			   Combos[cClip].Additem(cs);
+			   cboClipData.Additem(cs);
 			}
 			fclose(text);
 		 }
 		 Combos[combon].SetListIndex(0);
-		 Combos[cClip].SetListIndex(0);*/
+		 cboClipData.SetListIndex(0);*/
 	}
 	return 0;
 }

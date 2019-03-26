@@ -952,8 +952,8 @@ BEGIN
         MENUITEM "Header Editor",               mnuHeader
         MENUITEM "Room Options",                mnuRS
         MENUITEM "Export Bitmap of Room",       mnuEB
-        MENUITEM "Export Room",                 mnuER, GRAYED
-        MENUITEM "Import Room",                 mnuIR, GRAYED
+        MENUITEM "Export Room",                 mnuER
+        MENUITEM "Import Room",                 mnuIR
         MENUITEM "Insert Stuff",                mnuInsert
         POPUP "Zoom"
         BEGIN

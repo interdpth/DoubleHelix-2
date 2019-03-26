@@ -262,7 +262,7 @@ int MapUtils::EditLayers(WPARAM wParam, LPARAM lParam) {
 	}
 	else				if (GlobalVars::gblVars->checkBoxClip.value() == 1 || GlobalVars::gblVars->chkMC[3].value() == 1)
 	{
-		EditThisLayer(RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Clipdata), wParam, lParam, 0, Combos[cClip].GetListIndex());
+		EditThisLayer(RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Clipdata), wParam, lParam, 0, cboClipData.GetListIndex());
 
 	}
 	return 0;

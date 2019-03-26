@@ -215,22 +215,23 @@ int cOAMEdit::LoadTiles(Image* tileImage, Frame* targetFrame)
 	}*/
 	long GFXPnt = 0;
 	long PalPnt = 0;
-	unsigned char*  compBuffer = new unsigned char[64691];
+	unsigned char*  compBuffer = new unsigned char[32688];
 	long addybuf = 0;
 	long size = 0;
 	SprGBuf*currentSprite = targetFrame->theSprite;
 	int i = 0;
 	int ii = 0;
 	char blah[256] = { 0 };
-	unsigned char *decompbuf = new unsigned char[32687];
-	memset(decompbuf, 0, 32687);
-	memset(compBuffer, 0, 64691);
+	unsigned char *decompbuf = new unsigned char[64692];
+	memset(decompbuf, 0, 64691);
+	memset(compBuffer, 0, 32687);
 //	currentSprite->PreviewSprite.ClearLayers();
 	
 	if ( GlobalVars::gblVars->frameTables->OAMFrameTable[currentSprite->id].front() == 0) return 0;
 
 		CompHeader thiscompheader;
-		GFXPnt = GameConfiguration::mainCFG->GetDataContainer("SpriteGFX")->Value + (currentSprite->id - 0x10) * 4;
+		GFXPnt = GameConfiguration::mainCFG->GetDataContainer("SpriteGFX")->Value;
+		GFXPnt += (currentSprite->id - 0x10) * 4;
 		PalPnt = GameConfiguration::mainCFG->GetDataContainer("SpritePal")->Value + (currentSprite->id - 0x10) * 4;
 		currentSprite->palsize = RD1Engine::theGame->GetPalSize(currentSprite->id);
 
@@ -261,21 +262,26 @@ int cOAMEdit::LoadTiles(Image* tileImage, Frame* targetFrame)
 
 	if (!targetFrame->theSprite->selfInitGFX) {
 	
-
+		MemFile::currentFile->seek(GFXPnt);
+		MemFile::currentFile->fread(&addybuf, 4, 1);
+		MemFile::currentFile->seek(addybuf - 0x8000000);
 		switch (TitleChoice) {
 		case 0:
-			MemFile::currentFile->seek(GFXPnt);
-			MemFile::currentFile->fread(&addybuf, 4, 1);
-			MemFile::currentFile->seek(addybuf - 0x8000000);
-			MemFile::currentFile->fread(compBuffer, 1, sizeof(compBuffer));
+			
+
+			MemFile::currentFile->fread(compBuffer, 1, 32687);
 			currentSprite->graphicsize = GBA.LZ77UnComp(compBuffer, decompbuf);
 			memcpy(&currentSprite->PreRAM[0x4000], &decompbuf, currentSprite->graphicsize);
+
+
+			for (int byteCounter = 0; byteCounter < currentSprite->graphicsize; byteCounter++)
+			{
+				currentSprite->PreRAM[0x4000 + byteCounter] = decompbuf[byteCounter];
+			}
 			break;
 		case 1:
 			currentSprite->graphicsize = RD1Engine::theGame->mgrOAM->MFSprSize[(currentSprite->id - 0x10) << 1];
-			MemFile::currentFile->seek(GFXPnt);
-			MemFile::currentFile->fread(&addybuf, 4, 1);
-			MemFile::currentFile->seek(addybuf - 0x8000000);
+
 			MemFile::currentFile->fread(&currentSprite->PreRAM[0x4000], 1, currentSprite->graphicsize);
 			break;
 		}

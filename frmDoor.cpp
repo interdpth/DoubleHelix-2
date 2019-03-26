@@ -5,6 +5,8 @@
 #include "resource.h"
 #include "ConnectionsEditor.h"
 #include "BaseGame.h"
+
+
 BOOL CALLBACK DwProc (HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam)
 {
 	int i;
@@ -19,25 +21,25 @@ BOOL CALLBACK DwProc (HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam
 		nMaxVScroll[sWidth] = 0xFF;
 		nMaxVScroll[sHeight] = 0xFF;
 		
-		Combos[dType].Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboDoorType)));
-		Combos[dConn].Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboConn)));
-		Combos[dOwner].Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboOwner)));
-		Combos[cConnect].Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboConnect)));
-		Combos[cA1].Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboArea1)));
-		Combos[cD1].Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboDoor1)));
-		Combos[cD2].Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboDoor2)));
-		Combos[cA2].Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboArea2)));
+		cboDoorTyp.Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboDoorType)));
+		doorConnection.Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboConn)));
+		cboDoorOwner.Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboOwner)));
+		doorConnection.Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboConnect)));
+		cboDoorArea1.Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboArea1)));
+		cboDoorArea1.Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboDoor1)));
+		cboDoorDoor1.Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboDoor2)));
+		cboDoorArea3.Init(GetDlgItem(hwnd,(int)MAKEINTRESOURCE(cboArea2)));
 		
 		
 		for(i = 0; i<0x100;i++){
 			sprintf(cboBuf,"%X",i);
-			Combos[dType].Additem(cboBuf);
-			Combos[dConn].Additem(cboBuf);
-			Combos[dOwner].Additem(cboBuf);
+			cboDoorTyp.Additem(cboBuf);
+			doorConnection.Additem(cboBuf);
+			cboDoorOwner.Additem(cboBuf);
 		}
-		Combos[dType].SetListIndex(0);
-		Combos[dConn].SetListIndex(0);
-		Combos[dOwner].SetListIndex(0);
+		cboDoorTyp.SetListIndex(0);
+		doorConnection.SetListIndex(0);
+		cboDoorOwner.SetListIndex(0);
 		ShowWindow(hwnd,SW_HIDE);
 		break;
 	case BN_CLICKED:
@@ -51,7 +53,7 @@ BOOL CALLBACK DwProc (HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam
 			int Index = RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetObjId();
 			editingStates CurState = RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetState();
 			if (CurState == editingStates::DOOR) {
-				curMgr->AddDoor(Combos[cRoom].GetListIndex());
+				curMgr->AddDoor(comboRoom.GetListIndex());
 				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 			}
 			//EndDialog(DoorWin,0);
@@ -60,7 +62,7 @@ BOOL CALLBACK DwProc (HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam
 			int Index = RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetObjId();
 			editingStates CurState = RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetState();
 			if (CurState == editingStates::DOOR && Index != -1) {
-				curMgr->DeleteDoor(Combos[cRoom].GetListIndex(), curMgr->CurrentRoomDoorIndexes[Index]);
+				curMgr->DeleteDoor(comboRoom.GetListIndex(), curMgr->CurrentRoomDoorIndexes[Index]);
 				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 			}
 			//EndDialog(DoorWin,0);
@@ -76,13 +78,13 @@ BOOL CALLBACK DwProc (HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam
 			SaveConnections();
 		}
 		if(LOWORD(wParam)==cboConn){
-			curMgr->Doors[curMgr->CurrentRoomDoorIndexes[CurDoor]].rawDoor.DestDoor = (unsigned char)Combos[dConn].GetListIndex();
+			curMgr->Doors[curMgr->CurrentRoomDoorIndexes[CurDoor]].rawDoor.DestDoor = (unsigned char)doorConnection.GetListIndex();
 			
 			curMgr->ConnectDoor(curMgr->Doors[curMgr->CurrentRoomDoorIndexes[CurDoor]].rawDoor.DestDoor);
 			
 		}
 		if(LOWORD(wParam) == cboConnect){
-			SetConnections((unsigned char)Combos[cConnect].GetListIndex());			  
+			SetConnections((unsigned char)doorConnection.GetListIndex());
 		}
 		break;
 		
@@ -128,9 +130,9 @@ int DoorManager::LoadThisDoor(int DoorNo) {
 									   int CurrentRoomIndex = CurrentRoomDoorIndexes[DoorNo];
 									   sprintf(cboBuf,"Room Door: %d \n Actual Door: %X",DoorNo,CurrentRoomDoorIndexes[DoorNo]);
 									   SetWindowText(GetDlgItem(DoorWin,lblDoor),cboBuf);
-									   Combos[dType].SetListIndex(Doors[CurrentRoomIndex].rawDoor.DoorType);
-									   Combos[dConn ].SetListIndex(Doors[CurrentRoomIndex].rawDoor.DestDoor);
-									   Combos[dOwner].SetListIndex(Doors[CurrentRoomIndex].rawDoor.OwnerRoom);
+									   cboDoorTyp.SetListIndex(Doors[CurrentRoomIndex].rawDoor.DoorType);
+									   doorConnection.SetListIndex(Doors[CurrentRoomIndex].rawDoor.DestDoor);
+									   cboDoorOwner.SetListIndex(Doors[CurrentRoomIndex].rawDoor.OwnerRoom);
 									   sprintf(cboBuf,"%X",Doors[CurrentRoomIndex].rawDoor.xExitDistance);
 									   SetWindowText(GetDlgItem(DoorWin,txtLength),cboBuf);
 									   nHScroll[sWidth] = (Doors[CurrentRoomIndex].virtualDoor.Width - Doors[CurrentRoomIndex].virtualDoor.sX)+1;
@@ -192,9 +194,9 @@ int DoorManager::SaveThisDoor(int DoorNo){
 	
 	sprintf(cboBuf,"Room Door: %d \n Actual Door: %d",DoorNo,RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]);
 	SetWindowText(GetDlgItem(DoorWin,lblDoor),cboBuf);
-	RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].rawDoor.DoorType = (unsigned char)Combos[dType].GetListIndex();
-	RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].rawDoor.DestDoor= (unsigned char)Combos[dConn ].GetListIndex();
-	RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].rawDoor.OwnerRoom=(unsigned char)Combos[dOwner].GetListIndex();
+	RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].rawDoor.DoorType = (unsigned char)cboDoorTyp.GetListIndex();
+	RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].rawDoor.DestDoor= (unsigned char)doorConnection.GetListIndex();
+	RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].rawDoor.OwnerRoom=(unsigned char)cboDoorOwner.GetListIndex();
 	GetWindowText(GetDlgItem(DoorWin,txtLength),cboBuf,3);
 	sscanf(cboBuf,"%X",&blah);
 	if(blah > 255) blah = 255;
@@ -225,21 +227,21 @@ int DoorManager::SaveThisDoor(int DoorNo){
 int ConnControls(bool How){
 	
 	if(How){
-		Combos[cA1].Enable();
-		Combos[cD1].Enable();
-		Combos[cdA1].Enable();
-		Combos[cA2].Enable();
-		Combos[cD2].Enable();
-		Combos[cdA2].Enable();
-		Combos[cConnect].Enable();
+		cboDoorArea1.Enable();
+		cboDoorArea1.Enable();
+		cboDoorArea2.Enable();
+		cboDoorArea3.Enable();
+		cboDoorDoor1.Enable();
+		cboDoorDoor2.Enable();
+		doorConnection.Enable();
 	}else{
-		Combos[cA1].Disable();
-		Combos[cD1].Disable();
-		Combos[cdA1].Disable();
-		Combos[cA2].Disable();
-		Combos[cD2].Disable();
-		Combos[cdA2].Disable();
-		Combos[cConnect].Disable();
+		cboDoorArea1.Disable();
+		cboDoorArea1.Disable();
+		cboDoorArea2.Disable();
+		cboDoorArea3.Disable();
+		cboDoorDoor1.Disable();
+		cboDoorDoor2.Disable();
+		doorConnection.Disable();
 	}
 	return 0;
 }
@@ -248,11 +250,11 @@ int SaveConnections(){
 	int i = 0;
 	long offset=0;
 
-	int c = PSCE[Combos[cConnect].GetListIndex()]+1;
-	DoorConnections.DoorConnects[c].sA1 =DoorConnections.DoorConnects[c].dA2= Combos[cA1].GetListIndex();
-	DoorConnections.DoorConnects[c].D1=Combos[cD1].GetListIndex();
-	DoorConnections.DoorConnects[c].dA1=DoorConnections.DoorConnects[c].sA2=Combos[cdA1].GetListIndex();
-    DoorConnections.DoorConnects[c].D2=Combos[cD2].GetListIndex();
+	int c = PSCE[doorConnection.GetListIndex()]+1;
+	DoorConnections.DoorConnects[c].sA1 =DoorConnections.DoorConnects[c].dA2= cboDoorArea1.GetListIndex();
+	DoorConnections.DoorConnects[c].D1=cboDoorArea1.GetListIndex();
+	DoorConnections.DoorConnects[c].dA1=DoorConnections.DoorConnects[c].sA2=cboDoorArea2.GetListIndex();
+    DoorConnections.DoorConnects[c].D2=cboDoorDoor1.GetListIndex();
 
 	FILE* fp = fopen(GBA.FileLoc,"r+b");
 	char max=0;

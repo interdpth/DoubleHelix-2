@@ -98,7 +98,7 @@ BOOL CALLBACK  MiniProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		case cmdMMSave:
 			if(drawmm)MiniMapClass::miniMapEditor->SaveMap();
 		
-			ho=((RD1Engine::theGame->RoomOffsets[Combos[cArea].GetListIndex()]-0x8000000) + Combos[cRoom].GetListIndex()*0x3C);
+			ho=((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()]-0x8000000) + comboRoom.GetListIndex()*0x3C);
 		
 		MemFile::currentFile->seek(ho+0x35);
 	    MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomX,sizeof(unsigned char),1);
@@ -354,9 +354,9 @@ int DrawMapLoc(HDC hdc){
    int thisY=0;
    int x=0;
    int y=0;
-   int ThisArea=Combos[cArea].GetListIndex();
+   int ThisArea=comboArea.GetListIndex();
    int ThisMArea= MiniMapClass::miniMapEditor->cboMArea.GetListIndex();
-   int ThisRoom=Combos[cRoom].GetListIndex();
+   int ThisRoom=comboRoom.GetListIndex();
                 //Check to see if the areas are the same 
 	                   //If they aren't do draw
    int RegDraw  =(ThisArea == ThisMArea ? 1:0);

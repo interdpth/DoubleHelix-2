@@ -143,7 +143,7 @@ void OpenRom()
 			fclose(GBA.REDIT);
 
 			Logger::log->LogIt(Logger::ERRORZ, "UNSUPPORTED ROM");
-			throw "UNSUPPORTED ROM";
+		
 			currentRomType = -1;
 			return;
 		}
@@ -162,21 +162,19 @@ void OpenRom()
 
 		char buffer[512] = { 0 };
 		unsigned long tmp = 0;
+		
 
-
-		char filepath2[1024] = { 0 };
-		if ((strlen(filepath2) + 20) >= 1024) {
-			MessageBox(0, "Please move your file someplace else as the path is too long.", "Error.", MB_OK);
-			return ;
-		}
-		if (!(int)theTitle) sprintf(filepath2, "%s\\SpriteList.txt", GlobalVars::gblVars->AppPath);
-		if ((int)theTitle) sprintf(filepath2, "%s\\MF_oam.txt", GlobalVars::gblVars->AppPath);
-		GlobalVars::gblVars->frameTables = new OamFrameTable((int)theTitle, filepath2);
+		GlobalVars::gblVars->frameTables = new OamFrameTable(theTitle, GlobalVars::gblVars->AppPath);
 
 		tmp2 = GameConfiguration::mainCFG->GetDataContainer("ZoomStates")  ;
 		memcpy(&GlobalVars::gblVars->zoomLevel, &tmp2->DataArray[0], sizeof(float));
 		float level = (float)GlobalVars::gblVars->zoomLevel;
-		MemFile::currentFile = new MemFile(GBA.FileLoc);
+		MemFile::currentFile = new MemFile(GBA.FileLoc, 0x800000);
+		if (!MemFile::currentFile->ValidFileSize())
+		{
+			delete MemFile::currentFile;
+			return; 
+		}
 		RD1Engine::theGame = new RD1Engine(theTitle, GlobalVars::gblVars->frameTables, &GlobalVars::gblVars->BGImage, GlobalVars::gblVars->TileImage, GlobalVars::gblVars->imgTileset);
 		GlobalVars::gblVars->StatEditor = new cStatEd(RD1Engine::theGame->currentRomType);
 
@@ -197,20 +195,20 @@ void OpenRom()
 		RD1Engine::theGame->mgrScrolls->GetScrollArray(GBA.ROM);
 
 		EnableConnections();
-		Combos[cClip].Enable();
-		Combos[cSpriteSet].Enable();
-		Combos[cRoom].Enable();
-		Combos[cArea].Enable();
+		cboClipData.Enable();
+		comboSpriteSet.Enable();
+		comboRoom.Enable();
+		comboArea.Enable();
 
 		if (theTitle == SupportedTitles::titleZM)
 		{
 			if (DefArea > 7 || DefArea < 0)
 			{
-				Combos[cArea].SetListIndex(0);
+				comboArea.SetListIndex(0);
 			}
 			else
 			{
-				Combos[cArea].SetListIndex(DefArea);
+				comboArea.SetListIndex(DefArea);
 			}
 
 
@@ -219,15 +217,15 @@ void OpenRom()
 		{
 			if (DefArea > 10 || DefArea < 0)
 			{
-				Combos[cArea].SetListIndex(0);
+				comboArea.SetListIndex(0);
 			}
 			else
 			{
-				Combos[cArea].SetListIndex(DefArea);
+				comboArea.SetListIndex(DefArea);
 			}
 
 		}
-		Combos[cArea].SetListIndex(0);
+		comboArea.SetListIndex(0);
 		//GlobalVars::gblVars->StatEditor->Switch();
  		GlobalVars::gblVars->TextEditor->Create(currentRomType, hGlobal, TextPicProc);
 		unsigned long BIC = 0;

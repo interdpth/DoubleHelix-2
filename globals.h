@@ -52,7 +52,7 @@ EXT int			nDisplayWidth[32];
 EXT int			nDisplayHeight[32];
 EXT int			nMaxHScroll[32];
 EXT int			nMaxVScroll[32];
-EXT sCombo      Combos[80];
+
 //END REMOVAL
 
 EXT int			bRunApp;
@@ -63,11 +63,24 @@ EXT int         CurDoor;
 EXT HWND        hwndHeader;
 
 
+EXT sCombo comboArea;
+EXT sCombo cboDoorTyp;
+EXT sCombo doorConnection;
+EXT sCombo cboDoorOwner;
+EXT sCombo cboDoorArea1;
+EXT sCombo cboDoorArea2;
+EXT sCombo cboDoorArea3;
+EXT sCombo cboDoorDoor1;
+EXT sCombo cboDoorDoor2;
+EXT sCombo cboDoorAreaConnect;
 
+EXT sCombo comboRoom;
+EXT sCombo cboClipData;
+EXT sCombo comboSpriteSet;
 
-
+EXT sCombo cboSBGsize; 
+EXT sCombo cboSSPal;
 //int MoveObj(unsigned char ObjNum, unsigned char Where);
-
 
 
 

@@ -88,7 +88,7 @@ int MiniMapClass::Create() {
 	Tileset->SetPalette(Palette, 0, 0xa0);
 	Map->SetPalette(Palette, 0, 0xA0);
 
-	//cboMArea.SetListIndex(Combos[cArea].GetListIndex());
+	//cboMArea.SetListIndex(comboArea.GetListIndex);
 	DrawTileset(Tileset, 8);
 	return 0;
 }

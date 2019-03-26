@@ -29,12 +29,12 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 	case WM_COMMAND:
 		switch(LOWORD(wParam)){
 		case btnAddObject:
-			RD1Engine::theGame->mainRoom->mgrSpriteObjects->AddSpriteObject(Combos[cSpriteSet].GetListIndex());
+			RD1Engine::theGame->mainRoom->mgrSpriteObjects->AddSpriteObject(comboSpriteSet.GetListIndex());
 			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 			UiState::stateManager->ShowObj();
 			break;
 		case btnDeleteObj:
-			RD1Engine::theGame->mainRoom->mgrSpriteObjects->DeleteSpriteObject(Combos[cSpriteSet].GetListIndex(), RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetObjId());
+			RD1Engine::theGame->mainRoom->mgrSpriteObjects->DeleteSpriteObject(comboSpriteSet.GetListIndex(), RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetObjId());
 			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 			RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetObjId(0);
 			UiState::stateManager->ShowObj();
@@ -121,7 +121,7 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 }
 int SetCurSprite(){
 int beta; 
-    switch(Combos[cSpriteSet].GetListIndex()){
+    switch(comboSpriteSet.GetListIndex()){
 			case  0:
 				beta = RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Enemies[SpriteTabIndex].Creature/0x10;
 				RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Enemies[SpriteTabIndex].Creature= beta*16 + dispic+1;
@@ -147,7 +147,7 @@ int LoadCurSprite(){     //Sets dispic for starting.
 
 	SpriteObjectManager* mgrSpriteObjects = RD1Engine::theGame->mainRoom->mgrSpriteObjects;;
 	nEnemyList* SpriteObjects = NULL;
-	int newValue = Combos[cSpriteSet].GetListIndex();
+	int newValue = comboSpriteSet.GetListIndex();
 	if (mgrSpriteObjects)
 	{
 		if(newValue && mgrSpriteObjects->SpriteObjects.size()>=newValue) {

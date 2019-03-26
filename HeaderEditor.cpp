@@ -9,7 +9,7 @@ sCombo cmTileset;
 sCombo cEffect;
 sCombo cMiniX;
 sCombo cMiniY;
-sCombo comboSpriteSet;
+sCombo comboSpriteSetHeader;
 sCombo cSYP;
 sCombo cTrans;
 sCombo cF;
@@ -65,7 +65,7 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 			break;
 		case cboSG:
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
-				switch (comboSpriteSet.GetListIndex()) {
+				switch (comboSpriteSetHeader.GetListIndex()) {
 				case 0:
 					roomHeader->bSpriteIndex1 = (unsigned char)cSG.GetListIndex();
 					break;
@@ -81,7 +81,7 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 		case cboEC:
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
 				{
-					switch (comboSpriteSet.GetListIndex()) 
+					switch (comboSpriteSetHeader.GetListIndex()) 
 					{
 
 					case 0:
@@ -158,7 +158,7 @@ int SetupHeaderControls() {
 	cMiniX.Init(GetDlgItem(hwndHeader, cboMiniX));
 	cMiniY.Init(GetDlgItem(hwndHeader, cboMiniY));
 	cmTileset.Init(GetDlgItem(hwndHeader, cboTileset));
-	comboSpriteSet.Init(GetDlgItem(hwndHeader, cboSprites));
+	comboSpriteSetHeader.Init(GetDlgItem(hwndHeader, cboSprites));
 	cSYP.Init(GetDlgItem(hwndHeader, cboSYP));
 	//cTrans.Init(GetDlgItem(hwndHeader,cboTrans));
 	cEC.Init(GetDlgItem(hwndHeader, cboEC));
@@ -184,7 +184,7 @@ int SetupHeaderControls() {
 		cmTileset.Additem(buffer);
 		cMusic.Additem(buffer);
 
-		if (i < 3)comboSpriteSet.Additem(buffer);
+		if (i < 3)comboSpriteSetHeader.Additem(buffer);
 		cSYP.Additem(buffer);
 		cTrans.Additem(buffer);
 		cEC.Additem(buffer);
@@ -202,7 +202,7 @@ int SetupHeaderControls() {
 		cB.Additem(Compress[i]);
 		cBI.Additem(Compress[i]);
 	}
-	comboSpriteSet.SetListIndex(0);
+	comboSpriteSetHeader.SetListIndex(0);
 	return 0;
 }
 
@@ -213,11 +213,11 @@ int LoadHeaderControls() {
 	unsigned long Offset = 0;
 	if (currentRomType == 0)
 	{
-		Offset = ((RD1Engine::theGame->RoomOffsets[Combos[cArea].GetListIndex()] - 0x8000000) + Combos[cRoom].GetListIndex() * 0x3C);
+		Offset = ((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + comboRoom.GetListIndex() * 0x3C);
 	}
 	else if (currentRomType == 1)
 	{
-		Offset = ((RD1Engine::theGame->RoomOffsets[Combos[cArea].GetListIndex()] - 0x8000000) + Combos[cRoom].GetListIndex() * 0x3C);
+		Offset = ((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + comboRoom.GetListIndex() * 0x3C);
 	}
 	sprintf(itembuf, "For manual editing this header can be found at offset: %6X", Offset);
 	SetWindowText(GetDlgItem(hwndHeader, lblHeaderOffset), itembuf);
@@ -280,11 +280,11 @@ int LoadHeaderControls() {
 	cMiniX.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomX);
 	cMiniY.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomY);
 
-	switch (comboSpriteSet.GetListIndex()) {
+	switch (comboSpriteSetHeader.GetListIndex()) {
 		EnableWindow(cEC.GetHwnd(), 1);
 	case 0:
 		cEC.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bEventSwitch);
-		sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSet.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Max());
+		sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Max());
 		SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
 		cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex1);
 		sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer);
@@ -296,7 +296,7 @@ int LoadHeaderControls() {
 		cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex2);
 		sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer2);
 		SetWindowText(GetDlgItem(hwndHeader, txtSOffset), itembuf);
-		sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSet.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Max());
+		sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Max());
 		SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
 		break;
 	case 2:
@@ -305,7 +305,7 @@ int LoadHeaderControls() {
 		cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex3);
 		sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer3);
 		SetWindowText(GetDlgItem(hwndHeader, txtSOffset), itembuf);
-		sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSet.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2].Max());
+		sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2].Max());
 		SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
 		break;
 	}
@@ -319,7 +319,7 @@ int LoadHeaderControls() {
 int ChangeSprites() {
 
 	int i = 0;
-	int set = comboSpriteSet.GetListIndex();
+	int set = comboSpriteSetHeader.GetListIndex();
 	char blah[1024] = "Please enter a new number\nfor the amount of sprites you want.\nMax is 255, least is 0 in hex ";
 	int sprites = 0;
 
@@ -386,11 +386,11 @@ int SaveHeader(unsigned char call) {
 		RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomX = (unsigned char)cMiniX.GetListIndex();
 		RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomY = (unsigned char)cMiniY.GetListIndex();
 
-		switch (comboSpriteSet.GetListIndex()) {
+		switch (comboSpriteSetHeader.GetListIndex()) {
 			EnableWindow(cEC.GetHwnd(), 1);
 		case 0:
 			cEC.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bEventSwitch);
-			sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSet.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Max());
+			sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Max());
 			SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
 			cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex1);
 			sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer);
@@ -402,7 +402,7 @@ int SaveHeader(unsigned char call) {
 			cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex2);
 			sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer2);
 			SetWindowText(GetDlgItem(hwndHeader, txtSOffset), itembuf);
-			sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSet.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Max());
+			sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Max());
 			SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
 			break;
 		case 2:
@@ -411,7 +411,7 @@ int SaveHeader(unsigned char call) {
 			cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex3);
 			sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer3);
 			SetWindowText(GetDlgItem(hwndHeader, txtSOffset), itembuf);
-			sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSet.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2].Max());
+			sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2].Max());
 			SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
 			break;
 		}
@@ -475,7 +475,7 @@ int SaveHeader(unsigned char call) {
 
 	}
 
-	ho = ((RD1Engine::theGame->RoomOffsets[Combos[cArea].GetListIndex()] - 0x8000000) + Combos[cRoom].GetListIndex() * 0x3C);
+	ho = ((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + comboRoom.GetListIndex() * 0x3C);
 
 	MemFile::currentFile->seek(ho);
 	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bTileset, sizeof(unsigned char), 1);
