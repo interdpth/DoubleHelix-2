@@ -572,10 +572,7 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 		HandleDetections2(hwnd, message, wParam, lParam);
 		break;
 
-	case WM_VSCROLL: // exact same idea, but V scroll instead of H scroll
-
-					 // if((HWND)lParam == GetDlgItem(hwnd,vsbMap))
-					 // UpdateScroll(hwnd,wParam,1,vsbMap,sVMap);
+	case WM_VSCROLL: 
 
 		break;
 		case WM_PAINT :
@@ -584,12 +581,11 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 
 	    	hdc = BeginPaint(hwnd, &ps);
 
-		//	myLoadedPic->Blit(hdc, 0, 0, myLoadedPic->Width, myLoadedPic->Height, 0, 0);
-
+	
 			EndPaint(hwnd, &ps);
 			ReleaseDC(hwnd, hdc);
 
-			//DeleteDC(BaseGame::theGame->mainRoom->mapMgr->ThisBackBuffer->DC());
+			
 		}
 	}
 

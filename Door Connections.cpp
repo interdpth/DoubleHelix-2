@@ -44,8 +44,8 @@ int DoesaBridgeExist(){//Will find any connection for this room only.
 	char blah[5];
 	int i=0;
 	int ii = 0;
-	Area= (unsigned char)Combos[cArea].GetListIndex();
-	Room =(unsigned char) Combos[cRoom].GetListIndex();
+	Area= (unsigned char)comboArea.GetListIndex();
+	Room =(unsigned char) comboRoom.GetListIndex();
 	ConnectExists=0;
 	for(i=0;i<0x100;i++) PSCE[i] =0;
 	//How many doors are currently loaded
@@ -68,25 +68,25 @@ int DoesaBridgeExist(){//Will find any connection for this room only.
 	} 
 	if(ConnectExists==0) {
       	EnableWindow(GetDlgItem(DoorWin,cmdSaveConn),0);
-		Combos[cA1].Disable();
-	    Combos[cD1].Disable();
-	    Combos[cA2].Disable();
-     	Combos[cD2].Disable();
-	    Combos[cConnect].Disable();
+		cboDoorArea1.Disable();
+	    cboDoorArea1.Disable();
+	    cboDoorArea3.Disable();
+     	cboDoorDoor1.Disable();
+		doorConnection.Disable();
 		return 0;
 	}
 	EnableWindow(GetDlgItem(DoorWin,cmdSaveConn),1);
-	Combos[cA1].Enable();
-	Combos[cD1].Enable();
-	Combos[cA2].Enable();
-    Combos[cD2].Enable();
-	Combos[cConnect].Enable();
-	Combos[cConnect].Clear();
+	cboDoorArea1.Enable();
+	cboDoorArea1.Enable();
+	cboDoorArea3.Enable();
+    cboDoorDoor1.Enable();
+	doorConnection.Enable();
+	doorConnection.Clear();
 	for(i = 0; i < ConnectExists;i++){
 		sprintf(blah,"%X",i);
-		Combos[cConnect].Additem(blah);
+		doorConnection.Additem(blah);
 	}
-	Combos[cConnect].SetListIndex(0);
+	doorConnection.SetListIndex(0);
 	SendMessage(DoorWin,WM_COMMAND,HIWORD(CBN_SELCHANGE)|LOWORD(cboConnect),0);
 	return 0;
 }
@@ -105,11 +105,11 @@ int UserEnableConnections(){
 
 int SetConnections(unsigned char conn){
 	conn = conn+1;
-	Combos[cA1].SetListIndex(DoorConnections.DoorConnects[PSCE[conn]].sA1);
-	Combos[cD1].SetListIndex(DoorConnections.DoorConnects[PSCE[conn]].D1);
-	Combos[cA2].SetListIndex(DoorConnections.DoorConnects[PSCE[conn]].dA1);
-	//Combos[cA2].SetListIndex(DoorConnections.DoorConnects[PSCE[conn]].sA2);
-	Combos[cD2].SetListIndex(DoorConnections.DoorConnects[PSCE[conn]].D2);
-	//Combos[cdA2].SetListIndex(DoorConnections.DoorConnects[PSCE[conn]].dA2);
+	cboDoorArea1.SetListIndex(DoorConnections.DoorConnects[PSCE[conn]].sA1);
+	cboDoorArea1.SetListIndex(DoorConnections.DoorConnects[PSCE[conn]].D1);
+	cboDoorArea3.SetListIndex(DoorConnections.DoorConnects[PSCE[conn]].dA1);
+	//cboDoorArea3.SetListIndex(DoorConnections.DoorConnects[PSCE[conn]].sA2);
+	cboDoorDoor1.SetListIndex(DoorConnections.DoorConnects[PSCE[conn]].D2);
+	//cboDoorDoor2.SetListIndex(DoorConnections.DoorConnects[PSCE[conn]].dA2);
 	return 0;
 }

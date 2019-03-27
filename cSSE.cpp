@@ -196,8 +196,7 @@ int cSSE::SetupPreview(SprGBuf* SprG, int TitleChoice) {
 	long off = 0;
 	int x = 0;
 	memset(GBAGraphics::VRAM->SprPal, 0, sizeof(GBAGraphics::VRAM->SprPal));
-	//	memset(& GBAGraphics::VRAM->GBASprPal[128],0,sizeof( GBAGraphics::VRAM->GBASprPal)-128);
-	//    memset(& GBAGraphics::VRAM->SprPal,0,sizeof( GBAGraphics::VRAM->SprPal));
+
 	GFXPnt = GameConfiguration::mainCFG->GetDataContainer("SpriteGFX")->Value + (SprG->id - 0x10) * 4;
 	PalPnt = GameConfiguration::mainCFG->GetDataContainer("SpritePal")->Value + (SprG->id - 0x10) * 4;
 	SprG->palsize = RD1Engine::theGame->GetPalSize(SprG->id);

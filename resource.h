@@ -27,18 +27,17 @@
 #define fraSSE                          133
 #define mnuHeaderOpt                    135
 #define frmOAM                          136
-#define mnuSEE                          137
 #define frmClipboard                    138
 #define frmECE                          140
 #define frmLPE                          141
 #define fraBGI                          142
-#define frmInsert                       143
 #define frmScrol                        147
 #define frmMapData                      149
 #define frmExpandAndRepoint             152
 #define IDR_MENU1                       155
 #define IDD_DIALOG1                     157
 #define frmSamusEditor                  157
+#define IDR_MENU2                       160
 #define picButton                       1001
 #define vsbScroll                       1002
 #define IDC_COMBO1                      1003
@@ -259,6 +258,7 @@
 #define txtTimer                        1210
 #define cmdSFD                          1211
 #define cmdSPD                          1212
+#define txtTimer2                       1212
 #define fraSprPreview2                  1213
 #define cmdDeletePart                   1213
 #define cboShape                        1214
@@ -440,13 +440,21 @@
 #define ID_ROOMTOOLS_EDITLEVELPAL       40067
 #define ID_MAP_SHOWTRANSPARENCY         40068
 #define ID_MAP_ANIMATE                  40069
+#define ID_FRAMEOPTIONS_NEWFRAME        40070
+#define ID_FRAMEOPTIONS_COPYFRAME       40071
+#define ID_FRAMEOPTIONS_SAVEFRAME       40072
+#define ID_FRAMEOPTIONS_DELETEFRAME     40073
+#define ID_FRAMEOPTIONS_RELOADFROMOFFSET 40074
+#define ID_PARTOPTIONS_COPYPART         40075
+#define ID_PARTOPTIONS_ADDPART          40076
+#define ID_PARTOPTIONS_DELETEPART       40077
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        160
-#define _APS_NEXT_COMMAND_VALUE         40070
+#define _APS_NEXT_RESOURCE_VALUE        161
+#define _APS_NEXT_COMMAND_VALUE         40078
 #define _APS_NEXT_CONTROL_VALUE         1308
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

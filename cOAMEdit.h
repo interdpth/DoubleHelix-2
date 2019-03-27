@@ -78,7 +78,6 @@ static cOAMEdit* OamEditor;
 	int GetFrames(unsigned long offset,  int spriteID, int titleType);
 	int SetFrames(int index);
 	int UpdatePartUI(bool updateSizes = true);
-	static int SetupPreview( int TitleChoice, Frame* targetFrame);
 	int Create();
 	int LoadTiles(Image* tileImage, Frame* targetFrame);
 };

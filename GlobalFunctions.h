@@ -58,7 +58,7 @@ void ChangeCompression(unsigned char oldlayervalue, unsigned char newval, unsign
 int SaveCurScene();
 int WriteDataToROM(unsigned char* datastream, unsigned long size, unsigned long offset);
 int DrawLayer(nMapBuffer* Map, unsigned char ctype);
-void DrawPal(HDC hdc, long* palette);
+void DrawPal(HDC hdc, long* palette, int size);
 int SetTiles(LPARAM lParam);
 
 HWND hwndMain();
@@ -101,7 +101,7 @@ LRESULT CALLBACK OAMSpriteProc(HWND hWnd, unsigned int message, WPARAM wParam, L
 
 int GetLayerData(unsigned char compression, unsigned char Layer, unsigned long offset);
 
-int DrawPal(HDC hdc, long* palette, int X, int Y, int palcol);
+int DrawPal(HDC hdc, long* palette, int X, int Y, int palcol, int size);
 int LoadColor(long Pal);
 int ChangeColor();
 

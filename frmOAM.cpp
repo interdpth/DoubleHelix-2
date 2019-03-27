@@ -280,7 +280,11 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 				oamEditor->currentFrames->SetStaticFrame(cboFrames->GetListIndex());
 				//reload pointer
 				tmpFrame = oamEditor->currentFrames->GetStaticFrame();
-				oamEditor->SetupPreview(currentRomType, tmpFrame);
+				if (GlobalVars::gblVars->frameTables->OAMFrameTable[tmpFrame->theSprite->id].front() != 0)
+				{
+					cOAMManager::SetupPreview(&GBA, currentRomType, tmpFrame);
+				}
+				
 				oamEditor->LoadTiles(oamEditor->Tiles, tmpFrame);
 				LoadPartsControl();
 				cboPartNo->SetListIndex(0);
@@ -332,7 +336,11 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 
 
 				globalVars->OAMED = true;
-				oamEditor->SetupPreview(currentRomType, tmpFrame);
+				if (GlobalVars::gblVars->frameTables->OAMFrameTable[tmpFrame->theSprite->id].front() != 0)
+				{
+					cOAMManager::SetupPreview(&GBA, currentRomType, tmpFrame);
+				}
+			
 				oamEditor->LoadTiles(oamEditor->Tiles, tmpFrame);
 				oamManager->DecodeOAM(globalVars->OAMED, tmpFrame->theSprite, tmpFrame->frameOffset - 0x8000000);
 				globalVars->OAMED = false;
@@ -461,7 +469,8 @@ LRESULT CALLBACK OAMPalProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 		hdc = BeginPaint(hWnd, &ps);
 		if (cOAMEdit::OamEditor->currentFrames != NULL)
 		{
-			DrawPal(hdc, theFrame->theSprite->PreviewPal);
+			DrawPal(hdc, theFrame->theSprite->PreviewPal, 8);
+			
 		}
 		EndPaint(hWnd, &ps);
 		break;
@@ -669,8 +678,10 @@ LRESULT CALLBACK AnimationProc(HWND hWnd, unsigned int message, WPARAM wParam, L
 			curFrame = oamEditor->currentFrames->GetAnimatedFrame();
 			if (!curFrame->frameInited) {
 				globalVars->OAMED = true;
-
-				oamEditor->SetupPreview(currentRomType, curFrame);
+				if(GlobalVars::gblVars->frameTables->OAMFrameTable[curFrame->theSprite->id].front() != 0)
+				{
+					cOAMManager::SetupPreview(&GBA,currentRomType, curFrame);
+				}
 				oamEditor->LoadTiles(oamEditor->Tiles, curFrame);
 				oamManager->DecodeOAM(globalVars->OAMED, curFrame->theSprite, curFrame->frameOffset - 0x8000000);
 				globalVars->OAMED = false;

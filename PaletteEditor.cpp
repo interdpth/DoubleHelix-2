@@ -22,7 +22,7 @@ BOOL CALLBACK   LPProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 
       hdc = BeginPaint(hwnd, &ps);
 
-      DrawPal(hdc, GBAGraphics::VRAM->PcPalMem, 0, 0, 0);
+      DrawPal(hdc, GBAGraphics::VRAM->PcPalMem, 0, 0, 0, 16);
 
       EndPaint(hwnd, &ps);
 

@@ -354,74 +354,57 @@ BEGIN
     PUSHBUTTON      "Set Sprite",cmdSetSprite,139,126,48,13
 END
 
-frmOAM DIALOGEX 0, 0, 491, 501
+frmOAM DIALOGEX 0, 0, 427, 434
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Sprite Editor"
-MENU mnuSEE
+MENU IDR_MENU2
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    LISTBOX         lstSprites,7,7,46,462,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    GROUPBOX        "Tiles Preview",fraTiles,63,300,208,173
-    GROUPBOX        "Palette Preview",fraPal,280,300,192,168
+    LISTBOX         lstSprites,7,7,46,420,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Tiles Preview",fraTiles,63,249,185,173
+    GROUPBOX        "Palette Preview",fraPal,257,252,162,109
     GROUPBOX        "Sprite Preview",fraSprPreview,59,7,110,123
-    GROUPBOX        "Frame Offset",IDC_STATIC,296,7,177,51
+    GROUPBOX        "Frame Offset",IDC_STATIC,296,7,123,46
     PUSHBUTTON      "Go to Offset",cmdGTO,298,34,62,17
-    GROUPBOX        "Parts ",fraParts,62,162,421,94
-    COMBOBOX        cboParts,95,179,37,94,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Part:",IDC_STATIC,69,182,17,9
-    LTEXT           "Base Pal:",IDC_STATIC,67,219,36,8
-    COMBOBOX        cboBPal,103,217,30,57,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    GROUPBOX        "Frame info",fraFrame,295,59,176,102
-    LTEXT           "Frame:",IDC_STATIC,297,72,22,8
-    COMBOBOX        cboFrameIndex,321,69,27,166,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Frame Pointer:",IDC_STATIC,353,72,48,12
-    EDITTEXT        txtFPOff,401,69,50,12,ES_AUTOHSCROLL
-    LTEXT           "Timer:",IDC_STATIC,376,83,24,9
-    EDITTEXT        txtTimer,401,83,50,12,ES_AUTOHSCROLL
+    GROUPBOX        "Parts ",fraParts,61,135,357,94
+    COMBOBOX        cboParts,95,145,37,94,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Part:",IDC_STATIC,69,148,17,9
+    LTEXT           "Base Pal:",IDC_STATIC,67,185,36,8
+    COMBOBOX        cboBPal,103,183,30,57,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Frame info",fraFrame,298,54,119,75
+    LTEXT           "Frame:",IDC_STATIC,303,68,22,8
+    COMBOBOX        cboFrameIndex,327,68,27,166,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Frame Pointer:",IDC_STATIC,299,99,48,12
+    EDITTEXT        txtFPOff,299,108,50,12,ES_AUTOHSCROLL
     PUSHBUTTON      "Save Frame Data",cmdSFD,299,85,62,11,WS_DISABLED
-    LTEXT           "Flip:",IDC_STATIC,333,212,15,9
-    CONTROL         "Horizontal",chkHorz,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,353,209,48,14
-    CONTROL         "Vertical",chkVert,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,355,222,48,14
-    LTEXT           "Shape:",IDC_STATIC,243,213,23,11
-    COMBOBOX        cboShape,267,213,61,102,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Size:",IDC_STATIC,247,228,17,11
-    COMBOBOX        cboSize,267,228,61,109,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Flip:",IDC_STATIC,303,179,15,9
+    CONTROL         "Horizontal",chkHorz,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,321,179,48,14
+    CONTROL         "Vertical",chkVert,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,321,193,48,14
+    LTEXT           "Shape:",IDC_STATIC,205,185,23,11
+    COMBOBOX        cboShape,235,179,61,102,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Size:",IDC_STATIC,208,201,17,11
+    COMBOBOX        cboSize,235,197,61,109,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Animation Preview",fraSprAnimPreview,187,7,95,123
-    LTEXT           "Tile Number:",lblTileNumber,67,204,45,8
-    PUSHBUTTON      "New Frame",btnNewFrame,299,101,59,14
-    PUSHBUTTON      "Copy Frame",btnCopyFrame,300,119,60,14
-    PUSHBUTTON      "Save Frame Info",IDC_BUTTON3,394,103,62,14
-    PUSHBUTTON      "Add Part",btnAddPartZ,189,179,50,15
-    PUSHBUTTON      "Copy Part",btnCopyPart,137,179,51,15
-    COMBOBOX        cboX,186,214,35,124,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        cboY,186,232,40,137,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "XPos",IDC_STATIC,160,219,18,8
-    LTEXT           "YPos",IDC_STATIC,160,232,18,8
-    PUSHBUTTON      "Reload from Offset",IDC_BUTTON5,393,120,67,14
-    LTEXT           "Reloading a blank frame will reset it",IDC_STATIC,384,139,84,17
-    LTEXT           "Static",lblOAM1,397,179,19,8
-    LTEXT           "Static",lblOAM2,433,179,19,8
-    LTEXT           "Static",lblOAM0,334,180,19,8
+    LTEXT           "Tile Number:",lblTileNumber,67,170,45,8
+    COMBOBOX        cboX,161,181,35,124,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboY,161,198,40,137,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "XPos",IDC_STATIC,140,185,18,8
+    LTEXT           "YPos",IDC_STATIC,139,201,18,8
+    LTEXT           "Static",lblOAM1,189,148,19,8
+    LTEXT           "Static",lblOAM2,226,148,19,8
+    LTEXT           "Static",lblOAM0,156,148,19,8
     PUSHBUTTON      "Save",cmdSave,362,15,50,14
-    PUSHBUTTON      "Save to new offset",cmdSaveToFree,417,15,51,25
-    COMBOBOX        cboPriority,103,233,30,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "BG Priority",IDC_STATIC,67,233,34,8
-    LTEXT           "Load Pal 1",IDC_STATIC,280,263,48,12
-    PUSHBUTTON      "Load GFX1",btnLoadGFX1,193,262,60,14
-    PUSHBUTTON      "Delete Frame",cmdDeleteFrame,301,138,50,14
-    LTEXT           "Tile GFX1",IDC_STATIC,70,265,48,12
-    EDITTEXT        txtGFX1,117,263,50,12,ES_AUTOHSCROLL
-    LTEXT           "Tile GFX2",IDC_STATIC,70,286,48,12
-    EDITTEXT        txtGFX2,117,284,50,12,ES_AUTOHSCROLL
-    PUSHBUTTON      "Load  GFX2",btnLoadGFX2,198,280,50,14
-    PUSHBUTTON      "Load Pal",IDC_BUTTON8,400,260,50,14
-    EDITTEXT        txtFPOff3,336,263,50,12,ES_AUTOHSCROLL
-    LTEXT           "Load Pal 2",IDC_STATIC,279,279,48,12
-    PUSHBUTTON      "Load Pal",IDC_BUTTON9,399,277,50,14
-    EDITTEXT        txtFPOff4,335,279,50,12,ES_AUTOHSCROLL
-    PUSHBUTTON      "Delete Part",cmdDeletePart,243,180,53,15
-    PUSHBUTTON      "Save as C Header",btnCHeader,362,44,72,14
+    COMBOBOX        cboPriority,103,199,30,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "BG Priority",IDC_STATIC,66,201,34,8
+    LTEXT           "Load Pal",IDC_STATIC,253,232,33,11
+    PUSHBUTTON      "Load GFX1",btnLoadGFX1,181,228,60,14
+    LTEXT           "GFX Section",IDC_STATIC,70,231,48,12
+    EDITTEXT        txtGFX1,123,230,50,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Load Pal",IDC_BUTTON8,349,231,50,14
+    EDITTEXT        txtFPOff3,298,231,43,12,ES_AUTOHSCROLL
     COMBOBOX        cboFrameTableCombo,306,17,48,120,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Timer:",IDC_STATIC,356,98,24,9
+    EDITTEXT        txtTimer2,357,109,50,12,ES_AUTOHSCROLL
 END
 
 frmClipboard DIALOG 0, 0, 307, 202
@@ -478,34 +461,14 @@ END
 
 fraBGI DIALOGEX 0, 0, 547, 338
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Importer"
+CAPTION "Data Inserter"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    DEFPUSHBUTTON   "Import",cmdBG,321,46,50,14
-    CTEXT           "Image must be 256x256, 256x512, 512x256 please choose a radio box below for the right one, if not exactly that size there will be errors",IDC_STATIC,459,107,72,59
-    GROUPBOX        "Imported  Image",IDC_STATIC,7,7,167,108
-    COMBOBOX        cboBGPalette,342,87,25,99,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Offset:",IDC_STATIC,319,20,50,8
-    LTEXT           "The basic 0x80 tiles will automatically be added to the tileset you are responsible for the level specific tiles you have 5 palettes to work with",IDC_STATIC,439,26,65,90
-    GROUPBOX        "Palette",IDC_STATIC,193,15,125,103
-    GROUPBOX        "Tilemap",IDC_STATIC,7,149,167,108
-    GROUPBOX        "Raw tiles",IDC_STATIC,186,148,167,108
-    EDITTEXT        IDC_EDIT1,319,30,40,14,ES_AUTOHSCROLL
-    DEFPUSHBUTTON   "Import",cmdBG2,363,176,50,14
-    LTEXT           "Offset:",IDC_STATIC,361,150,50,8
-    EDITTEXT        IDC_EDIT2,361,160,40,14,ES_AUTOHSCROLL
-    DEFPUSHBUTTON   "Import",cmdBG3,9,282,50,14
-    LTEXT           "Offset:",IDC_STATIC,7,256,50,8
-    EDITTEXT        IDC_EDIT3,7,266,40,14,ES_AUTOHSCROLL
-END
-
-frmInsert DIALOG 0, 0, 186, 95
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Dialog"
-FONT 8, "MS Sans Serif"
-BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,129,7,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,129,24,50,14
+    CTEXT           "Image must be 256x256, 256x512, 512x256 please choose a radio box below for the right one, if not exactly that size there will be errors",IDC_STATIC,437,103,72,59
+    LTEXT           "The basic 0x80 tiles will automatically be added to the tileset you are responsible for the level specific tiles you have 5 palettes to work with",IDC_STATIC,439,26,65,64
+    GROUPBOX        "Static",IDC_STATIC,18,14,184,169
+    LTEXT           "Data Type",IDC_STATIC,211,26,40,9
+    COMBOBOX        IDC_COMBO6,256,26,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
 END
 
 frmScroll DIALOGEX 0, 0, 158, 161
@@ -792,9 +755,9 @@ BEGIN
     frmOAM, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 484
+        RIGHTMARGIN, 420
         TOPMARGIN, 7
-        BOTTOMMARGIN, 494
+        BOTTOMMARGIN, 427
     END
 
     frmClipboard, DIALOG
@@ -828,14 +791,6 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 328
         HORZGUIDE, 328
-    END
-
-    frmInsert, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 179
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 88
     END
 
     frmScroll, DIALOG
@@ -991,19 +946,6 @@ BEGIN
     END
 END
 
-mnuSEE MENU
-BEGIN
-    POPUP "Sprite Options"
-    BEGIN
-        MENUITEM "Export Graphics",             mnuEG
-        MENUITEM "Import Graphics",             mnuIG
-        MENUITEM "Export Palette",              mnuEP
-        MENUITEM "Import Palette",              mnuIP
-        MENUITEM "Save Pal",                    mnuSP
-        MENUITEM "Save GFX",                    cmdSG
-    END
-END
-
 mnuInsert MENU
 BEGIN
     POPUP "General Import"
@@ -1057,6 +999,33 @@ BEGIN
     END
 END
 
+IDR_MENU2 MENU
+BEGIN
+    POPUP "Frame Options"
+    BEGIN
+        MENUITEM "New Frame",                   ID_FRAMEOPTIONS_NEWFRAME
+        MENUITEM "Copy Frame",                  ID_FRAMEOPTIONS_COPYFRAME
+        MENUITEM "Save Frame",                  ID_FRAMEOPTIONS_SAVEFRAME
+        MENUITEM "Delete Frame",                ID_FRAMEOPTIONS_DELETEFRAME
+        MENUITEM "Reload From Offset",          ID_FRAMEOPTIONS_RELOADFROMOFFSET
+    END
+    POPUP "Part Options"
+    BEGIN
+        MENUITEM "Copy Part",                   ID_PARTOPTIONS_COPYPART
+        MENUITEM "Add Part",                    ID_PARTOPTIONS_ADDPART
+        MENUITEM "Delete Part",                 ID_PARTOPTIONS_DELETEPART
+    END
+    POPUP "Sprite Options"
+    BEGIN
+        MENUITEM "Export Graphics",             mnuEG
+        MENUITEM "Import Graphics",             mnuIG
+        MENUITEM "Export Palette",              mnuEP
+        MENUITEM "Import Palette",              mnuIP
+        MENUITEM "Save Pal",                    mnuSP
+        MENUITEM "Save GFX",                    cmdSG
+    END
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -1099,43 +1068,6 @@ BEGIN
 0x6f52, 0x6d6f, "\000" 
     cboSpriteSet, 0x403, 2, 0
 0x0030, 
-    0
-END
-
-fraBGI DLGINIT
-BEGIN
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x3030, "\000" 
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x3130, "\000" 
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x3230, "\000" 
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x3330, "\000" 
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x3430, "\000" 
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x3530, "\000" 
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x3630, "\000" 
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x3730, "\000" 
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x3830, "\000" 
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x3930, "\000" 
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x4130, "\000" 
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x4230, "\000" 
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x4330, "\000" 
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x4430, "\000" 
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x4530, "\000" 
-    cboBGPalette, 0x403, 5, 0
-0x7830, 0x4630, "\000" 
     0
 END
 

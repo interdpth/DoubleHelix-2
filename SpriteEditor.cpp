@@ -4,12 +4,12 @@
 #include "cSSE.h"
 #include "SpriteObjectManager.h"
 #include "resource.h"
-void DrawPal(HDC hdc, long* palette)
+void DrawPal(HDC hdc, long* palette, int size = 16)
 {//Is called my WM_Paint for the palette window
 
-	DrawPal(hdc, palette, 0, 0, 128);
+	DrawPal(hdc, palette, 0, 0, 128, size);
 }
-int DrawPal(HDC hdc, long* palette, int X, int Y, int palcol) {
+int DrawPal(HDC hdc, long* palette, int X, int Y, int palcol, int size=16) {
 
 	int i = 0;
 	HBRUSH curbrush = NULL;
@@ -18,20 +18,20 @@ int DrawPal(HDC hdc, long* palette, int X, int Y, int palcol) {
 	for (i = 0; i < 256; i++) {
 
 		curbrush = CreateSolidBrush(0);
-		myrect.left = ((i) % 16) * 16;
-		myrect.top = ((i) / 16) * 16;
-		myrect.right = myrect.left + 16;
-		myrect.bottom = myrect.top + 16;
+		myrect.left = ((i) % 16) * size;
+		myrect.top = ((i) / 16) * size;
+		myrect.right = myrect.left + size;
+		myrect.bottom = myrect.top + size;
 		FillRect(hdc, &myrect, curbrush);
 		DeleteObject(curbrush);
 
 	}
 	for (i = 128; i < 512; i++) {
 		curbrush = CreateSolidBrush(palette[i]);
-		myrect.left = ((i - 128) % 16) * 16;
-		myrect.top = ((i - 128) / 16) * 16;
-		myrect.right = myrect.left + 16;
-		myrect.bottom = myrect.top + 16;
+		myrect.left = ((i - 128) % 16) *size;
+		myrect.top = ((i - 128) / 16) * size;
+		myrect.right = myrect.left + size;
+		myrect.bottom = myrect.top + size;
 		FillRect(hdc, &myrect, curbrush);
 		DeleteObject(curbrush);
 

@@ -520,17 +520,13 @@ int CCForeground() {
 	unsigned char *  compressdata = new unsigned char[32192];
 	memset(compressdata, 0, 32192);
 	switch (cF.GetListIndex()) {
-		// ChangeCompression(BaseGame::theGame->mainRoom->roomHeader.bBg0, 0, 0, BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer));
 		RD1Engine::theGame->mainRoom->roomHeader.bBg0 = 0;
 		break;
 	case 1:
-		//	 ChangeCompression(BaseGame::theGame->mainRoom->roomHeader.bBg1, 1, 0, BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer));
 		RD1Engine::theGame->mainRoom->roomHeader.bBg0 = 0x10;
-		//	     SaveBackground();
 		break;
 
 	case 2:
-		//		ChangeCompression(BaseGame::theGame->mainRoom->roomHeader.bBg1, 2, 0, BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer));
 		RD1Engine::theGame->mainRoom->roomHeader.bBg0 = 0x40;
 		break;
 	}
