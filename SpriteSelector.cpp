@@ -21,7 +21,16 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		SpriteTabIndex=0;
 		break;
 		
-		
+	case WM_CTLCOLORDLG:
+		return (LONG)g_hbrBackground;
+	case WM_CTLCOLORSTATIC:
+	{
+		HDC hdcStatic = (HDC)wParam;
+		SetTextColor(hdcStatic, RGB(255, 255, 255));
+		SetBkMode(hdcStatic, TRANSPARENT);
+		return (LONG)g_hbrBackground;
+	}
+	break;
 	case WM_LBUTTONDOWN:
 		
 		

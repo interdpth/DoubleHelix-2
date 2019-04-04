@@ -433,6 +433,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 
 		ShowWindow(GlobalVars::gblVars->StatEditor->me, SW_SHOW);
 		break;
+	
 	case mnuOpen:
 		OpenRom();
 		break;
@@ -501,6 +502,7 @@ sChecks door;
 	{
 
 	case WM_INITDIALOG:
+		g_hbrBackground = CreateSolidBrush(RGB(30, 30, 30));
 		for (int h = 0; h < 5; h++)
 		{
 			tabs[h] = NULL;
@@ -517,7 +519,7 @@ sChecks door;
 			commCon.dwICC = ICC_TAB_CLASSES;
 			InitCommonControlsEx(&commCon); // have to run this to use tab control
 			hTabControl = GetDlgItem(hwnd, tabMain);
-
+			SetWindowSubclass(hTabControl, ComboProc, subclasscounter++, 0);
 			TCITEM tcItem;
 			tcItem.mask = TCIF_TEXT; // I'm only having text on the tab
 
@@ -810,7 +812,16 @@ sChecks door;
 		// clicked down");
 
 		break;
-
+	case WM_CTLCOLORDLG:
+		return (LONG)g_hbrBackground;
+	case WM_CTLCOLORSTATIC:
+	{
+		HDC hdcStatic = (HDC)wParam;
+		SetTextColor(hdcStatic, RGB(255, 255, 255));
+		SetBkMode(hdcStatic, TRANSPARENT);
+		return (LONG)g_hbrBackground;
+	}
+	break;
 	case WM_DESTROY:
 		bRunApp = 0;
 		if (GBA.ROM)
@@ -890,7 +901,7 @@ int WINAPI      WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCm
 
 
 	GBAGraphics::VRAM = new GBAGraphics();
-	RD1Engine::theGame = new RD1Engine(SupportedTitles::titleUnsupport, NULL, NULL, NULL, NULL);
+	RD1Engine::theGame = new RD1Engine(SupportedTitles::titleWL, NULL, NULL, NULL, NULL);
 	cSSE::SpriteSet = new cSSE();
 
 

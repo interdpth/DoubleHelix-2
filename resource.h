@@ -306,10 +306,12 @@
 #define chkHS                           1250
 #define cboDScroll                      1251
 #define cmdBG                           1252
+#define cbArea                          1252
 #define lblHeaderOffset                 1253
 #define cmdBG2                          1253
 #define btnAddDoor                      1254
 #define cmdBG3                          1254
+#define cboDScroll2                     1255
 #define grpBoxObj                       1256
 #define IDC_EDIT1                       1257
 #define txtByte1                        1257
@@ -455,7 +457,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        161
 #define _APS_NEXT_COMMAND_VALUE         40078
-#define _APS_NEXT_CONTROL_VALUE         1308
+#define _APS_NEXT_CONTROL_VALUE         1309
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

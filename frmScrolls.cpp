@@ -12,7 +12,16 @@ BOOL CALLBACK ScrollWndProc(HWND hwnd, unsigned int message, WPARAM wParam, LPAR
 	editingStates thisState = editingStates::MAP;
 	switch (message)
 	{
-
+	case WM_CTLCOLORDLG:
+		return (LONG)g_hbrBackground;
+	case WM_CTLCOLORSTATIC:
+	{
+		HDC hdcStatic = (HDC)wParam;
+		SetTextColor(hdcStatic, RGB(255, 255, 255));
+		SetBkMode(hdcStatic, TRANSPARENT);
+		return (LONG)g_hbrBackground;
+	}
+	break;
 	case WM_INITDIALOG:	// when dialog is first created
 		ScrollWIn = hwnd;
 

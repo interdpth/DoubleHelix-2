@@ -367,28 +367,8 @@ int cStatEd::SetupPreview()
 
 
 
-	MemFile::currentFile->seek(GFXPnt);
-	MemFile::currentFile->fread(&addybuf, 4, 1);
-	MemFile::currentFile->seek(addybuf - 0x8000000);
-	switch (currentRomType)
-	{
-	case 0:
-		MemFile::currentFile->fread(compBuffer, 1, 32687);
-		size = GBA.LZ77UnComp(compBuffer, decompbuf);
-
-
-		for (int byteCounter = 0; byteCounter <size; byteCounter++)
-		{
-			SpritePreview->PreRAM[0x4000 + byteCounter] = decompbuf[byteCounter];
-		}
-		break;
-	case 1:
-		size = RD1Engine::theGame->mgrOAM->MFSprSize[(SpritePreview->id - 0x10) << 1];
-
-		MemFile::currentFile->fread(&SpritePreview->PreRAM[0x4000], 1, size);
-		break;
-	}
-
+	
+	RD1Engine::theGame->titleInstance->GetGFX(SpritePreview->id, &SpritePreview->PreRAM[0x4000]);
 
 	SpritePreview->Tiles->Load(SpritePreview->PreRAM, 1023);
 	RD1Engine::theGame->mgrOAM->DecodeOAM(GlobalVars::gblVars->OAMED, SpritePreview, GlobalVars::gblVars->frameTables->OAMFrameTable[SpritePreview->id].front());

@@ -19,6 +19,16 @@ BOOL CALLBACK MapDataProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM
 
 		
 		break;
+	case WM_CTLCOLORDLG:
+		return (LONG)g_hbrBackground;
+	case WM_CTLCOLORSTATIC:
+	{
+		HDC hdcStatic = (HDC)wParam;
+		SetTextColor(hdcStatic, RGB(255, 255, 255));
+		SetBkMode(hdcStatic, TRANSPARENT);
+		return (LONG)g_hbrBackground;
+	}
+	break;
 	case BN_CLICKED:
 
 		break;

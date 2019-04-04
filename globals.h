@@ -83,7 +83,7 @@ EXT sCombo cboSSPal;
 //int MoveObj(unsigned char ObjNum, unsigned char Where);
 
 
-
+EXT HBRUSH g_hbrBackground;
 EXT GBAMethods GBA;
 
 EXT TileBuffer      SpriteImage;

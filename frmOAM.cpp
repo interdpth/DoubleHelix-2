@@ -125,10 +125,17 @@ void ReloadFramesControl()
 
 void UpdateStaticSprite()
 {
-	int partNum = (*cboPartNo).GetListIndex();
+	int partNum = cboPartNo->GetListIndex();
 	Frame* thisFrame = cOAMEdit::OamEditor->currentFrames->GetStaticFrame();
 	DecodedOAM *theOAM = &thisFrame->theSprite->OAM[partNum].deOAM;
-	cOAMEdit::OamEditor->currentFrames->UpdateSprite(cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->index, partNum, theOAM->TileNumber, theOAM->xCoord, theOAM->yCoord, cboShapes->GetListIndex(), cboSizes->GetListIndex(), HChk->value(), VChk->value(), cboPal->GetListIndex());
+	int size = cboSizes->GetListIndex();
+	int shape = cboShapes->GetListIndex();
+	cOAMEdit::OamEditor->currentFrames->UpdateSprite(
+		
+		cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->index, 
+		partNum, theOAM->TileNumber, theOAM->xCoord, theOAM->yCoord, 
+		shape, 
+		size, HChk->value(), VChk->value(), cboPal->GetListIndex());
 	cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->theSprite->PreviewSprite.GetFullImage()->Clear();
 	oamManager->DrawPSprite(cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->theSprite);
 	InvalidateRect(*hwndSpritePreview, 0, 1);
@@ -400,8 +407,9 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		case cboShape:
 			if (HIWORD(wParam) == CBN_SELCHANGE)
 			{
+				 
 				UpdateStaticSprite();
-				oamEditor->UpdatePartUI();
+				//oamEditor->UpdatePartUI(false);
 			}
 			break;
 		case cmdDeleteFrame:
@@ -536,6 +544,8 @@ void SetShapeSizeFromRect(RECT* theRect)
 		}
 	}
 }
+
+
 void SetSizeShapeRect(RECT * dstRect)
 {
 	const unsigned char objSizes[3][4][2] =

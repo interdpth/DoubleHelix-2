@@ -577,17 +577,13 @@ BEGIN
     GROUPBOX        "Level",IDC_STATIC,7,9,121,39
     LTEXT           "Area",IDC_STATIC,17,18,24,9
     LTEXT           "Room",IDC_STATIC,15,34,24,8
-    COMBOBOX        cboArea,42,17,80,102,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "Save",cmdSave,166,99,45,12
     GROUPBOX        "Controls",IDC_STATIC,7,49,154,63
     CONTROL         "Edit Foreground",chkForeground,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,59,64,8
     CONTROL         "Edit Level Layer",chkLevel,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,59,61,9
     CONTROL         "Edit Backlayer",chkBacklayer,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,72,73,9
     GROUPBOX        "Clipdata:",fraClip,7,116,211,29
-    COMBOBOX        cboClip,13,127,200,136,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL
     CONTROL         "Edit Clip Data",chkClip,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,75,61,9
-    COMBOBOX        cboRoom,41,33,85,132,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        cboSpriteSet,173,14,26,56,CBS_DROPDOWNLIST | CBS_SORT | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Sprite Set:",IDC_STATIC,135,15,38,10
     CONTROL         "Edit Scrolldata",chkScroll,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,85,61,12
     CONTROL         "Edit Doors",chkDoors,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,87,46,10
@@ -595,6 +591,10 @@ BEGIN
     COMBOBOX        cboDScroll,167,65,42,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Scroll to Edit:",IDC_STATIC,168,52,45,10
     CONTROL         "Resize Doors",chkResizeDoors,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,98,59,12
+    COMBOBOX        cbArea,39,18,85,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboRoom,40,34,87,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboSpriteSet,173,14,42,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboDScroll2,14,128,203,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
 END
 
 frmMainExperiment DIALOGEX 0, 0, 893, 365
@@ -1060,14 +1060,10 @@ END
 
 fraMain DLGINIT
 BEGIN
-    cboArea, 0x403, 6, 0
+    cbArea, 0x403, 6, 0
 0x7241, 0x6165, 0x0073, 
-    cboClip, 0x403, 9, 0
-0x6c43, 0x7069, 0x6164, 0x6174, "\000" 
-    cboRoom, 0x403, 5, 0
-0x6f52, 0x6d6f, "\000" 
-    cboSpriteSet, 0x403, 2, 0
-0x0030, 
+    cboRoom, 0x403, 6, 0
+0x6f52, 0x6d6f, 0x0073, 
     0
 END
 

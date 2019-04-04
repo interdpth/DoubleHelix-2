@@ -532,7 +532,7 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 
 		cboScroll.Init(GetDlgItem(hwnd, cboDScroll));
 		cboScroll.Disable();
-		comboArea.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboArea)));
+		comboArea.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cbArea)));
 		comboRoom.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboRoom)));
 		cboClipData.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboClip)));
 		comboSpriteSet.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboSpriteSet)));
@@ -543,7 +543,7 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 		comboRoom.Additem("Rooms");
 		comboRoom.SetListIndex(0);
 
-		comboArea.Additem("Areas");
+		//comboArea.Additem("Areas");
 		comboArea.SetListIndex(0);
 
 		// etArrays();
@@ -564,6 +564,16 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 
 
 		break;
+	case WM_CTLCOLORDLG:
+		return (LONG)g_hbrBackground;
+	case WM_CTLCOLORSTATIC:
+	{
+		HDC hdcStatic = (HDC)wParam;
+		SetTextColor(hdcStatic, RGB(255, 255, 255));
+		SetBkMode(hdcStatic, TRANSPARENT);
+		return (LONG)g_hbrBackground;
+	}
+	break;
 	case BN_CLICKED:
 
 		break;

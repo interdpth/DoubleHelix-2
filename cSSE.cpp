@@ -197,7 +197,7 @@ int cSSE::SetupPreview(SprGBuf* SprG, int TitleChoice) {
 	int x = 0;
 	memset(GBAGraphics::VRAM->SprPal, 0, sizeof(GBAGraphics::VRAM->SprPal));
 
-	GFXPnt = GameConfiguration::mainCFG->GetDataContainer("SpriteGFX")->Value + (SprG->id - 0x10) * 4;
+	
 	PalPnt = GameConfiguration::mainCFG->GetDataContainer("SpritePal")->Value + (SprG->id - 0x10) * 4;
 	SprG->palsize = RD1Engine::theGame->GetPalSize(SprG->id);
 	
@@ -212,24 +212,27 @@ int cSSE::SetupPreview(SprGBuf* SprG, int TitleChoice) {
 	
 	for (i = 0; i < SprG->palsize; i++)SprG->PreviewPal[128 + i] = cSSE::SpriteSet->SpriteSetData.pal[(8 + SprG->details) * 16 + i];
 	//	memcpy(SprG->PreviewPal,&cSSE::SpriteSet->SpriteSetData.pal[128],128*4);
-	switch (TitleChoice) {
-	case 0:
-		MemFile::currentFile->seek(GFXPnt);
-		MemFile::currentFile->fread(&addybuf, 4, 1);
-		MemFile::currentFile->seek(addybuf - 0x8000000);
-		MemFile::currentFile->fread(compBuffer, 1, 32687);
-		size = GBA.LZ77UnComp(compBuffer, decompbuf);
-		memcpy(&SprG->PreRAM[0x4000], &decompbuf, size);
-		break;
-	case 1:
-		size = RD1Engine::theGame->mgrOAM->MFSprSize[(SprG->id - 0x10) << 1];
-		MemFile::currentFile->seek(GFXPnt);
-		MemFile::currentFile->fread(&addybuf, 4, 1);
-		MemFile::currentFile->seek(addybuf - 0x8000000);
-		MemFile::currentFile->fread(&SprG->PreRAM[0x4000], 1, size);
-		break;
-	}
 
+	//GFXPnt = GameConfiguration::mainCFG->GetDataContainer("SpriteGFX")->Value + (SprG->id - 0x10) * 4;
+	//MemFile::currentFile->seek(GFXPnt);
+	//MemFile::currentFile->fread(&addybuf, 4, 1);
+	//MemFile::currentFile->seek(addybuf - 0x8000000);
+	//switch (TitleChoice) {
+	//case 0:
+
+	//	MemFile::currentFile->fread(compBuffer, 1, 32687);
+	//	size = GBA.LZ77UnComp(compBuffer, decompbuf);
+	//	memcpy(&SprG->PreRAM[0x4000], &decompbuf, size);
+	//	break;
+	//case 1:
+	//	size = RD1Engine::theGame->mgrOAM->MFSprSize[(SprG->id - 0x10) << 1];
+
+	//	MemFile::currentFile->fread(&SprG->PreRAM[0x4000], 1, size);G
+	//	break;
+	//}
+	//
+	
+	RD1Engine::theGame->titleInstance->GetGFX(SprG->id, &SprG->PreRAM[0x4000]);
 	GlobalVars::gblVars->SSE = true;
 	SprG->PreRAM = cSSE::SpriteSet->SpriteSetData.graphics;
 	delete[] decompbuf;

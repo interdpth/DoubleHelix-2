@@ -14,7 +14,16 @@ BOOL CALLBACK DwProc (HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam
 	DoorManager *curMgr = RD1Engine::theGame->mgrDoors;
 	switch (message)
 	{
-		
+	case WM_CTLCOLORDLG:
+		return (LONG)g_hbrBackground;
+	case WM_CTLCOLORSTATIC:
+	{
+		HDC hdcStatic = (HDC)wParam;
+		SetTextColor(hdcStatic, RGB(255, 255, 255));
+		SetBkMode(hdcStatic, TRANSPARENT);
+		return (LONG)g_hbrBackground;
+	}
+	break;
 	case WM_INITDIALOG:	// when dialog is first created
 		DoorWin = hwnd;
 		
