@@ -15,13 +15,13 @@ cOAMEdit::cOAMEdit()
 {
 	printf("Initing");
 	//Create();
-	Tiles = new Image();
-	Tiles->Create(512, 512);
+	tileImage = new Image();
+	tileImage->Create(512, 512);
 }
 
 cOAMEdit::~cOAMEdit() 
 {
-	delete Tiles;
+	delete tileImage;
 	printf("Dying");
 }
 

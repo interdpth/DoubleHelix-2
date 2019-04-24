@@ -292,7 +292,7 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 					cOAMManager::SetupPreview(&GBA, currentRomType, tmpFrame);
 				}
 				
-				oamEditor->LoadTiles(oamEditor->Tiles, tmpFrame);
+				oamEditor->LoadTiles(oamEditor->tileImage, tmpFrame);
 				LoadPartsControl();
 				cboPartNo->SetListIndex(0);
 				oamEditor->UpdatePartUI();
@@ -348,7 +348,7 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 					cOAMManager::SetupPreview(&GBA, currentRomType, tmpFrame);
 				}
 			
-				oamEditor->LoadTiles(oamEditor->Tiles, tmpFrame);
+				oamEditor->LoadTiles(oamEditor->tileImage, tmpFrame);
 				oamManager->DecodeOAM(globalVars->OAMED, tmpFrame->theSprite, tmpFrame->frameOffset - 0x8000000);
 				globalVars->OAMED = false;
 				oamManager->DrawPSprite(tmpFrame->theSprite);
@@ -491,11 +491,11 @@ LRESULT CALLBACK OAMPalProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 
 			theFrame->theSprite->PreviewPal[buf + 128] = RGBA((i / 0x10000), ((i & 0xFF00) / 0x100), (i & 0xFF),255);//(long)(i&0xFFFFFF);
 			InvalidateRect(cSSE::SpriteSet->PalView, 0, 1);
-			cOAMEdit::OamEditor->Tiles->SetPalette(theFrame->theSprite->PreviewPal);
+			cOAMEdit::OamEditor->tileImage->SetPalette(theFrame->theSprite->PreviewPal);
 			//			theFrame->theSprite->PreviewSprite.SetPalette(cSSE::SpriteSet->SpriteSetData.pal);
 
 			for (i = 0; i < 1024; i++) {
-				cOAMEdit::OamEditor->Tiles->Draw(*theFrame->theSprite->Tiles, ((i) % 32) * 8, ((i) / 32) * 8, 0x8000 + i);
+				cOAMEdit::OamEditor->tileImage->Draw(*theFrame->theSprite->Tiles, ((i) % 32) * 8, ((i) / 32) * 8, 0x8000 + i);
 			}
 
 			oamManager->DrawPSprite(theFrame->theSprite);
@@ -587,7 +587,7 @@ LRESULT CALLBACK OAMTileProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 
-		cOAMEdit::OamEditor->Tiles->Blit(hdc, 0, 0, 256, 256, 0, 0);
+		cOAMEdit::OamEditor->tileImage->Blit(hdc, 0, 0, 256, 256, 0, 0);
 		SetSizeShapeRect(&tmp);
 		tmp.left = movingX;
 		tmp.top = movingY;
@@ -692,7 +692,7 @@ LRESULT CALLBACK AnimationProc(HWND hWnd, unsigned int message, WPARAM wParam, L
 				{
 					cOAMManager::SetupPreview(&GBA,currentRomType, curFrame);
 				}
-				oamEditor->LoadTiles(oamEditor->Tiles, curFrame);
+				oamEditor->LoadTiles(oamEditor->tileImage, curFrame);
 				oamManager->DecodeOAM(globalVars->OAMED, curFrame->theSprite, curFrame->frameOffset - 0x8000000);
 				globalVars->OAMED = false;
 				oamManager->DrawPSprite(curFrame->theSprite);

@@ -186,24 +186,9 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 			break;
 		case cmdSaveSet:
 			//Just bare min saving 
-			if (currentRomType == 0) {
+			RD1Engine::theGame->titleInstance->SeekSpriteTable(cSSE::SpriteSet->SpriteSets.GetListIndex());
 
-				MemFile::currentFile->seek((cSSE::SpriteSet->SpriteSets.GetListIndex() * 4) + 0x75F31C);
-				MemFile::currentFile->fread(&off, sizeof(long), 1);
-				MemFile::currentFile->seek(off - 0x8000000);
-
-
-
-			}
-			else if (currentRomType == 1) {
-				MemFile::currentFile->seek(cSSE::SpriteSet->SpriteSets.GetListIndex() * 4 + 0x79ADD8);
-				MemFile::currentFile->fread(&off, sizeof(long), 1);
-				MemFile::currentFile->seek(off - 0x8000000);
-
-
-			}
-
-			for (i = 0; i < cSSE::SpriteSet->total; i++) {
+			for (i = 0; i < RD1Engine::theGame->mgrOAM->maxsprite ; i++) {
 				MemFile::currentFile->fwrite(&mgr->spriteset[i].spriteID, 1, 1);
 				MemFile::currentFile->fwrite(&mgr->spriteset[i].sprdetail, 1, 1);
 			}
@@ -320,19 +305,19 @@ int cSSE::SlightChange(int TitleChoice, unsigned char SpriteSetSelect, cEntityMa
 	char tehbuf[256] = { 0 };
 	int i = 0;
 	total = 0;
+	GlobalVars::gblVars->ReadObjectDetailsFromROM = true;
 	if (currentRomType == 0) {
-		GlobalVars::gblVars->ReadObjectDetailsFromROM = true;
-
+	
 		mgr->LoadSet(true, mgr->gfxinfo, mgr->palinfo, mgr->spriteset, (unsigned char)SpriteSets.GetListIndex());
 
-		GlobalVars::gblVars->ReadObjectDetailsFromROM = false;
+	
 	}
 	else if (currentRomType == 1) {
-		GlobalVars::gblVars->ReadObjectDetailsFromROM = true;
+	
 		mgr->MFLoadSet(true,  mgr->gfxinfo, mgr->palinfo, mgr->spriteset, (unsigned char)SpriteSets.GetListIndex());
-		GlobalVars::gblVars->ReadObjectDetailsFromROM = false;
+		
 	}
-
+	GlobalVars::gblVars->ReadObjectDetailsFromROM = false;
 	return 0;
 }
 
@@ -346,16 +331,16 @@ int CheckTheSize(sprite_entry* SE) {
 
 
 
-	GFX = new long[cSSE::SpriteSet->total];
-	Pal = new long[cSSE::SpriteSet->total];
-	for (i = 0; i < cSSE::SpriteSet->total; i++) GFX[i] = Pal[i] = 0;
+	GFX = new long[RD1Engine::theGame->mgrOAM->maxsprite ];
+	Pal = new long[RD1Engine::theGame->mgrOAM->maxsprite ];
+	for (i = 0; i < RD1Engine::theGame->mgrOAM->maxsprite ; i++) GFX[i] = Pal[i] = 0;
 	off = 0;
 	if (currentRomType == 0) {
 
 
 		RD1Engine::theGame->mainRoom->mgrSpriteObjects->GetZMSetSZ(GFX, Pal, SE);
 		//Calculate Size
-		for (i = 0; i < cSSE::SpriteSet->total; i++)
+		for (i = 0; i < RD1Engine::theGame->mgrOAM->maxsprite ; i++)
 			j += GFX[i];
 
 		if (j <= 0x4000) {
@@ -363,7 +348,7 @@ int CheckTheSize(sprite_entry* SE) {
 			off++;
 		}
 		j = 0;
-		for (i = 0; i < cSSE::SpriteSet->total; i++) j += Pal[i];
+		for (i = 0; i < RD1Engine::theGame->mgrOAM->maxsprite ; i++) j += Pal[i];
 		if (j < 256) {
 
 			off++;
@@ -373,14 +358,14 @@ int CheckTheSize(sprite_entry* SE) {
 	else if (currentRomType == 1) {
 
 		RD1Engine::theGame->mainRoom->mgrSpriteObjects->GetMFSetSZ(GFX, Pal, SE);
-		for (i = 0; i < cSSE::SpriteSet->total; i++)    j += GFX[i];
+		for (i = 0; i < RD1Engine::theGame->mgrOAM->maxsprite ; i++)    j += GFX[i];
 
 		if (j < 0x4000) {
 
 			off++;
 		}
 		j = 0;
-		for (i = 0; i < cSSE::SpriteSet->total; i++) j += Pal[i];
+		for (i = 0; i < RD1Engine::theGame->mgrOAM->maxsprite ; i++) j += Pal[i];
 		if (j < 256) {
 
 			off++;

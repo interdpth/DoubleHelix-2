@@ -46,19 +46,23 @@ int cSSE::GetSet(int TitleChoice, unsigned char SpriteSetSelection, cEntityManag
 	char tehbuf[256] = { 0 };
 	int i = 0;
 	total = 0;
+	GlobalVars::gblVars->SSE = true;
+	GlobalVars::gblVars->ReadObjectDetailsFromROM = true;
 	if (TitleChoice == 0) {
-		GlobalVars::gblVars->SSE = true;
+		
 
 		mgr->LoadSet(true, mgr->gfxinfo, mgr->palinfo, mgr->spriteset, SpriteSetSelection);
-		GlobalVars::gblVars->SSE = false;
+	
 	}
 	else if (TitleChoice == 1) {
-		GlobalVars::gblVars->SSE = true;
+	
 		mgr->MFLoadSet(true,  mgr->gfxinfo, mgr->palinfo, mgr->spriteset, SpriteSetSelection);
-		GlobalVars::gblVars->SSE = false;
+		
 	}
+	GlobalVars::gblVars->SSE = false;
+	GlobalVars::gblVars->ReadObjectDetailsFromROM = false;
 	Population.Clear();
-	for (i = 0; i < cSSE::SpriteSet->total - 1; i++) {
+	for (i = 0; i < RD1Engine::theGame->mgrOAM->maxsprite  - 1; i++) {
 		sprintf(tehbuf, "%X", i);
 
 		Population.Additem(tehbuf);
@@ -74,7 +78,6 @@ int cSSE::DecodeSet(bool romSwitch) {
 	memset(SpriteSetData.pal, 0, sizeof(SpriteSetData.pal));
 	memset(GBAGraphics::VRAM->GBASprPal, 0, sizeof(GBAGraphics::VRAM->GBASprPal));
 	mgr->LoadPal(mgr->palinfo, mgr->spriteset, SpriteSetData.pal);
-
 	RD1Engine::theGame->mgrOAM->LoadSpriteToMem(romSwitch, _gbaMethods, mgr->gfxinfo, mgr->spriteset, SpriteSetData.graphics, &SprGraphics);
 	GlobalVars::gblVars->SSE = false;
 	SpriteSet->Tiles.Create(512, 512);

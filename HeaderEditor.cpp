@@ -97,7 +97,7 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 		case cboTileset:
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
 				roomHeader->bTileset = cmTileset.GetListIndex();
-				RD1Engine::theGame->mgrTileset->GetTileset(GlobalVars::gblVars->imgTileset, RD1Engine::theGame->mainRoom->Area, cmTileset.GetListIndex(), roomHeader->lBg3);
+				RD1Engine::theGame->mgrTileset->GetTileset(GlobalVars::gblVars->imgTileset,cmTileset.GetListIndex(), roomHeader->lBg3);
 				mgr->GetLayer(MapManager::ForeGround)->Dirty = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Dirty = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer)->Dirty = 1;
 				drawRoom = true;
 			}
@@ -210,15 +210,8 @@ int LoadHeaderControls() {
 	char itembuf[256];
 	//Load layer stuff first
 	//Foreground
-	unsigned long Offset = 0;
-	if (currentRomType == 0)
-	{
-		Offset = ((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + comboRoom.GetListIndex() * 0x3C);
-	}
-	else if (currentRomType == 1)
-	{
-		Offset = ((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + comboRoom.GetListIndex() * 0x3C);
-	}
+	unsigned long Offset = ((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + comboRoom.GetListIndex() * 0x3C);
+	
 	sprintf(itembuf, "For manual editing this header can be found at offset: %6X", Offset);
 	SetWindowText(GetDlgItem(hwndHeader, lblHeaderOffset), itembuf);
 	if (RD1Engine::theGame->mainRoom->roomHeader.bBg0 & 0x40) {
@@ -354,7 +347,7 @@ int ChangeSprites() {
 }
 
 int SaveHeader(unsigned char call) {
-	unsigned long  ho = 0;//ho is Header offset :D
+	unsigned long  headerOffset = 0;//ho is Header offset :D
 	char itembuf[256] = { 0 };
 	//Load layer stuff first
 	//Foreground
@@ -475,41 +468,9 @@ int SaveHeader(unsigned char call) {
 
 	}
 
-	ho = ((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + comboRoom.GetListIndex() * 0x3C);
+	headerOffset = ((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + comboRoom.GetListIndex() * 0x3C);
 
-	MemFile::currentFile->seek(ho);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bTileset, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bBg0, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bBg1, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bBg2, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lBg3, sizeof(unsigned long), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lForeground, sizeof(unsigned long), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lLevelData, sizeof(unsigned long), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lBackLayer, sizeof(unsigned long), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lClipData, sizeof(unsigned long), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lBackgroundTSA, sizeof(unsigned long), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bUnknown1, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.TransForeground, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.iSep1, sizeof(unsigned short), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer, sizeof(unsigned long), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex1, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bEventSwitch, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.iSep2, sizeof(unsigned short), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer2, sizeof(unsigned long), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex2, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bEventSwitch2, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.iSeperator, sizeof(unsigned short), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer3, sizeof(unsigned long), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex3, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomX, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomY, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bEffect, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bSceneryYPos, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bNothing, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMusic, sizeof(unsigned char), 1);
-	MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.blank, sizeof(unsigned char), 1);
-
-
+	RD1Engine::theGame->mainRoom->SaveHeader(headerOffset);
 	if (call == 0)SendMessage(hwndMain(), WM_COMMAND, cboRoom, 0);
 	return 0;
 }

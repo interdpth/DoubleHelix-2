@@ -201,7 +201,7 @@ int cTSAEditorClass::SaveBlock() {
 	MemFile::currentFile->fwrite(&RD1Engine::theGame->mgrTileset->TSA.nTSA[Tile * 4], 2, 4);
 	fclose(GBA.ROM);
 	GBA.ROM = fopen(GBA.FileLoc, "r+b");
-	RD1Engine::theGame->mgrTileset->GetTileset(GlobalVars::gblVars->imgTileset, RD1Engine::theGame->mainRoom->Area, roomHeader->bTileset, roomHeader->lBg3);
+	RD1Engine::theGame->mgrTileset->GetTileset(GlobalVars::gblVars->imgTileset, roomHeader->bTileset, roomHeader->lBg3);
 	return 0;
 }
 

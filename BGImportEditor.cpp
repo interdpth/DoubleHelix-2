@@ -188,8 +188,7 @@ GBA.Reopen();
 
 
 long* gfxPointer = NULL;
-if (!currentRomType) gfxPointer = &RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader.bTileset].gBackground;
-if (currentRomType)  gfxPointer = &RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader.bTileset].gBackground;// -0x8000000
+gfxPointer = &RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader.bTileset].gBackground;
 
 *gfxPointer = offsets[3]+0x8000000;
 

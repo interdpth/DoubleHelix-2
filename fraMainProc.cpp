@@ -313,39 +313,10 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 
 			fclose(GBA.ROM);
 			area = comboArea.GetListIndex();
-			GBA.ROM = fopen(GBA.FileLoc, "r+b");
-			if (currentRomType == 0)
-			{
+			
+			
 
-				if (area == 6)
-				{
-					LevelCounter = 0x70;
-				}
-				else
-				{
-
-					LevelCounter = (RD1Engine::theGame->RoomOffsets[area + 1] - RD1Engine::theGame->RoomOffsets[area]) / 0x3C;
-
-				}
-			}
-			else if (currentRomType == 1)
-			{
-
-				if (area == 9)
-				{
-					LevelCounter = 3;
-				}
-				else if (area == 4)
-				{
-					LevelCounter = 0x34;
-				}
-				else
-				{
-
-					LevelCounter = (RD1Engine::theGame->RoomOffsets[area + 1] - RD1Engine::theGame->RoomOffsets[area]) / 0x3C;
-				}
-
-			}
+					LevelCounter = RD1Engine::theGame->titleInstance->GetRoomCount(area);
 			comboRoom.Clear();
 
 			for (i = 0; i < LevelCounter; i++)

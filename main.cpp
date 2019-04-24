@@ -433,7 +433,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 
 		ShowWindow(GlobalVars::gblVars->StatEditor->me, SW_SHOW);
 		break;
-	
+
 	case mnuOpen:
 		OpenRom();
 		break;
@@ -502,7 +502,7 @@ sChecks door;
 	{
 
 	case WM_INITDIALOG:
-		g_hbrBackground = CreateSolidBrush(RGB(30, 30, 30));
+		g_hbrBackground = CreateSolidBrush(RGB(0x2C,0x2F,0x33));
 		for (int h = 0; h < 5; h++)
 		{
 			tabs[h] = NULL;
@@ -971,114 +971,19 @@ int             SetUpCombos(int combon)
 	comboSpriteSet.SetListIndex(0);
 	if (combon == cArea)
 	{
-		if (currentRomType == 0)
+		comboArea.Clear();
+		cboDoorArea1.Clear();
+		cboDoorArea3.Clear();
+		cboDoorArea2.Clear();
+		cboDoorDoor2.Clear();
+		vector<string>* areaNames = RD1Engine::theGame->titleInstance->GetAreaNames();
+		for (int i = 0; i < areaNames->size(); i++)
 		{
-			comboArea.Clear();
-			cboDoorArea1.Clear();
-			cboDoorArea3.Clear();
-			cboDoorArea2.Clear();
-			cboDoorDoor2.Clear();
-
-			comboArea.Additem("Brinstar");
-			cboDoorArea1.Additem("Brinstar");
-			cboDoorArea3.Additem("Brinstar");
-			cboDoorArea2.Additem("Brinstar");
-			cboDoorDoor2.Additem("Brinstar");
-			comboArea.Additem("Kraid");
-			cboDoorArea1.Additem("Kraid");
-			cboDoorArea3.Additem("Kraid");
-			cboDoorArea2.Additem("Kraid");
-			cboDoorDoor2.Additem("Kraid");
-			comboArea.Additem("Norfair");
-			cboDoorArea1.Additem("Norfair");
-			cboDoorArea3.Additem("Norfair");
-			cboDoorArea2.Additem("Norfair");
-			cboDoorDoor2.Additem("Norfair");
-			comboArea.Additem("Ridley");
-			cboDoorArea1.Additem("Ridley");
-			cboDoorArea3.Additem("Ridley");
-			cboDoorArea2.Additem("Ridley");
-			cboDoorDoor2.Additem("Ridley");
-			comboArea.Additem("Tourian");
-			cboDoorArea1.Additem("Tourian");
-			cboDoorArea3.Additem("Tourian");
-			cboDoorArea2.Additem("Tourian");
-			cboDoorDoor2.Additem("Tourian");
-			comboArea.Additem("Crateria");
-			cboDoorArea1.Additem("Crateria");
-			cboDoorArea3.Additem("Crateria");
-			cboDoorArea2.Additem("Crateria");
-			cboDoorDoor2.Additem("Crateria");
-			comboArea.Additem("Chozodia");
-			cboDoorArea1.Additem("Chozodia");
-			cboDoorArea3.Additem("Chozodia");
-			cboDoorArea2.Additem("Chozodia");
-			cboDoorDoor2.Additem("Chozodia");
-		}
-		else if (currentRomType == 1)
-		{
-			comboArea.Clear();
-			cboDoorArea1.Clear();
-			cboDoorArea3.Clear();
-			cboDoorArea2.Clear();
-			cboDoorDoor2.Clear();
-
-			comboArea.Additem("Main Deck");
-			cboDoorArea1.Additem("Main Deck");
-			cboDoorArea3.Additem("Main Deck");
-			cboDoorArea2.Additem("Main Deck");
-			cboDoorDoor2.Additem("Main Deck");
-
-			comboArea.Additem("SRX");
-			cboDoorArea1.Additem("SRX");
-			cboDoorArea3.Additem("SRX");
-			cboDoorArea2.Additem("SRX");
-			cboDoorDoor2.Additem("SRX");
-
-			comboArea.Additem("TRO");
-			cboDoorArea1.Additem("TRO");
-			cboDoorArea3.Additem("TRO");
-			cboDoorArea2.Additem("TRO");
-			cboDoorDoor2.Additem("TRO");
-
-			comboArea.Additem("PYR");
-			cboDoorArea1.Additem("PYR");
-			cboDoorArea3.Additem("PYR");
-
-			comboArea.Additem("AQA");
-			cboDoorArea1.Additem("AQA");
-			cboDoorArea3.Additem("AQA");
-			cboDoorArea2.Additem("AQA");
-			cboDoorDoor2.Additem("AQA");
-			comboArea.Additem("ARC");
-			cboDoorArea1.Additem("ARC");
-			cboDoorArea3.Additem("ARC");
-			cboDoorArea2.Additem("ARC");
-			cboDoorDoor2.Additem("ARC");
-
-			comboArea.Additem("NOC");
-			cboDoorArea1.Additem("NOC");
-			cboDoorArea3.Additem("NOC");
-			cboDoorArea2.Additem("NOC");
-			cboDoorDoor2.Additem("NOC");
-
-			comboArea.Additem("Debug1");
-			cboDoorArea1.Additem("Debug1");
-			cboDoorArea3.Additem("Debug1");
-			cboDoorArea2.Additem("Debug1");
-			cboDoorDoor2.Additem("Debug1");
-
-			comboArea.Additem("Debug2");
-			cboDoorArea1.Additem("Debug2");
-			cboDoorArea3.Additem("Debug2");
-			cboDoorArea2.Additem("Debug2");
-			cboDoorDoor2.Additem("Debug2");
-
-			comboArea.Additem("Debug3");
-			cboDoorArea1.Additem("Debug3");
-			cboDoorArea3.Additem("Debug3");
-			cboDoorArea2.Additem("Debug3");
-			cboDoorDoor2.Additem("Debug3");
+			comboArea.Additem((char*)areaNames->at(i).c_str());
+			cboDoorArea1.Additem((char*)areaNames->at(i).c_str());
+			cboDoorArea3.Additem((char*)areaNames->at(i).c_str());
+			cboDoorArea2.Additem((char*)areaNames->at(i).c_str());
+			cboDoorDoor2.Additem((char*)areaNames->at(i).c_str());
 		}
 	}
 	else if (combon == cClip)

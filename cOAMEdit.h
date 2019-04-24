@@ -48,7 +48,7 @@ static cOAMEdit* OamEditor;
 	HWND   hwndPal;
 	HWND   hwndPartWindow;
 	HWND   _oamWindow;
-	Image* Tiles;
+	Image* tileImage;
 	
 	
 
