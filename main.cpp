@@ -371,7 +371,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		if (currentRomType == -1)
 			return 0;
 		CreateDialog(hGlobal, MAKEINTRESOURCE(fraSSE), 0, cSSEProc);
-		ShowWindow(cSSE::SpriteSet->me, SW_SHOW);
+		ShowWindow(cSpriteSetEditor::SpriteSet->me, SW_SHOW);
 		break;
 	case mnuTSA:
 		if (currentRomType == -1)
@@ -902,7 +902,7 @@ int WINAPI      WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCm
 
 	GBAGraphics::VRAM = new GBAGraphics();
 	RD1Engine::theGame = new RD1Engine(SupportedTitles::titleWL, NULL, NULL, NULL, NULL);
-	cSSE::SpriteSet = new cSSE();
+	cSpriteSetEditor::SpriteSet = new cSpriteSetEditor();
 
 
 
@@ -943,7 +943,7 @@ int WINAPI      WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCm
 	delete GlobalVars::gblVars;
 	delete GBAGraphics::VRAM;
 	delete MiniMapClass::miniMapEditor;
-	delete cSSE::SpriteSet;
+	delete cSpriteSetEditor::SpriteSet;
 
 
 	delete cOAMEdit::OamEditor;

@@ -135,7 +135,7 @@ void UpdateStaticSprite()
 		cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->index, 
 		partNum, theOAM->TileNumber, theOAM->xCoord, theOAM->yCoord, 
 		shape, 
-		size, HChk->value(), VChk->value(), cboPal->GetListIndex());
+		size, HChk->value()==1, VChk->value() == 1, cboPal->GetListIndex());
 	cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->theSprite->PreviewSprite.GetFullImage()->Clear();
 	oamManager->DrawPSprite(cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->theSprite);
 	InvalidateRect(*hwndSpritePreview, 0, 1);
@@ -287,7 +287,7 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 				oamEditor->currentFrames->SetStaticFrame(cboFrames->GetListIndex());
 				//reload pointer
 				tmpFrame = oamEditor->currentFrames->GetStaticFrame();
-				if (GlobalVars::gblVars->frameTables->OAMFrameTable[tmpFrame->theSprite->id].front() != 0)
+				if (GlobalVars::gblVars->frameTables->FramesExist(tmpFrame->theSprite->id))
 				{
 					cOAMManager::SetupPreview(&GBA, currentRomType, tmpFrame);
 				}
@@ -343,7 +343,7 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 
 
 				globalVars->OAMED = true;
-				if (GlobalVars::gblVars->frameTables->OAMFrameTable[tmpFrame->theSprite->id].front() != 0)
+				if (GlobalVars::gblVars->frameTables->FramesExist(tmpFrame->theSprite->id))
 				{
 					cOAMManager::SetupPreview(&GBA, currentRomType, tmpFrame);
 				}
@@ -485,12 +485,12 @@ LRESULT CALLBACK OAMPalProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 
 	case WM_RBUTTONDOWN:
 		buf = (GetX(lParam) / 16) + ((GetY(lParam) / 16) * 16);
-		sprintf(procstring, "Physical Pal Number:%d, Pal Number: %d\nCurrent Pal Slot: %d\nCurrent Pal Number:%d\nCurrent Palette Value is %X", (buf)+128, (buf), (buf % 16) + 1, cSSE::SpriteSet->SpriteSetData.pal[buf + 128], cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->theSprite->PreviewPal[buf]);
+		sprintf(procstring, "Physical Pal Number:%d, Pal Number: %d\nCurrent Pal Slot: %d\nCurrent Pal Number:%d\nCurrent Palette Value is %X", (buf)+128, (buf), (buf % 16) + 1, cSpriteSetEditor::SpriteSet->SpriteSetData.pal[buf + 128], cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->theSprite->PreviewPal[buf]);
 		i = LoadInput(theFrame->theSprite->PreviewPal[buf]);
 		if (i != -1) {
 
 			theFrame->theSprite->PreviewPal[buf + 128] = RGBA((i / 0x10000), ((i & 0xFF00) / 0x100), (i & 0xFF),255);//(long)(i&0xFFFFFF);
-			InvalidateRect(cSSE::SpriteSet->PalView, 0, 1);
+			InvalidateRect(cSpriteSetEditor::SpriteSet->PalView, 0, 1);
 			cOAMEdit::OamEditor->tileImage->SetPalette(theFrame->theSprite->PreviewPal);
 			//			theFrame->theSprite->PreviewSprite.SetPalette(cSSE::SpriteSet->SpriteSetData.pal);
 
@@ -688,7 +688,7 @@ LRESULT CALLBACK AnimationProc(HWND hWnd, unsigned int message, WPARAM wParam, L
 			curFrame = oamEditor->currentFrames->GetAnimatedFrame();
 			if (!curFrame->frameInited) {
 				globalVars->OAMED = true;
-				if(GlobalVars::gblVars->frameTables->OAMFrameTable[curFrame->theSprite->id].front() != 0)
+				if(GlobalVars::gblVars->frameTables->FramesExist(curFrame->theSprite->id))
 				{
 					cOAMManager::SetupPreview(&GBA,currentRomType, curFrame);
 				}

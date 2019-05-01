@@ -52,7 +52,7 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 	{
 		mgr = RD1Engine::theGame->mainRoom->mgrEntities;
 	}
-	cSSE* theSpriteSet = cSSE::SpriteSet;
+	cSpriteSetEditor* theSpriteSet = cSpriteSetEditor::SpriteSet;
 	PAINTSTRUCT ps;
 	HDC hdc;
 	unsigned char curdetail = 0;
@@ -72,8 +72,8 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 	switch (message)
 	{
 	case WM_INITDIALOG:
-		cSSE::SpriteSet->me = hWnd;
-		cSSE::SpriteSet->Create((HINSTANCE)GetWindowLong(hWnd, GWL_HINSTANCE));
+		cSpriteSetEditor::SpriteSet->me = hWnd;
+		cSpriteSetEditor::SpriteSet->Create((HINSTANCE)GetWindowLong(hWnd, GWL_HINSTANCE));
 		break;
 
 
@@ -86,13 +86,12 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		case lstSprites:
 			if (HIWORD(wParam) == LBN_SELCHANGE) {
 
-				cSSE::SpriteSet->GetSet(currentRomType, cSSE::SpriteSet->SpriteSets.GetListIndex(), mgr);//sprite manager should contain the index 
-				cSSE::SpriteSet->DecodeSet(currentRomType);
-				cSSE::SpriteSet->SetInfo();
-				cSSE::SpriteSet->Population.SetListIndex(0);
-				SendMessage(hWnd, WM_COMMAND, 0x000104a7, 0);
-				InvalidateRect(cSSE::SpriteSet->PalView, 0, 1);
-				InvalidateRect(cSSE::SpriteSet->SprTilesView, 0, 1);
+				cSpriteSetEditor::SpriteSet->GetSet(currentRomType, cSpriteSetEditor::SpriteSet->SpriteSets.GetListIndex(), mgr);//sprite manager should contain the index 
+				cSpriteSetEditor::SpriteSet->DecodeSet(currentRomType);
+
+				//SendMessage(hWnd, WM_COMMAND, 0x000104a7, 0);
+				InvalidateRect(cSpriteSetEditor::SpriteSet->PalView, 0, 1);
+				InvalidateRect(cSpriteSetEditor::SpriteSet->SprTilesView, 0, 1);
 			}
 			break;
 		case  cmdSetSprite:
@@ -110,15 +109,11 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		
 			GlobalVars::gblVars->ReadObjectDetailsFromROM = false;
 			GlobalVars::gblVars->SSE = true;
-			cSSE::SpriteSet->GetSet(currentRomType, 0, mgr);
-			cSSE::SpriteSet->DecodeSet(currentRomType);
-			cSSE::SpriteSet->SetInfo();
-			//cSSE::SpriteSet->Population.SetListIndex(0);
-			SendMessage(hWnd, WM_COMMAND, 0x000104a7, 0);
-			cSSE::SpriteSet->Population.SetListIndex(theSpriteSet->Population.GetListIndex());
+			cSpriteSetEditor::SpriteSet->GetSet(currentRomType, 0, mgr);
+			cSpriteSetEditor::SpriteSet->DecodeSet(currentRomType);
 
-			InvalidateRect(cSSE::SpriteSet->PalView, 0, 1);
-			InvalidateRect(cSSE::SpriteSet->SprTilesView, 0, 1);
+			InvalidateRect(cSpriteSetEditor::SpriteSet->PalView, 0, 1);
+			InvalidateRect(cSpriteSetEditor::SpriteSet->SprTilesView, 0, 1);
 			GlobalVars::gblVars->ReadObjectDetailsFromROM = false;
 			GlobalVars::gblVars->SSE = true;
 			break;
@@ -133,10 +128,12 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 				{
 					pop=0;
 				}
-			
-				theSpriteSet->SpritePreview = new SprGBuf(cSSE::SpriteSet->SpriteSetData.graphics, cSSE::SpriteSet->SpriteSetData.pal);
+				theSpriteSet->GetSet(currentRomType, 0, mgr);
+				
+				theSpriteSet->SpritePreview = new SprGBuf(cSpriteSetEditor::SpriteSet->SpriteSetData.graphics, cSpriteSetEditor::SpriteSet->SpriteSetData.pal);
 				theSpriteSet->SpritePreview->id = entMgr->spriteset[pop].spriteID;
 				theSpriteSet->SpritePreview->details = entMgr->spriteset[pop].sprdetail;
+				theSpriteSet->DecodeSet(currentRomType);
 				theSpriteSet->cboDetail.SetListIndex(theSpriteSet->SpritePreview->details);
 				theSpriteSet->SetupPreview(theSpriteSet->SpritePreview, currentRomType);
 
@@ -148,45 +145,11 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 			}
 			break;
 		case cboSlot:
-			if (HIWORD(wParam) == CBN_SELCHANGE) {
-				//Change this sprites slot :O could it cause problems? We'll see!
-				curdetail = mgr->spriteset[theSpriteSet->Population.GetListIndex()].sprdetail;
-
-				for (i = 0; i < theSpriteSet->total; i++) {
-					if ((mgr->spriteset[i].sprdetail == theSpriteSet->cboDetail.GetListIndex())) {//Look for the new detail from the combo 
-						id = 1;
-						break;
-
-					}
-					else {
-
-						id = 0;
-					}
-
-				}
-				if (id)mgr->spriteset[i].sprdetail = curdetail;
-				mgr->spriteset[cSSE::SpriteSet->Population.GetListIndex()].sprdetail = cSSE::SpriteSet->cboDetail.GetListIndex();
-
-				GlobalVars::gblVars->ReadObjectDetailsFromROM = true;
-				GlobalVars::gblVars->SSE = true;
-				theSpriteSet->GetSet(currentRomType, 0, mgr);
-				theSpriteSet->DecodeSet(currentRomType);
-				theSpriteSet->SetInfo();
-				//cSSE::SpriteSet->Population.SetListIndex(0);
-				theSpriteSet->Population.SetListIndex(theSpriteSet->Population.GetListIndex());
-				SendMessage(hWnd, WM_COMMAND, 0x000104a7, 0);
-				InvalidateRect(theSpriteSet->PalView, 0, 1);
-				InvalidateRect(theSpriteSet->SprTilesView, 0, 1);
-				GlobalVars::gblVars->ReadObjectDetailsFromROM = false;
-				GlobalVars::gblVars->SSE = true;
-
-			}
-
-
+			
 			break;
 		case cmdSaveSet:
 			//Just bare min saving 
-			RD1Engine::theGame->titleInstance->SeekSpriteTable(cSSE::SpriteSet->SpriteSets.GetListIndex());
+			RD1Engine::theGame->titleInstance->SeekSpriteTable(cSpriteSetEditor::SpriteSet->SpriteSets.GetListIndex());
 
 			for (i = 0; i < RD1Engine::theGame->mgrOAM->maxsprite ; i++) {
 				MemFile::currentFile->fwrite(&mgr->spriteset[i].spriteID, 1, 1);
@@ -197,7 +160,7 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 			break;
 		case cmdSavePal:
 			GlobalVars::gblVars->SSE = true;
-			RD1Engine::theGame->mainRoom->mgrSpriteObjects->SavePal(mgr->palinfo, mgr->spriteset, cSSE::SpriteSet->SpriteSetData.pal);
+			RD1Engine::theGame->mainRoom->mgrSpriteObjects->SavePal(mgr->palinfo, mgr->spriteset, cSpriteSetEditor::SpriteSet->SpriteSetData.pal);
 			GBA.Reopen();
 			GlobalVars::gblVars->SSE = false;
 			//SendMessage(hwndMain(), WM_COMMAND, 0x00010408, 0);
@@ -213,10 +176,10 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		break;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		if (cSSE::SpriteSet->SpritePreview)
+		if (cSpriteSetEditor::SpriteSet->SpritePreview)
 		{
 			GetWindowRect(GetDlgItem(hWnd, IdSprPrev), &wnd);
-			cSSE::SpriteSet->SpritePreview->PreviewSprite.Blit(hdc, wnd.left, wnd.top, 82, 128, 0, 0);
+			cSpriteSetEditor::SpriteSet->SpritePreview->PreviewSprite.Blit(hdc, wnd.left, wnd.top, 82, 128, 0, 0);
 		}
 
 		EndPaint(hWnd, &ps);
@@ -249,7 +212,7 @@ LRESULT CALLBACK cSSEPalProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 
 		hdc = BeginPaint(hWnd, &ps);
 
-		DrawPal(hdc, cSSE::SpriteSet->SpriteSetData.pal);
+		DrawPal(hdc, cSpriteSetEditor::SpriteSet->SpriteSetData.pal);
 
 
 
@@ -281,7 +244,7 @@ LRESULT CALLBACK cSSETileProc(HWND hWnd, unsigned int message, WPARAM wParam, LP
 
 		hdc = BeginPaint(hWnd, &ps);
 
-		cSSE::SpriteSet->Tiles.Blit(hdc, 0, 0, 512, 512, 0, 0);
+		cSpriteSetEditor::SpriteSet->vramImage.Blit(hdc, 0, 0, 1024, 1024, 0, 0);
 
 
 
@@ -301,22 +264,22 @@ LRESULT CALLBACK cSSETileProc(HWND hWnd, unsigned int message, WPARAM wParam, LP
 
 
 
-int cSSE::SlightChange(int TitleChoice, unsigned char SpriteSetSelect, cEntityManager* mgr) {
+int cSpriteSetEditor::SlightChange(int TitleChoice, unsigned char SpriteSetSelect, cEntityManager* mgr) {
 	char tehbuf[256] = { 0 };
 	int i = 0;
 	total = 0;
 	GlobalVars::gblVars->ReadObjectDetailsFromROM = true;
-	if (currentRomType == 0) {
+	//if (currentRomType == 0) {
 	
 		mgr->LoadSet(true, mgr->gfxinfo, mgr->palinfo, mgr->spriteset, (unsigned char)SpriteSets.GetListIndex());
 
 	
-	}
-	else if (currentRomType == 1) {
+	//}
+	/*else if (currentRomType == 1) {
 	
 		mgr->MFLoadSet(true,  mgr->gfxinfo, mgr->palinfo, mgr->spriteset, (unsigned char)SpriteSets.GetListIndex());
 		
-	}
+	}*/
 	GlobalVars::gblVars->ReadObjectDetailsFromROM = false;
 	return 0;
 }

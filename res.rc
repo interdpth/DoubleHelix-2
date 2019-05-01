@@ -909,7 +909,7 @@ BEGIN
         MENUITEM "Export Bitmap of Room",       mnuEB
         MENUITEM "Export Room",                 mnuER
         MENUITEM "Import Room",                 mnuIR
-        MENUITEM "Insert Stuff",                mnuInsert
+        MENUITEM "Data Inserter",                mnuInsert
         POPUP "Zoom"
         BEGIN
             MENUITEM "Normal",                      ID_ZOOM_NORMAL

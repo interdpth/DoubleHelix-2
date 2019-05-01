@@ -1,21 +1,21 @@
 #include "cSSE.h"
 #include "cOAMManager.h"
 LRESULT CALLBACK cSSETileProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
-cSSE *cSSE::SpriteSet;
-cSSE::cSSE()
+cSpriteSetEditor *cSpriteSetEditor::SpriteSet;
+cSpriteSetEditor::cSpriteSetEditor()
 {
 	SpritePreview = new SprGBuf();
 }
 
 
-cSSE::~cSSE()
+cSpriteSetEditor::~cSpriteSetEditor()
 {
 	delete SpritePreview;
 }
 
 
 
-int cSSE::Create(HINSTANCE mainInstance) {
+int cSpriteSetEditor::Create(HINSTANCE mainInstance) {
 	char stringBuffer[256] = { 0 };
 	int i = 0;
 	SpriteSets.Init(GetDlgItem(me, lstSprites));
@@ -41,26 +41,27 @@ int cSSE::Create(HINSTANCE mainInstance) {
 
 
 
-int cSSE::GetSet(int TitleChoice, unsigned char SpriteSetSelection, cEntityManager* mgr) 
+int cSpriteSetEditor::GetSet(int TitleChoice, unsigned char SpriteSetSelection, cEntityManager* mgr) 
 {//SpriteSets.GetListIndex()
 	char tehbuf[256] = { 0 };
 	int i = 0;
 	total = 0;
 	GlobalVars::gblVars->SSE = true;
-	GlobalVars::gblVars->ReadObjectDetailsFromROM = true;
+	GlobalVars::gblVars->ReadObjectDetailsFromROM = false;
+
 	if (TitleChoice == 0) {
 		
 
-		mgr->LoadSet(true, mgr->gfxinfo, mgr->palinfo, mgr->spriteset, SpriteSetSelection);
+		mgr->LoadSet(GlobalVars::gblVars->ReadObjectDetailsFromROM, mgr->gfxinfo, mgr->palinfo, mgr->spriteset, SpriteSetSelection);
 	
 	}
 	else if (TitleChoice == 1) {
 	
-		mgr->MFLoadSet(true,  mgr->gfxinfo, mgr->palinfo, mgr->spriteset, SpriteSetSelection);
+		mgr->MFLoadSet(GlobalVars::gblVars->ReadObjectDetailsFromROM,  mgr->gfxinfo, mgr->palinfo, mgr->spriteset, SpriteSetSelection);
 		
 	}
 	GlobalVars::gblVars->SSE = false;
-	GlobalVars::gblVars->ReadObjectDetailsFromROM = false;
+	GlobalVars::gblVars->ReadObjectDetailsFromROM = true;
 	Population.Clear();
 	for (i = 0; i < RD1Engine::theGame->mgrOAM->maxsprite  - 1; i++) {
 		sprintf(tehbuf, "%X", i);
@@ -71,26 +72,27 @@ int cSSE::GetSet(int TitleChoice, unsigned char SpriteSetSelection, cEntityManag
 	return 0;
 }
 
-int cSSE::DecodeSet(bool romSwitch) {
+int cSpriteSetEditor::DecodeSet(bool romSwitch) {
 	int i = 0;
 	GlobalVars::gblVars->SSE = true;
 	cEntityManager* mgr = RD1Engine::theGame->mainRoom->mgrEntities;
 	memset(SpriteSetData.pal, 0, sizeof(SpriteSetData.pal));
 	memset(GBAGraphics::VRAM->GBASprPal, 0, sizeof(GBAGraphics::VRAM->GBASprPal));
 	mgr->LoadPal(mgr->palinfo, mgr->spriteset, SpriteSetData.pal);
-	RD1Engine::theGame->mgrOAM->LoadSpriteToMem(romSwitch, _gbaMethods, mgr->gfxinfo, mgr->spriteset, SpriteSetData.graphics, &SprGraphics);
+	SpriteSetData.usedGFX=RD1Engine::theGame->mgrOAM->LoadSpriteToMem(romSwitch, _gbaMethods, mgr->gfxinfo, mgr->spriteset, SpriteSetData.graphics, &SprGraphics);
+	
 	GlobalVars::gblVars->SSE = false;
-	SpriteSet->Tiles.Create(512, 512);
-	SpriteSet->Tiles.SetPalette(SpriteSetData.pal);
+	SpriteSet->vramImage.Create(1024, 512);
+	SpriteSet->vramImage.SetPalette(SpriteSetData.pal);
 	for (i = 512; i < 1024; i++) {
-		SpriteSet->Tiles.Draw(SprGraphics, ((i - 512) % 32) * 8, ((i - 512) / 32) * 8, 0x8000 + i);
+		SpriteSet->vramImage.Draw(SprGraphics, ((i - 512) % 32) * 8, ((i - 512) / 32) * 8, 0x8000 + i);
 	}
 
 	return 0;
 }
 
 
-int cSSE::CreatePalWindow(HINSTANCE myInstance, WNDPROC proc) {
+int cSpriteSetEditor::CreatePalWindow(HINSTANCE myInstance, WNDPROC proc) {
 	WNDCLASSEX garh;
 	memset(&garh, 0, sizeof(garh));
 	garh.cbSize = sizeof(garh);		   // size of structure 
@@ -121,7 +123,7 @@ int cSSE::CreatePalWindow(HINSTANCE myInstance, WNDPROC proc) {
 	return 0;
 }
 
-int cSSE::CreateTileWindow(HINSTANCE mainInstance, WNDPROC proc) {
+int cSpriteSetEditor::CreateTileWindow(HINSTANCE mainInstance, WNDPROC proc) {
 	WNDCLASSEX blahf;
 	memset(&blahf, 0, sizeof(blahf));
 	blahf.cbSize = sizeof(blahf);		   // size of structure 
@@ -153,7 +155,7 @@ int cSSE::CreateTileWindow(HINSTANCE mainInstance, WNDPROC proc) {
 }
 
 
-int cSSE::SetInfo() {
+int cSpriteSetEditor::SetInfo() {
 	char buffer[2048] = { 0 };
 	unsigned short math = 0;
 	math = 0x4000 - SpriteSetData.usedGFX;
@@ -168,7 +170,7 @@ int cSSE::SetInfo() {
 }
 
 
-int cSSE::SetupPreview(SprGBuf* SprG, int TitleChoice) {
+int cSpriteSetEditor::SetupPreview(SprGBuf* SprG, int TitleChoice) {
 
 	if (SprG->id <= 0xf)
 	{
@@ -189,7 +191,7 @@ int cSSE::SetupPreview(SprGBuf* SprG, int TitleChoice) {
 
 
 	InvalidateRect(me, 0, 1);
-	if (GlobalVars::gblVars->frameTables->OAMFrameTable[SprG->id].size() == 0 && GlobalVars::gblVars->frameTables->OAMFrameTable[SprG->id].front() == 0) return 0;
+	if (!GlobalVars::gblVars->frameTables->FramesExist(SprG->id)) return 0;
 	memset(&SprG->PreRAM[0x4000], 0, 0x4000);
 	
 
@@ -213,7 +215,7 @@ int cSSE::SetupPreview(SprGBuf* SprG, int TitleChoice) {
 
 	GBA.DecodePal(GBAGraphics::VRAM->GBASprPal, SprG->PreviewPal, 16, 0);
 	
-	for (i = 0; i < SprG->palsize; i++)SprG->PreviewPal[128 + i] = cSSE::SpriteSet->SpriteSetData.pal[(8 + SprG->details) * 16 + i];
+	for (i = 0; i < SprG->palsize; i++)SprG->PreviewPal[128 + i] = cSpriteSetEditor::SpriteSet->SpriteSetData.pal[(8 + SprG->details) * 16 + i];
 	//	memcpy(SprG->PreviewPal,&cSSE::SpriteSet->SpriteSetData.pal[128],128*4);
 
 	//GFXPnt = GameConfiguration::mainCFG->GetDataContainer("SpriteGFX")->Value + (SprG->id - 0x10) * 4;
@@ -235,15 +237,21 @@ int cSSE::SetupPreview(SprGBuf* SprG, int TitleChoice) {
 	//}
 	//
 	
-	RD1Engine::theGame->titleInstance->GetGFX(SprG->id, &SprG->PreRAM[0x4000]);
+	RD1Engine::theGame->titleInstance->GetGFX(SprG->id, &cSpriteSetEditor::SpriteSet->SpriteSetData.graphics[0x4000]);
 	GlobalVars::gblVars->SSE = true;
-	SprG->PreRAM = cSSE::SpriteSet->SpriteSetData.graphics;
-	delete[] decompbuf;
+	SprG->PreRAM = cSpriteSetEditor::SpriteSet->SpriteSetData.graphics;
+
+	SprG->PreviewPal = cSpriteSetEditor::SpriteSet->SpriteSetData.pal;
+	vramImage.SetPalette(SprG->PreviewPal);
+	SprG->Tiles->Load(SprG->PreRAM, 1024);
 	SprG->PreviewSprite.SetPalette(SprG->PreviewPal);
-	memcpy(SprG->PreRAM, cSSE::SpriteSet->SpriteSetData.graphics, 0x8000);
 	SprG->Tiles->Load(SprG->PreRAM, 1024);
 	RD1Engine::theGame->mgrOAM->DecodeOAM(GlobalVars::gblVars->OAMED, SprG, GlobalVars::gblVars->frameTables->OAMFrameTable[SprG->id].front());
 	RD1Engine::theGame->mgrOAM->DrawPSprite(SprG);
+		SprG->PreRAM = cSpriteSetEditor::SpriteSet->SpriteSetData.graphics;
+	delete[] decompbuf;
+	SprG->PreviewPal = cSpriteSetEditor::SpriteSet->SpriteSetData.pal;
+	vramImage.SetPalette(SprG->PreviewPal);
 	GlobalVars::gblVars->SSE = false;
 	InvalidateRect(me, 0, 1);
 	delete[] compBuffer;

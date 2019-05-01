@@ -310,7 +310,7 @@ int cStatEd::SetupPreview()
 
 	unsigned char *decompbuf = new unsigned char[32687];
 	InvalidateRect(me, 0, 1);
-	if (GlobalVars::gblVars->frameTables->OAMFrameTable[SpritePreview->id].front() == 0)
+	if (!GlobalVars::gblVars->frameTables->FramesExist(SpritePreview->id))
 	{
 		return 0;
 	}

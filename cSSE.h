@@ -9,12 +9,12 @@
 #include "cEnitityManager.h"
 #include "BaseGame.h"
 class cEntityManager;
-class cSSE {//Move most of this class to it's own class....
+class cSpriteSetEditor {//Move most of this class to it's own class....
 public:
 	HWND  me;
 	sList SpriteSets;
 	sList Population;
-	Image Tiles;
+	Image vramImage;
 	sCombo cboDetail;
 	HWND  PalView;
 	HWND  SprTilesView;
@@ -26,17 +26,16 @@ public:
 	int SlightChange(int TitleChoice, unsigned char SpriteSetSelect, cEntityManager* mgr);
 	int GetSet(int TitleChoice, unsigned char SpriteSetSelection, cEntityManager* mgr);
 	int DecodeSet(bool romSwitch);
-	int LoadSprite();
 	int SetupPreview(SprGBuf* SprG, int TitleChoice);
 	SpritesetData SpriteSetData;
 	int SetInfo();
 	TileBuffer SprGraphics;
 	int CreateTileWindow(HINSTANCE mainInstance, WNDPROC proc);
 	int CreatePalWindow(HINSTANCE myInstance, WNDPROC proc);
-	unsigned char total;
-	static cSSE *cSSE::SpriteSet;
-	cSSE();
-	~cSSE();
+	int total;
+	static cSpriteSetEditor *cSpriteSetEditor::SpriteSet;
+	cSpriteSetEditor();
+	~cSpriteSetEditor();
 	
 };
 
