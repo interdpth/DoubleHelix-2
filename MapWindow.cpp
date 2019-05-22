@@ -39,27 +39,30 @@ void UpdateStatusText(int actualX, int actualY)
 	MapManager* mgrMap = NULL;
 	RoomClass* theRoom = NULL;
 	char cBuf[256] = { 0 };
+	char buffer[512] = { 0 };
 	if (RD1Engine::theGame != NULL&&RD1Engine::theGame->mainRoom != NULL)
 	{
 		theRoom = RD1Engine::theGame->mainRoom;
 		mgrMap = theRoom->mapMgr;
 	}
-
+	std::string tmp;
+	sprintf(buffer, "X: %2X, Y: %2X | Selection %X x %X |", actualX, actualY, mpMap.Width, mpMap.Height);
 	if (!mgrMap->GetLayer(4)->TileBuf2D == NULL)
 	{
 		int poo = cboClipData.GetListIndex();
 
-		//			cboClipData.SetListIndex(mgrMap->GetLayer(MapManager::Clipdata)->TileBuf2D[actualX + (actualY)* (mgrMap->GetLayer(MapManager::LevelData)->X)]);
+		cboClipData.SetListIndex(mgrMap->GetLayer(MapManager::Clipdata)->TileBuf2D[actualX + (actualY)* (mgrMap->GetLayer(MapManager::LevelData)->X)]);
 
 		GetWindowText(cboClipData.GetHwnd(), cBuf, 200);
-		SetWindowText(GetDlgItem(GlobalVars::gblVars->frameControls, lblClip), cBuf);
+
+
+		sprintf(buffer, "%s Clipdata: %s", buffer, cBuf);
+
+		SetWindowText(UiState::stateManager->StatusBar, buffer);
+
 		//cboClipData.SetListIndex(poo);
 
 	}
-	sprintf(cBuf, "X: %X", actualX);
-	SetWindowText(GetDlgItem(GlobalVars::gblVars->frameControls, lblX), cBuf);
-	sprintf(cBuf, "Y: %X", actualY);
-	SetWindowText(GetDlgItem(GlobalVars::gblVars->frameControls, lblY), cBuf);
 }
 
 //Handles drawing the room
@@ -206,6 +209,36 @@ void HandleMouseUpDown(int actualX, int actualY, HWND hWnd, unsigned int message
 		break;
 	}
 }
+#define theTimer 2242443242
+
+//Update the sprites
+bool UpdateSprites()
+{
+
+	bool updateWindow = false;
+	if (!RD1Engine::theGame)
+	{
+		return false;
+	}
+	if (!GlobalVars::gblVars->chkAnimatez.GetCheckState())
+	{
+		return false;
+	}
+	vector<FrameManager*> *sprites = &RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites;
+	for (int spriteCounter = 0; spriteCounter < sprites->size(); spriteCounter++)
+	{
+		Frame* animatedFrame = sprites->at(spriteCounter)->GetAnimatedFrame();
+		if (animatedFrame != NULL)
+		{
+			if (sprites->at(spriteCounter)->Animate())
+			{
+				updateWindow = true;
+			}
+		}
+	}
+	return updateWindow;
+}
+
 
 LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
@@ -254,8 +287,28 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		MapVertScroll = new WindowScrollbar(hWnd, true);
 		MapVertScroll->ChangeScrollbars(vsbMap, sVMap);
 		MapHorizScroll->ChangeScrollbars(hsbMap, sHMap);
+		SetTimer(hWnd, theTimer + 1, 15, (TIMERPROC)NULL);
 		break;
+	case WM_TIMER:
+		//Update sprite animations and tileset
+		//	TilesetManager::
+		if (!RD1Engine::theGame || !RD1Engine::theGame->mainRoom)
+		{
+			break;
+		}
 
+		if (wParam == theTimer + 1)
+		{
+			if (UpdateSprites()) {
+				if (RD1Engine::theGame&&RD1Engine::theGame->mainRoom&&RD1Engine::theGame->mainRoom->mapMgr)
+				{
+					RD1Engine::theGame->DrawStatus.dirty = true;
+					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+					InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
+				}
+			}
+		}
+		break;
 	case WM_PAINT:
 		if (theRoom != NULL)
 		{

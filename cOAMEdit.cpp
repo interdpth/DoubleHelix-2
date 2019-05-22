@@ -196,7 +196,7 @@ int cOAMEdit::UpdatePartUI(bool updateSizes ) {
 // &cOAMEdit::OamEditor->currentFrames->GetStaticFrame()
 int cOAMEdit::LoadTiles(Image* tileImage, Frame* targetFrame)
 {
-	SprGBuf*currentSprite = targetFrame->theSprite;
+	SpriteObject*currentSprite = targetFrame->theSprite;
 	currentSprite->Tiles->Load(currentSprite->PreRAM, 1023);
 	if (GlobalVars::gblVars->TileImage != NULL) {
 		tileImage->SetPalette(currentSprite->PreviewPal);

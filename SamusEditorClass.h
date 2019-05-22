@@ -12,7 +12,7 @@ public:
 	HWND	hwndSamusEditor;
 	HWND   hwndSamusSpritePreview;
 	Image* Samus;
-	SprGBuf* SpritePreview;
+	SpriteObject* SpritePreview;
 
 	int animCounter = 0;
 	unsigned short currentTile = -1;

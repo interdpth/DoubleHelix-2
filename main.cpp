@@ -26,6 +26,7 @@
 #include "LeakFinder.h"
 #include <commctrl.h>
 #include "fraMainProc.h"
+void DrawStatusFromUI();
 BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 #pragma comment(lib, "comctl32.lib")
 HWND hTabControl; // tab control handle
@@ -41,56 +42,6 @@ GBAGraphics* TheVRAM;
 nMapBuffer* GetActiveBuffer();
 void CheckZoom(int zoomid);
 int             i;
-#define theTimer 2242443242
-
-//Update the sprites
-bool UpdateSprites()
-{
-
-	bool updateWindow = false;
-	if (!RD1Engine::theGame)
-	{
-		return false;
-	}
-	if (!GlobalVars::gblVars->chkAnimatez.GetCheckState())
-	{
-		return false;
-	}
-	vector<FrameManager*> *sprites = &RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites;
-	for (int spriteCounter = 0; spriteCounter < sprites->size(); spriteCounter++)
-	{
-		Frame* animatedFrame = sprites->at(spriteCounter)->GetAnimatedFrame();
-		if (animatedFrame != NULL)
-		{
-			if (sprites->at(spriteCounter)->Animate())
-			{
-				updateWindow = true;
-			}
-		}
-	}
-	return updateWindow;
-}
-
-//Refresh the tileset
-bool RefreshTileset()
-{
-	if (!GlobalVars::gblVars->chkAnimatez.GetCheckState())
-	{
-		return false;
-	}
-	bool retVal = false;
-	if (RD1Engine::theGame && RD1Engine::theGame->mgrTileset && RD1Engine::theGame->mgrTileset->animTiles)
-	{
-		retVal = RD1Engine::theGame->mgrTileset->animTiles->Animate();
-
-		if (retVal)
-		{
-
-			RD1Engine::theGame->mgrTileset->Render(GlobalVars::gblVars->imgTileset);
-		}
-	}
-	return retVal;
-}
 
 //Wrapper for MessageBox
 int             sMessage(char *messagestring)
@@ -99,7 +50,10 @@ int             sMessage(char *messagestring)
 	return 0;
 }
 
-
+void ErrorMessage(char *errString)
+{
+	MessageBox(hwndMain(), errString, "Error", MB_ICONEXCLAMATION|MB_OK);
+}
 //Get the current window
 HWND hwndMain()
 {
@@ -153,6 +107,7 @@ void TabResize()
 		height = tilesetWindow.top + tilesetWindow.bottom + 32;
 	}
 	MoveWindow(hwndMain(), tabControl.left, tabControl.top, tabControl.right, height, true);
+	SendMessage(UiState::stateManager->StatusBar, WM_SIZE, 0, 0);
 	InvalidateRect(hwndMain(), 0, true);
 }
 
@@ -248,7 +203,7 @@ bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPar
 		return true;
 		break;
 	case ID_DAA:
-		RD1Engine::theGame->DumpAreaAsImage("heyman.bmp", GlobalVars::gblVars->imgTileset, &SpriteImage);
+		RD1Engine::theGame->DumpAreaAsImage("heyman.bmp", GlobalVars::gblVars->imgTileset, &SpriteImage, GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage);
 		return true;
 		break;
 	}
@@ -280,6 +235,18 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 	}
 	switch (LOWORD(wParam))
 	{
+	case ID_ROOMTOOLS_EDITLEVELPAL:
+		// if(crf==-1) return  0;
+		ShowWindow(hwndLPE, 1);
+
+		break;
+
+
+	case ID_MAP_SHOWSPRITES:
+		DrawStatusFromUI();
+		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+		InvalidateRect(hwnd, 0, true);
+		break;
 	case mnuEB:
 		if (currentRomType == -1)
 			return 0;
@@ -370,7 +337,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 	case mnuSSE:
 		if (currentRomType == -1)
 			return 0;
-		CreateDialog(hGlobal, MAKEINTRESOURCE(fraSSE), 0, cSSEProc);
+		CreateDialog(hGlobal, MAKEINTRESOURCE(fraSSE), 0, SpriteSetEditorProc);
 		ShowWindow(cSpriteSetEditor::SpriteSet->me, SW_SHOW);
 		break;
 	case mnuTSA:
@@ -503,6 +470,7 @@ sChecks door;
 
 	case WM_INITDIALOG:
 		g_hbrBackground = CreateSolidBrush(RGB(0x2C,0x2F,0x33));
+		
 		for (int h = 0; h < 5; h++)
 		{
 			tabs[h] = NULL;
@@ -512,6 +480,7 @@ sChecks door;
 			HICON           hIcon = LoadIcon(hGlobal, MAKEINTRESOURCE(IDI_ICON7));
 			SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
 		}
+	
 		if (UiState::stateManager->GetWindowState() == WindowState::EXPERT)
 		{
 			INITCOMMONCONTROLSEX commCon;
@@ -564,7 +533,8 @@ sChecks door;
 
 
 			ShowWindow(hCurrentTab, 1);
-
+			UiState::stateManager->StatusBar =  CreateStatusWindow(WS_CHILD | WS_VISIBLE , "TEST", hwnd,9000);
+		
 		}
 		ClearGlobals();
 
@@ -643,8 +613,8 @@ sChecks door;
 
 		TabResize();
 
-		SetTimer(hwnd, theTimer, 15, (TIMERPROC)NULL);
-		SetTimer(hwnd, theTimer + 1, 90, (TIMERPROC)NULL);
+
+
 		//LoadTrans("[MainMenu]", 0, hwnd);
 		break;
 	case WM_NOTIFY:
@@ -685,7 +655,7 @@ sChecks door;
 				}
 				else
 				{
-					sMessage("Please check Edit Doors before going to this tab.");
+					ErrorMessage("Please check Edit Doors before going to this tab.");
 					TabCtrl_SetCurSel(hTabControl, 0);
 
 					hCurrentTab = tabs[0];
@@ -702,7 +672,7 @@ sChecks door;
 				}
 				else
 				{
-					sMessage("Please check Edit Scrolls before going to this tab.");
+					ErrorMessage("Please check Edit Scrolls before going to this tab.");
 					TabCtrl_SetCurSel(hTabControl, 0);
 					hCurrentTab = tabs[0];
 				}
@@ -720,7 +690,7 @@ sChecks door;
 				}
 				else
 				{
-					sMessage("Please check Edit Sprites before going to this tab.");
+					ErrorMessage("Please check Edit Sprites before going to this tab.");
 					TabCtrl_SetCurSel(hTabControl, 0);
 					hCurrentTab = tabs[0];
 				}
@@ -736,38 +706,7 @@ sChecks door;
 		}//End of Switch
 		return TRUE;
 		break;
-	case WM_TIMER:
-		//Update sprite animations and tileset
-		//	TilesetManager::
-		if (!RD1Engine::theGame || !RD1Engine::theGame->mainRoom)
-		{
-			break;
-		}
-		if (wParam == theTimer)
-		{
-			if (RefreshTileset()) {
-				if (RD1Engine::theGame&&RD1Engine::theGame->mainRoom&&RD1Engine::theGame->mainRoom->mapMgr)
-				{
-					RD1Engine::theGame->DrawStatus.dirty = true;
-					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-					InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
-					InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
-				}
-			}
-		}
-
-		if (wParam == theTimer + 1)
-		{
-			if (UpdateSprites()) {
-				if (RD1Engine::theGame&&RD1Engine::theGame->mainRoom&&RD1Engine::theGame->mainRoom->mapMgr)
-				{
-					RD1Engine::theGame->DrawStatus.dirty = true;
-					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-					InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
-				}
-			}
-		}
-		break;
+	
 	case  WM_WINDOWPOSCHANGED:
 		/*	ShowWindow(DoorWin, SW_SHOW);
 			MoveDoorObj();

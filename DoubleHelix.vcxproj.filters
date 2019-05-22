@@ -24,7 +24,6 @@
     <ClCompile Include="ROMFile.cpp" />
     <ClCompile Include="RoomOptions.cpp" />
     <ClCompile Include="SceneryEditor.cpp" />
-    <ClCompile Include="SpriteEditor.cpp" />
     <ClCompile Include="StatEditor.cpp" />
     <ClCompile Include="TextEditor.cpp" />
     <ClCompile Include="TilesetWindow.cpp" />
@@ -64,7 +63,6 @@
     <ClCompile Include="TabControls.cpp" />
     <ClCompile Include="fraMainProc.cpp" />
     <ClCompile Include="TSAEditor.cpp" />
-    <ClCompile Include="LevelPaletteEditor.cpp" />
     <ClCompile Include="MapWindow.cpp" />
     <ClCompile Include="frmSamusEditor.cpp" />
     <ClCompile Include="SamusEditorClass.cpp" />
@@ -73,6 +71,7 @@
     <ClCompile Include="clsScroll.cpp" />
     <ClCompile Include="MapUtils.cpp" />
     <ClCompile Include="SpriteSelector.cpp" />
+    <ClCompile Include="SpriteSetEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cOAMEdit.h" />

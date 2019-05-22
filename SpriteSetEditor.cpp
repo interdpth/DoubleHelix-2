@@ -4,12 +4,12 @@
 #include "cSSE.h"
 #include "SpriteObjectManager.h"
 #include "resource.h"
-void DrawPal(HDC hdc, long* palette, int size = 16)
+void DrawSpritePAl(HDC hdc, long* palette, int size = 16)
 {//Is called my WM_Paint for the palette window
 
-	DrawPal(hdc, palette, 0, 0, 128, size);
+	DrawSpritePAl(hdc, palette, 0, 0, 128, size);
 }
-int DrawPal(HDC hdc, long* palette, int X, int Y, int palcol, int size=16) {
+int DrawSpritePAl(HDC hdc, long* palette, int X, int Y, int palcol, int size=16) {
 
 	int i = 0;
 	HBRUSH curbrush = NULL;
@@ -41,11 +41,7 @@ int DrawPal(HDC hdc, long* palette, int X, int Y, int palcol, int size=16) {
 }
 
 
-void hey()
-{
-
-}
-BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam) {
+BOOL CALLBACK  SpriteSetEditorProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam) {
 
 	cEntityManager* mgr;
 	if (RD1Engine::theGame && RD1Engine::theGame->mainRoom)
@@ -86,8 +82,8 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		case lstSprites:
 			if (HIWORD(wParam) == LBN_SELCHANGE) {
 
-				cSpriteSetEditor::SpriteSet->GetSet(currentRomType, cSpriteSetEditor::SpriteSet->SpriteSets.GetListIndex(), mgr);//sprite manager should contain the index 
-				cSpriteSetEditor::SpriteSet->DecodeSet(currentRomType);
+				cSpriteSetEditor::SpriteSet->GetSetData(currentRomType, cSpriteSetEditor::SpriteSet->SpriteSets.GetListIndex(), mgr);//sprite manager should contain the index 
+				cSpriteSetEditor::SpriteSet->GetSpritesPalAndTiles(currentRomType);
 
 				//SendMessage(hWnd, WM_COMMAND, 0x000104a7, 0);
 				InvalidateRect(cSpriteSetEditor::SpriteSet->PalView, 0, 1);
@@ -109,8 +105,8 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		
 			GlobalVars::gblVars->ReadObjectDetailsFromROM = false;
 			GlobalVars::gblVars->SSE = true;
-			cSpriteSetEditor::SpriteSet->GetSet(currentRomType, 0, mgr);
-			cSpriteSetEditor::SpriteSet->DecodeSet(currentRomType);
+			cSpriteSetEditor::SpriteSet->GetSetData(currentRomType, 0, mgr);
+			cSpriteSetEditor::SpriteSet->GetSpritesPalAndTiles(currentRomType);
 
 			InvalidateRect(cSpriteSetEditor::SpriteSet->PalView, 0, 1);
 			InvalidateRect(cSpriteSetEditor::SpriteSet->SprTilesView, 0, 1);
@@ -128,12 +124,12 @@ BOOL CALLBACK  cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 				{
 					pop=0;
 				}
-				theSpriteSet->GetSet(currentRomType, 0, mgr);
+			//	theSpriteSet->GetSetData(currentRomType, 0, mgr);
 				
-				theSpriteSet->SpritePreview = new SprGBuf(cSpriteSetEditor::SpriteSet->SpriteSetData.graphics, cSpriteSetEditor::SpriteSet->SpriteSetData.pal);
+				theSpriteSet->SpritePreview = new SpriteObject(cSpriteSetEditor::SpriteSet->SpriteSetData.graphics, cSpriteSetEditor::SpriteSet->SpriteSetData.pal);
 				theSpriteSet->SpritePreview->id = entMgr->spriteset[pop].spriteID;
 				theSpriteSet->SpritePreview->details = entMgr->spriteset[pop].sprdetail;
-				theSpriteSet->DecodeSet(currentRomType);
+				theSpriteSet->GetSpritesPalAndTiles(currentRomType);
 				theSpriteSet->cboDetail.SetListIndex(theSpriteSet->SpritePreview->details);
 				theSpriteSet->SetupPreview(theSpriteSet->SpritePreview, currentRomType);
 
@@ -212,7 +208,7 @@ LRESULT CALLBACK cSSEPalProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 
 		hdc = BeginPaint(hWnd, &ps);
 
-		DrawPal(hdc, cSpriteSetEditor::SpriteSet->SpriteSetData.pal);
+		DrawSpritePAl(hdc, cSpriteSetEditor::SpriteSet->SpriteSetData.pal);
 
 
 
@@ -269,17 +265,17 @@ int cSpriteSetEditor::SlightChange(int TitleChoice, unsigned char SpriteSetSelec
 	int i = 0;
 	total = 0;
 	GlobalVars::gblVars->ReadObjectDetailsFromROM = true;
-	//if (currentRomType == 0) {
+	if (currentRomType == 0) {
 	
-		mgr->LoadSet(true, mgr->gfxinfo, mgr->palinfo, mgr->spriteset, (unsigned char)SpriteSets.GetListIndex());
+		mgr->LoadSet(true, &mgr->gfxinfo, mgr->palinfo, mgr->spriteset, (unsigned char)SpriteSets.GetListIndex());
 
 	
-	//}
-	/*else if (currentRomType == 1) {
+	}
+	else if (currentRomType == 1) {
 	
-		mgr->MFLoadSet(true,  mgr->gfxinfo, mgr->palinfo, mgr->spriteset, (unsigned char)SpriteSets.GetListIndex());
+		mgr->MFLoadSet(true,  &mgr->gfxinfo, mgr->palinfo, mgr->spriteset, (unsigned char)SpriteSets.GetListIndex());
 		
-	}*/
+	}
 	GlobalVars::gblVars->ReadObjectDetailsFromROM = false;
 	return 0;
 }

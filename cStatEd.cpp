@@ -2,7 +2,7 @@
 
 cStatEd::cStatEd(int crf)
 {
-	SpritePreview = new SprGBuf();
+	SpritePreview = new SpriteObject();
 	me = NULL;
 	currentRomType = crf;
 }

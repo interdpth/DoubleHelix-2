@@ -22,14 +22,14 @@ void DrawStatusFromUI()
 void CheckZoom(int zoomid)
 {
 	HMENU mainMenu = GetMenu(UiState::stateManager->GetWindow());
-	
-		int zoomIDs[3] = { ID_ZOOM_NORMAL,ID_ZOOM_1, ID_ZOOM_2 };
-		for (int i = 0; i < 3; i++)
-		{
-			CheckMenuItem(mainMenu, zoomIDs[i], MF_UNCHECKED);
-		}
-		CheckMenuItem(mainMenu, zoomIDs[zoomid], MF_CHECKED);
-				
+
+	int zoomIDs[3] = { ID_ZOOM_NORMAL,ID_ZOOM_1, ID_ZOOM_2 };
+	for (int i = 0; i < 3; i++)
+	{
+		CheckMenuItem(mainMenu, zoomIDs[i], MF_UNCHECKED);
+	}
+	CheckMenuItem(mainMenu, zoomIDs[zoomid], MF_CHECKED);
+
 }
 void DisableByState(sChecks* chkToUse)
 {
@@ -122,7 +122,7 @@ bool ProcessControls2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		return true;
 		break;
 	case ID_DAA:
-		RD1Engine::theGame->DumpAreaAsImage("heyman.bmp", GlobalVars::gblVars->imgTileset, &SpriteImage);
+		RD1Engine::theGame->DumpAreaAsImage("heyman.bmp", GlobalVars::gblVars->imgTileset, &SpriteImage, GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage);
 		return true;
 		break;
 	}
@@ -142,17 +142,17 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 	HWND            debug = NULL;
 	int someval = 0;
 	RD1Engine* mainGame = NULL;
-	ProcessControls2(hwnd,  message, wParam,  lParam);
-	
+	ProcessControls2(hwnd, message, wParam, lParam);
+
 	switch (LOWORD(wParam))
 	{
 	case   chkResizeDoors:
 		if (GlobalVars::gblVars->chkBoxED.value() == 1) {
-			
+
 		}
 		break;
 	case chkSprites:
-	//	DisableByState(&GlobalVars::gblVars->checkBoxchkES);
+		//	DisableByState(&GlobalVars::gblVars->checkBoxchkES);
 		someval = GlobalVars::gblVars->checkBoxchkES.GetCheckState();
 		RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetState(someval == 1 ? editingStates::SPRITE : editingStates::MAP);
 		UiState::stateManager->ShowObj();
@@ -163,23 +163,12 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetState(someval == 1 ? editingStates::DOOR : editingStates::MAP);
 		UiState::stateManager->ShowObj();
 		break;
-	case ID_ROOMTOOLS_EDITLEVELPAL:
-		// if(crf==-1) return  0;
-		ShowWindow(hwndLPE, 1);
-
-		break;
-
 	
-	case ID_MAP_SHOWSPRITES:
-		DrawStatusFromUI();
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-		InvalidateRect(hwnd, 0, true);
-		break;
 
 	case mnuIPSP:
 		if (currentRomType == -1)
 			return 0;
-		GBA.ReturnFileName("Please Select an Apply File to apply\0*.ips", cBuf, 1024);
+		GBA.ReturnFileName("Select an IPS File to apply\0*.ips", cBuf, 1024);
 		ApplyIPS(cBuf, GBA.FileLoc);
 		break;
 
@@ -196,7 +185,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		}
 		break;
-	
+
 	case cmdES:
 
 		if (currentRomType == -1)
@@ -204,7 +193,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		ShowWindow(SceneWnd, SW_SHOW);
 		ShowWindow(TSScene, SW_SHOW);
 		break;
-	
+
 	case cboSpriteSet:
 		if (HIWORD(wParam) == CBN_SELCHANGE)
 		{
@@ -293,7 +282,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 	case ID_MAP_VIEWBACKGROUND:
 		if (!LoadingLevel)
 			DrawStatusFromUI();
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		break;
 	case chkSRe:
 		GlobalVars::gblVars->checkBoxsMove.SetCheckState(false);
@@ -308,15 +297,14 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 
 		break;
 	case cboArea:
+	case cbArea:
 		if (HIWORD(wParam) == CBN_SELCHANGE)
 		{
-
-			fclose(GBA.ROM);
 			area = comboArea.GetListIndex();
-			
-			
 
-					LevelCounter = RD1Engine::theGame->titleInstance->GetRoomCount(area);
+
+
+			LevelCounter = RD1Engine::theGame->titleInstance->GetRoomCount(area);
 			comboRoom.Clear();
 
 			for (i = 0; i < LevelCounter; i++)
@@ -341,8 +329,8 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		if (HIWORD(wParam) == CBN_SELCHANGE)
 		{
 			int room = comboRoom.GetListIndex();
-			
-			RD1Engine::theGame->LoadRoomSpriteSet(comboArea.GetListIndex(), comboRoom.GetListIndex(), GlobalVars::gblVars->imgTileset,&SpriteImage);
+
+			RD1Engine::theGame->LoadRoomSpriteSet(comboArea.GetListIndex(), comboRoom.GetListIndex(), GlobalVars::gblVars->imgTileset, &SpriteImage);
 			comboSpriteSet.Clear();
 			for (int i = 0; i < RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects.size(); i++)
 			{
@@ -404,7 +392,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 			GetWindowRect(UiState::stateManager->GetMapWindow(), &t);
 			MoveWindow(UiState::stateManager->GetMapWindow(), t.left, t.top, 512, 496, 1);
 			UiState::stateManager->UpdateMapObjectWindow();
-		
+
 			InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
 			//InvalidateRect(MiniMapClass::miniMapEditor->hwndMiniMap, 0, 1);
 		}
@@ -473,7 +461,7 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 		GlobalVars::gblVars->chkMC[3].SetCnt(GetDlgItem(hwnd, chkClip2));
 		chkDoTrans.Init(UiState::stateManager->GetWindow(), ID_MAP_SHOWTRANSPARENCY);
 		chkDoTrans.SetCheckState(true);
-	
+
 		GlobalVars::gblVars->checkBoxshowmap.value(1);
 		GlobalVars::gblVars->checkBoxshowtileset.value(1);
 		GlobalVars::gblVars->chkAnimatez.Init(UiState::stateManager->GetWindow(), ID_MAP_ANIMATE);
@@ -484,7 +472,7 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 
 		CreateDialog(hGlobal, MAKEINTRESOURCE(frmSceneryEditor), 0, SceneProc);
 
-		
+
 
 		CreateDialog(hGlobal, MAKEINTRESOURCE(fraTBE), 0, TSAProc);
 
@@ -529,9 +517,9 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 		mpMap.sY = mpMap.eY = mpMap.cY = 0;
 		//myLoadedPic = Image::Import(GlobalVars::gblVars->AppPath, "dmansbg.png");
 		break;
-	
+
 	case  WM_WINDOWPOSCHANGED:
-	
+
 
 
 		break;
@@ -553,21 +541,21 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 		HandleDetections2(hwnd, message, wParam, lParam);
 		break;
 
-	case WM_VSCROLL: 
+	case WM_VSCROLL:
 
 		break;
-		case WM_PAINT :
-		
-		{
+	case WM_PAINT:
 
-	    	hdc = BeginPaint(hwnd, &ps);
+	{
 
-	
-			EndPaint(hwnd, &ps);
-			ReleaseDC(hwnd, hdc);
+		hdc = BeginPaint(hwnd, &ps);
 
-			
-		}
+
+		EndPaint(hwnd, &ps);
+		ReleaseDC(hwnd, hdc);
+
+
+	}
 	}
 
 	return 0;

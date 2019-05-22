@@ -441,22 +441,22 @@ BEGIN
     LTEXT           "Dest Door:",IDC_STATIC,145,97,48,12
 END
 
-frmLPE DIALOG 0, 0, 361, 166
+frmLPE DIALOGEX 0, 0, 361, 166
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "The LevelPalette Editor"
-FONT 8, "MS Sans Serif"
+CAPTION "Room Palette Editor"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    LTEXT           "0",lblC1,279,32,59,17
-    SCROLLBAR       hsbC1,202,52,133,8
-    LTEXT           "0",lblC2,279,71,59,20
-    SCROLLBAR       hsbC2,200,95,135,8
-    LTEXT           "0",lblC3,277,111,59,20
-    SCROLLBAR       hsbC3,200,131,135,8
-    LTEXT           "Red",IDC_STATIC,170,51,14,14
-    LTEXT           "Green",IDC_STATIC,170,94,30,10
-    LTEXT           "Blue",IDC_STATIC,170,131,15,8
-    PUSHBUTTON      "Apply New Colors",cmdANC,167,15,63,17
-    PUSHBUTTON      "Save Colors",cmdSaveColors,168,32,63,15
+    LTEXT           "0",lblC1,286,32,59,17
+    SCROLLBAR       hsbC1,209,52,133,8
+    LTEXT           "0",lblC2,286,71,59,20
+    SCROLLBAR       hsbC2,207,95,135,8
+    LTEXT           "0",lblC3,284,111,59,20
+    SCROLLBAR       hsbC3,207,131,135,8
+    LTEXT           "Red",IDC_STATIC,177,51,14,14
+    LTEXT           "Green",IDC_STATIC,177,94,30,10
+    LTEXT           "Blue",IDC_STATIC,177,131,15,8
+    PUSHBUTTON      "Apply New Colors",cmdANC,174,15,63,17
+    PUSHBUTTON      "Save Colors",cmdSaveColors,175,32,63,15
 END
 
 fraBGI DIALOGEX 0, 0, 547, 338
@@ -594,7 +594,7 @@ BEGIN
     COMBOBOX        cbArea,39,18,85,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
     COMBOBOX        cboRoom,40,34,87,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
     COMBOBOX        cboSpriteSet,173,14,42,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        cboDScroll2,14,128,203,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboClip,7,128,203,79,CBS_DROPDOWN | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
 END
 
 frmMainExperiment DIALOGEX 0, 0, 893, 365
@@ -909,7 +909,7 @@ BEGIN
         MENUITEM "Export Bitmap of Room",       mnuEB
         MENUITEM "Export Room",                 mnuER
         MENUITEM "Import Room",                 mnuIR
-        MENUITEM "Data Inserter",                mnuInsert
+        MENUITEM "Data Inserter",               mnuInsert
         POPUP "Zoom"
         BEGIN
             MENUITEM "Normal",                      ID_ZOOM_NORMAL
@@ -1149,6 +1149,11 @@ BEGIN
 END
 
 frmSamusEditor AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+frmLPE AFX_DIALOG_LAYOUT
 BEGIN
     0
 END

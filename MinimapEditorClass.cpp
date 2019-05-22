@@ -38,7 +38,7 @@ int MiniMapClass::Clear() {
 	return 0;
 }
 int MiniMapClass::Create() {
-	RECT tr;
+
 	int x = 0;
 	int y = 0;
 	int tc = 0;

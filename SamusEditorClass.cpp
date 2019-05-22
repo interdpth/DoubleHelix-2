@@ -6,7 +6,7 @@ SamusEditorClass::SamusEditorClass()
 {
 	hwndSamusEditor = NULL;
 	hwndSamusSpritePreview = NULL;
-	SpritePreview = new SprGBuf();
+	SpritePreview = new SpriteObject();
 
 }
 

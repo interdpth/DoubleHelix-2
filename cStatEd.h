@@ -17,7 +17,7 @@ public:
 	int LoadEnemy();
 	int SetupPreview();
 	int SaveSprite();
-	SprGBuf* SpritePreview;
+	SpriteObject* SpritePreview;
 	sList   SpriteList;
 	ZMS     ZMSprite;
 	MFS     FusionSprite;

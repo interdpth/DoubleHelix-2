@@ -477,7 +477,7 @@ LRESULT CALLBACK OAMPalProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 		hdc = BeginPaint(hWnd, &ps);
 		if (cOAMEdit::OamEditor->currentFrames != NULL)
 		{
-			DrawPal(hdc, theFrame->theSprite->PreviewPal, 8);
+			DrawSpritePAl(hdc, theFrame->theSprite->PreviewPal, 8);
 			
 		}
 		EndPaint(hWnd, &ps);

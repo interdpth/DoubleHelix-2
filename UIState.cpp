@@ -70,6 +70,7 @@ HWND UiState::GetWindow()
 void UiState::MakeWindow()
 {
 	DestroyWindow(_theWindow);
+	DestroyWindow(StatusBar);
 	if (_theState == WindowState::MULTI)
 	{
 		_theString = MAKEINTRESOURCE(frmMain);
@@ -82,6 +83,7 @@ void UiState::MakeWindow()
 	{
 		_theString = MAKEINTRESOURCE(frmMain1);
 	}
+	
 }
 
 void UiState::UpdateWindow()
@@ -90,6 +92,10 @@ void UiState::UpdateWindow()
 	DialogBoxParamA(hGlobal, _theString, 0, DialogProc, 0L);
 }
 
+void UiState::ShowTilesetMap(bool set)
+{
+
+}
 
 void UiState::ShowObj() {
 
@@ -357,9 +363,6 @@ void UiState::ResizeMap(HWND srcNeighbor)
 		}
 	}
 
-	//srcCoords.right - srcCoords.left + 32, 20, viewRect.right - srcCoords.left
-	//if((que.bottom/16)>BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Y) que.bottom = (BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Y / 16)*16 +16;//+20;
-
 	if (viewRect.bottom < 64)
 	{
 		viewRect.bottom = 64;
@@ -375,7 +378,7 @@ void UiState::ResizeMap(HWND srcNeighbor)
 	
 	viewRect.right = viewRect.right > mainRect.right ? mainRect.right : viewRect.right;
 	viewRect.bottom = viewRect.bottom> mainRect.bottom ? mainRect.bottom : viewRect.bottom;
-	MoveWindow(GetMapWindow(), viewRect.left, 20, viewRect.right, viewRect.bottom-20, 0);
+	MoveWindow(GetMapWindow(), viewRect.left, 10, viewRect.right, viewRect.bottom-32, 0);
 
 	MapHorizScroll->SetMax(width - (viewRect.right / 16)); // maximum H scroll
 
@@ -388,7 +391,7 @@ void UiState::ResizeTileset(HWND srcNeighbor)
 {
 	RECT viewRect;
 	HWND hWnd = this->GetTilesetWindow();
-	int x, y;
+
 	MapManager* mgrMap = RD1Engine::theGame->mainRoom->mapMgr;
 	RECT srcCoords;
 	AutoRect(srcNeighbor, &srcCoords);
@@ -411,7 +414,7 @@ void UiState::ResizeTileset(HWND srcNeighbor)
 	viewRect.left = toolsRect.left;
 	// mainRect.right - toolsRect.right;
 	viewRect.bottom = 280;;;// -16;
-    MoveWindow(hWnd, 8, viewRect.top, viewRect.right, viewRect.bottom , 0);
+    MoveWindow(hWnd, 8, viewRect.top, viewRect.right, viewRect.bottom-16 , 0);
 }
 
 void UiState::MoveOrigin(HWND src, int x, int y, int width, int height, int refresh, RECT* origin)

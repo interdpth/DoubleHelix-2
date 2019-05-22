@@ -14,7 +14,7 @@
     <ProjectGuid>{CF72C827-4139-46D4-A027-036E657C2E75}</ProjectGuid>
     <RootNamespace>DoubleHelix</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -48,6 +48,8 @@
     <LibraryPath>..\grit\libgrit;C:\GLEW\lib\Release\Win32;..\grit\cldib;..\RD1Enginesource\Debug;$(LibraryPath)</LibraryPath>
     <ExecutablePath>C:\GLEW\bin\Release\Win32;$(ExecutablePath)</ExecutablePath>
     <IncludePath>C:\GLEW\include\GL;..\grit\libgrit;..\grit\cldib;..\RD1Enginesource;..\RNA_UI;$(IncludePath)</IncludePath>
+    <CodeAnalysisRuleSet>E:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
@@ -67,9 +69,9 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <BrowseInformation>true</BrowseInformation>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <EnablePREfast>true</EnablePREfast>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
@@ -138,7 +140,6 @@
     <ClCompile Include="HeaderEditor.cpp" />
     <ClCompile Include="Insert.cpp" />
     <ClCompile Include="IPSPatch.cpp" />
-    <ClCompile Include="LevelPaletteEditor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapUtils.cpp" />
     <ClCompile Include="MapWindow.cpp" />
@@ -157,7 +158,7 @@
     <ClCompile Include="Scrolls.cpp" />
     <ClCompile Include="frmScrolls.cpp" />
     <ClCompile Include="SpriteSelector.cpp" />
-    <ClCompile Include="SpriteEditor.cpp" />
+    <ClCompile Include="SpriteSetEditor.cpp" />
     <ClCompile Include="StatEditor.cpp" />
     <ClCompile Include="TabControls.cpp" />
     <ClCompile Include="TextEditor.cpp" />

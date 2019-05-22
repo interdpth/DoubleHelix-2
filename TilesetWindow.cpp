@@ -6,7 +6,27 @@
 
 #include "OpenGL2.h"
 COpenGL *gl;
+#define theTimer 2242443242
+//Refresh the tileset
+bool RefreshTileset()
+{
+	if (!GlobalVars::gblVars->chkAnimatez.GetCheckState())
+	{
+		return false;
+	}
+	bool retVal = false;
+	if (RD1Engine::theGame && RD1Engine::theGame->mgrTileset && RD1Engine::theGame->mgrTileset->animTiles)
+	{
+		retVal = RD1Engine::theGame->mgrTileset->animTiles->Animate();
 
+		if (retVal)
+		{
+
+			RD1Engine::theGame->mgrTileset->Render(GlobalVars::gblVars->imgTileset);
+		}
+	}
+	return retVal;
+}
 
 LRESULT CALLBACK TilesetProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
@@ -48,6 +68,25 @@ LRESULT CALLBACK TilesetProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 
 		InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
 		break;
+	case WM_TIMER:
+		//Update sprite animations and tileset
+		//	TilesetManager::
+		if (!RD1Engine::theGame || !RD1Engine::theGame->mainRoom)
+		{
+			break;
+		}
+		if (wParam == theTimer)
+		{
+			if (RefreshTileset()) {
+				if (RD1Engine::theGame&&RD1Engine::theGame->mainRoom&&RD1Engine::theGame->mainRoom->mapMgr)
+				{
+					RD1Engine::theGame->DrawStatus.dirty = true;
+					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+					InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
+					InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
+				}
+			}
+		}
 	case WM_RBUTTONDOWN:
 		if (LOWORD(wParam) == MK_RBUTTON) {
 
@@ -144,8 +183,10 @@ LRESULT CALLBACK TilesetProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 		ReleaseDC(hWnd, hdc);
 		return 0;
 		break;
+	case WM_INITDIALOG:
 	case WM_CREATE:
 	//	gl = new COpenGL(hWnd);
+		SetTimer(hWnd, theTimer ,15, (TIMERPROC)NULL);
 		break;
 	case WM_RBUTTONDBLCLK:
 		///Reset the rects 

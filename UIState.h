@@ -47,9 +47,9 @@ public:
 	void UpdateMapObjectWindow();
 	void ShowObjWindow(HWND AffecTextEditorHwnd, int x, int y, int OriginalWidth, int OriginalHeight);
 	void UpdateWindow();
-
+	void ShowTilesetMap(bool set);
 	HWND GetWindow();
-
+	HWND StatusBar;
 	void MakeWindow();
 
 	void SetWindow(HWND window);

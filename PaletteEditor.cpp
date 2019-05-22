@@ -3,6 +3,38 @@
 #include "GBAGraphics.h"
 #include "TilesetManager.h"
 #include "BaseGame.h"
+
+int DrawPal(HDC hdc, long* palette, int X, int Y, int palcol, int size = 16) {
+
+	int i = 0;
+	HBRUSH curbrush = NULL;
+	RECT myrect = { 0,0,0,0 };
+	//Blank the colors.
+	for (i = 0; i < 256; i++) {
+
+		curbrush = CreateSolidBrush(0);
+		myrect.left = ((i) % 16) * size;
+		myrect.top = ((i) / 16) * size;
+		myrect.right = myrect.left + size;
+		myrect.bottom = myrect.top + size;
+		FillRect(hdc, &myrect, curbrush);
+		DeleteObject(curbrush);
+
+	}
+	for (i = 0; i < 512; i++) {
+		curbrush = CreateSolidBrush(palette[i]);
+		myrect.left = ((i) % 16) *size;
+		myrect.top = ((i) / 16) * size;
+		myrect.right = myrect.left + size;
+		myrect.bottom = myrect.top + size;
+		FillRect(hdc, &myrect, curbrush);
+		DeleteObject(curbrush);
+
+	}
+	return 0;
+
+}
+
 BOOL CALLBACK   LPProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam){
 
    HDC             hdc;
@@ -88,16 +120,20 @@ BOOL CALLBACK   LPProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 
          break;
       case cmdANC:
+	  {
 		  RD1Engine::theGame->mgrTileset->DrawTileset(&GlobalVars::gblVars->imgTileset);
-         RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
-         RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
-         RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
-         RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
-         RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
-		
-		 RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-         InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
-         InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
+		  MapManager * mgr = RD1Engine::theGame->mainRoom->mapMgr;
+		 if(RD1Engine::theGame->mainRoom->roomHeader.bBg2!=0)mgr->GetLayer(MapManager::Backlayer)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
+		 if (RD1Engine::theGame->mainRoom->roomHeader.bBg0 != 0)mgr->GetLayer(MapManager::ForeGround)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
+		  
+		 if (RD1Engine::theGame->mainRoom->roomHeader.bBg1 != 0)mgr->GetLayer(MapManager::LevelData)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
+		 if (RD1Engine::theGame->mainRoom->roomHeader.lBg3 != 0)mgr->GetLayer(MapManager::BackgroundLayer)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
+
+		  RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+		  InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
+		  InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
+		  InvalidateRect(hwnd, 0, 1);
+	  }
          break;
       case IDCANCEL:
          EndDialog(hwnd, 1);

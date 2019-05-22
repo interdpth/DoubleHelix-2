@@ -51,14 +51,14 @@ void ChangeCompression(unsigned char oldlayervalue, unsigned char newval, unsign
 
 int LoadInput(long val);
 
-int DrawSSprite(SprGBuf* SpriteDetails);
+int DrawSSprite(SpriteObject* SpriteDetails);
 
 void setsize(nMapBuffer* buffer);
 void ChangeCompression(unsigned char oldlayervalue, unsigned char newval, unsigned char layer, nMapBuffer* buffer);
 int SaveCurScene();
 int WriteDataToROM(unsigned char* datastream, unsigned long size, unsigned long offset);
 int DrawLayer(nMapBuffer* Map, unsigned char ctype);
-void DrawPal(HDC hdc, long* palette, int size);
+void DrawSpritePAl(HDC hdc, long* palette, int size);
 int SetTiles(LPARAM lParam);
 
 HWND hwndMain();
@@ -77,7 +77,7 @@ BOOL CALLBACK TextEditorProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 BOOL CALLBACK DwProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 BOOL CALLBACK SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 BOOL CALLBACK HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
-BOOL CALLBACK cSSEProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK SpriteSetEditorProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 BOOL CALLBACK ClipBoardProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 BOOL CALLBACK BGiProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 BOOL CALLBACK LPProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam);
@@ -101,7 +101,7 @@ LRESULT CALLBACK OAMSpriteProc(HWND hWnd, unsigned int message, WPARAM wParam, L
 
 int GetLayerData(unsigned char compression, unsigned char Layer, unsigned long offset);
 
-int DrawPal(HDC hdc, long* palette, int X, int Y, int palcol, int size);
+int DrawSpritePAl(HDC hdc, long* palette, int X, int Y, int palcol, int size);
 int LoadColor(long Pal);
 int ChangeColor();
 

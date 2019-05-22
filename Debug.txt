@@ -1,4 +1,4 @@
-UNSUPPORTED TITLE, THROWING ERROR
+LOADED WARIO LAND
 No OAM offsets for 0
 No OAM offsets for 1
 No OAM offsets for 2

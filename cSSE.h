@@ -19,14 +19,14 @@ public:
 	HWND  PalView;
 	HWND  SprTilesView;
 	int   Create(HINSTANCE mainInstance);
-	SprGBuf* SpritePreview;
+	SpriteObject* SpritePreview;
 	GBAMethods* _gbaMethods;
 	unsigned long     GUT;
 	unsigned long     PUT;
 	int SlightChange(int TitleChoice, unsigned char SpriteSetSelect, cEntityManager* mgr);
-	int GetSet(int TitleChoice, unsigned char SpriteSetSelection, cEntityManager* mgr);
-	int DecodeSet(bool romSwitch);
-	int SetupPreview(SprGBuf* SprG, int TitleChoice);
+	int GetSetData(int TitleChoice, unsigned char SpriteSetSelection, cEntityManager* mgr);
+	int GetSpritesPalAndTiles(bool romSwitch);
+	int SetupPreview(SpriteObject* SprG, int TitleChoice);
 	SpritesetData SpriteSetData;
 	int SetInfo();
 	TileBuffer SprGraphics;
