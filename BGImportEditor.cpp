@@ -164,7 +164,7 @@ palpos= (unsigned char)cboPal.GetListIndex();
 memset(&GBA.GBAPal, 0, sizeof(GBA.GBAPal));
 GBA.EncodePal(GBA.GBAPal, GBAGraphics::VRAM->PcPalMem, 16, 0);
 memcpy(&GBA.GBAPal[palpos * 16], &GPal, palsize*2);
-RD1Engine::theGame->mgrTileset->SaveTilesetPal(currentRomType,RD1Engine::theGame->mainRoom->roomHeader.bTileset);
+RD1Engine::theGame->mgrTileset->SaveTilesetPal(currentRomType,RD1Engine::theGame->mainRoom->roomHeader->bTileset);
 GBA.DecodePal(GBA.GBAPal, GBAGraphics::VRAM->PcPalMem, 16, 0);
 
 offsets[1]=GBA.FindFreeSpace(csize,0xFF);
@@ -188,7 +188,7 @@ GBA.Reopen();
 
 
 long* gfxPointer = NULL;
-gfxPointer = &RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader.bTileset].gBackground;
+gfxPointer = &RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader->bTileset].gBackground;
 
 *gfxPointer = offsets[3]+0x8000000;
 
@@ -232,7 +232,7 @@ for (selsize = 0; selsize<3; selsize++) { //Choses i val
 
 MemFile::currentFile->fwrite(&selsize, 4, 1);
 MemFile::currentFile->fwrite(&tempbuff,1,csize);
-RD1Engine::theGame->mainRoom->roomHeader.lBackgroundTSA = offsets[2] + 0x8000000;//This might be +4
+RD1Engine::theGame->mainRoom->roomHeader->lBackgroundTSA = offsets[2] + 0x8000000;//This might be +4
 
 GBA.Reopen();
 for(i=0;i<3;i++){ //Choses i val
@@ -240,7 +240,7 @@ for(i=0;i<3;i++){ //Choses i val
                 	break;
 }
 
-RD1Engine::theGame->mgrTileset->SaveTileset(RD1Engine::theGame->mainRoom->roomHeader.bTileset);
+RD1Engine::theGame->mgrTileset->SaveTileset(RD1Engine::theGame->mainRoom->roomHeader->bTileset);
 SaveHeader(2);
 //BaseGame::theGame->mgrTileset->GetCBG();
 RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
@@ -445,7 +445,7 @@ int wndBGImport::SaveCustTileset(){
 	//memset(&GBA.GBAPal, 0, sizeof(GBA.GBAPal));
 	//GBA.EncodePal(GBA.GBAPal, GBAGraphics::VRAM->PcPalMem, 16, 0);
 	//memcpy(&GBA.GBAPal[32], &GPal, palsize * 2);
-	//BaseGame::theGame->mgrTileset->SaveTilesetPal(currentRomType, BaseGame::theGame->mainRoom->roomHeader.bTileset);
+	//BaseGame::theGame->mgrTileset->SaveTilesetPal(currentRomType, BaseGame::theGame->mainRoom->roomHeader->bTileset);
 	//GBA.DecodePal(GBA.GBAPal, GBAGraphics::VRAM->PcPalMem, 16, 0);
 
 	////offsets[1] = GBA.FindFreeSpace(csize, 0xFF);
@@ -469,8 +469,8 @@ int wndBGImport::SaveCustTileset(){
 
 
 	//long* gfxPointer = NULL;
-	//if (!currentRomType) gfxPointer = &BaseGame::theGame->mgrTileset->RoomTilesets[BaseGame::theGame->mainRoom->roomHeader.bTileset].gTiles;
-	//if (currentRomType)  gfxPointer = &BaseGame::theGame->mgrTileset->RoomTilesets[BaseGame::theGame->mainRoom->roomHeader.bTileset].gTiles;// -0x8000000
+	//if (!currentRomType) gfxPointer = &BaseGame::theGame->mgrTileset->RoomTilesets[BaseGame::theGame->mainRoom->roomHeader->bTileset].gTiles;
+	//if (currentRomType)  gfxPointer = &BaseGame::theGame->mgrTileset->RoomTilesets[BaseGame::theGame->mainRoom->roomHeader->bTileset].gTiles;// -0x8000000
 
 	//*gfxPointer = offsets[3] + 0x8000000;
 
@@ -500,8 +500,8 @@ int wndBGImport::SaveCustTileset(){
 	//unsigned long buff = 0;
 
 	//gfxPointer = NULL;
-	//if (!currentRomType) gfxPointer = &BaseGame::theGame->mgrTileset->RoomTilesets[BaseGame::theGame->mainRoom->roomHeader.bTileset].TSAMap;
-	//if (currentRomType)  gfxPointer = &BaseGame::theGame->mgrTileset->RoomTilesets[BaseGame::theGame->mainRoom->roomHeader.bTileset].TSAMap;// -0x8000000
+	//if (!currentRomType) gfxPointer = &BaseGame::theGame->mgrTileset->RoomTilesets[BaseGame::theGame->mainRoom->roomHeader->bTileset].TSAMap;
+	//if (currentRomType)  gfxPointer = &BaseGame::theGame->mgrTileset->RoomTilesets[BaseGame::theGame->mainRoom->roomHeader->bTileset].TSAMap;// -0x8000000
 
 
 	//offsets[2] = GBA.FindFreeSpace(mapsize * 2, 0xFF);//might be too much? 
@@ -516,7 +516,7 @@ int wndBGImport::SaveCustTileset(){
 	//*gfxPointer = offsets[2] + 0x8000000;//This might be +4
 
 
-	//BaseGame::theGame->mgrTileset->SaveTileset(BaseGame::theGame->mainRoom->roomHeader.bTileset);
+	//BaseGame::theGame->mgrTileset->SaveTileset(BaseGame::theGame->mainRoom->roomHeader->bTileset);
 	//SaveHeader(2);
 	////BaseGame::theGame->mgrTileset->GetCBG();
 	//DrawRoom(GlobalVars::gblVars->checkBoxViewB.value() == BST_CHECKED, GlobalVars::gblVars->checkBoxViewL.value() == BST_CHECKED, GlobalVars::gblVars->checkBoxViewF.value() == BST_CHECKED);

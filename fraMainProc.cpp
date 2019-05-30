@@ -48,26 +48,26 @@ void DisableByState(sChecks* chkToUse)
 
 int UpdateHeaderControls()
 {
-	GlobalVars::gblVars->checkBoxForeground.State(RD1Engine::theGame->mainRoom->roomHeader.bBg0 == 0x10);
-	GlobalVars::gblVars->chkMC[0].State(RD1Engine::theGame->mainRoom->roomHeader.bBg0 == 0x10);
-	GlobalVars::gblVars->checkBoxLevel.State(RD1Engine::theGame->mainRoom->roomHeader.bBg1 == 16);
-	GlobalVars::gblVars->chkMC[1].State(RD1Engine::theGame->mainRoom->roomHeader.bBg1 == 16);
-	GlobalVars::gblVars->checkBoxBackground.State(RD1Engine::theGame->mainRoom->roomHeader.bBg2 == 0x10);
-	GlobalVars::gblVars->chkMC[2].State(RD1Engine::theGame->mainRoom->roomHeader.bBg2 == 0x10);
-	EnableWindow(GetDlgItem(SceneWnd, cmdSEditForeground), (RD1Engine::theGame->mainRoom->roomHeader.bBg0 == 0x40 ? 1 : 0));
-	EnableWindow(GetDlgItem(SceneWnd, cmdSEditBack), (RD1Engine::theGame->mainRoom->roomHeader.bBg2 == 0x40 ? 1 : 0));
-	EnableWindow(GetDlgItem(SceneWnd, cmdSEditBG), (RD1Engine::theGame->mainRoom->roomHeader.lBg3 == 0x40 ? 1 : 0));
-	GlobalVars::gblVars->checkBoxViewF.State(((RD1Engine::theGame->mainRoom->roomHeader.bBg0 == 0x10) || (RD1Engine::theGame->mainRoom->roomHeader.bBg0 == 0x40)));
-	GlobalVars::gblVars->checkBoxViewL.State(RD1Engine::theGame->mainRoom->roomHeader.bBg1 == 16);
-	GlobalVars::gblVars->checkBoxViewB.State(((RD1Engine::theGame->mainRoom->roomHeader.bBg2 == 0x10) || (RD1Engine::theGame->mainRoom->roomHeader.bBg2 == 0x40)));
-	//GlobalVars::gblVars->CheckBoxes[viewBG].State((BaseGame::theGame->mainRoom->roomHeader.lBg3==0x40) || (BaseGame::theGame->mainRoom->roomHeader.lBg3==0xF0));
-	GlobalVars::gblVars->checkBoxViewF.value(((RD1Engine::theGame->mainRoom->roomHeader.bBg0 == 0x10) || (RD1Engine::theGame->mainRoom->roomHeader.bBg0 == 0x40)));
-	GlobalVars::gblVars->checkBoxViewL.value((RD1Engine::theGame->mainRoom->roomHeader.bBg1 == 16));
-	GlobalVars::gblVars->checkBoxViewB.value(((RD1Engine::theGame->mainRoom->roomHeader.bBg2 == 0x10) || (RD1Engine::theGame->mainRoom->roomHeader.bBg2 == 0x40)));
-	//GlobalVars::gblVars->CheckBoxes[viewBG].value((BaseGame::theGame->mainRoom->roomHeader.lBg3==0x40) || (BaseGame::theGame->mainRoom->roomHeader.lBg3==0xF0));
+	GlobalVars::gblVars->checkBoxForeground.State(RD1Engine::theGame->mainRoom->roomHeader->bBg0 == 0x10);
+	GlobalVars::gblVars->chkMC[0].State(RD1Engine::theGame->mainRoom->roomHeader->bBg0 == 0x10);
+	GlobalVars::gblVars->checkBoxLevel.State(RD1Engine::theGame->mainRoom->roomHeader->bBg1 == 16);
+	GlobalVars::gblVars->chkMC[1].State(RD1Engine::theGame->mainRoom->roomHeader->bBg1 == 16);
+	GlobalVars::gblVars->checkBoxBackground.State(RD1Engine::theGame->mainRoom->roomHeader->bBg2 == 0x10);
+	GlobalVars::gblVars->chkMC[2].State(RD1Engine::theGame->mainRoom->roomHeader->bBg2 == 0x10);
+	EnableWindow(GetDlgItem(SceneWnd, cmdSEditForeground), (RD1Engine::theGame->mainRoom->roomHeader->bBg0 == 0x40 ? 1 : 0));
+	EnableWindow(GetDlgItem(SceneWnd, cmdSEditBack), (RD1Engine::theGame->mainRoom->roomHeader->bBg2 == 0x40 ? 1 : 0));
+	EnableWindow(GetDlgItem(SceneWnd, cmdSEditBG), (RD1Engine::theGame->mainRoom->roomHeader->lBg3 == 0x40 ? 1 : 0));
+	GlobalVars::gblVars->checkBoxViewF.State(((RD1Engine::theGame->mainRoom->roomHeader->bBg0 == 0x10) || (RD1Engine::theGame->mainRoom->roomHeader->bBg0 == 0x40)));
+	GlobalVars::gblVars->checkBoxViewL.State(RD1Engine::theGame->mainRoom->roomHeader->bBg1 == 16);
+	GlobalVars::gblVars->checkBoxViewB.State(((RD1Engine::theGame->mainRoom->roomHeader->bBg2 == 0x10) || (RD1Engine::theGame->mainRoom->roomHeader->bBg2 == 0x40)));
+	//GlobalVars::gblVars->CheckBoxes[viewBG].State((BaseGame::theGame->mainRoom->roomHeader->lBg3==0x40) || (BaseGame::theGame->mainRoom->roomHeader->lBg3==0xF0));
+	GlobalVars::gblVars->checkBoxViewF.value(((RD1Engine::theGame->mainRoom->roomHeader->bBg0 == 0x10) || (RD1Engine::theGame->mainRoom->roomHeader->bBg0 == 0x40)));
+	GlobalVars::gblVars->checkBoxViewL.value((RD1Engine::theGame->mainRoom->roomHeader->bBg1 == 16));
+	GlobalVars::gblVars->checkBoxViewB.value(((RD1Engine::theGame->mainRoom->roomHeader->bBg2 == 0x10) || (RD1Engine::theGame->mainRoom->roomHeader->bBg2 == 0x40)));
+	//GlobalVars::gblVars->CheckBoxes[viewBG].value((BaseGame::theGame->mainRoom->roomHeader->lBg3==0x40) || (BaseGame::theGame->mainRoom->roomHeader->lBg3==0xF0));
 	//Check for BGi hack installed
 
-	if ((RD1Engine::theGame->mainRoom->roomHeader.bBg0 == 0x40) || (RD1Engine::theGame->mainRoom->roomHeader.bBg2 == 0x40) || (RD1Engine::theGame->mainRoom->roomHeader.lBg3 == 0x40 || RD1Engine::theGame->mainRoom->roomHeader.lBg3 == 0xF0) || BGiInstall) {
+	if ((RD1Engine::theGame->mainRoom->roomHeader->bBg0 == 0x40) || (RD1Engine::theGame->mainRoom->roomHeader->bBg2 == 0x40) || (RD1Engine::theGame->mainRoom->roomHeader->lBg3 == 0x40 || RD1Engine::theGame->mainRoom->roomHeader->lBg3 == 0xF0) || BGiInstall) {
 		EnableWindow(GetDlgItem(GlobalVars::gblVars->frameControls, cmdES), 1);
 	}
 	else {
@@ -151,8 +151,8 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 
 		}
 		break;
-	case chkSprites:
-		//	DisableByState(&GlobalVars::gblVars->checkBoxchkES);
+	case ID_MAP_SHOWSPRITES:
+	
 		someval = GlobalVars::gblVars->checkBoxchkES.GetCheckState();
 		RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetState(someval == 1 ? editingStates::SPRITE : editingStates::MAP);
 		UiState::stateManager->ShowObj();
@@ -223,7 +223,8 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 		break;
 	case cmdSave:
-		BIC = (RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + (comboRoom.GetListIndex() * 0x3C);
+		throw new exception("SAVE IS BROKE");
+//		BIC = (RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + (comboRoom.GetListIndex() * 0x3C);
 
 		if (!BIC || (BIC > 0x7FFFFF)) {
 			MessageBox(hwnd, "Uh so something went wrong.", "Boomb", MB_OK);
@@ -298,6 +299,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		break;
 	case cboArea:
 	case cbArea:
+	{
 		if (HIWORD(wParam) == CBN_SELCHANGE)
 		{
 			area = comboArea.GetListIndex();
@@ -306,8 +308,8 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 
 			LevelCounter = RD1Engine::theGame->titleInstance->GetRoomCount(area);
 			comboRoom.Clear();
-
-			for (i = 0; i < LevelCounter; i++)
+			GameArea* currentArea = RD1Engine::theGame->areaManager->GetCurrentArea();
+			for (i = 0; i < currentArea->GetRoomCount(); i++)
 			{
 				sprintf(cBuf, "%X", i);
 				comboRoom.Additem(cBuf);
@@ -325,6 +327,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 														  // clicking.
 
 			break;
+		}
 	case cboRoom:
 		if (HIWORD(wParam) == CBN_SELCHANGE)
 		{

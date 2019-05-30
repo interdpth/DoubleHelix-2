@@ -183,8 +183,8 @@ int cTSAEditorClass::LoadTSA() {
 int cTSAEditorClass::SaveBlock() {
 	//Will code after loading is done correctly.
 	unsigned short block;
-	unsigned long offset = ((currentRomType) ? RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader.bTileset].TSAMap : RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader.bTileset].TSAMap) - 0x8000000;
-	RHeader* roomHeader = &RD1Engine::theGame->mainRoom->roomHeader;
+	unsigned long offset = ((currentRomType) ? RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader->bTileset].TSAMap : RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader->bTileset].TSAMap) - 0x8000000;
+	RHeader* roomHeader = RD1Engine::theGame->mainRoom->roomHeader;
 	for (int i = 0; i<4; i++) {
 		block = CurrentBlock[i].Pal * 0x1000
 			+ CurrentBlock[i].HFlip
