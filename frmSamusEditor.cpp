@@ -236,9 +236,6 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 
 LRESULT CALLBACK SamusSpriteProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
-	HDC hdc;
-	PAINTSTRUCT ps;
-
 	const unsigned char objSizes[3][4][2] =
 	{
 		{ { 8, 8 },{ 16,16 },{ 32,32 },{ 64,64 } },

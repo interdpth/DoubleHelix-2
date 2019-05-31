@@ -186,7 +186,7 @@ LRESULT CALLBACK TilesetProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 	case WM_INITDIALOG:
 	case WM_CREATE:
 	//	gl = new COpenGL(hWnd);
-		SetTimer(hWnd, theTimer ,15, (TIMERPROC)NULL);
+		SetTimer(hWnd, theTimer ,5, (TIMERPROC)NULL);
 		break;
 	case WM_RBUTTONDBLCLK:
 		///Reset the rects 

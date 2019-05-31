@@ -187,7 +187,7 @@ void HandleMouseUpDown(int actualX, int actualY, HWND hWnd, unsigned int message
 	case WM_LBUTTONDOWN:
 		if (wParam & MK_LBUTTON)
 		{
-			editingStates thisState = mgrMap->GetState()->GetState();//Wait what
+			editingStates thisState = mgrMap->GetState()->GetState();// ->GetState();//Wait what
 			utils->HandleLeftClick(thisState, actualX, actualY, comboSpriteSet.GetListIndex(), wParam, lParam);
 		}
 		break;
@@ -354,14 +354,14 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 				int scrollid = RD1Engine::theGame->mgrScrolls->Findmeascroll(actualX, actualY, cboScroll.GetListIndex());
 				if (scrollid != -1)
 				{
-					RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetObjId(scrollid);
+					theRoom->mapMgr->GetState()->SetObjId(scrollid);
 				}
 				UiState::stateManager->ShowObj();
 			}
-			RD1Engine::theGame->mainRoom->mapMgr->Resize(thisState, thisAction, wParam, lParam, &mpMap);
+			theRoom->mapMgr->Resize(thisState, thisAction, wParam, lParam, &mpMap);
 		}
 		else if (LOWORD(wParam) == MK_LBUTTON) {
-			RD1Engine::theGame->mainRoom->mapMgr->MoveObject(lParam);
+			theRoom->mapMgr->MoveObject(lParam, comboSpriteSet.GetListIndex());
 		}
 		else
 		{

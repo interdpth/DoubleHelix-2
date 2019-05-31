@@ -528,18 +528,20 @@ sChecks door;
 
 			hCurrentTab = tabs[0];
 
-
-			//SendMessage(hTabControl, )
-
-
+			SetWindowSubclass(tabs[0], ComboProc, subclasscounter++, 0);
+			SetWindowSubclass(tabs[1], ComboProc, subclasscounter++, 0);
+			SetWindowSubclass(tabs[2], ComboProc, subclasscounter++, 0);
+			SetWindowSubclass(tabs[3], ComboProc, subclasscounter++, 0);
+			SetWindowSubclass(tabs[4], ComboProc, subclasscounter++, 0);
 			ShowWindow(hCurrentTab, 1);
-			UiState::stateManager->StatusBar =  CreateStatusWindow(WS_CHILD | WS_VISIBLE , "TEST", hwnd,9000);
-		
+			UiState::stateManager->StatusBar =  CreateStatusWindow(WS_CHILD | WS_VISIBLE , "No data", hwnd,9000);		
 		}
+
 		ClearGlobals();
 
 
 		hwndMain(hwnd);
+		SetWindowSubclass(hwnd, ComboProc, subclasscounter++, 0);
 		UiState::stateManager->InitTileset();
 		UiState::stateManager->InitMap();
 		GetCurrentDirectory(1023, GlobalVars::gblVars->AppPath);
@@ -892,7 +894,7 @@ int WINAPI      WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCm
 
 }
 
-int             SetUpCombos(int combon)
+int             SetUpCombos()
 {
 	char            quick[1023] =
 	{
@@ -908,8 +910,7 @@ int             SetUpCombos(int combon)
 	comboSpriteSet.Additem("1");
 	comboSpriteSet.Additem("2");
 	comboSpriteSet.SetListIndex(0);
-	if (combon == cArea)
-	{
+	
 		comboArea.Clear();
 		cboDoorArea1.Clear();
 		cboDoorArea3.Clear();
@@ -924,9 +925,8 @@ int             SetUpCombos(int combon)
 			cboDoorArea2.Additem((char*)areaNames->at(i).c_str());
 			cboDoorDoor2.Additem((char*)areaNames->at(i).c_str());
 		}
-	}
-	else if (combon == cClip)
-	{
+	
+
 		if (currentRomType == 0)
 		{
 
@@ -963,7 +963,7 @@ int             SetUpCombos(int combon)
 		 }
 		 Combos[combon].SetListIndex(0);
 		 cboClipData.SetListIndex(0);*/
-	}
+	
 	return 0;
 }
 

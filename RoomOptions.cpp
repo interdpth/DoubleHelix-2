@@ -121,7 +121,7 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
 				i = LayerCombo.GetListIndex();
 				if (i == 0) {//Foreground
-					if (RD1Engine::theGame->mainRoom->roomHeader.bBg0 == 0x10) {
+					if (RD1Engine::theGame->mainRoom->roomHeader->bBg0 == 0x10) {
 						sprintf(buf, "%X", buffForeground->X);
 						SetWindowText(GetDlgItem(hWnd, txtWidth), buf);
 						sprintf(buf, "%X", buffForeground->Y);
@@ -135,7 +135,7 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 				}
 				else if (i == 1) {//Level Data
 
-					if (RD1Engine::theGame->mainRoom->roomHeader.bBg1 == 0x10) {
+					if (RD1Engine::theGame->mainRoom->roomHeader->bBg1 == 0x10) {
 						sprintf(buf, "%X", buffLevel->X);
 						SetWindowText(GetDlgItem(hWnd, txtWidth), buf);
 						sprintf(buf, "%X", buffLevel->Y);
@@ -147,7 +147,7 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 					}
 				}
 				else if (i == 2) {//Back Layer
-					if (RD1Engine::theGame->mainRoom->roomHeader.bBg2 == 0x10) {
+					if (RD1Engine::theGame->mainRoom->roomHeader->bBg2 == 0x10) {
 						sprintf(buf, "%X", buffBackLayer->X);
 						SetWindowText(GetDlgItem(hWnd, txtWidth), buf);
 						sprintf(buf, "%X", buffBackLayer->Y);
@@ -207,20 +207,20 @@ int LoadExtensions()
 	//Enable All
 	//	SendMessage(GetDlgItem( ExtendedOptWND,cmdCFore),WM_ENABLE
 
-	if (RD1Engine::theGame->mainRoom->roomHeader.bBg0) {
+	if (RD1Engine::theGame->mainRoom->roomHeader->bBg0) {
 		EnableWindow(GetDlgItem(ExtendedOptWND, cmdCFore), 1);
 
 	}
 	else {
 		EnableWindow(GetDlgItem(ExtendedOptWND, cmdCFore), 0);
 	}
-	if (RD1Engine::theGame->mainRoom->roomHeader.bBg1) {
+	if (RD1Engine::theGame->mainRoom->roomHeader->bBg1) {
 		EnableWindow(GetDlgItem(ExtendedOptWND, cmdCLevel), 1);
 	}
 	else {
 		EnableWindow(GetDlgItem(ExtendedOptWND, cmdCLevel), 0);
 	}
-	if (RD1Engine::theGame->mainRoom->roomHeader.bBg2) {
+	if (RD1Engine::theGame->mainRoom->roomHeader->bBg2) {
 		EnableWindow(GetDlgItem(ExtendedOptWND, cmdCBack), 1);
 	}
 	else {

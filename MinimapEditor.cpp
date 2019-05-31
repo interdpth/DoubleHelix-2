@@ -96,13 +96,14 @@ BOOL CALLBACK  MiniProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 			}
 			break;
 		case cmdMMSave:
+			throw new exception("MINMAP SAVE BROKE TOO");
 			if(drawmm)MiniMapClass::miniMapEditor->SaveMap();
 		
-			ho=((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()]-0x8000000) + comboRoom.GetListIndex()*0x3C);
+		//	ho=((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()]-0x8000000) + comboRoom.GetListIndex()*0x3C);
 		
 		MemFile::currentFile->seek(ho+0x35);
-	    MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomX,sizeof(unsigned char),1);
-		MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomY,sizeof(unsigned char),1);
+	    MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader->bMiniMapRoomX,sizeof(unsigned char),1);
+		MemFile::currentFile->fwrite(&RD1Engine::theGame->mainRoom->roomHeader->bMiniMapRoomY,sizeof(unsigned char),1);
 	
 
 			break;
@@ -254,8 +255,8 @@ LRESULT CALLBACK MiniGraphicProc(HWND hWnd, unsigned int message, WPARAM wParam,
 		drawmm=1;
 		break;
 	case WM_RBUTTONDOWN:
- 	    RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomX=(GetX(lParam)/8);
-		RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomY=(GetY(lParam)/8);
+ 	    RD1Engine::theGame->mainRoom->roomHeader->bMiniMapRoomX=(GetX(lParam)/8);
+		RD1Engine::theGame->mainRoom->roomHeader->bMiniMapRoomY=(GetY(lParam)/8);
 
 	InvalidateRect(MiniMapClass::miniMapEditor->hwndMiniMap,0,1);
 		break;
@@ -363,9 +364,9 @@ int DrawMapLoc(HDC hdc){
    int DebugDraw=(ThisArea==6 && ThisMArea>=7  && ThisRoom > 0x61 ? 1:0);
    if(RegDraw||DebugDraw){
 	 HBRUSH curbrush = CreateSolidBrush(RGB(255, 0, 255));
-     blah.left   =RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomX*8;
+     blah.left   =RD1Engine::theGame->mainRoom->roomHeader->bMiniMapRoomX*8;
      blah.right  =blah.left +((RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->X+1)/16)*8;
-	 blah.top    =RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomY*8;
+	 blah.top    =RD1Engine::theGame->mainRoom->roomHeader->bMiniMapRoomY*8;
 	 blah.bottom =blah.top+((RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Y)/10)*8;
      FrameRect(hdc, &blah,curbrush);
 	 DeleteObject(curbrush);

@@ -29,7 +29,7 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 	unsigned char Height = 0;
 	bool drawRoom = false;
 	RD1Engine* game;
-	RHeader* roomHeader=&RD1Engine::theGame->mainRoom->roomHeader;
+	RHeader* roomHeader = RD1Engine::theGame->mainRoom->roomHeader;
 	MapManager* mgr = RD1Engine::theGame->mainRoom->mapMgr;
 	int i = 0;
 	switch (message)
@@ -56,8 +56,8 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 			break;
 		case cmdSave:
 			SaveHeader(1);
-			drawRoom = true; 
-			
+			drawRoom = true;
+
 			break;
 		case cmdChangeS:
 			ChangeSprites();
@@ -81,7 +81,7 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 		case cboEC:
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
 				{
-					switch (comboSpriteSetHeader.GetListIndex()) 
+					switch (comboSpriteSetHeader.GetListIndex())
 					{
 
 					case 0:
@@ -97,7 +97,7 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 		case cboTileset:
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
 				roomHeader->bTileset = cmTileset.GetListIndex();
-				RD1Engine::theGame->mgrTileset->GetTileset(GlobalVars::gblVars->imgTileset,cmTileset.GetListIndex(), roomHeader->lBg3);
+				RD1Engine::theGame->mgrTileset->GetTileset(GlobalVars::gblVars->imgTileset, cmTileset.GetListIndex(), roomHeader->lBg3);
 				mgr->GetLayer(MapManager::ForeGround)->Dirty = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->Dirty = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer)->Dirty = 1;
 				drawRoom = true;
 			}
@@ -115,7 +115,7 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 
 				roomHeader->bSceneryYPos = cSYP.GetListIndex();
 				drawRoom = true;
-			
+
 			}
 			break;
 
@@ -141,7 +141,7 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 		}
 
 	}
-	if(drawRoom)
+	if (drawRoom)
 	{
 		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 	}
@@ -210,43 +210,44 @@ int LoadHeaderControls() {
 	char itembuf[256];
 	//Load layer stuff first
 	//Foreground
-	unsigned long Offset = ((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + comboRoom.GetListIndex() * 0x3C);
-	
+	/*unsigned long Offset = ((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + comboRoom.GetListIndex() * 0x3C);
+
 	sprintf(itembuf, "For manual editing this header can be found at offset: %6X", Offset);
 	SetWindowText(GetDlgItem(hwndHeader, lblHeaderOffset), itembuf);
-	if (RD1Engine::theGame->mainRoom->roomHeader.bBg0 & 0x40) {
+	*/
+	if (RD1Engine::theGame->mainRoom->roomHeader->bBg0 & 0x40) {
 		cF.SetListIndex(2);
 	}
-	else if (RD1Engine::theGame->mainRoom->roomHeader.bBg0 & 0x10) {
+	else if (RD1Engine::theGame->mainRoom->roomHeader->bBg0 & 0x10) {
 		cF.SetListIndex(1);
 	}
 	else {
 		cF.SetListIndex(0);
 	}
 
-	if (RD1Engine::theGame->mainRoom->roomHeader.bBg1 & 0x40) {
+	if (RD1Engine::theGame->mainRoom->roomHeader->bBg1 & 0x40) {
 		cL.SetListIndex(2);
 	}
-	else if (RD1Engine::theGame->mainRoom->roomHeader.bBg1 & 0x10) {
+	else if (RD1Engine::theGame->mainRoom->roomHeader->bBg1 & 0x10) {
 		cL.SetListIndex(1);
 	}
 	else {
 		cL.SetListIndex(0);
 	}
 
-	if (RD1Engine::theGame->mainRoom->roomHeader.bBg2 & 0x40) {
+	if (RD1Engine::theGame->mainRoom->roomHeader->bBg2 & 0x40) {
 		cB.SetListIndex(2);
 	}
-	else if (RD1Engine::theGame->mainRoom->roomHeader.bBg2 & 0x10) {
+	else if (RD1Engine::theGame->mainRoom->roomHeader->bBg2 & 0x10) {
 		cB.SetListIndex(1);
 	}
 	else {
 		cB.SetListIndex(0);
 	}
-	if (RD1Engine::theGame->mainRoom->roomHeader.lBg3 & 0x40) {
+	if (RD1Engine::theGame->mainRoom->roomHeader->lBg3 & 0x40) {
 		cBI.SetListIndex(2);
 	}
-	else if (RD1Engine::theGame->mainRoom->roomHeader.lBg3 & 0x10) {
+	else if (RD1Engine::theGame->mainRoom->roomHeader->lBg3 & 0x10) {
 		cBI.SetListIndex(1);
 	}
 	else {
@@ -256,38 +257,38 @@ int LoadHeaderControls() {
 
 
 	//Load offsets
-	sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lForeground - 0x8000000);
+	sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lForeground - 0x8000000);
 	SetWindowText(GetDlgItem(hwndHeader, txtFO), itembuf);
-	sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lLevelData - 0x8000000);
+	sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lLevelData - 0x8000000);
 	SetWindowText(GetDlgItem(hwndHeader, txtLO), itembuf);
-	sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lBackLayer - 0x8000000);
+	sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lBackLayer - 0x8000000);
 	SetWindowText(GetDlgItem(hwndHeader, txtBO), itembuf);
-	sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lBackgroundTSA - 0x8000000);
+	sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lBackgroundTSA - 0x8000000);
 	SetWindowText(GetDlgItem(hwndHeader, txtBIO), itembuf);
 
-	cSYP.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bSceneryYPos);
-	cTransparency.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.TransForeground);
-	cMusic.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bMusic);
-	cEffect.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bEffect);
-	cmTileset.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bTileset);
-	cMiniX.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomX);
-	cMiniY.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomY);
+	cSYP.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bSceneryYPos);
+	cTransparency.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->TransForeground);
+	cMusic.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bMusic);
+	cEffect.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bEffect);
+	cmTileset.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bTileset);
+	cMiniX.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bMiniMapRoomX);
+	cMiniY.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bMiniMapRoomY);
 
 	switch (comboSpriteSetHeader.GetListIndex()) {
 		EnableWindow(cEC.GetHwnd(), 1);
 	case 0:
-		cEC.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bEventSwitch);
+		cEC.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bEventSwitch);
 		sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Max());
 		SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
-		cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex1);
-		sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer);
+		cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bSpriteIndex1);
+		sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer);
 		SetWindowText(GetDlgItem(hwndHeader, txtSOffset), itembuf);
 		break;
 	case 1:
 
-		cEC.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bEventSwitch2);
-		cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex2);
-		sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer2);
+		cEC.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bEventSwitch2);
+		cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bSpriteIndex2);
+		sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer2);
 		SetWindowText(GetDlgItem(hwndHeader, txtSOffset), itembuf);
 		sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Max());
 		SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
@@ -295,17 +296,17 @@ int LoadHeaderControls() {
 	case 2:
 		EnableWindow(cEC.GetHwnd(), 0);
 
-		cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex3);
-		sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer3);
+		cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bSpriteIndex3);
+		sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer3);
 		SetWindowText(GetDlgItem(hwndHeader, txtSOffset), itembuf);
 		sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2].Max());
 		SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
 		break;
 	}
-	cControl1.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bBg0 & 0xF);
-	cControl2.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bBg1 & 0xF);
-	cControl3.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bBg2 & 0xF);
-	cControl4.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.lBg3 & 0xF);
+	cControl1.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bBg0 & 0xF);
+	cControl2.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bBg1 & 0xF);
+	cControl3.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bBg2 & 0xF);
+	cControl4.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->lBg3 & 0xF);
 	return 0;
 }
 
@@ -316,7 +317,7 @@ int ChangeSprites() {
 	char blah[1024] = "Please enter a new number\nfor the amount of sprites you want.\nMax is 255, least is 0 in hex ";
 	int sprites = 0;
 
-	unsigned long* offsets[3] = { &RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer,&RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer2,&RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer3 };
+	unsigned long* offsets[3] = { &RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer,&RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer2,&RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer3 };
 	nEnemyList* cursz[3] = { &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0], &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1], &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2] };
 
 
@@ -355,45 +356,45 @@ int SaveHeader(unsigned char call) {
 
    //Load offsets
 	if (call != 2) {
-		RD1Engine::theGame->mainRoom->roomHeader.lForeground = 0;
-		RD1Engine::theGame->mainRoom->roomHeader.lLevelData = 0;
-		RD1Engine::theGame->mainRoom->roomHeader.lBackLayer = 0;
-		RD1Engine::theGame->mainRoom->roomHeader.lBackgroundTSA = 0;
+		RD1Engine::theGame->mainRoom->roomHeader->lForeground = 0;
+		RD1Engine::theGame->mainRoom->roomHeader->lLevelData = 0;
+		RD1Engine::theGame->mainRoom->roomHeader->lBackLayer = 0;
+		RD1Engine::theGame->mainRoom->roomHeader->lBackgroundTSA = 0;
 		GetWindowText(GetDlgItem(hwndHeader, txtFO), itembuf, 256);
-		sscanf(itembuf, "%X", &RD1Engine::theGame->mainRoom->roomHeader.lForeground);
-		RD1Engine::theGame->mainRoom->roomHeader.lForeground += 0x8000000;
+		sscanf(itembuf, "%X", &RD1Engine::theGame->mainRoom->roomHeader->lForeground);
+		RD1Engine::theGame->mainRoom->roomHeader->lForeground += 0x8000000;
 		GetWindowText(GetDlgItem(hwndHeader, txtLO), itembuf, 256);
-		sscanf(itembuf, "%X", &RD1Engine::theGame->mainRoom->roomHeader.lLevelData);
-		RD1Engine::theGame->mainRoom->roomHeader.lLevelData += 0x8000000;
+		sscanf(itembuf, "%X", &RD1Engine::theGame->mainRoom->roomHeader->lLevelData);
+		RD1Engine::theGame->mainRoom->roomHeader->lLevelData += 0x8000000;
 		GetWindowText(GetDlgItem(hwndHeader, txtBO), itembuf, 256);
-		sscanf(itembuf, "%X", &RD1Engine::theGame->mainRoom->roomHeader.lBackLayer);
-		RD1Engine::theGame->mainRoom->roomHeader.lBackLayer += 0x8000000;
+		sscanf(itembuf, "%X", &RD1Engine::theGame->mainRoom->roomHeader->lBackLayer);
+		RD1Engine::theGame->mainRoom->roomHeader->lBackLayer += 0x8000000;
 		GetWindowText(GetDlgItem(hwndHeader, txtBIO), itembuf, 256);
-		sscanf(itembuf, "%X", &RD1Engine::theGame->mainRoom->roomHeader.lBackgroundTSA);
-		RD1Engine::theGame->mainRoom->roomHeader.lBackgroundTSA += 0x8000000;
-		RD1Engine::theGame->mainRoom->roomHeader.bSceneryYPos = (unsigned char)cSYP.GetListIndex();
-		RD1Engine::theGame->mainRoom->roomHeader.TransForeground = (unsigned char)cTransparency.GetListIndex();
-		RD1Engine::theGame->mainRoom->roomHeader.bMusic = (unsigned char)cMusic.GetListIndex();
-		RD1Engine::theGame->mainRoom->roomHeader.bEffect = (unsigned char)cEffect.GetListIndex();
-		RD1Engine::theGame->mainRoom->roomHeader.bTileset = (unsigned char)cmTileset.GetListIndex();
-		RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomX = (unsigned char)cMiniX.GetListIndex();
-		RD1Engine::theGame->mainRoom->roomHeader.bMiniMapRoomY = (unsigned char)cMiniY.GetListIndex();
+		sscanf(itembuf, "%X", &RD1Engine::theGame->mainRoom->roomHeader->lBackgroundTSA);
+		RD1Engine::theGame->mainRoom->roomHeader->lBackgroundTSA += 0x8000000;
+		RD1Engine::theGame->mainRoom->roomHeader->bSceneryYPos = (unsigned char)cSYP.GetListIndex();
+		RD1Engine::theGame->mainRoom->roomHeader->TransForeground = (unsigned char)cTransparency.GetListIndex();
+		RD1Engine::theGame->mainRoom->roomHeader->bMusic = (unsigned char)cMusic.GetListIndex();
+		RD1Engine::theGame->mainRoom->roomHeader->bEffect = (unsigned char)cEffect.GetListIndex();
+		RD1Engine::theGame->mainRoom->roomHeader->bTileset = (unsigned char)cmTileset.GetListIndex();
+		RD1Engine::theGame->mainRoom->roomHeader->bMiniMapRoomX = (unsigned char)cMiniX.GetListIndex();
+		RD1Engine::theGame->mainRoom->roomHeader->bMiniMapRoomY = (unsigned char)cMiniY.GetListIndex();
 
 		switch (comboSpriteSetHeader.GetListIndex()) {
 			EnableWindow(cEC.GetHwnd(), 1);
 		case 0:
-			cEC.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bEventSwitch);
+			cEC.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bEventSwitch);
 			sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Max());
 			SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
-			cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex1);
-			sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer);
+			cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bSpriteIndex1);
+			sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer);
 			SetWindowText(GetDlgItem(hwndHeader, txtSOffset), itembuf);
 			break;
 		case 1:
 
-			cEC.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bEventSwitch2);
-			cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex2);
-			sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer2);
+			cEC.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bEventSwitch2);
+			cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bSpriteIndex2);
+			sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer2);
 			SetWindowText(GetDlgItem(hwndHeader, txtSOffset), itembuf);
 			sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Max());
 			SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
@@ -401,8 +402,8 @@ int SaveHeader(unsigned char call) {
 		case 2:
 			EnableWindow(cEC.GetHwnd(), 0);
 
-			cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader.bSpriteIndex3);
-			sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader.lSpritePointer3);
+			cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bSpriteIndex3);
+			sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer3);
 			SetWindowText(GetDlgItem(hwndHeader, txtSOffset), itembuf);
 			sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2].Max());
 			SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
@@ -410,65 +411,65 @@ int SaveHeader(unsigned char call) {
 		}
 		switch (cF.GetListIndex()) {
 		case 0:
-			RD1Engine::theGame->mainRoom->roomHeader.bBg0 = (unsigned char)cControl1.GetListIndex();
+			RD1Engine::theGame->mainRoom->roomHeader->bBg0 = (unsigned char)cControl1.GetListIndex();
 
 			break;
 		case 1:
-			RD1Engine::theGame->mainRoom->roomHeader.bBg0 = 0x10 + ((unsigned char)cControl1.GetListIndex());
+			RD1Engine::theGame->mainRoom->roomHeader->bBg0 = 0x10 + ((unsigned char)cControl1.GetListIndex());
 			break;
 		case 2:
-			RD1Engine::theGame->mainRoom->roomHeader.bBg0 = 0x40 + ((unsigned char)cControl1.GetListIndex());
+			RD1Engine::theGame->mainRoom->roomHeader->bBg0 = 0x40 + ((unsigned char)cControl1.GetListIndex());
 			break;
 
 		}
 		switch (cL.GetListIndex()) {
 		case 0:
-			RD1Engine::theGame->mainRoom->roomHeader.bBg1 = ((unsigned char)cControl2.GetListIndex());
+			RD1Engine::theGame->mainRoom->roomHeader->bBg1 = ((unsigned char)cControl2.GetListIndex());
 
 			break;
 		case 1:
-			RD1Engine::theGame->mainRoom->roomHeader.bBg1 = 0x10 + ((unsigned char)cControl2.GetListIndex());
+			RD1Engine::theGame->mainRoom->roomHeader->bBg1 = 0x10 + ((unsigned char)cControl2.GetListIndex());
 			break;
 		case 2:
-			RD1Engine::theGame->mainRoom->roomHeader.bBg1 = 0x40 + ((unsigned char)cControl2.GetListIndex());
+			RD1Engine::theGame->mainRoom->roomHeader->bBg1 = 0x40 + ((unsigned char)cControl2.GetListIndex());
 			break;
 
 		}
 		switch (cB.GetListIndex()) {
 		case 0:
-			RD1Engine::theGame->mainRoom->roomHeader.bBg2 = ((unsigned char)cControl3.GetListIndex());
+			RD1Engine::theGame->mainRoom->roomHeader->bBg2 = ((unsigned char)cControl3.GetListIndex());
 
 			break;
 		case 1:
-			RD1Engine::theGame->mainRoom->roomHeader.bBg2 = 0x10 + ((unsigned char)cControl3.GetListIndex());
+			RD1Engine::theGame->mainRoom->roomHeader->bBg2 = 0x10 + ((unsigned char)cControl3.GetListIndex());
 			break;
 		case 2:
-			RD1Engine::theGame->mainRoom->roomHeader.bBg2 = 0x40 + ((unsigned char)cControl3.GetListIndex());
+			RD1Engine::theGame->mainRoom->roomHeader->bBg2 = 0x40 + ((unsigned char)cControl3.GetListIndex());
 			break;
 
 		}if (!import) {
 			switch (cBI.GetListIndex()) {
 
 			case 0:
-				RD1Engine::theGame->mainRoom->roomHeader.lBg3 = ((unsigned char)cControl4.GetListIndex());
+				RD1Engine::theGame->mainRoom->roomHeader->lBg3 = ((unsigned char)cControl4.GetListIndex());
 
 				break;
 			case 1:
-				RD1Engine::theGame->mainRoom->roomHeader.lBg3 = 0x10 + ((unsigned char)cControl4.GetListIndex());
+				RD1Engine::theGame->mainRoom->roomHeader->lBg3 = 0x10 + ((unsigned char)cControl4.GetListIndex());
 				break;
 			case 2:
-				RD1Engine::theGame->mainRoom->roomHeader.lBg3 = 0x40 + ((unsigned char)cControl4.GetListIndex());
+				RD1Engine::theGame->mainRoom->roomHeader->lBg3 = 0x40 + ((unsigned char)cControl4.GetListIndex());
 				break;
 			}
 		}
 		else {
-			RD1Engine::theGame->mainRoom->roomHeader.lBg3 = 0xF0 + ((unsigned char)cControl4.GetListIndex());;
+			RD1Engine::theGame->mainRoom->roomHeader->lBg3 = 0xF0 + ((unsigned char)cControl4.GetListIndex());;
 			import = 0;
 		}
 
 	}
 
-	headerOffset = ((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + comboRoom.GetListIndex() * 0x3C);
+//	headerOffset = ((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + comboRoom.GetListIndex() * 0x3C);
 
 	RD1Engine::theGame->mainRoom->SaveHeader(headerOffset);
 	if (call == 0)SendMessage(hwndMain(), WM_COMMAND, cboRoom, 0);
@@ -481,14 +482,14 @@ int CCForeground() {
 	unsigned char *  compressdata = new unsigned char[32192];
 	memset(compressdata, 0, 32192);
 	switch (cF.GetListIndex()) {
-		RD1Engine::theGame->mainRoom->roomHeader.bBg0 = 0;
+		RD1Engine::theGame->mainRoom->roomHeader->bBg0 = 0;
 		break;
 	case 1:
-		RD1Engine::theGame->mainRoom->roomHeader.bBg0 = 0x10;
+		RD1Engine::theGame->mainRoom->roomHeader->bBg0 = 0x10;
 		break;
 
 	case 2:
-		RD1Engine::theGame->mainRoom->roomHeader.bBg0 = 0x40;
+		RD1Engine::theGame->mainRoom->roomHeader->bBg0 = 0x40;
 		break;
 	}
 	delete[]  compressdata;
@@ -503,18 +504,18 @@ int CCBackground() {
 
 	switch (cBI.GetListIndex()) {
 	case 0:
-		ChangeCompression((unsigned char)RD1Engine::theGame->mainRoom->roomHeader.lBg3, 0, 3, RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer));
-		RD1Engine::theGame->mainRoom->roomHeader.lBg3 = 0;
+		ChangeCompression((unsigned char)RD1Engine::theGame->mainRoom->roomHeader->lBg3, 0, 3, RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer));
+		RD1Engine::theGame->mainRoom->roomHeader->lBg3 = 0;
 		break;
 	case 1:
-		ChangeCompression((unsigned char)RD1Engine::theGame->mainRoom->roomHeader.lBg3, 1, 3, RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer));
-		RD1Engine::theGame->mainRoom->roomHeader.lBg3 = 0x10;
+		ChangeCompression((unsigned char)RD1Engine::theGame->mainRoom->roomHeader->lBg3, 1, 3, RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer));
+		RD1Engine::theGame->mainRoom->roomHeader->lBg3 = 0x10;
 		//	     SaveBackground();
 		break;
 
 	case 2:
-		ChangeCompression((unsigned char)RD1Engine::theGame->mainRoom->roomHeader.lBg3, 2, 3, RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer));
-		RD1Engine::theGame->mainRoom->roomHeader.lBg3 = 0x40;
+		ChangeCompression((unsigned char)RD1Engine::theGame->mainRoom->roomHeader->lBg3, 2, 3, RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer));
+		RD1Engine::theGame->mainRoom->roomHeader->lBg3 = 0x40;
 		break;
 	}
 
@@ -608,9 +609,9 @@ int BackUpAllHeaders() {
 				lc = 0x63;
 			}
 			else {
-				lc = (RD1Engine::theGame->RoomOffsets[ai + 1] - RD1Engine::theGame->RoomOffsets[ai]) / 0x3C;
+		//		lc = (RD1Engine::theGame->RoomOffsets[ai + 1] - RD1Engine::theGame->RoomOffsets[ai]) / 0x3C;
 			}
-			MemFile::currentFile->seek(RD1Engine::theGame->RoomOffsets[ai] - 0x8000000);
+		//	MemFile::currentFile->seek(RD1Engine::theGame->RoomOffsets[ai] - 0x8000000);
 			for (ri = 0; ri < lc; ri++) {
 				memset(curpath, 0, 2048);
 				MemFile::currentFile->fread(roomarray, 0x3c, 1);

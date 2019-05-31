@@ -501,14 +501,14 @@ int SaveCurScene(){//0 for BG, 1 for BackLayer, 2 for Foreground
 	case 0:
 		//BG
 		thisbuf=RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::BackgroundLayer);
-        // offset = BaseGame::theGame->mainRoom->roomHeader.lBackgroundTSA-0x8000000;
+        // offset = BaseGame::theGame->mainRoom->roomHeader->lBackgroundTSA-0x8000000;
 		Layer= GetDlgItem(hwndHeader,txtBIO);
 		break;
     case 1: 
 		
         thisbuf=RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer);
 		Layer=GetDlgItem(hwndHeader,txtBO);
-		//	offset =  BaseGame::theGame->mainRoom->roomHeader.lBackLayer    -0x8000000;
+		//	offset =  BaseGame::theGame->mainRoom->roomHeader->lBackLayer    -0x8000000;
 		break;
 	case 2: 
 		

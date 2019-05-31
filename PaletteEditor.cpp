@@ -78,7 +78,7 @@ BOOL CALLBACK   LPProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
          if (currentRomType == 0)
          {
 
-             MemFile::currentFile->seek(RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader.bTileset].pTiles - 0x8000000); // Seek 
+             MemFile::currentFile->seek(RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader->bTileset].pTiles - 0x8000000); // Seek 
                                                                                             // the 
                                                                                             // endcoded 
                                                                                             // pal
@@ -90,7 +90,7 @@ BOOL CALLBACK   LPProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
          } else if (currentRomType == 1)
          {
 
-            MemFile::currentFile->seek(RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader.bTileset].pTiles - 0x8000000); // Seek 
+            MemFile::currentFile->seek(RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader->bTileset].pTiles - 0x8000000); // Seek 
                                                                                               // the 
                                                                                               // endcoded 
                                                                                               // pal
@@ -123,11 +123,11 @@ BOOL CALLBACK   LPProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 	  {
 		  RD1Engine::theGame->mgrTileset->DrawTileset(&GlobalVars::gblVars->imgTileset);
 		  MapManager * mgr = RD1Engine::theGame->mainRoom->mapMgr;
-		 if(RD1Engine::theGame->mainRoom->roomHeader.bBg2!=0)mgr->GetLayer(MapManager::Backlayer)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
-		 if (RD1Engine::theGame->mainRoom->roomHeader.bBg0 != 0)mgr->GetLayer(MapManager::ForeGround)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
+		 if(RD1Engine::theGame->mainRoom->roomHeader->bBg2!=0)mgr->GetLayer(MapManager::Backlayer)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
+		 if (RD1Engine::theGame->mainRoom->roomHeader->bBg0 != 0)mgr->GetLayer(MapManager::ForeGround)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
 		  
-		 if (RD1Engine::theGame->mainRoom->roomHeader.bBg1 != 0)mgr->GetLayer(MapManager::LevelData)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
-		 if (RD1Engine::theGame->mainRoom->roomHeader.lBg3 != 0)mgr->GetLayer(MapManager::BackgroundLayer)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
+		 if (RD1Engine::theGame->mainRoom->roomHeader->bBg1 != 0)mgr->GetLayer(MapManager::LevelData)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
+		 if (RD1Engine::theGame->mainRoom->roomHeader->lBg3 != 0)mgr->GetLayer(MapManager::BackgroundLayer)->BImage->SetPalette(GBAGraphics::VRAM->PcPalMem);
 
 		  RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		  InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
