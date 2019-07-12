@@ -142,6 +142,10 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 	HWND            debug = NULL;
 	int someval = 0;
 	RD1Engine* mainGame = NULL;
+	if (RD1Engine::theGame == NULL)
+	{
+		return -1;
+	}
 	ProcessControls2(hwnd, message, wParam, lParam);
 
 	switch (LOWORD(wParam))

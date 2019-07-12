@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include "sCombo.h"
-#include "image.h"
+#include "..\Win32GBAImageClasses\image.h"
 class cClipboard {
 public:
 	cClipboard();

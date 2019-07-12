@@ -16,7 +16,7 @@
 #include <vector>
 #include <algorithm>
 #include <string>
-#include "image.h"
+#include "..\Win32GBAImageClasses\image.h"
 #include "resource.h"
 #include "Structures.h"
 #include "GBAMethods.h"

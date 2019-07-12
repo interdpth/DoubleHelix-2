@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>headereditor.cpp</FILENAME>
+      <LINE>364</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'sscanf'.</DESCRIPTION>
+    <FUNCTION>SaveHeader</FUNCTION>
+    <DECORATED>?SaveHeader@@YAHE@Z</DECORATED>
+    <FUNCLINE>350</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>headereditor.cpp</FILENAME>
+      <LINE>367</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'sscanf'.</DESCRIPTION>
+    <FUNCTION>SaveHeader</FUNCTION>
+    <DECORATED>?SaveHeader@@YAHE@Z</DECORATED>
+    <FUNCLINE>350</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>headereditor.cpp</FILENAME>
+      <LINE>370</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'sscanf'.</DESCRIPTION>
+    <FUNCTION>SaveHeader</FUNCTION>
+    <DECORATED>?SaveHeader@@YAHE@Z</DECORATED>
+    <FUNCLINE>350</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>headereditor.cpp</FILENAME>
+      <LINE>373</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'sscanf'.</DESCRIPTION>
+    <FUNCTION>SaveHeader</FUNCTION>
+    <DECORATED>?SaveHeader@@YAHE@Z</DECORATED>
+    <FUNCLINE>350</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

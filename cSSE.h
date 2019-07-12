@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include "SprGBuf.h"
-#include "image.h"
+#include "..\Win32GBAImageClasses\image.h"
 #include "sList.h"
 #include "sCombo.h"
 #include "GlobalVars.h"

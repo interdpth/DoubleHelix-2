@@ -1,6 +1,6 @@
 #pragma once
 #include <stdio.h>
-#include "MemFile.h"
+#include "..\MemFile\MemFile.h"
 #include "Logger.h"
 enum ObjType 
 {

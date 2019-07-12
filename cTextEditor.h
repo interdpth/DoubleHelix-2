@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include "sList.h"
-#include "image.h"
+#include "..\Win32GBAImageClasses\image.h"
 #include "sCombo.h"
 #include "GBAMethods.h"
 #include "resource.h"

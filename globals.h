@@ -6,7 +6,7 @@
 #include "SprGBuf.h"
 #include "ResourceAndDefines.h"
 #include "Door Connections.h"
-#include "backbuffer.h"
+#include "..\Win32GBAImageClasses\backbuffer.h"
 #include "GBAMethods.h"
 #include "nMapBuffer.h"
 #include "GlobalFunctions.h"

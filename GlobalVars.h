@@ -7,7 +7,7 @@
 #include "wndBGImport.h"
 #include "cOAMEdit.h"
 #include "OamFrameTable.h"
-#include "backbuffer.h"
+#include "..\Win32GBAImageClasses\backbuffer.h"
 #include "cStatEd.h"
 #include "SamusEditorClass.h"
 #include "sMenuItem.h"

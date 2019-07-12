@@ -4,7 +4,7 @@
 #include "sChecks.h"
 #include "sCombo.h"
 #include "Structures.h"
-#include "image.h"
+#include "..\Win32GBAImageClasses\image.h"
 struct tBlock {
 	unsigned short Tile;
 	unsigned short  HFlip;

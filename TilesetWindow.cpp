@@ -4,7 +4,7 @@
 #include "TilesetManager.h"
 #include "BaseGame.h"
 
-#include "OpenGL2.h"
+#include "..\Win32GBAImageClasses\OpenGL2.h"
 COpenGL *gl;
 #define theTimer 2242443242
 //Refresh the tileset

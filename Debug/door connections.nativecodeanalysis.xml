@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>door connections.cpp</FILENAME>
+      <LINE>96</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>6340</DEFECTCODE>
+    <DESCRIPTION>Mismatch on sign: 'unsigned char' passed as _Param_(3) when some signed type is required in call to 'sprintf'.</DESCRIPTION>
+    <FUNCTION>UserEnableConnections</FUNCTION>
+    <DECORATED>?UserEnableConnections@@YAHXZ</DECORATED>
+    <FUNCLINE>94</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

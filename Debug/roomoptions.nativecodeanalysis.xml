@@ -1,0 +1,1929 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>roomoptions.cpp</FILENAME>
+      <LINE>30</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Using uninitialized memory '*buffLayer-&gt;TileBuf2D'.</DESCRIPTION>
+    <FUNCTION>ResizeLayer</FUNCTION>
+    <DECORATED>?ResizeLayer@@YAXPAVnMapBuffer@@HH@Z</DECORATED>
+    <FUNCLINE>15</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>16</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>17</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>18</LINE>
+        <COLUMN>31</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>22</LINE>
+        <COLUMN>11</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>24</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>25</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>26</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>28</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>29</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>30</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is used, but may not have been initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>roomoptions.cpp</FILENAME>
+      <LINE>30</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Using uninitialized memory '*buffLayer-&gt;TileBuf2D'.</DESCRIPTION>
+    <FUNCTION>ResizeLayer</FUNCTION>
+    <DECORATED>?ResizeLayer@@YAXPAVnMapBuffer@@HH@Z</DECORATED>
+    <FUNCLINE>15</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>16</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>17</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>18</LINE>
+        <COLUMN>31</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>22</LINE>
+        <COLUMN>11</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>24</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>25</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>26</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>28</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>29</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>30</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is used, but may not have been initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>roomoptions.cpp</FILENAME>
+      <LINE>30</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Using uninitialized memory '*buffLayer-&gt;TileBuf2D'.</DESCRIPTION>
+    <FUNCTION>ResizeLayer</FUNCTION>
+    <DECORATED>?ResizeLayer@@YAXPAVnMapBuffer@@HH@Z</DECORATED>
+    <FUNCLINE>15</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>16</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>17</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>18</LINE>
+        <COLUMN>31</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>22</LINE>
+        <COLUMN>11</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>24</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>25</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>26</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>28</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>29</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>30</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is used, but may not have been initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>roomoptions.cpp</FILENAME>
+      <LINE>30</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Using uninitialized memory '*buffLayer-&gt;TileBuf2D'.</DESCRIPTION>
+    <FUNCTION>ResizeLayer</FUNCTION>
+    <DECORATED>?ResizeLayer@@YAXPAVnMapBuffer@@HH@Z</DECORATED>
+    <FUNCLINE>15</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>16</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>17</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>18</LINE>
+        <COLUMN>31</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>22</LINE>
+        <COLUMN>11</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>24</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>25</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>26</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>28</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>29</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>30</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is used, but may not have been initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>roomoptions.cpp</FILENAME>
+      <LINE>30</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Using uninitialized memory '*buffLayer-&gt;TileBuf2D'.</DESCRIPTION>
+    <FUNCTION>ResizeLayer</FUNCTION>
+    <DECORATED>?ResizeLayer@@YAXPAVnMapBuffer@@HH@Z</DECORATED>
+    <FUNCLINE>15</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>16</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>17</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>18</LINE>
+        <COLUMN>31</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>19</LINE>
+        <COLUMN>11</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>24</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>25</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>26</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>28</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>29</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>30</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is used, but may not have been initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>roomoptions.cpp</FILENAME>
+      <LINE>30</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Using uninitialized memory '*buffLayer-&gt;TileBuf2D'.</DESCRIPTION>
+    <FUNCTION>ResizeLayer</FUNCTION>
+    <DECORATED>?ResizeLayer@@YAXPAVnMapBuffer@@HH@Z</DECORATED>
+    <FUNCLINE>15</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>16</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>17</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>18</LINE>
+        <COLUMN>31</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>19</LINE>
+        <COLUMN>11</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>24</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>25</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>26</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>28</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>29</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>30</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is used, but may not have been initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>roomoptions.cpp</FILENAME>
+      <LINE>30</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Using uninitialized memory '*buffLayer-&gt;TileBuf2D'.</DESCRIPTION>
+    <FUNCTION>ResizeLayer</FUNCTION>
+    <DECORATED>?ResizeLayer@@YAXPAVnMapBuffer@@HH@Z</DECORATED>
+    <FUNCLINE>15</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>16</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>17</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>18</LINE>
+        <COLUMN>31</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>19</LINE>
+        <COLUMN>11</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>24</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>25</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>26</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>28</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>29</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>30</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is used, but may not have been initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>roomoptions.cpp</FILENAME>
+      <LINE>30</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Using uninitialized memory '*buffLayer-&gt;TileBuf2D'.</DESCRIPTION>
+    <FUNCTION>ResizeLayer</FUNCTION>
+    <DECORATED>?ResizeLayer@@YAXPAVnMapBuffer@@HH@Z</DECORATED>
+    <FUNCLINE>15</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>16</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>17</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>18</LINE>
+        <COLUMN>31</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>19</LINE>
+        <COLUMN>11</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>24</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>25</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>26</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>28</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>29</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>30</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*buffLayer-&gt;TileBuf2D' is used, but may not have been initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>roomoptions.cpp</FILENAME>
+      <LINE>81</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'sscanf'.</DESCRIPTION>
+    <FUNCTION>ExtendedProc</FUNCTION>
+    <DECORATED>?ExtendedProc@@YGHPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>36</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>roomoptions.cpp</FILENAME>
+      <LINE>83</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'sscanf'.</DESCRIPTION>
+    <FUNCTION>ExtendedProc</FUNCTION>
+    <DECORATED>?ExtendedProc@@YGHPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>36</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>roomoptions.cpp</FILENAME>
+      <LINE>92</LINE>
+      <COLUMN>15</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Using uninitialized memory 'buffForeground'.</DESCRIPTION>
+    <FUNCTION>ExtendedProc</FUNCTION>
+    <DECORATED>?ExtendedProc@@YGHPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>36</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>37</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>38</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>39</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>40</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>41</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>42</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>44</LINE>
+        <COLUMN>13</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'buffForeground' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>45</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>46</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>48</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>49</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>50</LINE>
+        <COLUMN>54</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume '&lt;branch condition&gt;' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>58</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( 'message' ) resolves to case 273: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>75</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>76</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( '(((DWORD_PTR)(wParam)))&amp;65535' ) resolves to case 1114: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>77</LINE>
+        <COLUMN>2</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>78</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>80</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>81</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>82</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>83</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>88</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>89</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>5</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Enter this branch, (assume 'i==0')</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>92</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID>6</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'buffForeground' is an In/Out argument to 'ResizeLayer' (declared on line 15)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>92</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID>7</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'buffForeground' is used, but may not have been initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>roomoptions.cpp</FILENAME>
+      <LINE>101</LINE>
+      <COLUMN>15</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Using uninitialized memory 'buffLevel'.</DESCRIPTION>
+    <FUNCTION>ExtendedProc</FUNCTION>
+    <DECORATED>?ExtendedProc@@YGHPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>36</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>37</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>38</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>39</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>40</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>41</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>42</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>44</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>45</LINE>
+        <COLUMN>13</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'buffLevel' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>46</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>48</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>49</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>50</LINE>
+        <COLUMN>54</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume '&lt;branch condition&gt;' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>58</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( 'message' ) resolves to case 273: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>75</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>76</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( '(((DWORD_PTR)(wParam)))&amp;65535' ) resolves to case 1114: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>77</LINE>
+        <COLUMN>2</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>78</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>80</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>81</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>82</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>83</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>88</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>89</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>5</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'i==0' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>99</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID>6</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Enter this branch, (assume 'i==1')</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>101</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID>7</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'buffLevel' is an In/Out argument to 'ResizeLayer' (declared on line 15)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>101</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID>8</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'buffLevel' is used, but may not have been initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>roomoptions.cpp</FILENAME>
+      <LINE>106</LINE>
+      <COLUMN>15</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Using uninitialized memory 'buffBackLayer'.</DESCRIPTION>
+    <FUNCTION>ExtendedProc</FUNCTION>
+    <DECORATED>?ExtendedProc@@YGHPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>36</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>37</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>38</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>39</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>40</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>41</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>42</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>44</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>45</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>46</LINE>
+        <COLUMN>13</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'buffBackLayer' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>48</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>49</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>50</LINE>
+        <COLUMN>54</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume '&lt;branch condition&gt;' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>58</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( 'message' ) resolves to case 273: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>75</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>76</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( '(((DWORD_PTR)(wParam)))&amp;65535' ) resolves to case 1114: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>77</LINE>
+        <COLUMN>2</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>78</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>80</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>81</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>82</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>83</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>88</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>89</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>5</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'i==0' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>99</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID>6</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'i==1' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>105</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID>7</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Enter this branch, (assume 'i==2')</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>106</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID>8</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'buffBackLayer' is an In/Out argument to 'ResizeLayer' (declared on line 15)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>106</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID>9</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'buffBackLayer' is used, but may not have been initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>roomoptions.cpp</FILENAME>
+      <LINE>111</LINE>
+      <COLUMN>15</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Using uninitialized memory 'buffClipLayer'.</DESCRIPTION>
+    <FUNCTION>ExtendedProc</FUNCTION>
+    <DECORATED>?ExtendedProc@@YGHPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>36</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>37</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>38</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>39</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>40</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>41</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>42</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>44</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>45</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>46</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>13</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'buffClipLayer' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>48</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>49</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>50</LINE>
+        <COLUMN>54</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume '&lt;branch condition&gt;' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>58</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( 'message' ) resolves to case 273: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>75</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>76</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( '(((DWORD_PTR)(wParam)))&amp;65535' ) resolves to case 1114: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>77</LINE>
+        <COLUMN>2</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>78</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>80</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>81</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>82</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>83</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>88</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>89</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>5</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'i==0' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>99</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID>6</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'i==1' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>105</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID>7</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'i==2' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>110</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID>8</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Enter this branch, (assume 'i==3')</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>111</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID>9</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'buffClipLayer' is an In/Out argument to 'ResizeLayer' (declared on line 15)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>111</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID>10</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'buffClipLayer' is used, but may not have been initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>roomoptions.cpp</FILENAME>
+      <LINE>162</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>6011</DEFECTCODE>
+    <DESCRIPTION>Dereferencing NULL pointer 'theGame'. </DESCRIPTION>
+    <FUNCTION>ExtendedProc</FUNCTION>
+    <DECORATED>?ExtendedProc@@YGHPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>36</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>4</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>37</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>38</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>39</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>40</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>41</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>42</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>44</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>45</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>46</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>48</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>49</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>50</LINE>
+        <COLUMN>54</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'theGame' may be NULL (Skip this branch)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>58</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( 'message' ) resolves to case 273: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>75</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>76</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( '(((DWORD_PTR)(wParam)))&amp;65535' ) resolves to case 1003: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>119</LINE>
+        <COLUMN>2</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>121</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Enter this branch, (assume '&lt;branch condition&gt;')</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>122</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>123</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID>5</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'i==0' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>136</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID>6</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'i==1' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>149</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID>7</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'i==2' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>161</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID>8</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Enter this branch, (assume 'i==3')</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>roomoptions.cpp</FILENAME>
+        <LINE>162</LINE>
+        <COLUMN>12</COLUMN>
+        <KEYEVENT>
+          <ID>9</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'theGame' is dereferenced, but may still be NULL</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

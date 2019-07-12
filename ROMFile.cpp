@@ -8,7 +8,7 @@
 #include "SpriteObjectManager.h"
 #include "clsRoomScrolls.h"
 #include "BaseGame.h"
-#include "MemFile.h"
+#include "..\MemFile\MemFile.h"
 #include "Logger.h"
 //Get the Major Arrays
 void DumpLayers();
@@ -70,10 +70,9 @@ int DrawLevel() {
 int LoadROM() {
 	RD1Engine::theGame->LoadAreaTable();
 	RD1Engine::theGame->GetArrays();
-	for (int i = 0; i < 4; i++)
-	{
-		SetUpCombos(i);
-	}
+	
+		SetUpCombos();
+	
 
 	//GlobalVars::gblVars->AppPath
 		

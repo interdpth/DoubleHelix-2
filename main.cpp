@@ -942,28 +942,6 @@ int             SetUpCombos()
 		}
 
 		LoadCombos(&cboClipData, quick, 255);
-
-		/* FILE *          text = fopen(quick, "rt");
-
-		 cboClipData.Clear();
-		 if (text)
-		 {
-			while (!feof(text))
-			{
-			   fgets(cs, 128, text);
-
-			   if ((cs[strlen(cs)] == 0xD) || (cs[strlen(cs)] == 0xA))
-				  cs[strlen(cs)] = 0;
-			   if ((cs[strlen(cs) - 1] == 0xD) || (cs[strlen(cs) - 1] == 0xA))
-				  cs[strlen(cs) - 1] = 0;
-
-			   cboClipData.Additem(cs);
-			}
-			fclose(text);
-		 }
-		 Combos[combon].SetListIndex(0);
-		 cboClipData.SetListIndex(0);*/
-	
 	return 0;
 }
 

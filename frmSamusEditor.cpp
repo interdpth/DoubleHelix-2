@@ -1,9 +1,9 @@
 #include "resource.h"
-#include "MemFile.h"
+#include "..\MemFile\MemFile.h"
 #include "FusionSamus.h"
-#include "Image.h"
+#include "..\Win32GBAImageClasses\Image.h"
 #include "GlobalVars.h"
-#include "BackBuffer.h"
+#include "..\Win32GBAImageClasses\BackBuffer.h"
 #include "SamusEditorClass.h"
 #include <Windows.h>
 #include "sCombo.h"

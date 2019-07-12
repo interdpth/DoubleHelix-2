@@ -1,6 +1,6 @@
 #pragma once
 #include <Windows.h>
-#include "image.h"
+#include "..\Win32GBAImageClasses\image.h"
 #include "sCombo.h"
 class wndBGImport {
 public:

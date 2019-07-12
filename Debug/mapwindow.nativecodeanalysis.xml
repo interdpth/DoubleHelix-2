@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>mapwindow.cpp</FILENAME>
+      <LINE>116</LINE>
+      <COLUMN>11</COLUMN>
+    </SFA>
+    <DEFECTCODE>6011</DEFECTCODE>
+    <DESCRIPTION>Dereferencing NULL pointer 'theGame'. </DESCRIPTION>
+    <FUNCTION>Draw</FUNCTION>
+    <DECORATED>?Draw@@YAXPAUHDC__@@@Z</DECORATED>
+    <FUNCLINE>69</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>4</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>71</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>72</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>75</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>76</LINE>
+        <COLUMN>31</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'theGame' may be NULL (Skip this branch)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>97</LINE>
+        <COLUMN>20</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>101</LINE>
+        <COLUMN>21</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>107</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>108</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>112</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>113</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>114</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>115</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>116</LINE>
+        <COLUMN>11</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'theGame' is dereferenced, but may still be NULL</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>mapwindow.cpp</FILENAME>
+      <LINE>116</LINE>
+      <COLUMN>11</COLUMN>
+    </SFA>
+    <DEFECTCODE>6011</DEFECTCODE>
+    <DESCRIPTION>Dereferencing NULL pointer 'theGame-&gt;mainRoom'. </DESCRIPTION>
+    <FUNCTION>Draw</FUNCTION>
+    <DECORATED>?Draw@@YAXPAUHDC__@@@Z</DECORATED>
+    <FUNCLINE>69</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>4</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>71</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>72</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>75</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>76</LINE>
+        <COLUMN>31</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'theGame-&gt;mainRoom' may be NULL (Skip this branch)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>97</LINE>
+        <COLUMN>20</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'viewRect.right&lt;64' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>101</LINE>
+        <COLUMN>21</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'viewRect.bottom&lt;64' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>107</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>108</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'z&lt;1.000000' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>112</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>113</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>114</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>115</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>mapwindow.cpp</FILENAME>
+        <LINE>116</LINE>
+        <COLUMN>11</COLUMN>
+        <KEYEVENT>
+          <ID>5</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'theGame-&gt;mainRoom' is dereferenced, but may still be NULL</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>mapwindow.cpp</FILENAME>
+      <LINE>345</LINE>
+      <COLUMN>100</COLUMN>
+    </SFA>
+    <DEFECTCODE>6287</DEFECTCODE>
+    <DESCRIPTION>Redundant code:  the left and right sub-expressions are identical.</DESCRIPTION>
+    <FUNCTION>MapProc</FUNCTION>
+    <DECORATED>?MapProc@@YGJPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>243</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

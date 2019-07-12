@@ -1,7 +1,7 @@
 #pragma once
 #include <windows.h>
 #include "sCombo.h"
-#include "image.h"
+#include "..\Win32GBAImageClasses\image.h"
 #include "sChecks.h"
 
 

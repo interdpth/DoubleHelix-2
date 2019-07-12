@@ -1,7 +1,7 @@
 #pragma once
 #include <windows.h>
-#include "Image.h"
-#include "BackBuffer.h"
+#include "..\Win32GBAImageClasses\Image.h"
+#include "..\Win32GBAImageClasses\BackBuffer.h"
 #include "SprGBuf.h"
 #include "SamusBase.h"
 #include "GBAMethods.h"

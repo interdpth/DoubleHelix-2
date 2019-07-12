@@ -4,7 +4,7 @@
 #include "sChecks.h"
 #include "sList.h"
 #include "sCombo.h"
-#include "image.h"
+#include "..\Win32GBAImageClasses\image.h"
 #include "Structures.h"
 #include "GBAMethods.h"
 #include "Frames.h"

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>cted.cpp</FILENAME>
+      <LINE>167</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'sscanf'.</DESCRIPTION>
+    <FUNCTION>MetroidTextEditor::GetEncodedEntry</FUNCTION>
+    <DECORATED>?GetEncodedEntry@MetroidTextEditor@@QAEGPAD@Z</DECORATED>
+    <FUNCLINE>152</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>cted.cpp</FILENAME>
+      <LINE>167</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6328</DEFECTCODE>
+    <DESCRIPTION>Size mismatch: 'int' passed as _Param_(3) when '16 bit operand' is required in call to 'sscanf'. This indicates a potential severe error. Buffer underrun or overrun can occur when when this is reported for scanf-like functions.</DESCRIPTION>
+    <FUNCTION>MetroidTextEditor::GetEncodedEntry</FUNCTION>
+    <DECORATED>?GetEncodedEntry@MetroidTextEditor@@QAEGPAD@Z</DECORATED>
+    <FUNCLINE>152</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>cted.cpp</FILENAME>
+      <LINE>426</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'sscanf'.</DESCRIPTION>
+    <FUNCTION>MetroidTextEditor::LoadTable</FUNCTION>
+    <DECORATED>?LoadTable@MetroidTextEditor@@QAEHXZ</DECORATED>
+    <FUNCLINE>398</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

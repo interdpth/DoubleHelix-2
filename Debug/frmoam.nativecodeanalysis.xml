@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>frmoam.cpp</FILENAME>
+      <LINE>48</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'sscanf'.</DESCRIPTION>
+    <FUNCTION>GetCurrentFrameTable</FUNCTION>
+    <DECORATED>?GetCurrentFrameTable@@YAKXZ</DECORATED>
+    <FUNCLINE>43</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>frmoam.cpp</FILENAME>
+      <LINE>224</LINE>
+      <COLUMN>10</COLUMN>
+    </SFA>
+    <DEFECTCODE>6011</DEFECTCODE>
+    <DESCRIPTION>Dereferencing NULL pointer 'tmpFrame'. </DESCRIPTION>
+    <FUNCTION>OAMProc</FUNCTION>
+    <DECORATED>?OAMProc@@YGHPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>145</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>4</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>146</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>147</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>148</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>149</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>150</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>151</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>152</LINE>
+        <COLUMN>6</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'tmpFrame' is NULL</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>153</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>155</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'oamEditor-&gt;currentFrames!=0' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>160</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>161</LINE>
+        <COLUMN>11</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>162</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>164</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( 'message' ) resolves to case 273: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>216</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>218</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( '(((DWORD_PTR)(wParam)))&amp;65535' ) resolves to case 1283: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>219</LINE>
+        <COLUMN>2</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>220</LINE>
+        <COLUMN>39</COLUMN>
+        <KEYEVENT>
+          <ID>5</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Enter this branch, (assume '&lt;branch condition&gt;')</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>223</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>224</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID>6</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'tmpFrame' is dereferenced, but may still be NULL</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>frmoam.cpp</FILENAME>
+      <LINE>488</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>6385</DEFECTCODE>
+    <DESCRIPTION>Reading invalid data from 'SpriteSet-&gt;SpriteSetData.pal':  the readable size is '2048' bytes, but '278976' bytes may be read.</DESCRIPTION>
+    <FUNCTION>OAMPalProc</FUNCTION>
+    <DECORATED>?OAMPalProc@@YGJPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>460</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>4</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>462</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>463</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>464</LINE>
+        <COLUMN>5</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'buf' is NULL</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>465</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>466</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>468</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>469</LINE>
+        <COLUMN>40</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>474</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( 'message' ) resolves to case 516: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>486</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>487</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>488</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'buf' is an In/Out argument to 'sprintf' (declared at c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h:1769)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>488</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>Invalid read from 'SpriteSet-&gt;SpriteSetData.pal[69743]', (readable range is 0 to 511)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>frmoam.cpp</FILENAME>
+      <LINE>489</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>6011</DEFECTCODE>
+    <DESCRIPTION>Dereferencing NULL pointer 'theFrame'. </DESCRIPTION>
+    <FUNCTION>OAMPalProc</FUNCTION>
+    <DECORATED>?OAMPalProc@@YGJPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>460</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>4</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>462</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>463</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>464</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>465</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>466</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>468</LINE>
+        <COLUMN>6</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'theFrame' is NULL</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>469</LINE>
+        <COLUMN>40</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'OamEditor-&gt;currentFrames!=0' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>474</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( 'message' ) resolves to case 516: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>486</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>487</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>488</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>frmoam.cpp</FILENAME>
+        <LINE>489</LINE>
+        <COLUMN>4</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'theFrame' is dereferenced, but may still be NULL</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

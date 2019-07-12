@@ -3,7 +3,7 @@
 #include "Structures.h"
 #include "SprGBuf.h"
 #include "GlobalVars.h"
-#include "MemFile.h"
+#include "..\MemFile\MemFile.h"
 
 class cStatEd {
 public:

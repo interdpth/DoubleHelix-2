@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>frmdoor.cpp</FILENAME>
+      <LINE>182</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>6340</DEFECTCODE>
+    <DESCRIPTION>Mismatch on sign: 'unsigned char' passed as _Param_(3) when some signed type is required in call to 'sprintf'.</DESCRIPTION>
+    <FUNCTION>DoorManager::ConnectDoor</FUNCTION>
+    <DECORATED>?ConnectDoor@DoorManager@@QAEHE@Z</DECORATED>
+    <FUNCLINE>165</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>frmdoor.cpp</FILENAME>
+      <LINE>210</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'sscanf'.</DESCRIPTION>
+    <FUNCTION>DoorManager::SaveThisDoor</FUNCTION>
+    <DECORATED>?SaveThisDoor@DoorManager@@QAEHH@Z</DECORATED>
+    <FUNCLINE>200</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>frmdoor.cpp</FILENAME>
+      <LINE>218</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'sscanf'.</DESCRIPTION>
+    <FUNCTION>DoorManager::SaveThisDoor</FUNCTION>
+    <DECORATED>?SaveThisDoor@DoorManager@@QAEHH@Z</DECORATED>
+    <FUNCLINE>200</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>frmdoor.cpp</FILENAME>
+      <LINE>223</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'sscanf'.</DESCRIPTION>
+    <FUNCTION>DoorManager::SaveThisDoor</FUNCTION>
+    <DECORATED>?SaveThisDoor@DoorManager@@QAEHH@Z</DECORATED>
+    <FUNCLINE>200</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

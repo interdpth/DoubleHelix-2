@@ -27,8 +27,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mRNA_UI", "..\RNA_UI\RNA_UI
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tRNA_GFX", "tRNA_GFX\tRNA_GFX.vcxproj", "{B2F0CC70-B712-4684-B99A-7054A69E4643}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNAFission", "..\DNAFission\DNAFission.vcxproj", "{87AAAEA5-8882-4FA9-856F-C3DCE422CD81}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,20 +107,6 @@ Global
 		{B2F0CC70-B712-4684-B99A-7054A69E4643}.Release|Win32.Build.0 = Release|Win32
 		{B2F0CC70-B712-4684-B99A-7054A69E4643}.Release|x64.ActiveCfg = Release|x64
 		{B2F0CC70-B712-4684-B99A-7054A69E4643}.Release|x64.Build.0 = Release|x64
-		{87AAAEA5-8882-4FA9-856F-C3DCE422CD81}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{87AAAEA5-8882-4FA9-856F-C3DCE422CD81}.Debug|ARM.ActiveCfg = Debug|ARM
-		{87AAAEA5-8882-4FA9-856F-C3DCE422CD81}.Debug|ARM.Build.0 = Debug|ARM
-		{87AAAEA5-8882-4FA9-856F-C3DCE422CD81}.Debug|Win32.ActiveCfg = Debug|Win32
-		{87AAAEA5-8882-4FA9-856F-C3DCE422CD81}.Debug|Win32.Build.0 = Debug|Win32
-		{87AAAEA5-8882-4FA9-856F-C3DCE422CD81}.Debug|x64.ActiveCfg = Debug|x64
-		{87AAAEA5-8882-4FA9-856F-C3DCE422CD81}.Debug|x64.Build.0 = Debug|x64
-		{87AAAEA5-8882-4FA9-856F-C3DCE422CD81}.Release|Any CPU.ActiveCfg = Release|Win32
-		{87AAAEA5-8882-4FA9-856F-C3DCE422CD81}.Release|ARM.ActiveCfg = Release|ARM
-		{87AAAEA5-8882-4FA9-856F-C3DCE422CD81}.Release|ARM.Build.0 = Release|ARM
-		{87AAAEA5-8882-4FA9-856F-C3DCE422CD81}.Release|Win32.ActiveCfg = Release|Win32
-		{87AAAEA5-8882-4FA9-856F-C3DCE422CD81}.Release|Win32.Build.0 = Release|Win32
-		{87AAAEA5-8882-4FA9-856F-C3DCE422CD81}.Release|x64.ActiveCfg = Release|x64
-		{87AAAEA5-8882-4FA9-856F-C3DCE422CD81}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,1031 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>spriteseteditor.cpp</FILENAME>
+      <LINE>95</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'sscanf'.</DESCRIPTION>
+    <FUNCTION>SpriteSetEditorProc</FUNCTION>
+    <DECORATED>?SpriteSetEditorProc@@YGHPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>44</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>spriteseteditor.cpp</FILENAME>
+      <LINE>130</LINE>
+      <COLUMN>36</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Using uninitialized memory 'entMgr'.</DESCRIPTION>
+    <FUNCTION>SpriteSetEditorProc</FUNCTION>
+    <DECORATED>?SpriteSetEditorProc@@YGHPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>44</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>46</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>24</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>51</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>52</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>53</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>54</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>55</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>56</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>57</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>58</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>59</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>60</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>62</LINE>
+        <COLUMN>17</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'entMgr' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>63</LINE>
+        <COLUMN>33</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'theGame-&gt;mainRoom-&gt;mgrEntities' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>67</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>68</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( 'message' ) resolves to case 273: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>80</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>81</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( '(((DWORD_PTR)(wParam)))&amp;65535' ) resolves to case 1191: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>116</LINE>
+        <COLUMN>2</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>117</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID>5</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Enter this branch, (assume '&lt;branch condition&gt;')</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>118</LINE>
+        <COLUMN>20</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>122</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>123</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>129</LINE>
+        <COLUMN>32</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>130</LINE>
+        <COLUMN>36</COLUMN>
+        <KEYEVENT>
+          <ID>6</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'entMgr' is used, but may not have been initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>spriteseteditor.cpp</FILENAME>
+      <LINE>151</LINE>
+      <COLUMN>32</COLUMN>
+    </SFA>
+    <DEFECTCODE>28182</DEFECTCODE>
+    <DESCRIPTION>Dereferencing NULL pointer. 'mgr' contains the same NULL value as 'theGame-&gt;mainRoom-&gt;mgrEntities' did. </DESCRIPTION>
+    <FUNCTION>SpriteSetEditorProc</FUNCTION>
+    <DECORATED>?SpriteSetEditorProc@@YGHPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>44</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>46</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>24</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>49</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>51</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>52</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>53</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>54</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>55</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>56</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>57</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>58</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>59</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>60</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>62</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>63</LINE>
+        <COLUMN>33</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'mgr' may be NULL (Skip this branch)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>67</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>68</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( 'message' ) resolves to case 273: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>80</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>81</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( '(((DWORD_PTR)(wParam)))&amp;65535' ) resolves to case 1195: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>146</LINE>
+        <COLUMN>2</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>148</LINE>
+        <COLUMN>53</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>150</LINE>
+        <COLUMN>10</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>150</LINE>
+        <COLUMN>17</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Enter this loop, (assume 'i&lt;maxsprite')</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>151</LINE>
+        <COLUMN>32</COLUMN>
+        <KEYEVENT>
+          <ID>5</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'mgr' is dereferenced, but may still be NULL</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>spriteseteditor.cpp</FILENAME>
+      <LINE>103</LINE>
+      <COLUMN>106</COLUMN>
+    </SFA>
+    <DEFECTCODE>6011</DEFECTCODE>
+    <DESCRIPTION>Dereferencing NULL pointer 'theGame-&gt;mainRoom-&gt;mgrEntities'. </DESCRIPTION>
+    <FUNCTION>SpriteSetEditorProc</FUNCTION>
+    <DECORATED>?SpriteSetEditorProc@@YGHPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>44</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>4</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>46</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>24</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>51</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>52</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>53</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>54</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>55</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>56</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>57</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>58</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>59</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>60</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>62</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>63</LINE>
+        <COLUMN>33</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'theGame-&gt;mainRoom-&gt;mgrEntities' may be NULL</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>67</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>68</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( 'message' ) resolves to case 273: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>80</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>81</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( '(((DWORD_PTR)(wParam)))&amp;65535' ) resolves to case 1225: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>93</LINE>
+        <COLUMN>2</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>94</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>95</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>103</LINE>
+        <COLUMN>106</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'theGame-&gt;mainRoom-&gt;mgrEntities' is dereferenced, but may still be NULL</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>spriteseteditor.cpp</FILENAME>
+      <LINE>63</LINE>
+      <COLUMN>33</COLUMN>
+    </SFA>
+    <DEFECTCODE>6011</DEFECTCODE>
+    <DESCRIPTION>Dereferencing NULL pointer 'theGame'. </DESCRIPTION>
+    <FUNCTION>SpriteSetEditorProc</FUNCTION>
+    <DECORATED>?SpriteSetEditorProc@@YGHPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>44</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>4</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>46</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>24</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'theGame' may be NULL (Skip this branch)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>51</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>52</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>53</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>54</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>55</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>56</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>57</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>58</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>59</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>60</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>62</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>63</LINE>
+        <COLUMN>33</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'theGame' is dereferenced, but may still be NULL</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>spriteseteditor.cpp</FILENAME>
+      <LINE>63</LINE>
+      <COLUMN>33</COLUMN>
+    </SFA>
+    <DEFECTCODE>6011</DEFECTCODE>
+    <DESCRIPTION>Dereferencing NULL pointer 'theGame-&gt;mainRoom'. </DESCRIPTION>
+    <FUNCTION>SpriteSetEditorProc</FUNCTION>
+    <DECORATED>?SpriteSetEditorProc@@YGHPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>44</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>4</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>46</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>24</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'theGame-&gt;mainRoom' may be NULL (Skip this branch)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>51</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>52</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>53</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>54</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>55</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>56</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>57</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>58</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>59</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>60</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>62</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>63</LINE>
+        <COLUMN>33</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'theGame-&gt;mainRoom-&gt;mgrEntities' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>63</LINE>
+        <COLUMN>33</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'theGame-&gt;mainRoom' is dereferenced, but may still be NULL</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+      <FILENAME>spriteseteditor.cpp</FILENAME>
+      <LINE>85</LINE>
+      <COLUMN>43</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Using uninitialized memory 'mgr'.</DESCRIPTION>
+    <FUNCTION>SpriteSetEditorProc</FUNCTION>
+    <DECORATED>?SpriteSetEditorProc@@YGHPAUHWND__@@IIJ@Z</DECORATED>
+    <FUNCLINE>44</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>46</LINE>
+        <COLUMN>17</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'mgr' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>24</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'theGame&amp;&amp;theGame-&gt;mainRoom' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>51</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>52</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>53</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>54</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>55</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>56</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>57</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>58</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>59</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>60</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>62</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>63</LINE>
+        <COLUMN>33</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>67</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>68</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( 'message' ) resolves to case 273: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>80</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>81</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Assume switch ( '(((DWORD_PTR)(wParam)))&amp;65535' ) resolves to case 1187: </MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>82</LINE>
+        <COLUMN>2</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>83</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID>5</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Enter this branch, (assume '&lt;branch condition&gt;')</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>85</LINE>
+        <COLUMN>43</COLUMN>
+        <KEYEVENT>
+          <ID>6</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'mgr' is an In/Out argument to 'cSpriteSetEditor::GetSetData' (declared at c:\users\endeavor\documents\github\doublehelix 2\csse.h:27)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\endeavor\documents\github\doublehelix 2\</FILEPATH>
+        <FILENAME>spriteseteditor.cpp</FILENAME>
+        <LINE>85</LINE>
+        <COLUMN>43</COLUMN>
+        <KEYEVENT>
+          <ID>7</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'mgr' is used, but may not have been initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

@@ -27,7 +27,7 @@ int SaveHeader(unsigned char call);
 int DrawTileRect(HDC hdc, MousePointer mpointer, int mul);
 int GetArrays();
 int HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam);
-int SetUpCombos(int combon);
+int SetUpCombos();
 int GetRoomCount(long RoomTableOffset);
 
 
