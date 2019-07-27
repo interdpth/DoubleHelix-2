@@ -92,7 +92,7 @@ void TabResize()
 	UiState::AutoRect(hTabControl, &tabControl);
 	MoveWindow(hCurrentTab, 0, 30, tabControl.right - 1, tabControl.bottom - 40, 0);
 
-	UiState::stateManager->ResizeTileset(hTabControl);
+	UiState::stateManager->ResizeTileset(GetDlgItem(hwndMain(), tabMain));
 
 
 	UiState::AutoRect(UiState::stateManager->GetTilesetWindow(), &tilesetWindow);
@@ -127,13 +127,9 @@ void LoadCombos(sCombo* Combo, char *FileName, int Max = 255)
 		while (!feof(text))
 		{
 			fgets(buffer, 256, text);
-
-			if ((buffer[strlen(buffer)] == 0xD) || (buffer[strlen(buffer)] == 0xA))
-				buffer[strlen(buffer)] = 0;
-			if ((buffer[strlen(buffer) - 1] == 0xD) || (buffer[strlen(buffer) - 1] == 0xA))
-				buffer[strlen(buffer) - 1] = 0;
-
-			Combo->Additem(buffer);
+			
+				Combo->Additem(buffer);
+			
 		}
 
 
@@ -177,27 +173,43 @@ bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPar
 
 	switch (LOWORD(wParam))
 	{
+
 	case ID_MAP_VIEWFOREGROUND:
-		GlobalVars::gblVars->ViewForeground = GlobalVars::gblVars->checkBoxViewF.value() == BST_CHECKED;
-		mainGame->DrawStatus.BG0 = GlobalVars::gblVars->ViewForeground;
+	{
+		bool curVal = GlobalVars::gblVars->checkBoxViewF.GetCheckState();
+		GlobalVars::gblVars->checkBoxViewF.SetCheckState(!curVal);
+		GlobalVars::gblVars->ViewForeground = !curVal;
+		mainGame->DrawStatus.BG0 = !curVal;
 		mainGame->DrawStatus.dirty = true;
+		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		InvalidateRect(hwnd, 0, false);
 		return true;
-		break;
+	}
 	case ID_MAP_VIEWLEVELLAYER:
-		GlobalVars::gblVars->ViewLevel = GlobalVars::gblVars->checkBoxViewL.value() == BST_CHECKED;
-		mainGame->DrawStatus.BG1 = GlobalVars::gblVars->ViewLevel;
+	{
+		bool curVal = GlobalVars::gblVars->checkBoxViewL.GetCheckState();
+		GlobalVars::gblVars->checkBoxViewL.SetCheckState(!curVal);
+		GlobalVars::gblVars->ViewLevel = !curVal;
+		mainGame->DrawStatus.BG1 = !curVal;
 		mainGame->DrawStatus.dirty = true;
+		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		InvalidateRect(hwnd, 0, false);
 		return true;
-		break;
+	}
+
 	case ID_MAP_VIEWBACKLAYER:
-		GlobalVars::gblVars->ViewBacklayer = GlobalVars::gblVars->checkBoxViewB.value() == BST_CHECKED;
-		mainGame->DrawStatus.BG2 = GlobalVars::gblVars->ViewBacklayer;
+	{
+		bool curVal = GlobalVars::gblVars->checkBoxViewB.GetCheckState();
+		GlobalVars::gblVars->checkBoxViewB.SetCheckState(!curVal);
+		GlobalVars::gblVars->ViewBacklayer = !curVal;
+		mainGame->DrawStatus.BG2 = !curVal;
 		mainGame->DrawStatus.dirty = true;
+		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		InvalidateRect(hwnd, 0, false);
 		return true;
+	}
 		break;
+
 	case ID_MAP_SHOWSPRITES:
 		//GlobalVars::gblVars->ViewBacklayer = GlobalVars::gblVars->checkBoxViewB.value() == BST_CHECKED;
 		return true;
@@ -541,6 +553,7 @@ sChecks door;
 
 
 		hwndMain(hwnd);
+
 		SetWindowSubclass(hwnd, ComboProc, subclasscounter++, 0);
 		UiState::stateManager->InitTileset();
 		UiState::stateManager->InitMap();
@@ -558,7 +571,12 @@ sChecks door;
 		clrIndex = 0;
 		GlobalVars::gblVars->imgTileset = new Image();
 		GlobalVars::gblVars->imgTileset->Create(16 * 17 + 1, 512);
-
+		GlobalVars::gblVars->ViewClip.SetCnt(GetDlgItem(hwnd, ID_MAP_SHOWCLIPDATA));
+		GlobalVars::gblVars->ScrollCheck.SetCnt(GetDlgItem(hwnd, chkScroll));
+		GlobalVars::gblVars->checkBoxClip.SetCnt(GetDlgItem(hwnd, chkClip));
+		GlobalVars::gblVars->checkBoxViewF.Init(hwnd, ID_MAP_VIEWFOREGROUND);
+		GlobalVars::gblVars->checkBoxViewL.Init(hwnd, ID_MAP_VIEWLEVELLAYER);
+		GlobalVars::gblVars->checkBoxViewB.Init(hwnd, ID_MAP_VIEWBACKLAYER);
 
 		chkDoTrans.SetCheckState(true);
 		GlobalVars::gblVars->checkBoxshowmap.value(1);
@@ -842,7 +860,7 @@ int WINAPI      WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCm
 
 
 	GBAGraphics::VRAM = new GBAGraphics();
-	RD1Engine::theGame = new RD1Engine(SupportedTitles::titleWL, NULL, NULL, NULL, NULL);
+	//RD1Engine::theGame = new RD1Engine(SupportedTitles::titleMF, NULL, NULL, NULL, NULL);
 	cSpriteSetEditor::SpriteSet = new cSpriteSetEditor();
 
 

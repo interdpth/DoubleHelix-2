@@ -35,15 +35,15 @@ public:
 	sChecks chkBoxED;
 	sChecks chkHideSprites;
 	bool ViewForeground;
-	sChecks checkBoxViewF;
+sMenuItem checkBoxViewF;
 	bool ViewLevel;
-	sChecks checkBoxViewL;
+	sMenuItem checkBoxViewL;
 	bool ViewBacklayer;
-	sChecks checkBoxViewB;
+	sMenuItem checkBoxViewB;
 	sChecks checkBoxshowmap;
 	sChecks checkBoxshowtileset;
-
 	sMenuItem chkAnimatez;
+
 	sMenuItem checkBoxViewBL;
 	sMenuItem checkBoxsMove;
 	sMenuItem checkBoxsResize;

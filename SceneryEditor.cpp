@@ -159,6 +159,11 @@ int InitSceneryWindow(){
 LRESULT CALLBACK SWProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam){
 	HDC hdc;
 	PAINTSTRUCT ps;
+
+	if (RD1Engine::theGame == NULL)
+	{
+		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
 	MapUtils* nMap = new MapUtils(RD1Engine::theGame->mainRoom->mapMgr);
 
 	int x=0,y=0,add=0;

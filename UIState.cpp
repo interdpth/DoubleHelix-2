@@ -298,6 +298,7 @@ void UiState::ResizeMap(HWND srcNeighbor)
 	HWND hWnd = this->GetMapWindow();
 	int width = 16 * 4;
 	int  height = 16 * 4;;
+	if (RD1Engine::theGame==NULL|| RD1Engine::theGame->mainRoom->mapMgr == NULL) return;
 	MapManager* mgrMap = RD1Engine::theGame->mainRoom->mapMgr;
 	RECT srcCoords;
 	GetWindowRect(srcNeighbor, &srcCoords);
@@ -391,7 +392,7 @@ void UiState::ResizeTileset(HWND srcNeighbor)
 {
 	RECT viewRect;
 	HWND hWnd = this->GetTilesetWindow();
-
+	if (RD1Engine::theGame== NULL || RD1Engine::theGame->mainRoom == NULL) return;
 	MapManager* mgrMap = RD1Engine::theGame->mainRoom->mapMgr;
 	RECT srcCoords;
 	AutoRect(srcNeighbor, &srcCoords);
@@ -402,16 +403,16 @@ void UiState::ResizeTileset(HWND srcNeighbor)
 
 	RECT toolsRect;
 	RECT mainRect;
-	AutoRect(hTabControl, &toolsRect);
+
 	AutoRect(UiState::stateManager->GetWindow(), &mainRect);
 
 
 	Image* tileset = GlobalVars::gblVars->imgTileset;
 
 	viewRect.right = tileset->Width;
-	viewRect.top = toolsRect.top+toolsRect.bottom-40;
+	viewRect.top = srcCoords.bottom+8;
 
-	viewRect.left = toolsRect.left;
+	viewRect.left = srcCoords.left;
 	// mainRect.right - toolsRect.right;
 	viewRect.bottom = 280;;;// -16;
     MoveWindow(hWnd, 8, viewRect.top, viewRect.right, viewRect.bottom-16 , 0);

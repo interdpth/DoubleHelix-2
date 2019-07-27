@@ -99,8 +99,8 @@ void LoadCombos(sCombo* Combo, char *FileName, int Max = 255);
 
 void OpenRom()
 {
-	char* fileLoc = new char[MAX_PATH];
-	memset(fileLoc, 0, MAX_PATH);
+	char* fileLoc = new char[512];
+	memset(fileLoc, 0, 512);
 	sprintf(fileLoc, "%s", "C:\\DHTest\\MF.gba");
 	if (RD1Engine::theGame)
 	{
@@ -112,14 +112,14 @@ void OpenRom()
 		fclose(GBA.ROM);
 	}
 	
-	{
-		GBA.ReturnFileName(hGlobal, hwndMain(), "Open a GBA ROM\0*.gba", fileLoc, MAX_PATH, 1);
-	}
+	
+		GBA.ReturnFileName(hGlobal, NULL, "Open a GBA ROM\0*.gba\0", fileLoc, 512, 1);
+	
 	if (fileLoc[0])
 	{
 		DataContainer* tmp2;
 		sprintf(GBA.FileLoc, "%s", fileLoc);
-		char prefix[3];
+		char prefix[4] = { 0 };
 		GBA.REDIT = fopen(GBA.FileLoc, "r+b");
 		char            ROMNAME[0x5] = { '\0' };
 		fseek(GBA.REDIT, 0xAC, SEEK_SET);
@@ -178,7 +178,7 @@ void OpenRom()
 		GlobalVars::gblVars->StatEditor = new cStatEd(RD1Engine::theGame->currentRomType);
 
 
-		char filepath[2048];
+		char filepath[MAX_PATH] = { 0 };
 
 		// char que
 		sprintf(filepath, "%s\\%s\\Music.txt", GlobalVars::gblVars->AppPath, prefix);

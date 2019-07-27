@@ -4,7 +4,7 @@ void LoadScrollInfo(int s, Scroller *scroll);
 
 MapUtils::MapUtils(MapManager*  mgr)
 {
-	_mapMgr = RD1Engine::theGame->mainRoom->mapMgr;
+	
 }
 
 
@@ -14,6 +14,7 @@ MapUtils::~MapUtils()
 
 void MapUtils::HandleRightClick(editingStates thisState, int mouseX, int mouseY, int objlist)
 {
+	if (RD1Engine::theGame->mainRoom->mapMgr == NULL) return;
 	_mapMgr = RD1Engine::theGame->mainRoom->mapMgr;
 	int td = 0;
 	if ((thisState != editingStates::SPRITE  && thisState != editingStates::DOOR) || (thisState == editingStates::DOOR &&  SendMessage(GetDlgItem(hwndMain(), chkResizeDoors), BM_GETCHECK, 0, 0) == 1))
@@ -57,6 +58,7 @@ void MapUtils::HandleRightClick(editingStates thisState, int mouseX, int mouseY,
 }
 void MapUtils::HandleLeftClick(editingStates thisState, int mouseX, int mouseY, int spritelistindex, int wParam, int lParam)
 {
+	if (RD1Engine::theGame->mainRoom->mapMgr == NULL) return;
 	_mapMgr = RD1Engine::theGame->mainRoom->mapMgr;
 	if (thisState == editingStates::SPRITE) {
 		int spriteno = Gimmeasprite(mouseX, mouseY, spritelistindex);
