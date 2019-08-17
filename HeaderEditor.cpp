@@ -158,6 +158,8 @@ int SetupHeaderControls() {
 	cMiniX.Init(GetDlgItem(hwndHeader, cboMiniX));
 	cMiniY.Init(GetDlgItem(hwndHeader, cboMiniY));
 	cmTileset.Init(GetDlgItem(hwndHeader, cboTileset));
+//	sprintf(filepath, "%s\\%s\\TilesetNames.txt", GlobalVars::gblVars->AppPath, prefix);
+	//LoadCombos(&cmTileset, filepath, 255);
 	comboSpriteSetHeader.Init(GetDlgItem(hwndHeader, cboSprites));
 	cSYP.Init(GetDlgItem(hwndHeader, cboSYP));
 	//cTrans.Init(GetDlgItem(hwndHeader,cboTrans));

@@ -25,8 +25,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libgrit", "..\grit\libgrit\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mRNA_UI", "..\RNA_UI\RNA_UI.vcxproj", "{B9CBF26C-BA6C-4F6D-B074-8847B2E633E5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tRNA_GFX", "tRNA_GFX\tRNA_GFX.vcxproj", "{B2F0CC70-B712-4684-B99A-7054A69E4643}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,18 +93,6 @@ Global
 		{B9CBF26C-BA6C-4F6D-B074-8847B2E633E5}.Release|Win32.Build.0 = Release|Win32
 		{B9CBF26C-BA6C-4F6D-B074-8847B2E633E5}.Release|x64.ActiveCfg = Release|x64
 		{B9CBF26C-BA6C-4F6D-B074-8847B2E633E5}.Release|x64.Build.0 = Release|x64
-		{B2F0CC70-B712-4684-B99A-7054A69E4643}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{B2F0CC70-B712-4684-B99A-7054A69E4643}.Debug|ARM.ActiveCfg = Debug|Win32
-		{B2F0CC70-B712-4684-B99A-7054A69E4643}.Debug|Win32.ActiveCfg = Debug|Win32
-		{B2F0CC70-B712-4684-B99A-7054A69E4643}.Debug|Win32.Build.0 = Debug|Win32
-		{B2F0CC70-B712-4684-B99A-7054A69E4643}.Debug|x64.ActiveCfg = Debug|x64
-		{B2F0CC70-B712-4684-B99A-7054A69E4643}.Debug|x64.Build.0 = Debug|x64
-		{B2F0CC70-B712-4684-B99A-7054A69E4643}.Release|Any CPU.ActiveCfg = Release|Win32
-		{B2F0CC70-B712-4684-B99A-7054A69E4643}.Release|ARM.ActiveCfg = Release|Win32
-		{B2F0CC70-B712-4684-B99A-7054A69E4643}.Release|Win32.ActiveCfg = Release|Win32
-		{B2F0CC70-B712-4684-B99A-7054A69E4643}.Release|Win32.Build.0 = Release|Win32
-		{B2F0CC70-B712-4684-B99A-7054A69E4643}.Release|x64.ActiveCfg = Release|x64
-		{B2F0CC70-B712-4684-B99A-7054A69E4643}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

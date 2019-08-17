@@ -190,7 +190,7 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		g_pOldhwndXPosText = (WNDPROC)SetWindowLongPtr(hwndXPosText, GWLP_WNDPROC, (LONG_PTR)SpecialKeyDownX);
 		hwndYPosText = GetWindow(cboYPos->GetHwnd(), GW_CHILD);
 		g_pOldhwndYPosText = (WNDPROC)SetWindowLongPtr(hwndYPosText, GWLP_WNDPROC, (LONG_PTR)SpecialKeyDownY);
-		SetTimer(hWnd, theTimer, 60, (TIMERPROC)NULL);
+		SetTimer(hWnd, theTimer, 30, (TIMERPROC)NULL);
 
 		break;
 	case WM_TIMER:

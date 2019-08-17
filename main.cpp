@@ -117,7 +117,7 @@ void LoadCombos(sCombo* Combo, char *FileName, int Max = 255)
 {
 
 	FILE *          text = fopen(FileName, "rt");
-	char buffer[1024];
+	char buffer[1024] = { 0 };
 	Combo->Clear();
 
 	if (text)
@@ -245,6 +245,14 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 	{
 		return 0;
 	}
+
+
+	if (mnuOpen == LOWORD(wParam))
+	{
+		OpenRom();
+	}
+	
+	if(mainGame==NULL) return 0; 
 	switch (LOWORD(wParam))
 	{
 	case ID_ROOMTOOLS_EDITLEVELPAL:
@@ -413,9 +421,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		ShowWindow(GlobalVars::gblVars->StatEditor->me, SW_SHOW);
 		break;
 
-	case mnuOpen:
-		OpenRom();
-		break;
+
 	case mnuMini:
 		if (currentRomType == -1)
 			return 0;
@@ -570,7 +576,7 @@ sChecks door;
 
 		clrIndex = 0;
 		GlobalVars::gblVars->imgTileset = new Image();
-		GlobalVars::gblVars->imgTileset->Create(16 * 17 + 1, 512);
+		GlobalVars::gblVars->imgTileset->Create(16 * 17 + 1, 1024);
 		GlobalVars::gblVars->ViewClip.SetCnt(GetDlgItem(hwnd, ID_MAP_SHOWCLIPDATA));
 		GlobalVars::gblVars->ScrollCheck.SetCnt(GetDlgItem(hwnd, chkScroll));
 		GlobalVars::gblVars->checkBoxClip.SetCnt(GetDlgItem(hwnd, chkClip));
@@ -866,7 +872,7 @@ int WINAPI      WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCm
 
 
 	cOAMEdit::OamEditor = new cOAMEdit();
-	printf("Ayy");
+
 	currentRomType = -1;
 	hGlobal = hInstance;
 	bRunApp = 1;

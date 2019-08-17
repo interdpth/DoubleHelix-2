@@ -175,10 +175,10 @@ void OpenRom()
 			return; 
 		}
 		RD1Engine::theGame = new RD1Engine(theTitle, GlobalVars::gblVars->frameTables, &GlobalVars::gblVars->BGImage, GlobalVars::gblVars->TileImage, GlobalVars::gblVars->imgTileset);
-		GlobalVars::gblVars->StatEditor = new cStatEd(RD1Engine::theGame->currentRomType);
+	//	GlobalVars::gblVars->StatEditor = new cStatEd(RD1Engine::theGame->currentRomType);
 
 
-		char filepath[MAX_PATH] = { 0 };
+		char filepath[1024] = { 0 };
 
 		// char que
 		sprintf(filepath, "%s\\%s\\Music.txt", GlobalVars::gblVars->AppPath, prefix);
@@ -187,8 +187,8 @@ void OpenRom()
 		LoadCombos(&cMusic, filepath, 255);
 
 		// char que
-		sprintf(filepath, "%s\\%s\\TilesetNames.txt", GlobalVars::gblVars->AppPath, prefix);
-		LoadCombos(&cmTileset, filepath, 255);
+	
+	
 		LoadROM();
 		RD1Engine::theGame->mgrDoors->GetDoorArray(GBA.ROM);
 		RD1Engine::theGame->mgrScrolls->GetScrollArray(GBA.ROM);

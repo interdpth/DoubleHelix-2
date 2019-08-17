@@ -11,6 +11,10 @@ BOOL CALLBACK DwProc (HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam
 {
 	int i;
 	char cboBuf[100];
+	if (RD1Engine::theGame == NULL)
+	{
+	return	DefWindowProc(hwnd, message, wParam, lParam);
+	}
 	DoorManager *curMgr = RD1Engine::theGame->mgrDoors;
 	switch (message)
 	{
