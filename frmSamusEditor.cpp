@@ -116,12 +116,12 @@ void DrawSamus()
 	SamusBase* base = mf;
 
 	samusBuffer = new BackBuffer();
-	samusBuffer->Create(512, 512);
+	samusBuffer->Create(1024, 1024);
 
 	GlobalVars::gblVars->sec->SetupPreview(base);
 
 	GFX = new Image();
-	GFX->Create(256, 256);
+	GFX->Create(512, 512);
 	long pal[512] = { 0 };
 
 
@@ -130,7 +130,7 @@ void DrawSamus()
 
 	GFX->SetPalette(GlobalVars::gblVars->sec->SpritePreview->PreviewPal);
 	GFX->Clear();
-	for (int i = 0; i < 1024; i++) {
+	for (int i = 0; i < 1023; i++) {
 		GFX->Draw(tb, ((i) % 32) * 8, ((i) / 32) * 8, i);
 	}
 
@@ -210,10 +210,6 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		}
 
 		EndPaint(hWnd, &ps);
-
-
-
-
 		ReleaseDC(hWnd, hdc);
 	}
 	break;

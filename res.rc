@@ -354,57 +354,42 @@ BEGIN
     PUSHBUTTON      "Set Sprite",cmdSetSprite,139,126,48,13
 END
 
-frmOAM DIALOGEX 0, 0, 427, 434
+frmOAM DIALOGEX 0, 0, 357, 381
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Sprite Editor"
 MENU IDR_MENU2
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    LISTBOX         lstSprites,7,7,46,420,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    GROUPBOX        "Tiles Preview",fraTiles,63,249,185,173
-    GROUPBOX        "Palette Preview",fraPal,257,252,162,109
-    GROUPBOX        "Sprite Preview",fraSprPreview,59,7,110,123
-    GROUPBOX        "Frame Offset",IDC_STATIC,296,7,123,46
-    PUSHBUTTON      "Go to Offset",cmdGTO,298,34,62,17
-    GROUPBOX        "Parts ",fraParts,61,135,357,94
-    COMBOBOX        cboParts,95,145,37,94,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Part:",IDC_STATIC,69,148,17,9
-    LTEXT           "Base Pal:",IDC_STATIC,67,185,36,8
-    COMBOBOX        cboBPal,103,183,30,57,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    GROUPBOX        "Frame info",fraFrame,298,54,119,75
-    LTEXT           "Frame:",IDC_STATIC,303,68,22,8
-    COMBOBOX        cboFrameIndex,327,68,27,166,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Frame Pointer:",IDC_STATIC,299,99,48,12
-    EDITTEXT        txtFPOff,299,108,50,12,ES_AUTOHSCROLL
-    PUSHBUTTON      "Save Frame Data",cmdSFD,299,85,62,11,WS_DISABLED
-    LTEXT           "Flip:",IDC_STATIC,303,179,15,9
-    CONTROL         "Horizontal",chkHorz,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,321,179,48,14
-    CONTROL         "Vertical",chkVert,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,321,193,48,14
-    LTEXT           "Shape:",IDC_STATIC,205,185,23,11
-    COMBOBOX        cboShape,235,179,61,102,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Size:",IDC_STATIC,208,201,17,11
-    COMBOBOX        cboSize,235,197,61,109,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    GROUPBOX        "Animation Preview",fraSprAnimPreview,187,7,95,123
-    LTEXT           "Tile Number:",lblTileNumber,67,170,45,8
-    COMBOBOX        cboX,161,181,35,124,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        cboY,161,198,40,137,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "XPos",IDC_STATIC,140,185,18,8
-    LTEXT           "YPos",IDC_STATIC,139,201,18,8
-    LTEXT           "Static",lblOAM1,189,148,19,8
-    LTEXT           "Static",lblOAM2,226,148,19,8
-    LTEXT           "Static",lblOAM0,156,148,19,8
-    PUSHBUTTON      "Save",cmdSave,362,15,50,14
-    COMBOBOX        cboPriority,103,199,30,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "BG Priority",IDC_STATIC,66,201,34,8
-    LTEXT           "Load Pal",IDC_STATIC,253,232,33,11
-    PUSHBUTTON      "Load GFX1",btnLoadGFX1,181,228,60,14
-    LTEXT           "GFX Section",IDC_STATIC,70,231,48,12
-    EDITTEXT        txtGFX1,123,230,50,12,ES_AUTOHSCROLL
-    PUSHBUTTON      "Load Pal",IDC_BUTTON8,349,231,50,14
-    EDITTEXT        txtFPOff3,298,231,43,12,ES_AUTOHSCROLL
-    COMBOBOX        cboFrameTableCombo,306,17,48,120,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Timer:",IDC_STATIC,356,98,24,9
-    EDITTEXT        txtTimer2,357,109,50,12,ES_AUTOHSCROLL
+    GROUPBOX        "Tiles Preview",fraTiles,140,180,185,177
+    GROUPBOX        "Palette Preview",fraPal,140,142,201,32
+    GROUPBOX        "Sprite Preview",fraSprPreview,135,15,110,123
+    GROUPBOX        "Part Editor",fraParts,7,141,128,180
+    COMBOBOX        cboParts,69,154,37,94,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Part:",IDC_STATIC,15,154,17,9
+    LTEXT           "Base Pal:",IDC_STATIC,15,182,36,8
+    COMBOBOX        cboBPal,69,178,30,57,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Flip:",IDC_STATIC,15,287,15,9
+    LTEXT           "Shape:",IDC_STATIC,15,253,24,10
+    COMBOBOX        cboShape,69,250,61,102,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Size:",IDC_STATIC,15,270,17,11
+    COMBOBOX        cboSize,69,269,61,109,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Animation Preview",fraSprAnimPreview,249,15,95,123
+    COMBOBOX        cboX,69,213,35,124,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboY,69,229,40,137,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "XPos",IDC_STATIC,15,218,18,8
+    LTEXT           "YPos",IDC_STATIC,15,234,18,8
+    COMBOBOX        cboPriority,69,194,30,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "BG Priority",IDC_STATIC,15,198,34,8
+    CONTROL         "Horizontal",chkHorz2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,69,285,48,14
+    CONTROL         "Vertical",chkVert2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,69,298,48,14
+    COMBOBOX        cboSpriteChoice,15,33,30,137,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Current Sprite",IDC_STATIC,15,21,44,8
+    COMBOBOX        cboPriority3,15,71,30,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Current Secondaries",IDC_STATIC,16,58,65,8
+    PUSHBUTTON      "Save",IDC_BUTTON1,17,123,50,14
+    PUSHBUTTON      "Add secondary",IDC_BUTTON2,16,89,56,14
+    PUSHBUTTON      "Delete Secondary",IDC_BUTTON4,16,107,71,10
+    GROUPBOX        "Secondary Display",IDC_STATIC,7,48,93,72
 END
 
 frmClipboard DIALOG 0, 0, 307, 202
@@ -645,6 +630,38 @@ BEGIN
     CONTROL         "Check2",IDC_CHECK18,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,401,184,39,10
 END
 
+IDD_DIALOG2 DIALOGEX 0, 0, 401, 170
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,159,140,50,14
+    GROUPBOX        "Frame Offset",IDC_STATIC,15,17,123,46
+    PUSHBUTTON      "Go to Offset",cmdGTO,23,44,62,17
+    GROUPBOX        "Frame info",fraFrame,17,65,119,75
+    LTEXT           "Frame:",IDC_STATIC,23,79,22,8
+    COMBOBOX        cboFrameIndex,47,79,27,166,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Frame Pointer:",IDC_STATIC,19,110,48,12
+    EDITTEXT        txtFPOff,19,119,50,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Save Frame Data",cmdSFD,31,95,62,11,WS_DISABLED
+    PUSHBUTTON      "Save",cmdSave,81,25,50,14
+    COMBOBOX        cboFrameTableCombo,25,28,48,120,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Timer:",IDC_STATIC,75,108,24,9
+    EDITTEXT        txtTimer2,77,119,50,12,ES_AUTOHSCROLL
+    LTEXT           "Pal Section",IDC_STATIC,286,81,53,11
+    PUSHBUTTON      "Load GFX1",btnLoadGFX1,161,97,60,14
+    LTEXT           "GFX Section",IDC_STATIC,162,79,48,12
+    EDITTEXT        txtGFX1,215,79,50,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Load Pal",IDC_BUTTON8,278,101,50,14
+    EDITTEXT        txtFPOff3,348,79,43,12,ES_AUTOHSCROLL
+    LTEXT           "Common Pal",IDC_STATIC,282,31,53,11
+    PUSHBUTTON      "Load GFX1",btnLoadGFX3,157,47,60,14
+    LTEXT           "Common GFX",IDC_STATIC,158,29,48,12
+    EDITTEXT        txtGFX2,211,28,50,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Load Pal",IDC_BUTTON9,274,50,50,14
+    EDITTEXT        txtFPOff4,343,31,43,12,ES_AUTOHSCROLL
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -755,9 +772,9 @@ BEGIN
     frmOAM, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 420
+        RIGHTMARGIN, 350
         TOPMARGIN, 7
-        BOTTOMMARGIN, 427
+        BOTTOMMARGIN, 374
     END
 
     frmClipboard, DIALOG
@@ -846,6 +863,14 @@ BEGIN
         RIGHTMARGIN, 488
         TOPMARGIN, 7
         BOTTOMMARGIN, 243
+    END
+
+    IDD_DIALOG2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 394
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 159
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -1154,6 +1179,11 @@ BEGIN
 END
 
 frmLPE AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG2 AFX_DIALOG_LAYOUT
 BEGIN
     0
 END

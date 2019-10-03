@@ -38,6 +38,7 @@
 #define IDD_DIALOG1                     157
 #define frmSamusEditor                  157
 #define IDR_MENU2                       160
+#define IDD_DIALOG2                     162
 #define picButton                       1001
 #define vsbScroll                       1002
 #define IDC_COMBO1                      1003
@@ -185,7 +186,9 @@
 #define chkHorz                         1151
 #define chkVert                         1152
 #define cmdSaveBlock                    1153
+#define chkHorz2                        1153
 #define vertchk2                        1154
+#define chkVert2                        1154
 #define chkHor2                         1155
 #define vertchk                         1156
 #define chkHor                          1157
@@ -277,6 +280,7 @@
 #define txtFPOff4                       1220
 #define IDC_BUTTON2                     1221
 #define chkDTrans                       1222
+#define IDC_BUTTON4                     1222
 #define chkDTrans2                      1223
 #define txtSV                           1224
 #define cmdSetSprite                    1225
@@ -341,6 +345,7 @@
 #define lblTileNumber                   1277
 #define btnCopyPart                     1278
 #define btnLoadGFX1                     1279
+#define btnLoadGFX3                     1280
 #define cboX                            1283
 #define IDC_COMBO5                      1284
 #define cboY                            1284
@@ -349,7 +354,10 @@
 #define lblOAM0                         1287
 #define cboPriority                     1288
 #define btnTest                         1289
+#define cboPriority2                    1289
+#define cboSpriteChoice                 1289
 #define btnCHeader                      1290
+#define cboPriority3                    1290
 #define cboFrameTableCombo              1291
 #define IdSprPrev                       1292
 #define IDC_COMBO4                      1293
@@ -455,7 +463,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        161
+#define _APS_NEXT_RESOURCE_VALUE        164
 #define _APS_NEXT_COMMAND_VALUE         40078
 #define _APS_NEXT_CONTROL_VALUE         1309
 #define _APS_NEXT_SYMED_VALUE           101

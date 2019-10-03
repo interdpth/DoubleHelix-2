@@ -26,6 +26,7 @@
 #include "LeakFinder.h"
 #include <commctrl.h>
 #include "fraMainProc.h"
+#include "cOAMEdit.h"
 void DrawStatusFromUI();
 BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 #pragma comment(lib, "comctl32.lib")
@@ -707,7 +708,7 @@ sChecks door;
 				if (!tabs[4])
 				{
 				}
-				if (GlobalVars::gblVars->checkBoxchkES.GetCheckState())
+				if (GlobalVars::gblVars->chkEditSprites.GetCheckState())
 				{
 					hCurrentTab = tabs[4];
 					SpriteTabIndex = 0;

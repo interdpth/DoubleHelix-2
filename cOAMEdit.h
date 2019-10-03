@@ -28,6 +28,7 @@ class	FrameManager* currentFrames=NULL;
 
 static cOAMEdit* OamEditor;
 	int UpdateSize();
+	HWND _OamDataHandle;
 	EditType currentEditing;
 	sCombo cboPal;
 	sCombo cboFrames;
@@ -38,7 +39,7 @@ static cOAMEdit* OamEditor;
 	sCombo cboYPos;
 	sCombo cboSizes;//Changes based on cboShape
 	sCombo cboBgPriority;
-	sList  lstSprite;
+	sCombo  lstSprite;
 	sChecks VChk;
 	sChecks HChk;
 	
@@ -59,7 +60,7 @@ static cOAMEdit* OamEditor;
 	int CreateSpriteHWND();
 	int CreateSpriteAnimationHWND();
 	int CreatePartHWND();
-
+	int CreateInfoWindow();
 	
 	int UpdateCurrentSprite();
 	int DrawSelObj(HDC hdc);

@@ -7,7 +7,7 @@
 #include "GlobalVars.h"
 #include "GBAGraphics.h"
 #include "cEnitityManager.h"
-#include "BaseGame.h"
+
 class cEntityManager;
 class cSpriteSetEditor {//Move most of this class to it's own class....
 public:

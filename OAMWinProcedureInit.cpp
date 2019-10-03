@@ -33,6 +33,11 @@ int cOAMEdit::CreatePalHWND() {
 	return 0;
 }
 
+
+
+
+
+
 int cOAMEdit::CreateTileHWND() {
 	WNDCLASSEX blahf;
 	memset(&blahf, 0, sizeof(blahf));
@@ -115,6 +120,31 @@ int cOAMEdit::CreateSpriteAnimationHWND() {
 }
 
 int cOAMEdit::CreatePartHWND() {
+
+	WNDCLASSEX blahf;
+	memset(&blahf, 0, sizeof(blahf));
+	blahf.cbSize = sizeof(blahf);		   // size of structure 
+	blahf.style = CS_HREDRAW |
+		CS_VREDRAW; 				   // redraw if size changes 
+	blahf.lpfnWndProc = &OAMPartProc;	  // points to window procedure 
+	blahf.cbClsExtra = NULL;				// no extra class memory 
+	blahf.cbWndExtra = NULL; 			   // no extra window memory 
+	blahf.hInstance = hGlobal;		   // handle to instance 
+	blahf.hIcon = NULL; 			 // predefined app. icon 
+	blahf.hCursor = NULL;				// predefined arrow 
+	blahf.hbrBackground = (HBRUSH)GetStockObject(RGB(255, 255, 255));				   // white background brush 
+	blahf.lpszMenuName = NULL;    // name of menu resource 
+	blahf.lpszClassName = "cOAMPart";  // name of window class 
+									   // Register the window class. 
+	RegisterClassEx(&blahf);
+	//Create the Window
+	//hwndPartWindow = CreateWindowEx(NULL, "cOAMPart", NULL, WS_VISIBLE | WS_CHILD, 5, 11, 1024, 1024, GetDlgItem(me, fraPartPreview), 0, hGlobal, 0);
+	return 0;
+}
+
+
+
+int cOAMEdit::CreateInfoWindow() {
 
 	WNDCLASSEX blahf;
 	memset(&blahf, 0, sizeof(blahf));

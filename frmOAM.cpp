@@ -16,7 +16,7 @@ sCombo* cboShapes;
 sCombo* cboSizes;//Changes based on cboShape
 sCombo* cboXPos;
 sCombo* cboYPos;
-sList*  lstSprite;
+sCombo*  lstSprite;
 sChecks* VChk;
 sChecks* HChk;
 HWND*   hwndSpritePreview;
@@ -247,7 +247,7 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			break;
 
 
-		case lstSprites:
+		case cboSpriteChoice:
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
 				if (currentRomType == 1)
 				{
@@ -495,7 +495,7 @@ LRESULT CALLBACK OAMPalProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 			//			theFrame->theSprite->PreviewSprite.SetPalette(cSSE::SpriteSet->SpriteSetData.pal);
 
 			for (i = 0; i < 1024; i++) {
-				cOAMEdit::OamEditor->tileImage->Draw(*theFrame->theSprite->Tiles, ((i) % 32) * 8, ((i) / 32) * 8, 0x8000 + i);
+				cOAMEdit::OamEditor->tileImage->Draw(*theFrame->theSprite->sprTileBuffer, ((i) % 32) * 8, ((i) / 32) * 8, 0x8000 + i);
 			}
 
 			oamManager->DrawPSprite(theFrame->theSprite);
@@ -752,3 +752,322 @@ LRESULT CALLBACK OAMPartProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 
 }
 
+BOOL CALLBACK OAMDataProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
+
+{
+
+
+
+	cOAMEdit* oamEditor = cOAMEdit::OamEditor;
+	int i = 0;
+	char wndstr[256] = { 0 };
+	unsigned int offset = 0;
+	globalVars = GlobalVars::gblVars;
+	oamManager = RD1Engine::theGame->mgrOAM;
+	Frame* tmpFrame = NULL;
+	int id = -1;
+
+	if (oamEditor->currentFrames != NULL)
+	{
+		tmpFrame = oamEditor->currentFrames->GetStaticFrame();
+	}
+
+	signed char* charPnt;
+	DecodedOAM* deOAM = NULL;
+	int partIndex = 0;
+
+	switch (message)
+	{
+
+	case WM_INITDIALOG:
+		sprMgr = RD1Engine::theGame->mainRoom->mgrSpriteObjects;
+		oamEditor->_oamWindow = hWnd;
+
+		animBuffer.Create(2048, 2048);
+		oamEditor->Create();
+		cboPal = &oamEditor->cboPal;
+		cboFrameTable = &oamEditor->cboFrameTable;
+		cboFrames = &oamEditor->cboFrames;
+		cboPartNo = &oamEditor->cboPartNo;
+		cboXPos = &oamEditor->cboXPos;
+		cboYPos = &oamEditor->cboYPos;
+		cboShapes = &oamEditor->cboShapes;
+		cboSizes = &oamEditor->cboSizes;//Changes based on cboShape
+		lstSprite = &oamEditor->lstSprite;
+		VChk = &oamEditor->VChk;
+		HChk = &oamEditor->HChk;
+		hwndSpritePreview = &oamEditor->hwndSpritePreview;
+		hwndAnimationSpritePreview = &oamEditor->hwndAnimationWindow;
+		hwndTiles = &oamEditor->hwndTiles;
+		hwndPal = &oamEditor->hwndPal;
+		oamWindow = &oamEditor->_oamWindow;
+		hwndXPosText = GetWindow(cboXPos->GetHwnd(), GW_CHILD);
+		g_pOldhwndXPosText = (WNDPROC)SetWindowLongPtr(hwndXPosText, GWLP_WNDPROC, (LONG_PTR)SpecialKeyDownX);
+		hwndYPosText = GetWindow(cboYPos->GetHwnd(), GW_CHILD);
+		g_pOldhwndYPosText = (WNDPROC)SetWindowLongPtr(hwndYPosText, GWLP_WNDPROC, (LONG_PTR)SpecialKeyDownY);
+		SetTimer(hWnd, theTimer, 30, (TIMERPROC)NULL);
+
+		break;
+	case WM_TIMER:
+		switch (wParam)
+		{
+		case theTimer:
+			//init
+			if (oamEditor->currentFrames != NULL) {
+				Frame* animatedFrame = oamEditor->currentFrames->GetAnimatedFrame();
+				if (animatedFrame != NULL)
+				{
+					if (oamEditor->currentFrames->Animate())
+					{
+						InvalidateRect(*hwndAnimationSpritePreview, 0, 1);
+					}
+				}
+			}
+
+			break;
+		}
+		break;
+
+	case WM_COMMAND:
+
+		switch (LOWORD(wParam)) {
+		case cboX:
+			if (HIWORD(wParam) == CBN_SELCHANGE || HIWORD(wParam) == VK_RETURN)
+			{
+
+				partIndex = cboPartNo->GetListIndex();
+				deOAM = &tmpFrame->theSprite->OAM[partIndex].deOAM;
+				deOAM->xCoord = (cboXPos->GetListIndex()) & (unsigned short)511;
+				UpdateStaticSprite();
+				oamEditor->UpdatePartUI();
+			}
+			else {
+
+				break;
+			}
+			break;
+		case cboY:
+			if (HIWORD(wParam) == CBN_SELCHANGE || HIWORD(wParam) == VK_RETURN)
+			{
+				tmpFrame = oamEditor->currentFrames->GetStaticFrame();
+				partIndex = cboPartNo->GetListIndex();
+				deOAM = &tmpFrame->theSprite->OAM[partIndex].deOAM;
+				deOAM->yCoord = (cboYPos->GetListIndex()) & (unsigned short)255;
+				UpdateStaticSprite();
+				oamEditor->UpdatePartUI();
+			}
+			else {
+				break;
+			}
+			break;
+
+
+		case cboSpriteChoice:
+			if (HIWORD(wParam) == CBN_SELCHANGE) {
+				if (currentRomType == 1)
+				{
+					if ((lstSprite->GetListIndex() < 0x10))
+					{
+						lstSprite->SetListIndex(0x10);
+					}
+				}
+
+				id = lstSprite->GetListIndex();
+				oamEditor->GetSpriteData(id, currentRomType);//lstSprite.GetListIndex());
+
+				cboFrameTable->Clear();
+
+				vector<unsigned long> thisTable = GlobalVars::gblVars->frameTables->OAMFrameTable[id];
+
+				for (i = 0; i < thisTable.size(); i++)
+				{
+					sprintf(wndstr, "%X", thisTable[i]);
+					cboFrameTable->Additem(wndstr);
+				}
+
+				cboFrameTable->SetListIndex(0);
+				SendMessage(hWnd, WM_COMMAND, cmdGTO, 0);
+			}
+			break;
+		case cboFrameTableCombo:
+			if (HIWORD(wParam) == CBN_SELCHANGE)
+			{
+				SendMessage(hWnd, WM_COMMAND, cmdGTO, 0);
+			}
+			break;
+		case cboFrameIndex:
+			if (HIWORD(wParam) == CBN_SELCHANGE) {
+				oamEditor->SetFrames(cboFrames->GetListIndex());
+				globalVars->OAMED = true;
+				oamEditor->currentFrames->SetStaticFrame(cboFrames->GetListIndex());
+				//reload pointer
+				tmpFrame = oamEditor->currentFrames->GetStaticFrame();
+				if (GlobalVars::gblVars->frameTables->FramesExist(tmpFrame->theSprite->id))
+				{
+					cOAMManager::SetupPreview(&GBA, currentRomType, tmpFrame);
+				}
+
+				oamEditor->LoadTiles(oamEditor->tileImage, tmpFrame);
+				LoadPartsControl();
+				cboPartNo->SetListIndex(0);
+				oamEditor->UpdatePartUI();
+				oamManager->DecodeOAM(globalVars->OAMED, tmpFrame->theSprite, tmpFrame->frameOffset - 0x8000000);
+				globalVars->OAMED = false;
+				oamManager->DrawPSprite(tmpFrame->theSprite);
+				InvalidateRect(hWnd, 0, 1);
+				InvalidateRect(*hwndSpritePreview, 0, 1);
+			}
+			break;
+		case cmdSG:
+			sprMgr->SaveGFX(currentRomType);
+			break;
+		case mnuSP:
+			sprMgr->SavePal(currentRomType);
+			break;
+		case mnuIG:
+			sprMgr->ImportGFX();
+			break;
+		case mnuEP:
+			sprMgr->ExportPal();
+			break;
+		case mnuIP:
+			sprMgr->ImportPal(currentRomType);
+
+			break;
+		case mnuEG:
+			sprMgr->ExportGFX();
+			break;
+		case cmdGTO:
+			offset = GetCurrentFrameTable();
+			if (offset == 0x0cdcdcdc) break;
+			id = oamEditor->currentFrames->GetStaticFrame()->theSprite->id;
+			oamEditor->GetFrames(offset, id, currentRomType);
+			oamEditor->currentFrames->SetStaticFrame(0);
+			oamEditor->currentFrames->GetStaticFrame()->theSprite->id = id;
+
+			ReloadFramesControl();
+
+			oamEditor->SetFrames(cboFrames->GetListIndex());
+
+
+			oamEditor->currentFrames->SetStaticFrame(cboFrames->GetListIndex());
+
+
+			for (i = 0; i < oamEditor->currentFrames->maxframe(); i++) {
+				tmpFrame = oamEditor->currentFrames->theFrames[i];
+
+
+				globalVars->OAMED = true;
+				if (GlobalVars::gblVars->frameTables->FramesExist(tmpFrame->theSprite->id))
+				{
+					cOAMManager::SetupPreview(&GBA, currentRomType, tmpFrame);
+				}
+
+				oamEditor->LoadTiles(oamEditor->tileImage, tmpFrame);
+				oamManager->DecodeOAM(globalVars->OAMED, tmpFrame->theSprite, tmpFrame->frameOffset - 0x8000000);
+				globalVars->OAMED = false;
+				oamManager->DrawPSprite(tmpFrame->theSprite);
+				tmpFrame->frameInited = true;
+				tmpFrame->animUpdated = true;
+			}
+
+			LoadPartsControl();
+			cboPartNo->SetListIndex(0);
+
+
+			globalVars->OAMED = false;
+			oamEditor->UpdatePartUI();
+			//			oamEditor->currentFrames->GetStaticFrame()->theSprite->PreviewSprite.RefreshImage();
+			cboFrames->SetListIndex(0);
+			SendMessage(hWnd, WM_COMMAND, lstSelchange, 0);
+			InvalidateRect(*hwndSpritePreview, 0, 1);
+			InvalidateRect(*hwndAnimationSpritePreview, 0, 1);
+			InvalidateRect(*hwndPal, 0, 1);
+			break;
+		case cmdSave:
+			offset = GetCurrentFrameTable();
+			oamEditor->Save(SaveOptions::OFFSET, (char*)&offset);
+			break;
+		case cmdSaveToFree:
+			offset = GetCurrentFrameTable();
+			oamEditor->Save(SaveOptions::OFFSET, (char*)0x8BADBEEF);
+			offset = GetCurrentFrameTable();
+			SetCurrentFrameTable(offset);
+			break;
+		case btnCHeader:
+			oamEditor->Save(SaveOptions::CHEADER, "");
+			break;
+		case cboParts:
+			if (HIWORD(wParam) == CBN_SELCHANGE)
+			{
+				oamEditor->UpdatePartUI();
+				currentTile = tmpFrame->theSprite->OAM[cboFrames->GetListIndex()].deOAM.TileNumber;
+			}
+			break;
+		case cboBPal:
+			if (HIWORD(wParam) == CBN_SELCHANGE)
+			{
+				UpdateStaticSprite();
+			}
+			break;
+
+
+		case chkVert:
+		case chkHorz:
+			UpdateStaticSprite();
+			oamEditor->UpdatePartUI(false);
+			break;
+
+		case cboSize:
+		case cboShape:
+			if (HIWORD(wParam) == CBN_SELCHANGE)
+			{
+
+				UpdateStaticSprite();
+				//oamEditor->UpdatePartUI(false);
+			}
+			break;
+		case cmdDeleteFrame:
+			cOAMEdit::OamEditor->currentFrames->DeleteFrame(cboFrames->GetListIndex());
+			ReloadFramesControl();
+			break;
+		case btnNewFrame:
+			cOAMEdit::OamEditor->currentFrames->AddFrame(NULL, lstSprite->GetListIndex());
+			ReloadFramesControl();
+			break;
+		case btnCopyFrame:
+			cOAMEdit::OamEditor->currentFrames->AddFrame(cOAMEdit::OamEditor->currentFrames->GetStaticFrame(), lstSprite->GetListIndex());
+			ReloadFramesControl();
+			break;
+
+		case btnCopyPart:
+			cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->AddPart(&cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->theSprite->OAM[cboPartNo->GetListIndex()].enOAM);
+			LoadPartsControl();
+			cboPartNo->SetListIndex(0);
+			break;
+		case cmdDeletePart:
+			partIndex = cboPartNo->GetListIndex();
+
+			oamEditor->currentFrames->GetStaticFrame()->DeletePart(partIndex);
+			partIndex = partIndex == 0 ? 0 : partIndex - 1;
+			cboPartNo->SetListIndex(partIndex);
+			LoadPartsControl();
+
+			break;
+		case btnAddPartZ:
+			cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->AddPart(NULL);
+			LoadPartsControl();
+			cboPartNo->SetListIndex(0);
+
+			break;
+		case WM_DESTROY:
+			ShowWindow(hWnd, SW_HIDE);
+			break;
+		}
+
+		break;
+
+	}
+
+	return 0;
+}

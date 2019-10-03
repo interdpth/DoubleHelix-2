@@ -92,8 +92,6 @@ int cOAMEdit::GetFrames(unsigned long offset,  int spriteID, int titleType) {
 	currentFrames = new FrameManager(&GBA, offset, spriteID, titleType);
 
 	return 0;
-
-
 }
 
 //cboFrames.GetListIndex()
@@ -197,12 +195,12 @@ int cOAMEdit::UpdatePartUI(bool updateSizes ) {
 int cOAMEdit::LoadTiles(Image* tileImage, Frame* targetFrame)
 {
 	SpriteObject*currentSprite = targetFrame->theSprite;
-	currentSprite->Tiles->Load(currentSprite->PreRAM, 1023);
+	currentSprite->sprTileBuffer->Load(currentSprite->PreRAM, 1023);
 	if (GlobalVars::gblVars->TileImage != NULL) {
 		tileImage->SetPalette(currentSprite->PreviewPal);
 		tileImage->Clear();
 		for (int i = 0; i < 1024; i++) {
-			tileImage->Draw(*currentSprite->Tiles, ((i) % 32) * 8, ((i) / 32) * 8, 0x8000 + i);
+			tileImage->Draw(*currentSprite->sprTileBuffer, ((i) % 32) * 8, ((i) / 32) * 8, 0x8000 + i);
 		}
 	}
 	return 0;
@@ -234,7 +232,7 @@ int cOAMEdit::Create() {
 	cboPartNo.Init(GetDlgItem(_oamWindow, cboParts));
 	cboShapes.Init(GetDlgItem(_oamWindow, cboShape));
 	cboSizes.Init(GetDlgItem(_oamWindow, cboSize));//Changes based on cboShape
-	lstSprite.Init(GetDlgItem(_oamWindow, lstSprites));
+	lstSprite.Init(GetDlgItem(_oamWindow, cboSpriteChoice));
 	cboBgPriority.Init(GetDlgItem(_oamWindow, cboPriority));
 	VChk.SetCnt(GetDlgItem(_oamWindow, chkVert));
 	HChk.SetCnt(GetDlgItem(_oamWindow, chkHorz));
@@ -271,6 +269,7 @@ int cOAMEdit::Create() {
 	cboYPos.SetListIndex(0);
 	CreatePalHWND();
 	CreateTileHWND();
+	CreateInfoWindow();
 	CreateSpriteHWND();
 	CreateSpriteAnimationHWND();
 	CreatePartHWND();

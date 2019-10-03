@@ -1,6 +1,11 @@
 #include "cSSE.h"
 #include "cOAMManager.h"
 LRESULT CALLBACK cSSETileProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
+
+LRESULT CALLBACK cSSEPalProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
+
+#include <GBAMethods.h>
+extern GBAMethods GBA;
 cSpriteSetEditor *cSpriteSetEditor::SpriteSet;
 cSpriteSetEditor::cSpriteSetEditor()
 {
@@ -223,7 +228,7 @@ int cSpriteSetEditor::SetupPreview(SpriteObject* SprG, int TitleChoice) {
 
 	SprG->PreviewPal = cSpriteSetEditor::SpriteSet->SpriteSetData.pal;
 	vramImage.SetPalette(SprG->PreviewPal);
-	SprG->Tiles->Load(SprG->PreRAM, 1024);
+	SprG->sprTileBuffer->Load(SprG->PreRAM, 1024);
 
 	RD1Engine::theGame->mgrOAM->DecodeOAM(false, SprG, GlobalVars::gblVars->frameTables->OAMFrameTable[SprG->id].front());
 	RD1Engine::theGame->mgrOAM->DrawPSprite(SprG);

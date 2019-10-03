@@ -105,15 +105,57 @@ int  MapUtils::Gimmeasprite(int X, int Y, int objlist)
 	int             width = 0;
 	int             height = 0;
 	nEnemyList *ThisEnemy = &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[objlist];
-	RECT* thisOverall = RD1Engine::theGame->mainRoom->mgrSpriteObjects->OverallSize;
+	 //RD1Engine::theGame->mainRoom->mgrSpriteObjects->OverallSize;
 	for (i = 0; i < ThisEnemy->Max(); i++)
 	{
-
+		int index = (ThisEnemy->Enemies[i].Creature & 0xF) - 1;
+		std::vector<FrameManager*> mgr =RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites;
+		RECT* thisOverall = &mgr.at(index)->theFrames[0]->theSprite->Borders;
 		width = thisOverall[(ThisEnemy->Enemies[i].Creature & 0xF) - 1].right - thisOverall[(ThisEnemy->Enemies[i].Creature & 0xF) - 1].left;
 
 		height = thisOverall[(ThisEnemy->Enemies[i].Creature & 0xF) - 1].bottom - thisOverall[(ThisEnemy->Enemies[i].Creature & 0xF) - 1].top;
 		x = ThisEnemy->Enemies[i].X;
 		y = ThisEnemy->Enemies[i].Y;
+
+		
+			int SpriteX = x * 16;; //((Sprites->Enemies[i].X) - ((SpriteWidth/8)*8) / 16) * 16;
+			int SpriteY = y * 16;//(Sprites->Enemies[i].Y - ((SpriteHeight / 8) * 8) / 16) * 16;
+			PosModify* modifer = &RD1Engine::theGame->poseModifier[mgr.at(index)->theFrames[0]->theSprite->id];
+
+			if (modifer)
+			{
+				SpriteX += modifer->x;
+				SpriteY += modifer->y;
+			}
+
+			
+				int adjustedXorigin = 0;
+				int adjustedYorigin = 0;
+				if (thisOverall->left < 0)
+				{
+					adjustedXorigin = 0 - thisOverall->left;
+				}
+
+				if (thisOverall->top < 0)
+				{
+					adjustedYorigin = 0 - thisOverall->top;
+
+				}
+			
+				
+					SpriteX = SpriteX - adjustedXorigin - 4;
+
+					SpriteY = SpriteY - adjustedYorigin + 4;
+
+
+					x = SpriteX / 16;
+					y = SpriteY / 16;
+
+
+		
+
+
+
 		if (((x) <= X) &&
 			((x + width / 16) >= X) &&
 			((y) <= Y) &&

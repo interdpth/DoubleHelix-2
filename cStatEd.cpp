@@ -1,5 +1,6 @@
 #include "cStatEd.h"
-
+#include <GBAMethods.h>
+extern GBAMethods GBA;
 cStatEd::cStatEd(int crf)
 {
 	SpritePreview = new SpriteObject();
@@ -370,7 +371,7 @@ int cStatEd::SetupPreview()
 	
 	RD1Engine::theGame->titleInstance->GetGFX(SpritePreview->id, &SpritePreview->PreRAM[0x4000]);
 
-	SpritePreview->Tiles->Load(SpritePreview->PreRAM, 1023);
+	SpritePreview->sprTileBuffer->Load(SpritePreview->PreRAM, 1023);
 	RD1Engine::theGame->mgrOAM->DecodeOAM(GlobalVars::gblVars->OAMED, SpritePreview, GlobalVars::gblVars->frameTables->OAMFrameTable[SpritePreview->id].front());
 	SpritePreview->PreviewSprite.GetFullImage()->Clear();
 	RD1Engine::theGame->mgrOAM->DrawPSprite(SpritePreview);

@@ -5,7 +5,7 @@
 #include "cTextEditor.h"
 #include "cStatEd.h"
 #include "wndBGImport.h"
-#include "cOAMEdit.h"
+
 #include "OamFrameTable.h"
 #include "..\Win32GBAImageClasses\backbuffer.h"
 #include "cStatEd.h"
@@ -48,7 +48,7 @@ sMenuItem checkBoxViewF;
 	sMenuItem checkBoxsMove;
 	sMenuItem checkBoxsResize;
 	sMenuItem checkBoxsView;
-	sMenuItem checkBoxchkES;
+	sMenuItem chkEditSprites;
 
     cStatEd* StatEditor;
 	
