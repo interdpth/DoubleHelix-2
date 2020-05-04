@@ -134,7 +134,7 @@ FILE* ft=NULL;
 int radarray[3]={rdo0,rdo1,rdo2};
 unsigned long offsets[4]={0};//4 Offsets
 unsigned long csize=0;
-unsigned short filler=0;
+
 char stroff[10]={0};
 
 unsigned char  *tempbuff = new unsigned char[32967];;

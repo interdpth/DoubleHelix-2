@@ -9,6 +9,6 @@ public:
 	HWND me;
 	int vert;
 	int UpdateScroll(WPARAM how);
-	int create(HWND hwnd, int isvert, int max);
+	int create(HWND hwnd, int isvert, int max2);
 	int ChangeScrollbars();
 };

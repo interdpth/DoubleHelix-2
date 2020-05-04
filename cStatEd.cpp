@@ -305,16 +305,16 @@ int cStatEd::SetupPreview()
 	long size = 0;
 	int i = 0;
 	int ii = 0;
+
+	if (!GlobalVars::gblVars->frameTables->FramesExist(SpritePreview->id))
+	{
+		return 0;
+	}
 	unsigned char*  compBuffer = new unsigned char[64691];
 
 
 
 	unsigned char *decompbuf = new unsigned char[32687];
-	InvalidateRect(me, 0, 1);
-	if (!GlobalVars::gblVars->frameTables->FramesExist(SpritePreview->id))
-	{
-		return 0;
-	}
 	memset(&SpritePreview->PreRAM[0x4000], 0, 0x4000);
 	CompHeader thiscompheader;
 	unsigned short transferpal[256] = { 0 };
@@ -349,7 +349,7 @@ int cStatEd::SetupPreview()
 
 		PalPnt = GameConfiguration::mainCFG->GetDataContainer("SpritePal")->Value + (SpritePreview->id - 0x10) * 4;
 
-		palsize = ((RD1Engine::theGame->mgrOAM->MFSprSize[(SpritePreview->id - 0x10) << 1] / 2048) * 16);
+		palsize = ((RD1Engine::theGame->mgrOAM->MFSpriteSize[(SpritePreview->id - 0x10) << 1] / 2048) * 16);
 
 
 	}

@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include "..\Win32GBAImageClasses\image.h"
-#include "sCombo.h"
+#include "..\RNA_UI\sCombo.h"
 class wndBGImport {
 public:
 	wndBGImport();

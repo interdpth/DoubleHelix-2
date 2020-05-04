@@ -17,7 +17,7 @@ public:
 	int GetIndex(); 
 	void SetIndex(int newindex);
 	int ResizeScrollBar(int Res, int Min, int Max);
-	void UpdateScroll( WPARAM how, int isvertical, int Res, int Scroll);
-	void ChangeScrollbars(int Res, int Scroll);
+	void UpdateScroll( WPARAM how);
+	void ChangeScrollbars();
 };
 

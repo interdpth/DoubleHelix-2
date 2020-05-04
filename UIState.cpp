@@ -8,15 +8,15 @@ extern HWND hTabControl;
 BOOL CALLBACK   DialogProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 BOOL CALLBACK DwProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 BOOL CALLBACK SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
-WINUSERAPI
-INT_PTR
-WINAPI
-DialogBoxParamA(
-	_In_opt_ HINSTANCE hInstance,
-	_In_ LPCSTR lpTemplateName,
-	_In_opt_ HWND hWndParent,
-	_In_opt_ DLGPROC lpDialogFunc,
-	_In_ LPARAM dwInitParam);
+//WINUSERAPI
+//INT_PTR
+//WINAPI
+//DialogBoxParamA(
+//	_In_opt_ HINSTANCE hInstance,
+//	_In_ LPCSTR lpTemplateName,
+//	_In_opt_ HWND hWndParent,
+//	_In_opt_ DLGPROC lpDialogFunc,
+//	_In_ LPARAM dwInitParam);
 class DoorManager;
 UiState* UiState::stateManager;
 
@@ -26,6 +26,8 @@ UiState::UiState()
 	_mapWindow = NULL;
 	_tilesetWindow = NULL;
 	_theState = WindowState::SINGLE;
+	_theString = "";
+	StatusBar = NULL;
 }
 
 UiState::UiState(WindowState newState)
@@ -34,6 +36,7 @@ UiState::UiState(WindowState newState)
 	_mapWindow = NULL;
 	_tilesetWindow = NULL;
 	_theState = newState;
+	StatusBar = NULL;
 }
 
 
@@ -69,8 +72,8 @@ HWND UiState::GetWindow()
 
 void UiState::MakeWindow()
 {
-	DestroyWindow(_theWindow);
-	DestroyWindow(StatusBar);
+	if(_theWindow!=NULL)	DestroyWindow(_theWindow);
+	if(StatusBar!=NULL)DestroyWindow(StatusBar);
 	if (_theState == WindowState::MULTI)
 	{
 		_theString = MAKEINTRESOURCE(frmMain);
@@ -89,7 +92,7 @@ void UiState::MakeWindow()
 void UiState::UpdateWindow()
 {
 	MakeWindow();
-	DialogBoxParamA(hGlobal, _theString, 0, DialogProc, 0L);
+	DialogBox(hGlobal, _theString, 0, DialogProc);
 }
 
 void UiState::ShowTilesetMap(bool set)
@@ -100,7 +103,7 @@ void UiState::ShowTilesetMap(bool set)
 void UiState::ShowObj() {
 
 	return;
-	if (!RD1Engine::theGame || !RD1Engine::theGame->mainRoom || !RD1Engine::theGame->mainRoom || !RD1Engine::theGame->mainRoom->mapMgr->created)
+	if (!RD1Engine::theGame || !RD1Engine::theGame->mainRoom || !RD1Engine::theGame->mainRoom->mapMgr->created)
 	{
 		return;
 	}
@@ -320,14 +323,13 @@ void UiState::ResizeMap(HWND srcNeighbor)
 	viewRect.left = toolsRect.right + 1-toolsRect.left + 8;
 	viewRect.right = tmpRect2.right - tmpRect.right-24;// mainRect.right - mainRect.left - toolsRect.right - toolsRect.left - 16;
 	viewRect.bottom = mainRect.bottom - mainRect.top-64;
-
-	if (RD1Engine::theGame &&  RD1Engine::theGame->mainRoom&&mgrMap && mgrMap->created)
+	if (RD1Engine::theGame != NULL&&RD1Engine::theGame->mainRoom != NULL)
 	{
-
-		MapManager* mgrMap;
-		if (RD1Engine::theGame != NULL&&RD1Engine::theGame->mainRoom != NULL)
-		{
-			mgrMap = RD1Engine::theGame->mainRoom->mapMgr;
+		mgrMap = RD1Engine::theGame->mainRoom->mapMgr;
+	}
+	if (RD1Engine::theGame &&  RD1Engine::theGame->mainRoom && mgrMap->created)
+	{
+		
 			nMapBuffer* c = mgrMap->GetLayer(3);
 			if (c) {
 
@@ -342,7 +344,7 @@ void UiState::ResizeMap(HWND srcNeighbor)
 					viewRect.bottom = c->Y * 16;
 				}
 			}
-		}
+		
 
 
 
@@ -400,8 +402,6 @@ void UiState::ResizeTileset(HWND srcNeighbor)
 
 	AutoRect(hWnd, &viewRect);
 
-
-	RECT toolsRect;
 	RECT mainRect;
 
 	AutoRect(UiState::stateManager->GetWindow(), &mainRect);

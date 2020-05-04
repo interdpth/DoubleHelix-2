@@ -9,7 +9,10 @@ cTSAEditorClass::cTSAEditorClass() {
 
 };
 cTSAEditorClass::~cTSAEditorClass() {
-
+	delete Tileset;
+		
+		 delete iPreview ;
+		 delete thisTSA;
 };
 
 int cTSAEditorClass::Create() {
@@ -65,9 +68,13 @@ int cTSAEditorClass::Create() {
 		if (!i)cboTSAPAL.Additem(buf);
 	}
 
-
-	Tileset.Create(512, 1024);
-	iPreview.Create(32, 32);
+	Tileset = new Image();
+	iPreview = new Image();
+	thisTSA = new Image();
+	Tileset->Zero();
+	Tileset->Create(512, 1024);
+	iPreview->Zero();
+	iPreview->Create(32, 32);
 	cboTSAPAL.SetListIndex(2);
 
 	DrawThisTileset();
@@ -140,10 +147,10 @@ int cTSAEditorClass::CreatePreviewWind() {
 
 int cTSAEditorClass::DrawThisTileset() {
 	int i = 0;
-	Tileset.SetPalette(GBAGraphics::VRAM->PcPalMem);
-	Tileset.Clear();
+	Tileset->SetPalette(GBAGraphics::VRAM->PcPalMem);
+	Tileset->Clear();
 	for (i = 0; i<1024; i++) {
-		Tileset.Draw(*GlobalVars::gblVars->TileImage, (i % 16) * 8, (i / 16) * 8, (cboTSAPAL.GetListIndex() << 12) + i);
+		Tileset->Draw(*GlobalVars::gblVars->TileImage, (i % 16) * 8, (i / 16) * 8, (cboTSAPAL.GetListIndex() << 12) + i);
 	}
 	InvalidateRect(TilesetPic, 0, 1);
 	return 0;
@@ -206,21 +213,21 @@ int cTSAEditorClass::SaveBlock() {
 }
 
 int cTSAEditorClass::DrawPreview() {
-	iPreview.SetPalette(GBAGraphics::VRAM->PcPalMem);
-	iPreview.Clear();
-	iPreview.Draw(*GlobalVars::gblVars->TileImage, 0, 0, CurrentBlock[0].Pal * 0x1000
+	iPreview->SetPalette(GBAGraphics::VRAM->PcPalMem);
+	iPreview->Clear();
+	iPreview->Draw(*GlobalVars::gblVars->TileImage, 0, 0, CurrentBlock[0].Pal * 0x1000
 		+ CurrentBlock[0].HFlip
 		+ CurrentBlock[0].VFlip
 		+ CurrentBlock[0].Tile);
-	iPreview.Draw(*GlobalVars::gblVars->TileImage, 8, 0, CurrentBlock[1].Pal * 0x1000
+	iPreview->Draw(*GlobalVars::gblVars->TileImage, 8, 0, CurrentBlock[1].Pal * 0x1000
 		+ CurrentBlock[1].HFlip
 		+ CurrentBlock[1].VFlip
 		+ CurrentBlock[1].Tile);
-	iPreview.Draw(*GlobalVars::gblVars->TileImage, 0, 8, CurrentBlock[2].Pal * 0x1000
+	iPreview->Draw(*GlobalVars::gblVars->TileImage, 0, 8, CurrentBlock[2].Pal * 0x1000
 		+ CurrentBlock[2].HFlip
 		+ CurrentBlock[2].VFlip
 		+ CurrentBlock[2].Tile);
-	iPreview.Draw(*GlobalVars::gblVars->TileImage, 8, 8, CurrentBlock[3].Pal * 0x1000
+	iPreview->Draw(*GlobalVars::gblVars->TileImage, 8, 8, CurrentBlock[3].Pal * 0x1000
 		+ CurrentBlock[3].HFlip
 		+ CurrentBlock[3].VFlip
 		+ CurrentBlock[3].Tile);

@@ -145,7 +145,7 @@ LRESULT CALLBACK BlockPreviewProc(HWND hWnd, unsigned int message, WPARAM wParam
 	{
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		MyTSAEditor.iPreview.Blit(hdc,0,0,16,16,0,0);
+		MyTSAEditor.iPreview->Blit(hdc,0,0,16,16,0,0);
 		EndPaint(hWnd, &ps);
 		break;
 		
@@ -154,7 +154,7 @@ LRESULT CALLBACK BlockPreviewProc(HWND hWnd, unsigned int message, WPARAM wParam
 	//	MessageBox(hWnd,buff,"None",MB_OK);
 		a=GetX(lParam);
 		b=GetY(lParam);
-		MyTSAEditor.CurrentBlock[(a/8)+(b/8)*2].Tile=MyTSAEditor.curtsa;
+		MyTSAEditor.CurrentBlock[(a/8)+(b/8)*2 & 32].Tile=MyTSAEditor.curtsa;
 		MyTSAEditor.DrawPreview();
 			break;
    
@@ -173,7 +173,7 @@ LRESULT CALLBACK BlockTilesetProc(HWND hWnd, unsigned int message, WPARAM wParam
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 	
-		MyTSAEditor.Tileset.Blit(hdc,0,0,288,1024,0,0);
+		MyTSAEditor.Tileset->Blit(hdc,0,0,288,1024,0,0);
 		EndPaint(hWnd, &ps);
 		break;
 		

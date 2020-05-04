@@ -2,8 +2,8 @@
 #include <Windows.h>
 #include "SprGBuf.h"
 #include "..\Win32GBAImageClasses\image.h"
-#include "sList.h"
-#include "sCombo.h"
+#include "..\RNA_UI\sList.h"
+#include "..\RNA_UI\sCombo.h"
 #include "GlobalVars.h"
 #include "GBAGraphics.h"
 #include "cEnitityManager.h"

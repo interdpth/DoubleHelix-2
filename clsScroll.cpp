@@ -7,10 +7,10 @@ clsUIScroll::clsUIScroll() {
 clsUIScroll::~clsUIScroll() {
 
 }
-int clsUIScroll::create(HWND hwnd, int isvert, int max) {
+int clsUIScroll::create(HWND hwnd, int isvert, int max2) {
 	this->me = hwnd;
 	this->vert = isvert;
-	this->max = max;
+	this->max = max2;
 	this->curpos = 0;
 	ChangeScrollbars();
 	return 0;

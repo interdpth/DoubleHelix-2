@@ -1,8 +1,8 @@
 #pragma once
 #include <windows.h>
 
-#include "sChecks.h"
-#include "sCombo.h"
+#include "..\RNA_UI\sChecks.h"
+#include "..\RNA_UI\sCombo.h"
 #include "Structures.h"
 #include "..\Win32GBAImageClasses\image.h"
 struct tBlock {
@@ -23,9 +23,9 @@ public:
 
 	HWND Preview;
 	HWND tMain;
-	Image Tileset;
-	Image iPreview;
-	Image thisTSA;
+	Image* Tileset;
+	Image* iPreview;
+	Image* thisTSA;
 	sChecks HorChk[4];
 	sChecks VerChk[4];
 	sCombo cboPals[4];

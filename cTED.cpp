@@ -323,7 +323,7 @@ int MetroidTextEditor::EncodeText(int TitleChoice) {
 	unsigned short returned = 0;
 	//GetWindowText(GetDlgItem(tMain,txtString),stupidstring,1024);
 	
-	int a = strlen(curtext);
+	//int a = strlen(curtext);
 
 	//Just find it a new home.
 	offset = GBA.FindFreeSpace(strcounter * 2, 0xFF);

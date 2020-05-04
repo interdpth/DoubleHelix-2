@@ -11,17 +11,31 @@ cOAMEdit* cOAMEdit::OamEditor;
 
 //
 //Constructor
-cOAMEdit::cOAMEdit() 
+cOAMEdit::cOAMEdit()
 {
 	printf("Initing");
 	//Create();
 	tileImage = new Image();
+	tileImage->Destroy();
 	tileImage->Create(512, 512);
+
+	_OamDataHandle = 0;
+	currentEditing = EditType::SPRITES;
+
+	hwndAnimationWindow = 0;
+	hwndSpritePreview = 0;
+	hwndTiles = 0;
+	hwndPal = 0;
+	_oamWindow = 0;
+
+
+	memset(&rPart, 0, sizeof(RECT));
+
 }
 
-cOAMEdit::~cOAMEdit() 
+cOAMEdit::~cOAMEdit()
 {
-	delete tileImage;
+	if(tileImage) delete tileImage;
 	printf("Dying");
 }
 
@@ -30,7 +44,7 @@ int cOAMEdit::UpdateCurrentSprite()
 	Frame* disFrame = currentFrames->GetStaticFrame();
 	int partNum = cboPartNo.GetListIndex();
 	DecodedOAM *theOAM = &currentFrames->GetStaticFrame()->theSprite->OAM[partNum].deOAM;
-	currentFrames->UpdateSprite(currentFrames->GetStaticFrame()->index, partNum, theOAM->TileNumber, theOAM->xCoord, theOAM->yCoord,cboShapes.GetListIndex(), cboSizes.GetListIndex(), HChk.value(), VChk.value(), cboPal.GetListIndex());
+	currentFrames->UpdateSprite(currentFrames->GetStaticFrame()->index, partNum, theOAM->TileNumber, theOAM->xCoord, theOAM->yCoord, cboShapes.GetListIndex(), cboSizes.GetListIndex(), HChk.value(), VChk.value(), cboPal.GetListIndex());
 	RD1Engine::theGame->mgrOAM->DrawPSprite(cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->theSprite);
 
 	InvalidateRect(hwndSpritePreview, 0, 1);
@@ -54,9 +68,9 @@ int cOAMEdit::UpdateSize() {
 		{ "16,8\0", "32,8\0" ,"32,16\0", "64,32\0" },
 		{ "8,16\0", "8,32\0" ,"16,32\0", "32,64\0" },
 	};
-	for (i = 0; i < 4; i++)
+	for (i = 0; i <3; i++)
 	{
-		char* thisString =(char*)sizesr[cboShapes.GetListIndex()][ i];
+		char* thisString = (char*)sizesr[cboShapes.GetListIndex()][i];
 		cboSizes.Additem(thisString);
 	}
 	cboSizes.SetListIndex(0);
@@ -68,27 +82,31 @@ int cOAMEdit::UpdateSize() {
 
 
 
-int cOAMEdit::GetSpriteData( int id, int titleType) {//Fillsout the SprGBuf // lstSprite.GetListIndex();
+int cOAMEdit::GetSpriteData(int id, int titleType) {//Fillsout the SprGBuf // lstSprite.GetListIndex();
 	char offset[256] = { 0 };
-	
-	unsigned long theOffset =  GlobalVars::gblVars->frameTables->OAMFrameTable[id].front();
+
+	std::vector<unsigned long>* pointerLst = &GlobalVars::gblVars->frameTables->OAMFrameTable[id];
+	if (pointerLst == NULL || pointerLst->size() == 0) return 0;
+	unsigned long theOffset = pointerLst->front();
+
+
 	if (theOffset == 0) return -1;
 	GetFrames(theOffset, id, titleType);
 	currentFrames->SetStaticFrame(0);
 	currentFrames->GetStaticFrame()->theSprite->id = id;
 
-	
+
 	return 0;
 }
 
-int cOAMEdit::GetFrames(unsigned long offset,  int spriteID, int titleType) {
-	
+int cOAMEdit::GetFrames(unsigned long offset, int spriteID, int titleType) {
+
 	int i = 0;
 	if (currentFrames != NULL)
 	{
-		delete currentFrames; 
+		delete currentFrames;
 	}
-	
+
 	currentFrames = new FrameManager(&GBA, offset, spriteID, titleType);
 
 	return 0;
@@ -100,21 +118,21 @@ int cOAMEdit::SetFrames(int index) {
 	currentFrames->SetStaticFrame(index);
 	Frame* thisFrame = &(currentFrames->GetStaticFrame())[0];
 	sprintf(buffer, "%X", thisFrame->frameTimer);
-	SetWindowText(GetDlgItem(_oamWindow, txtTimer), buffer);
+	txtTimerv.SetText(buffer);
 	sprintf(buffer, "%X", thisFrame->frameOffset);
-	SetWindowText(GetDlgItem(_oamWindow, txtFPOff), buffer);
+	txtFrameOffset.SetText(buffer);
 
 	return 0;
 }
 
 
-int cOAMEdit::UpdatePartUI(bool updateSizes ) {
-	
-	int hflip=0;
-	int vflip=0;
+int cOAMEdit::UpdatePartUI(bool updateSizes) {
+
+	int hflip = 0;
+	int vflip = 0;
 
 	int thispart = cboPartNo.GetListIndex();
-	const unsigned char objSizes[3][4][2]=
+	const unsigned char objSizes[3][4][2] =
 	{
 	{ { 8, 8}, {16,16}, {32,32}, {64,64} },
 	{ {16, 8}, {32, 8}, {32,16}, {64,32} },
@@ -137,11 +155,11 @@ int cOAMEdit::UpdatePartUI(bool updateSizes ) {
 		UpdateSize();
 		cboSizes.SetListIndex(thisOAM->theSprite->OAM[thispart].deOAM.ObjSize);
 	}
-	
+
 	int    	sx = (thisOAM->theSprite->OAM[thispart].enOAM.OAM1 & 511);
-	sx=thisOAM->theSprite->OAM[thispart].deOAM.xCoord = sx;
+	sx = thisOAM->theSprite->OAM[thispart].deOAM.xCoord = sx;
 	int 	sy = (thisOAM->theSprite->OAM[thispart].enOAM.OAM0 & 255);
-	sy=thisOAM->theSprite->OAM[thispart].deOAM.yCoord = sy;
+	sy = thisOAM->theSprite->OAM[thispart].deOAM.yCoord = sy;
 
 	cboXPos.SetListIndex(sx);
 	cboYPos.SetListIndex(sy);
@@ -159,26 +177,26 @@ int cOAMEdit::UpdatePartUI(bool updateSizes ) {
 	thisOAM->theSprite->OAM[thispart].resolvedX = sy;
 
 
-	
+
 	sprintf(labelText, "Tile: %X", thisOAM->theSprite->OAM[thispart].deOAM.TileNumber);
 	SetWindowText(GetDlgItem(_oamWindow, lblTileNumber), labelText);
-	cboPal.SetListIndex( ((thisOAM->theSprite->OAM[thispart].enOAM.OAM2&0xF000))/0x1000);
+	cboPal.SetListIndex(((thisOAM->theSprite->OAM[thispart].enOAM.OAM2 & 0xF000)) / 0x1000);
 
 	HChk.value(0);
-	if(thisOAM->theSprite->OAM[thispart].enOAM.OAM1 & 0x1000) //XFLIP
-	HChk.value(1);
+	if (thisOAM->theSprite->OAM[thispart].enOAM.OAM1 & 0x1000) //XFLIP
+		HChk.value(1);
 
 	VChk.value(0);
-	if(thisOAM->theSprite->OAM[thispart].enOAM.OAM1 & 0x2000 ) //YFLIP
-	VChk.value(1);
+	if (thisOAM->theSprite->OAM[thispart].enOAM.OAM1 & 0x2000) //YFLIP
+		VChk.value(1);
 	int width = thisOAM->theSprite->OAM[thispart].enOAM.OAM0 >> 14;
 	int height = thisOAM->theSprite->OAM[thispart].enOAM.OAM1 >> 14;
-	hflip = ( HChk.value() ? (objSizes[width][height][0])-1:0);
-	vflip = ( VChk.value() ? (objSizes[width][height][1])-1:0);
-	rPart.left   = ((sx/8)^(hflip/8))*8;
-	rPart.top    = ((sy/8)^(vflip/8))*8;
-	rPart.right  = ((rPart.left) +(objSizes[width][height][0]));
-	rPart.bottom = ((rPart.top ) + (objSizes[width][height][1]));
+	hflip = (HChk.value() ? (objSizes[width][height][0]) - 1 : 0);
+	vflip = (VChk.value() ? (objSizes[width][height][1]) - 1 : 0);
+	rPart.left = ((sx / 8) ^ (hflip / 8)) * 8;
+	rPart.top = ((sy / 8) ^ (vflip / 8)) * 8;
+	rPart.right = ((rPart.left) + (objSizes[width][height][0]));
+	rPart.bottom = ((rPart.top) + (objSizes[width][height][1]));
 	cboBgPriority.SetListIndex(thisOAM->theSprite->OAM[thispart].deOAM.priority);
 	sprintf(labelText, "OAM0: %X", thisOAM->theSprite->OAM[thispart].enOAM.OAM1);
 	SetWindowText(GetDlgItem(_oamWindow, lblOAM0), labelText);
@@ -192,15 +210,15 @@ int cOAMEdit::UpdatePartUI(bool updateSizes ) {
 	return 0;
 }
 // &cOAMEdit::OamEditor->currentFrames->GetStaticFrame()
-int cOAMEdit::LoadTiles(Image* tileImage, Frame* targetFrame)
+int cOAMEdit::LoadTiles(Image* tileImage2, Frame* targetFrame)
 {
 	SpriteObject*currentSprite = targetFrame->theSprite;
 	currentSprite->sprTileBuffer->Load(currentSprite->PreRAM, 1023);
 	if (GlobalVars::gblVars->TileImage != NULL) {
-		tileImage->SetPalette(currentSprite->PreviewPal);
-		tileImage->Clear();
+		tileImage2->SetPalette(currentSprite->PreviewPal);
+		tileImage2->Clear();
 		for (int i = 0; i < 1024; i++) {
-			tileImage->Draw(*currentSprite->sprTileBuffer, ((i) % 32) * 8, ((i) / 32) * 8, 0x8000 + i);
+			tileImage2->Draw(*currentSprite->sprTileBuffer, ((i) % 32) * 8, ((i) / 32) * 8, 0x8000 + i);
 		}
 	}
 	return 0;
@@ -222,13 +240,13 @@ int cOAMEdit::DrawSelObj(HDC hdc) {
 
 ///
 ///Inits form dialog
-int cOAMEdit::Create() {
+int cOAMEdit::InitDlg() {
 	int i = 0;
 	char sillystring[16] = { 0 };
-	cboFrameTable.Init(GetDlgItem(_oamWindow, cboFrameTableCombo));
+	cboFrameTable.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, cboFrameTableCombo));
 	cboXPos.Init(GetDlgItem(_oamWindow, cboX));
 	cboYPos.Init(GetDlgItem(_oamWindow, cboY));
-	cboFrames.Init(GetDlgItem(_oamWindow, cboFrameIndex));
+	cboFrames.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, cboFrameIndex));
 	cboPartNo.Init(GetDlgItem(_oamWindow, cboParts));
 	cboShapes.Init(GetDlgItem(_oamWindow, cboShape));
 	cboSizes.Init(GetDlgItem(_oamWindow, cboSize));//Changes based on cboShape
@@ -242,12 +260,22 @@ int cOAMEdit::Create() {
 	cboShapes.SetListIndex(0);
 	cboPal.Init(GetDlgItem(_oamWindow, cboBPal));
 	UpdateSize();
-	
+	txtFrameOffset.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, txtFPOff));
+	txtTimerv.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, txtFrameTimer));
+
+	txtGlobalGfx.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, txtCommonGfx));
+	txtGlobalPalc.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, txtCommonPal));
+	txtCurrentGfx.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, txtCCurGfx));
+	txtCurrentPal.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, txtCurPal));
+
+
+
+
 	cboFrames.Clear();
-	for (i = 0; i<0xFF; i++) 
+	for (i = 0; i < 0xFF; i++)
 	{
 		sprintf(sillystring, "%X", i);
-		if (i<16)cboPal.Additem(sillystring);
+		if (i < 16)cboPal.Additem(sillystring);
 		if (!(RD1Engine::theGame->currentRomType == 0 && i < 16))
 		{
 
@@ -261,7 +289,7 @@ int cOAMEdit::Create() {
 		cboYPos.Additem(sillystring);
 	}
 
-	for (i = 0; i<511; i++) {
+	for (i = 0; i < 511; i++) {
 		sprintf(sillystring, "%d", i);
 		cboXPos.Additem(sillystring);
 	}
@@ -269,7 +297,7 @@ int cOAMEdit::Create() {
 	cboYPos.SetListIndex(0);
 	CreatePalHWND();
 	CreateTileHWND();
-	CreateInfoWindow();
+
 	CreateSpriteHWND();
 	CreateSpriteAnimationHWND();
 	CreatePartHWND();
@@ -295,24 +323,24 @@ int cOAMEdit::ImportGraphics() {
 }
 
 void cOAMEdit::SaveFrames() {
-	MessageBox(_oamWindow, "Not Implemented", "SaveFrames is not implemented", MB_OK); 
+	MessageBox(_oamWindow, "Not Implemented", "SaveFrames is not implemented", MB_OK);
 }
 void cOAMEdit::SaveFrameData() {
-	MessageBox(_oamWindow, "Not Implemented", "Save Frame Data is not implemented", MB_OK); 
+	MessageBox(_oamWindow, "Not Implemented", "Save Frame Data is not implemented", MB_OK);
 }
 unsigned long cOAMEdit::GetNewOffset(int size) {
 	MessageBox(_oamWindow, "Not Implemented", "Get New Offset is not implemented", MB_OK); return -1;
 }
 unsigned long cOAMEdit::Save(void* variableAddress) {
-	return Save(SaveOptions::OFFSET, (char*) variableAddress);
+	return Save(SaveOptions::OFFSET, (char*)variableAddress);
 }
 
 
 unsigned long cOAMEdit::Save(SaveOptions savetype, char* variableThing) {
-	
+
 	Frame* tmpFrame = NULL;
 	unsigned long* addr = (unsigned long*)variableThing;
-	for (int thisCounter = 0; thisCounter <currentFrames->theFrames.size(); thisCounter++)
+	for (int thisCounter = 0; thisCounter < currentFrames->theFrames.size(); thisCounter++)
 	{
 
 		tmpFrame = currentFrames->theFrames[thisCounter];
@@ -324,9 +352,9 @@ unsigned long cOAMEdit::Save(SaveOptions savetype, char* variableThing) {
 		RD1Engine::theGame->mgrOAM->SaveSprite(savetype, tmpFrame->theSprite, tmpFrame->frameOffset);
 		char wndstr[256] = { 0 };
 
-		
-		
-		
+
+
+
 	}
 
 	if (savetype == SaveOptions::OFFSET)

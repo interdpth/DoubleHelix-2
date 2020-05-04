@@ -1,15 +1,17 @@
 #pragma once
 #pragma once
 #include <windows.h>
-#include "sChecks.h"
-#include "sList.h"
-#include "sCombo.h"
+#include "..\RNA_UI\stxts.h"
+#include "..\RNA_UI\sChecks.h"
+#include "..\RNA_UI\sList.h"
+#include "..\RNA_UI\sCombo.h"
 #include "..\Win32GBAImageClasses\image.h"
 #include "Structures.h"
 #include "GBAMethods.h"
 #include "Frames.h"
 #include "resource.h"
 #include "GlobalVars.h"
+
 LRESULT CALLBACK cSSEPalProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 class Frame;
 extern GBAMethods GBA;
@@ -42,12 +44,16 @@ static cOAMEdit* OamEditor;
 	sCombo  lstSprite;
 	sChecks VChk;
 	sChecks HChk;
-	
+	txtWndClass txtFrameOffset;
+	txtWndClass txtTimerv;
+	txtWndClass txtGlobalGfx;
+	txtWndClass txtGlobalPalc;
+	txtWndClass txtCurrentGfx;
+	txtWndClass txtCurrentPal;
 	HWND   hwndAnimationWindow;
 	HWND   hwndSpritePreview;
 	HWND   hwndTiles;
 	HWND   hwndPal;
-	HWND   hwndPartWindow;
 	HWND   _oamWindow;
 	Image* tileImage;
 	
@@ -79,7 +85,7 @@ static cOAMEdit* OamEditor;
 	int GetFrames(unsigned long offset,  int spriteID, int titleType);
 	int SetFrames(int index);
 	int UpdatePartUI(bool updateSizes = true);
-	int Create();
+	int InitDlg();
 	int LoadTiles(Image* tileImage, Frame* targetFrame);
 };
 

@@ -36,7 +36,7 @@ void WindowScrollbar::SetIndex(int newindex)
 }
 
 
-void WindowScrollbar::ChangeScrollbars( int Res, int Scroll)
+void WindowScrollbar::ChangeScrollbars()
 {
 
 	_index = 0;
@@ -103,7 +103,7 @@ void WindowScrollbar::ChangeScrollbars( int Res, int Scroll)
 
 
 
-void WindowScrollbar::UpdateScroll( WPARAM how, int isvertical, int Res, int Scroll)
+void WindowScrollbar::UpdateScroll( WPARAM how)
 {
 
 	/*

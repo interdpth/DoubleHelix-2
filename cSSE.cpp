@@ -182,15 +182,11 @@ int cSpriteSetEditor::SetupPreview(SpriteObject* SprG, int TitleChoice) {
 		return -1;
 	}
 	//Sets up the preview control, will be called alot
-	long GFXPnt = 0;
 	long PalPnt = 0;
 
 	long addybuf = 0;
-	long PalPos = 0;
-	long size = 0;
-
+	
 	int i = 0;
-	int ii = 0;
 	unsigned char* compBuffer = new unsigned char[32687];
 	unsigned char* decompbuf = new unsigned char[64691];
 
@@ -202,7 +198,6 @@ int cSpriteSetEditor::SetupPreview(SpriteObject* SprG, int TitleChoice) {
 
 	unsigned short transferpal[256] = { 0 };
 
-	int  X = 0;
 	long off = 0;
 	int x = 0;
 	memset(GBAGraphics::VRAM->SprPal, 0, sizeof(GBAGraphics::VRAM->SprPal));

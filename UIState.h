@@ -24,7 +24,7 @@ LRESULT CALLBACK TilesetProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 enum WindowState
 {
 	SINGLE=0,
-	MULTI,
+	MULTI=1,
 	EXPERT=2
 };
 
