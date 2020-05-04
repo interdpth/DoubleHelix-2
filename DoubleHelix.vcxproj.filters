@@ -2,7 +2,6 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="DHProject.cpp" />
-    <ClCompile Include="cOAMEdit.cpp" />
     <ClCompile Include="cSSE.cpp" />
     <ClCompile Include="cStatEd.cpp" />
     <ClCompile Include="cTED.cpp" />
@@ -18,7 +17,6 @@
     <ClCompile Include="MinimapEditor.cpp" />
     <ClCompile Include="MinimapEditorClass.cpp" />
     <ClCompile Include="nFunctions.cpp" />
-    <ClCompile Include="OAMWinProcedureInit.cpp" />
     <ClCompile Include="PaletteEditor.cpp" />
     <ClCompile Include="RightMouseClick.cpp" />
     <ClCompile Include="ROMFile.cpp" />
@@ -45,9 +43,6 @@
     <ClCompile Include="frmMapData.cpp">
       <Filter>Editor\Dialogs</Filter>
     </ClCompile>
-    <ClCompile Include="frmOAM.cpp">
-      <Filter>Editor\Dialogs</Filter>
-    </ClCompile>
     <ClCompile Include="frmRepoint.cpp">
       <Filter>Editor\Dialogs</Filter>
     </ClCompile>
@@ -72,9 +67,13 @@
     <ClCompile Include="MapUtils.cpp" />
     <ClCompile Include="SpriteSelector.cpp" />
     <ClCompile Include="SpriteSetEditor.cpp" />
+    <ClCompile Include="cOAMEdit.cpp" />
+    <ClCompile Include="frmOAM.cpp">
+      <Filter>Editor\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="OAMWinProcedureInit.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cOAMEdit.h" />
     <ClInclude Include="cSSE.h" />
     <ClInclude Include="cStatEd.h" />
     <ClInclude Include="cTextEditor.h" />
@@ -111,6 +110,7 @@
     <ClInclude Include="clsScroll.h" />
     <ClInclude Include="MapUtils.h" />
     <ClInclude Include="MinimapClass.h" />
+    <ClInclude Include="cOAMEdit.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res.rc" />

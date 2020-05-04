@@ -27,6 +27,7 @@ void ResizeLayer(nMapBuffer* buffLayer, int newWidth, int newHeight) {
 
 	delete[] buffLayer->TileBuf2D;
 	buffLayer->TileBuf2D = new unsigned short[copysize / 2];
+	memset(buffLayer->TileBuf2D, 0, copysize);
 	memcpy(roombuff, buffLayer->TileBuf2D, copysize);
 	delete[]roombuff;
 	RD1Engine::theGame->SaveLevel(-1);
@@ -118,7 +119,7 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 			break;
 		case cboLayer:
 			//What does this really to? TODO
-			if (HIWORD(wParam) == CBN_SELCHANGE) {
+			if (RD1Engine::theGame->mainRoom != NULL && HIWORD(wParam) == CBN_SELCHANGE) {
 				i = LayerCombo.GetListIndex();
 				if (i == 0) {//Foreground
 					if (RD1Engine::theGame->mainRoom->roomHeader->bBg0 == 0x10) {

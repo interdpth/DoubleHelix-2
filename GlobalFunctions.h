@@ -17,7 +17,6 @@ int DrawGraphicTiles();
 int InitPosArray();
 int DrawThisScene(unsigned char Scene);
 
-int LoadROM();
 int LoadData();
 int DrawScrolls(int ScrollToDraw, Scroller *scroll);
 int SetupHeaderControls();

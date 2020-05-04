@@ -6,7 +6,6 @@ char FilePath[2048]={0};
 int lng=0;
 char Files[2][1024]={"DH-LNG-EN.txt","DH-LNG-SP.txt"};
 int i=0,j=0,k=0;
-char menStr[256]={0};
 
 sprintf(FilePath,"%s\\%s",GlobalVars::gblVars->AppPath,Files[lng]);
 FILE* fp = fopen(FilePath,"r");

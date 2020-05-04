@@ -60,7 +60,7 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 				  InvalidateRect(hwndSS,0,1);
 				break;
 			case cmdNext:
-				if((dispic+1)==RD1Engine::theGame->mgrOAM->maxsprite) return 0;
+				if((dispic+1)== RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites.size()) return 0;
 				  dispic+=1;
 				  sprintf(buf,"Sprite: %d",dispic);
 				  SetWindowText(GetDlgItem(hWnd,lblSpriteblah),buf);
@@ -81,6 +81,8 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 	case WM_PAINT:
 	{
 		if (RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites.size() > 0) {
+
+		
 			targetFrame = RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites.at(dispic)->GetStaticFrame();
 
 			hdc = BeginPaint(hWnd, &ps);

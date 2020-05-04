@@ -31,7 +31,7 @@ BOOL CALLBACK	SceneProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		cboSSPal.SetListIndex(6);
 		InitSceneryWindow();
 		InitTSWindow();
-		DrawGraphicTiles();
+	
 		break;
 		
 	case WM_COMMAND:
@@ -479,7 +479,7 @@ int DrawGraphicTiles(){
 	SceneryTiles.SetPalette(GBAGraphics::VRAM->PcPalMem);
 	//For now all we draw is BG ;O
 	//for(Y = 0; Y<32;Y++){
-	for(i = 0; i <1024;i++){ 
+	for(i = 0; i <128;i++){ 
 		X = (i%64)*8;
 		Y = (i/64)*8;
 		SceneryTiles.Draw(GlobalVars::gblVars->BGImage,X  ,Y , (Pal*0x1000) +	(i)  );

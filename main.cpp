@@ -1,5 +1,4 @@
 #include "MainHeader.h"
-#include "sChecks.h"
 #include "MinimapClass.h"
 #include "cClipboard.h"
 #include "clsScroll.h"
@@ -27,6 +26,7 @@
 #include <commctrl.h>
 #include "fraMainProc.h"
 #include "cOAMEdit.h"
+
 void DrawStatusFromUI();
 BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 #pragma comment(lib, "comctl32.lib")
@@ -52,8 +52,9 @@ int             sMessage(char *messagestring)
 }
 
 void ErrorMessage(char *errString)
-{
-	MessageBox(hwndMain(), errString, "Error", MB_ICONEXCLAMATION|MB_OK);
+{//
+	//MessageBox(hwndMain(), errString, "Error", MB_ICONEXCLAMATION|MB_OK);
+	SetWindowText(UiState::stateManager->StatusBar, errString);
 }
 //Get the current window
 HWND hwndMain()
@@ -112,7 +113,29 @@ void TabResize()
 	InvalidateRect(hwndMain(), 0, true);
 }
 
+void CreateSpriteEditor()
+{
+	if (currentRomType == -1)
+		return;
 
+
+	if (cOAMEdit::OamEditor == NULL)
+	{
+		cOAMEdit::OamEditor = new cOAMEdit();
+		cOAMEdit::OamEditor->InitDlg();
+	}
+
+	if (cOAMEdit::OamEditor->_oamWindow)
+	{
+		DestroyWindow(cOAMEdit::OamEditor->_oamWindow);
+		delete cOAMEdit::OamEditor;
+		cOAMEdit::OamEditor = NULL;
+
+	}
+
+	CreateDialog(hGlobal, MAKEINTRESOURCE(frmOAM), 0, OAMProc);
+	ShowWindow(cOAMEdit::OamEditor->_oamWindow, SW_SHOW);
+}
 ///Loads a cobomo box
 void LoadCombos(sCombo* Combo, char *FileName, int Max = 255)
 {
@@ -139,10 +162,10 @@ void LoadCombos(sCombo* Combo, char *FileName, int Max = 255)
 	}
 	else
 	{
-		int i = 0;
-		for (i = 0; i < Max; i++) {
+		int c = 0;
+		for (c = 0; c < Max; c++) {
 
-			sprintf(buffer, "%X", i);
+			sprintf(buffer, "%X", c);
 			Combo->Additem(buffer);
 		}
 	}
@@ -154,8 +177,8 @@ void LoadCombos(sCombo* Combo, char *FileName, int Max = 255)
 ///Returns true if we processed anything controls.
 bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
-	FILE           *fp = NULL;
-	int area;
+	LeakFinder::finder->PollHeap();
+
 	int             sprch = 0;
 	char            cBuf[1024] = { 0 };
 	int             i = 0;
@@ -177,6 +200,7 @@ bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPar
 
 	case ID_MAP_VIEWFOREGROUND:
 	{
+		if (mainGame == NULL) break;
 		bool curVal = GlobalVars::gblVars->checkBoxViewF.GetCheckState();
 		GlobalVars::gblVars->checkBoxViewF.SetCheckState(!curVal);
 		GlobalVars::gblVars->ViewForeground = !curVal;
@@ -188,6 +212,7 @@ bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPar
 	}
 	case ID_MAP_VIEWLEVELLAYER:
 	{
+		if (mainGame == NULL) break;
 		bool curVal = GlobalVars::gblVars->checkBoxViewL.GetCheckState();
 		GlobalVars::gblVars->checkBoxViewL.SetCheckState(!curVal);
 		GlobalVars::gblVars->ViewLevel = !curVal;
@@ -200,6 +225,7 @@ bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPar
 
 	case ID_MAP_VIEWBACKLAYER:
 	{
+		if (mainGame == NULL) break;
 		bool curVal = GlobalVars::gblVars->checkBoxViewB.GetCheckState();
 		GlobalVars::gblVars->checkBoxViewB.SetCheckState(!curVal);
 		GlobalVars::gblVars->ViewBacklayer = !curVal;
@@ -216,6 +242,7 @@ bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPar
 		return true;
 		break;
 	case ID_DAA:
+		if (mainGame == NULL) break;
 		RD1Engine::theGame->DumpAreaAsImage("heyman.bmp", GlobalVars::gblVars->imgTileset, &SpriteImage, GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage);
 		return true;
 		break;
@@ -227,9 +254,11 @@ bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPar
 
 int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
+
+	LeakFinder::finder->PollHeap();
 	FILE           *fp = NULL;
 	int area;
-	int             sprch = 0;
+
 	char            cBuf[1024] = { 0 };
 	int             i = 0;
 	int             loadit = 0;
@@ -242,17 +271,20 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 	{
 		mainGame = RD1Engine::theGame;
 	}
+	LeakFinder::finder->PollHeap();
 	if (ProcessControls(hwnd, message, wParam, lParam))
 	{
+		LeakFinder::finder->PollHeap();
 		return 0;
 	}
-
+	LeakFinder::finder->PollHeap();
 
 	if (mnuOpen == LOWORD(wParam))
 	{
 		OpenRom();
+		return true;
 	}
-	
+	LeakFinder::finder->PollHeap();
 	if(mainGame==NULL) return 0; 
 	switch (LOWORD(wParam))
 	{
@@ -260,14 +292,14 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		// if(crf==-1) return  0;
 		ShowWindow(hwndLPE, 1);
 
-		break;
+		return true;
 
 
 	case ID_MAP_SHOWSPRITES:
 		DrawStatusFromUI();
 		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		InvalidateRect(hwnd, 0, true);
-		break;
+		return true;
 	case mnuEB:
 		if (currentRomType == -1)
 			return 0;
@@ -286,12 +318,12 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 				MessageBox(0, "Bad File Name", "Error", MB_OK);
 			}
 		}
-		break;
+		return true;
 	case mnuInsert:
 		if (currentRomType == -1)
 			return 0;
 		ShowWindow(GlobalVars::gblVars->BGi->me, 1);
-		break;
+		return true;
 
 	case ID_ZOOM_NORMAL:
 		if (currentRomType == -1)
@@ -300,25 +332,25 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		GameConfiguration::mainCFG->GetDataContainer("ZoomStates")->Value = 0;
 		CheckZoom(0);
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
-		break;
+		return true;
 	case ID_ZOOM_1:
 		GlobalVars::gblVars->zoomLevel = 1.5;
 		GameConfiguration::mainCFG->GetDataContainer("ZoomStates")->Value = 1;
 		CheckZoom(1);
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
-		break;
+		return true;
 	case ID_ZOOM_2:
 		GlobalVars::gblVars->zoomLevel = 2.0;
 		GameConfiguration::mainCFG->GetDataContainer("ZoomStates")->Value = 2;
 		CheckZoom(2);
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
-		break;
+		return true;
 	case mnuIPSP:
 		if (currentRomType == -1)
 			return 0;
 		GBA.ReturnFileName("Please Select an Apply File to apply\0*.ips", cBuf, 1024);
 		ApplyIPS(cBuf, GBA.FileLoc);
-		break;
+		return true;
 
 
 
@@ -326,25 +358,13 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		if (currentRomType == -1)
 			return 0;
 		ShowWindow(ClipBoard.me, SW_SHOW);
-		break;
+		return true;
 
 	case mnuSOE:
-		if (currentRomType == -1)
-			return 0;
-
-		if (cOAMEdit::OamEditor->_oamWindow)
-		{
-			DestroyWindow(cOAMEdit::OamEditor->_oamWindow);
-
-		}
-		if (cOAMEdit::OamEditor == NULL)
-		{
-			cOAMEdit::OamEditor = new cOAMEdit();
-			cOAMEdit::OamEditor->Create();
-		}
-		CreateDialog(hGlobal, MAKEINTRESOURCE(frmOAM), 0, OAMProc);
-		ShowWindow(cOAMEdit::OamEditor->_oamWindow, SW_SHOW);
-		break;
+		LeakFinder::finder->PollHeap();
+		CreateSpriteEditor();
+		LeakFinder::finder->PollHeap();
+		return true;
 
 	case ID_GENERALTOOLS_SAMUSEDITOR:
 		if (currentRomType == -1)
@@ -354,21 +374,21 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			CreateDialog(hGlobal, MAKEINTRESOURCE(frmSamusEditor), 0, SamusProc);
 			ShowWindow(GlobalVars::gblVars->sec->hwndSamusEditor, SW_SHOW);
 		}
-		break;
+		return true;
 	case mnuSSE:
 		if (currentRomType == -1)
 			return 0;
 		CreateDialog(hGlobal, MAKEINTRESOURCE(fraSSE), 0, SpriteSetEditorProc);
 		ShowWindow(cSpriteSetEditor::SpriteSet->me, SW_SHOW);
-		break;
+		return true;
 	case mnuTSA:
 		if (currentRomType == -1)
 			return 0;
 		ShowWindow(MyTSAEditor.tMain, SW_SHOW);
-		break;
+		return true;
 	case mnuHeader:
 		if (currentRomType == -1)
-			return 0;
+			return true;
 		if (hwndHeader == NULL)
 		{
 			CreateDialog(hGlobal, MAKEINTRESOURCE(frmHeader), 0, HeaderProced);
@@ -379,10 +399,10 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			ShowWindow(hwndHeader, SW_SHOW);
 		}
 
-		break;
+		return true;
 	case mnuRS:
 		if (currentRomType == -1)
-			return 0;
+			return true;
 		if (ExtendedOptWND == NULL)
 		{
 			CreateDialog(hGlobal, MAKEINTRESOURCE(frmRoomStuff), 0, ExtendedProc);
@@ -393,7 +413,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		LayerCombo.SetListIndex(1);
 		SendMessage(ExtendedOptWND, WM_COMMAND, 0x000103eb, 0);
 
-		break;
+		return true;
 	case IDCANCEL:
 		if (MessageBox(hwnd, "Wait! Are you sure?", "Leaving so soon?", MB_YESNOCANCEL) == IDYES)
 		{
@@ -402,7 +422,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			EndDialog(hwndResize, 0);
 		}
 
-		break;
+		return true;
 	case mnuTE:
 		if (currentRomType == -1)
 			return 0;
@@ -411,16 +431,20 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			CreateDialog(hGlobal, MAKEINTRESOURCE(frmTE), 0, TextEditorProc);
 		}
 		ShowWindow(GlobalVars::gblVars->TextEditor->tMain, SW_SHOW);
-		break;
+		return true;
 	case mnuSE:
 		if (currentRomType == -1)
 			return 0;
-		if (!GlobalVars::gblVars->StatEditor->me) {
+		if (!GlobalVars::gblVars->StatEditor) {
+			GlobalVars::gblVars->StatEditor = new cStatEd(currentRomType);
 			CreateDialog(hGlobal, MAKEINTRESOURCE(fraStat), 0, StatEditorProc);
 		}
-
+		if (GlobalVars::gblVars->StatEditor->me) {
+			
+	
 		ShowWindow(GlobalVars::gblVars->StatEditor->me, SW_SHOW);
-		break;
+		}
+		return true;
 
 
 	case mnuMini:
@@ -438,7 +462,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		MiniMapClass::miniMapEditor->DrawTileset(MiniMapClass::miniMapEditor->Tileset, 0);
 		MiniMapClass::miniMapEditor->DrawMap(MiniMapClass::miniMapEditor->Map);
 		ShowWindow(hwndMM, SW_SHOW);
-		break;
+		return true;
 
 	case ID_GENERALTOOLS_SWITCHGUI:
 		MessageBox(0, "SWITCHING GUIS ALL DATA WILL BE LOST, CLOSING APPLICATION", "WARNING", MB_OK);
@@ -456,7 +480,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		GameConfiguration::mainCFG->GetDataContainer("UIState")->Value = i;
 		EndDialog(hwnd, 0);
 
-		break;
+		return true;
 	case mnuRR:
 
 		if (currentRomType == -1)
@@ -468,187 +492,192 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 	}
 
 
-	return 0;
+	return true;
 }
 HWND tabs[6];
 sChecks door;
-
-; BOOL CALLBACK   DialogProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam)
+void InitMainControls(HWND hwnd)
 {
-	int blah;
+	hwndMain(hwnd);
 	char            FilePath[1024] =
 	{
-	   0
+		0
 	};
 	unsigned short             wndrs[3] =
 	{
-	   hsbC1, hsbC2, hsbC3
+		hsbC1, hsbC2, hsbC3
 	};
+
+
+	for (int h = 0; h < 5; h++)
+	{
+		tabs[h] = NULL;
+	}
+	inited = false;
+	{
+		HICON           hIcon = LoadIcon(hGlobal, MAKEINTRESOURCE(IDI_ICON7));
+		SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+	}
+
+	if (UiState::stateManager->GetWindowState() == WindowState::EXPERT)
+	{
+		INITCOMMONCONTROLSEX commCon;
+		commCon.dwSize = sizeof(INITCOMMONCONTROLSEX);
+		commCon.dwICC = ICC_TAB_CLASSES;
+		InitCommonControlsEx(&commCon); // have to run this to use tab control
+		hTabControl = GetDlgItem(hwnd, tabMain);
+		//	SetWindowSubclass(hTabControl, ComboProc, subclasscounter++, 0);
+		TCITEM tcItem;
+		tcItem.mask = TCIF_TEXT; // I'm only having text on the tab
+
+								 //Tab 1
+		tcItem.pszText = "Main";
+		TabCtrl_InsertItem(hTabControl, 0, &tcItem);
+
+		//Tab 2
+		tcItem.pszText = "Map Data";
+		TabCtrl_InsertItem(hTabControl, 1, &tcItem);
+
+		//Tab 3
+		tcItem.pszText = "Door Data";
+		TabCtrl_InsertItem(hTabControl, 2, &tcItem);
+
+		//Tab 4
+		tcItem.pszText = "Scroll Data";
+		TabCtrl_InsertItem(hTabControl, 3, &tcItem);
+
+
+		//Tab 5
+		tcItem.pszText = "Sprite Data";
+		TabCtrl_InsertItem(hTabControl, 4, &tcItem);
+		TabCtrl_SetCurSel(hTabControl, 0);
+
+
+
+		tabs[0] = CreateDialog(hGlobal, MAKEINTRESOURCE(fraMain), hTabControl, fraMainProc); // Setting dialog to tab one by default
+
+		tabs[1] = CreateDialog(hGlobal, MAKEINTRESOURCE(frmMapData), hTabControl, MapDataProc);
+
+		tabs[2] = CreateDialog(hGlobal, MAKEINTRESOURCE(frmDoor), hTabControl, DwProc);
+
+		tabs[3] = CreateDialog(hGlobal, MAKEINTRESOURCE(frmScroll), hTabControl, ScrollWndProc);
+
+		tabs[4] = CreateDialog(hGlobal, MAKEINTRESOURCE(fraSS), hTabControl, SSProc);
+
+		hCurrentTab = tabs[0];
+
+		//	SetWindowSubclass(tabs[0], ComboProc, subclasscounter++, 0);
+		//	SetWindowSubclass(tabs[1], ComboProc, subclasscounter++, 0);
+		//	SetWindowSubclass(tabs[2], ComboProc, subclasscounter++, 0);
+		//	SetWindowSubclass(tabs[3], ComboProc, subclasscounter++, 0);
+		//	SetWindowSubclass(tabs[4], ComboProc, subclasscounter++, 0);
+		ShowWindow(hCurrentTab, 1);
+		UiState::stateManager->StatusBar = CreateStatusWindow(WS_CHILD | WS_VISIBLE, "No data", hwnd, 9000);
+	}
+
+	ClearGlobals();
+
+
+	
+
+	//SetWindowSubclass(hwnd, ComboProc, subclasscounter++, 0);
+	UiState::stateManager->InitTileset();
+	UiState::stateManager->InitMap();
+	GetCurrentDirectory(1023, GlobalVars::gblVars->AppPath);
+	strcpy(FilePath, GlobalVars::gblVars->AppPath);
+	strcat(FilePath, "\\DH.cfg");
+	LoadConfigFile(FilePath);
+	DM[0] = DM[1] = 0;
+
+	CurObjT = 0;
+	CurObjNo = 0;
+
+
+
+	clrIndex = 0;
+	GlobalVars::gblVars->imgTileset = new Image();
+	GlobalVars::gblVars->imgTileset->Create(16 * 17 + 1, 1024);
+	GlobalVars::gblVars->ViewClip.SetCnt(GetDlgItem(hwnd, ID_MAP_SHOWCLIPDATA));
+	GlobalVars::gblVars->ScrollCheck.SetCnt(GetDlgItem(hwnd, chkScroll));
+	GlobalVars::gblVars->checkBoxClip.SetCnt(GetDlgItem(hwnd, chkClip));
+	GlobalVars::gblVars->checkBoxViewF.Init(hwnd, ID_MAP_VIEWFOREGROUND);
+	GlobalVars::gblVars->checkBoxViewL.Init(hwnd, ID_MAP_VIEWLEVELLAYER);
+	GlobalVars::gblVars->checkBoxViewB.Init(hwnd, ID_MAP_VIEWBACKLAYER);
+
+	chkDoTrans.SetCheckState(true);
+	GlobalVars::gblVars->checkBoxshowmap.value(1);
+	GlobalVars::gblVars->checkBoxshowtileset.value(1);
+
+
+	//CreateDialog(hGlobal, MAKEINTRESOURCE(frmSceneryEditor), 0, SceneProc);
+
+	//
+
+	//CreateDialog(hGlobal, MAKEINTRESOURCE(fraTBE), 0, TSAProc);
+
+	//CreateDialog(hGlobal, MAKEINTRESOURCE(frmClipboard), 0, ClipBoardProc);
+	//CreateDialog(hGlobal, MAKEINTRESOURCE(fraBGI), 0, BGiProc);
+	//CreateDialog(hGlobal, MAKEINTRESOURCE(frmLPE), 0, LPProc);
+
+
+	/*ShowWindow(ScrollWIn, SW_HIDE);
+	ShowWindow(DoorWin, SW_HIDE);*/
+
+
+	// SetParent(Main, DoorWin );
+	nMaxHScroll[sTileset] = (256 - nDisplayWidth[sTileset] + 7) / 8; // maximum 
+																	 // H
+																	 // scroll
+
+	nMaxVScroll[sTileset] = (256 - nDisplayHeight[sTileset] + 7) / 8;
+
+	ChangeScrollbars(hwnd, vsbScroll, sTileset);
+
+
+	for (i = 0; i < 3; i++)
+	{
+		GlobalVars::gblVars->scrColors[i].create(GetDlgItem(hwndLPE, wndrs[i]), 0, 255);
+		GlobalVars::gblVars->scrColors[i].ChangeScrollbars();
+		// SetScrollPos( UiState::stateManager->GetTilesetWindow(), SB_HORZ, 0, 1 );
+
+	}
+
+	// etArrays();
+	MPToUse = 0;
+	mpTileset.Width = 1;
+	mpTileset.Height = 1;
+	mpTileset.sX = mpTileset.eX = mpTileset.cX = 0;
+	mpTileset.sY = mpTileset.eY = mpTileset.cY = 0;
+	mpMap.Width = 1;
+	mpMap.Height = 1;
+	mpMap.sX = mpMap.eX = mpMap.cX = 0;
+	mpMap.sY = mpMap.eY = mpMap.cY = 0;
+
+
+
+	UiState::stateManager->ShowObj();
+
+	TabResize();
+
+
+
+}
+BOOL CALLBACK   DialogProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam)
+{
+	LeakFinder::finder->PollHeap();
 	switch (message)
 	{
 
 	case WM_INITDIALOG:
-		g_hbrBackground = CreateSolidBrush(RGB(0x2C,0x2F,0x33));
-		
-		for (int h = 0; h < 5; h++)
-		{
-			tabs[h] = NULL;
-		}
-		inited = false;
-		{
-			HICON           hIcon = LoadIcon(hGlobal, MAKEINTRESOURCE(IDI_ICON7));
-			SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
-		}
-	
-		if (UiState::stateManager->GetWindowState() == WindowState::EXPERT)
-		{
-			INITCOMMONCONTROLSEX commCon;
-			commCon.dwSize = sizeof(INITCOMMONCONTROLSEX);
-			commCon.dwICC = ICC_TAB_CLASSES;
-			InitCommonControlsEx(&commCon); // have to run this to use tab control
-			hTabControl = GetDlgItem(hwnd, tabMain);
-			SetWindowSubclass(hTabControl, ComboProc, subclasscounter++, 0);
-			TCITEM tcItem;
-			tcItem.mask = TCIF_TEXT; // I'm only having text on the tab
-
-									 //Tab 1
-			tcItem.pszText = "Main";
-			TabCtrl_InsertItem(hTabControl, 0, &tcItem);
-
-			//Tab 2
-			tcItem.pszText = "Map Data";
-			TabCtrl_InsertItem(hTabControl, 1, &tcItem);
-
-			//Tab 3
-			tcItem.pszText = "Door Data";
-			TabCtrl_InsertItem(hTabControl, 2, &tcItem);
-
-			//Tab 4
-			tcItem.pszText = "Scroll Data";
-			TabCtrl_InsertItem(hTabControl, 3, &tcItem);
-
-
-			//Tab 5
-			tcItem.pszText = "Sprite Data";
-			TabCtrl_InsertItem(hTabControl, 4, &tcItem);
-			TabCtrl_SetCurSel(hTabControl, 0);
-
-
-
-			tabs[0] = CreateDialog(hGlobal, MAKEINTRESOURCE(fraMain), hTabControl, fraMainProc); // Setting dialog to tab one by default
-
-			tabs[1] = CreateDialog(hGlobal, MAKEINTRESOURCE(frmMapData), hTabControl, MapDataProc);
-
-			tabs[2] = CreateDialog(hGlobal, MAKEINTRESOURCE(frmDoor), hTabControl, DwProc);
-
-			tabs[3] = CreateDialog(hGlobal, MAKEINTRESOURCE(frmScroll), hTabControl, ScrollWndProc);
-
-			tabs[4] = CreateDialog(hGlobal, MAKEINTRESOURCE(fraSS), hTabControl, SSProc);
-
-			hCurrentTab = tabs[0];
-
-			SetWindowSubclass(tabs[0], ComboProc, subclasscounter++, 0);
-			SetWindowSubclass(tabs[1], ComboProc, subclasscounter++, 0);
-			SetWindowSubclass(tabs[2], ComboProc, subclasscounter++, 0);
-			SetWindowSubclass(tabs[3], ComboProc, subclasscounter++, 0);
-			SetWindowSubclass(tabs[4], ComboProc, subclasscounter++, 0);
-			ShowWindow(hCurrentTab, 1);
-			UiState::stateManager->StatusBar =  CreateStatusWindow(WS_CHILD | WS_VISIBLE , "No data", hwnd,9000);		
-		}
-
-		ClearGlobals();
-
-
-		hwndMain(hwnd);
-
-		SetWindowSubclass(hwnd, ComboProc, subclasscounter++, 0);
-		UiState::stateManager->InitTileset();
-		UiState::stateManager->InitMap();
-		GetCurrentDirectory(1023, GlobalVars::gblVars->AppPath);
-		strcpy(FilePath, GlobalVars::gblVars->AppPath);
-		strcat(FilePath, "\\DH.cfg");
-		LoadConfigFile(FilePath);
-		DM[0] = DM[1] = 0;
-
-		CurObjT = 0;
-		CurObjNo = 0;
-
-
-
-		clrIndex = 0;
-		GlobalVars::gblVars->imgTileset = new Image();
-		GlobalVars::gblVars->imgTileset->Create(16 * 17 + 1, 1024);
-		GlobalVars::gblVars->ViewClip.SetCnt(GetDlgItem(hwnd, ID_MAP_SHOWCLIPDATA));
-		GlobalVars::gblVars->ScrollCheck.SetCnt(GetDlgItem(hwnd, chkScroll));
-		GlobalVars::gblVars->checkBoxClip.SetCnt(GetDlgItem(hwnd, chkClip));
-		GlobalVars::gblVars->checkBoxViewF.Init(hwnd, ID_MAP_VIEWFOREGROUND);
-		GlobalVars::gblVars->checkBoxViewL.Init(hwnd, ID_MAP_VIEWLEVELLAYER);
-		GlobalVars::gblVars->checkBoxViewB.Init(hwnd, ID_MAP_VIEWBACKLAYER);
-
-		chkDoTrans.SetCheckState(true);
-		GlobalVars::gblVars->checkBoxshowmap.value(1);
-		GlobalVars::gblVars->checkBoxshowtileset.value(1);
-
-
-		//CreateDialog(hGlobal, MAKEINTRESOURCE(frmSceneryEditor), 0, SceneProc);
-
-		//
-
-		//CreateDialog(hGlobal, MAKEINTRESOURCE(fraTBE), 0, TSAProc);
-
-		//CreateDialog(hGlobal, MAKEINTRESOURCE(frmClipboard), 0, ClipBoardProc);
-		//CreateDialog(hGlobal, MAKEINTRESOURCE(fraBGI), 0, BGiProc);
-		//CreateDialog(hGlobal, MAKEINTRESOURCE(frmLPE), 0, LPProc);
-
-
-		/*ShowWindow(ScrollWIn, SW_HIDE);
-		ShowWindow(DoorWin, SW_HIDE);*/
-
-
-		// SetParent(Main, DoorWin );
-		nMaxHScroll[sTileset] = (256 - nDisplayWidth[sTileset] + 7) / 8; // maximum 
-																		 // H
-																		 // scroll
-
-		nMaxVScroll[sTileset] = (256 - nDisplayHeight[sTileset] + 7) / 8;
-
-		ChangeScrollbars(hwnd, vsbScroll, sTileset);
-
-
-		for (i = 0; i < 3; i++)
-		{
-			GlobalVars::gblVars->scrColors[i].create(GetDlgItem(hwndLPE, wndrs[i]), 0, 255);
-			GlobalVars::gblVars->scrColors[i].ChangeScrollbars();
-			// SetScrollPos( UiState::stateManager->GetTilesetWindow(), SB_HORZ, 0, 1 );
-
-		}
-
-		// etArrays();
-		MPToUse = 0;
-		mpTileset.Width = 1;
-		mpTileset.Height = 1;
-		mpTileset.sX = mpTileset.eX = mpTileset.cX = 0;
-		mpTileset.sY = mpTileset.eY = mpTileset.cY = 0;
-		mpMap.Width = 1;
-		mpMap.Height = 1;
-		mpMap.sX = mpMap.eX = mpMap.cX = 0;
-		mpMap.sY = mpMap.eY = mpMap.cY = 0;
-
-
-
-		UiState::stateManager->ShowObj();
-
-		TabResize();
-
-
-
+		InitMainControls(hwnd);
 		//LoadTrans("[MainMenu]", 0, hwnd);
-		break;
+		return true;
 	case WM_NOTIFY:
 		switch (((LPNMHDR)lParam)->code)
 		{
 		case TCN_SELCHANGE: // ******* message sent because someone changed the tab selection (clicked on another tab)
 		{
+			LeakFinder::finder->PollHeap();
 			int curTab = TabCtrl_GetCurSel(hTabControl);
 			if (currentRomType == -1 && curTab != 0)
 			{
@@ -656,7 +685,7 @@ sChecks door;
 				break;
 			}
 			ShowWindow(hCurrentTab, 0); // we don't want the current tab, kill it
-
+			LeakFinder::finder->PollHeap();
 			switch (curTab)
 			{
 			case 0:
@@ -687,6 +716,7 @@ sChecks door;
 
 					hCurrentTab = tabs[0];
 				}
+				LeakFinder::finder->PollHeap();
 				break;
 			case 3:
 				if (!tabs[3])
@@ -703,6 +733,7 @@ sChecks door;
 					TabCtrl_SetCurSel(hTabControl, 0);
 					hCurrentTab = tabs[0];
 				}
+				LeakFinder::finder->PollHeap();
 				break;
 			case 4:
 				if (!tabs[4])
@@ -721,6 +752,7 @@ sChecks door;
 					TabCtrl_SetCurSel(hTabControl, 0);
 					hCurrentTab = tabs[0];
 				}
+				LeakFinder::finder->PollHeap();
 				break;
 			}
 			ShowWindow(hCurrentTab, 1);
@@ -728,72 +760,36 @@ sChecks door;
 
 			//Resize 
 			TabResize();
+			LeakFinder::finder->PollHeap();
 			return TRUE;
 		}//End of case
 		}//End of Switch
 		return TRUE;
 		break;
 	
-	case  WM_WINDOWPOSCHANGED:
-		/*	ShowWindow(DoorWin, SW_SHOW);
-			MoveDoorObj();
-			ShowWindow(ScrollWIn, SW_SHOW);
-			MoveScrollObj();*/
-
-			/*ShowWindow(hwndSS, SW_SHOW);
-			MoveSpriteObj();*/
-
-
-		break;
-	case BN_CLICKED:
-
-		break;
 	case WM_COMMAND:
 
 		HandleDetections(hwnd, message, wParam, lParam);
-		break;
+		LeakFinder::finder->PollHeap();
+		return true;
 
-	case WM_VSCROLL: // exact same idea, but V scroll instead of H scroll
-
-	   // if((HWND)lParam == GetDlgItem(hwnd,vsbMap))
-	   // UpdateScroll(hwnd,wParam,1,vsbMap,sVMap);
-
-		break;
-
-	case	WM_COPYDATA:
-	case WM_COPY:
-		comboArea.SetListIndex(0);
-		break;
-	case WM_PASTE:
-		comboArea.SetListIndex(0);
-		break;
-	case WM_HSCROLL:
-
-		// if((HWND)lParam == GetDlgItem(hwnd,hsbMap))
-		// UpdateScroll(hwnd,wParam,NULL,hsbMap,sHMap);
-
-		break;
-	case WM_LBUTTONDOWN:
-		// if((HWND)wParam == GetDlgItem(hwnd,picButton)) sMessage("Mouse was
-		// clicked down");
-
-		break;
-	case WM_CTLCOLORDLG:
-		return (LONG)g_hbrBackground;
-	case WM_CTLCOLORSTATIC:
-	{
-		HDC hdcStatic = (HDC)wParam;
-		SetTextColor(hdcStatic, RGB(255, 255, 255));
-		SetBkMode(hdcStatic, TRANSPARENT);
-		return (LONG)g_hbrBackground;
-	}
-	break;
+	//case WM_CTLCOLORDLG:
+	//	return (LONG)g_hbrBackground;
+	//case WM_CTLCOLORSTATIC:
+	//{
+	//	HDC hdcStatic = (HDC)wParam;
+	//	SetTextColor(hdcStatic, RGB(255, 255, 255));
+	//	SetBkMode(hdcStatic, TRANSPARENT);
+	//	LeakFinder::finder->PollHeap();
+	//	return (LONG)g_hbrBackground;
+	//}
+	return true;
 	case WM_DESTROY:
 		bRunApp = 0;
 		if (GBA.ROM)
 			fclose(GBA.ROM);
 		// / myBackBuffer.Destroy();
-		break;
+		return true;
 	case WM_SIZE:
 		//min heigh needs to be at least tileset
 
@@ -826,10 +822,10 @@ sChecks door;
 			}
 		}
 
-		break;
+		return true;
 	}
 
-	return 0;
+	return false;
 }
 
 
@@ -855,6 +851,8 @@ BOOL WINAPI ConsoleHandlerRoutine(DWORD dwCtrlType)
 HANDLE handle_out;
 int WINAPI      WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_ALWAYS_DF);
+	g_hbrBackground = CreateSolidBrush(RGB(0x2C, 0x2F, 0x33));
 	hwndHeader = NULL;
 	FreeImage_Initialise();
 
@@ -872,7 +870,7 @@ int WINAPI      WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCm
 
 
 
-	cOAMEdit::OamEditor = new cOAMEdit();
+	cOAMEdit::OamEditor = NULL;
 
 	currentRomType = -1;
 	hGlobal = hInstance;
@@ -887,7 +885,7 @@ int WINAPI      WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCm
 	MP[0] = MP[1] = 0;
 
 	GameConfiguration* tmpConfig = new GameConfiguration(-1);
-	UiState*mgr;
+	UiState*mgr= NULL;
 	if (tmpConfig)
 	{
 		DataContainer* uiState = tmpConfig->GetDataContainer("UIState");
@@ -921,10 +919,7 @@ int WINAPI      WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCm
 
 int             SetUpCombos()
 {
-	char            quick[1023] =
-	{
-	   0
-	};
+	char *             quick = new char[2048];
 	char            cs[128] =
 	{
 	   0
@@ -967,6 +962,7 @@ int             SetUpCombos()
 		}
 
 		LoadCombos(&cboClipData, quick, 255);
+		delete[] quick;
 	return 0;
 }
 
@@ -1044,7 +1040,7 @@ int             LoadConfigFile(char *ConfigLoc)
 			if (stringchk[0] == '/' && stringchk[1] == '/')
 				continue;
 			i = strlen(stringchk);
-
+			int ssVal = 0;
 			if (strcmp(stringchk, "END") == 0)
 			{
 				return 1;
@@ -1052,14 +1048,14 @@ int             LoadConfigFile(char *ConfigLoc)
 			else if (room[strlen("Default Room")] == stringchk[strlen("Default Room")])
 			{
 				memcpy(&valstring, &stringchk[strlen("Default Room:")], strlen(stringchk) - strlen("Default Room:"));
-				sscanf(valstring, "%d", &DefRoom);
-
+				sscanf(valstring, "%d", &ssVal);
+				DefRoom = (unsigned char)ssVal;
 			}
 			else if (fs[strlen("Start Freespace")] == stringchk[strlen("Start Freespace")])
 			{
 				memcpy(&valstring, &stringchk[strlen("Start Freespace:")], strlen(stringchk) - strlen("Start Freespace:"));
-				sscanf(valstring, "%X", &DefAddress);
-
+				sscanf(valstring, "%X", &ssVal);
+				DefAddress = (unsigned char)ssVal;
 			}
 			k = 0;
 			for (i = 0; i < strlen("Default Area"); i++)

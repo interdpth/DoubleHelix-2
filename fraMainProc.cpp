@@ -207,19 +207,20 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 		break;
 	case cmdSave:
-		throw new exception("SAVE IS BROKE");
-		//RD1Engine::theGame->areaManager->GetCurrentArea()->Save();// RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + (comboRoom.GetListIndex() * 0x3C);
+		//throw new exception("SAVE IS BROKE");
+		MemFile::currentFile->save();
+	
+		//if (!BIC || (BIC > 0x7FFFFF)) {
+		//	MessageBox(hwnd, "Uh so something went wrong.", "Boomb", MB_OK);
+		//}
+		//else {
 
-		if (!BIC || (BIC > 0x7FFFFF)) {
-			MessageBox(hwnd, "Uh so something went wrong.", "Boomb", MB_OK);
-		}
-		else {
 
+		//	RD1Engine::theGame->SaveLevel(BIC);
+		//	UpdateHeaderControls();
+		//	UiState::stateManager->UpdateMapObjectWindow();
+		//}	RD1EnginareaManager->GetCurrentArea()->Save();// RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + (comboRoom.GetListIndex() * 0x3C);
 
-			RD1Engine::theGame->SaveLevel(BIC);
-			UpdateHeaderControls();
-			UiState::stateManager->UpdateMapObjectWindow();
-		}
 		break;
 	case chkForeground:
 		// Check if it's enabled or disabled.
@@ -305,7 +306,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 				comboRoom.SetListIndex(DefRoom);
 
 			PostMessage(hwnd, WM_COMMAND, 0x000103ef, 0); // Simulate room combo 
-														  // clicking.
+			//											  // clicking.
 
 			break;
 		}
@@ -346,24 +347,24 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 			//	RoomBuff = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Clipdata);
 			//	/*RoomBuff->UndoBuff->UndoNum = 0;
 			//	RoomBuff->UndoBuff->Set((RoomBuff->X*RoomBuff->Y) * 2, RoomBuff->TileBuf2D);*/
-			DoesaBridgeExist();
-			UserEnableConnections();
+		//	DoesaBridgeExist();
+			//UserEnableConnections();
 			LoadScrollControls(RD1Engine::theGame->mgrScrolls->GetScrollInfo());
-			UpdateHeaderControls();
+			//UpdateHeaderControls();
 			DrawLevel();
 
 			UiState::stateManager->ResetCursor();
 
 
 			//memset(&DrawState, 0, sizeof(drawstate));
-			SendMessage(UiState::stateManager->GetMapWindow(), WM_SIZE, 1, 1);
-			MyTSAEditor.DrawThisTileset();
-			MyTSAEditor.LoadTSA();
+		
+			//MyTSAEditor.DrawThisTileset();
+		//	MyTSAEditor.LoadTSA();
 			loadit = true;
 			//SendMessage(hwnd, WM_COMMAND, 0x00010408, 0); // Update cboSprite 
 			//											  // with SelChange
 
-			LoadHeaderControls();
+			//LoadHeaderControls();
 			//for (i = 0; i < 16; i++)
 			//   ClipBoard.Erase(i, 0xFFFF);
 			LoadingLevel = 0;
@@ -389,113 +390,118 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 	return 0;
 }
 Image* myLoadedPic;
-
-BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam)
+//Init controls
+void InitControls(HWND hwnd)
 {
-	HDC hdc;
-	PAINTSTRUCT ps;
-	int blah;
-	char            FilePath[1024] =
-	{
-		0
-	};
 	unsigned short             wndrs[3] =
 	{
 		hsbC1, hsbC2, hsbC3
 	};
+	RECT k;
+	/*UiState::AutoRect(hwnd, &k);
+	MoveWindow(hwnd, k.left, k.top + 8, k.right, k.bottom, true);*/
+	GlobalVars::gblVars->frameControls = hwnd;
+	CurObjT = 0;
+	CurObjNo = 0;
+
+
+
+	clrIndex = 0;
+	//GlobalVars::gblVars->imgTileset->Create(512, 1024);
+	GlobalVars::gblVars->chkHideSprites.SetCnt(GetDlgItem(hwnd, ID_MAP_SHOWSPRITES));
+	GlobalVars::gblVars->checkBoxForeground.SetCnt(GetDlgItem(hwnd, chkForeground));
+	GlobalVars::gblVars->checkBoxLevel.SetCnt(GetDlgItem(hwnd, chkLevel));
+	GlobalVars::gblVars->checkBoxLevel.value(2);
+
+	GlobalVars::gblVars->checkBoxBackground.SetCnt(GetDlgItem(hwnd, chkBacklayer));
+
+	GlobalVars::gblVars->checkBoxViewBL.Init(UiState::stateManager->GetWindow(), chkViewBG);
+	GlobalVars::gblVars->checkBoxsMove.Init(UiState::stateManager->GetWindow(), chkSMove);
+	GlobalVars::gblVars->checkBoxsResize.Init(UiState::stateManager->GetWindow(), chkSRe);
+	GlobalVars::gblVars->checkBoxsView.Init(UiState::stateManager->GetWindow(), chkSView);
+	GlobalVars::gblVars->checkBoxshowmap.SetCnt(GetDlgItem(hwnd, chkSM));
+	GlobalVars::gblVars->checkBoxshowtileset.SetCnt(GetDlgItem(hwnd, chkST));
+	GlobalVars::gblVars->chkEditSprites.Init(UiState::stateManager->GetWindow(), chkSprites);
+	GlobalVars::gblVars->chkBoxED.SetCnt(GetDlgItem(hwnd, chkDoors));
+
+	// GlobalVars::gblVars->CheckBoxes[chkESC].SetCnt(GetDlgItem(Main,chkSprites));
+	GlobalVars::gblVars->chkMC[0].SetCnt(GetDlgItem(hwnd, chkForeground2));
+	GlobalVars::gblVars->chkMC[1].SetCnt(GetDlgItem(hwnd, chkLevel2));
+	GlobalVars::gblVars->chkMC[2].SetCnt(GetDlgItem(hwnd, chkBacklayer2));
+	GlobalVars::gblVars->chkMC[3].SetCnt(GetDlgItem(hwnd, chkClip2));
+	chkDoTrans.Init(UiState::stateManager->GetWindow(), ID_MAP_SHOWTRANSPARENCY);
+	chkDoTrans.SetCheckState(true);
+
+	GlobalVars::gblVars->checkBoxshowmap.value(1);
+	GlobalVars::gblVars->checkBoxshowtileset.value(1);
+	GlobalVars::gblVars->chkAnimatez.Init(UiState::stateManager->GetWindow(), ID_MAP_ANIMATE);
+	GlobalVars::gblVars->chkAnimatez.SetCheckState(true);
+
+
+
+
+	CreateDialog(hGlobal, MAKEINTRESOURCE(frmSceneryEditor), 0, SceneProc);
+
+
+
+	CreateDialog(hGlobal, MAKEINTRESOURCE(fraTBE), 0, TSAProc);
+
+	CreateDialog(hGlobal, MAKEINTRESOURCE(frmClipboard), 0, ClipBoardProc);
+	CreateDialog(hGlobal, MAKEINTRESOURCE(fraBGI), 0, BGiProc);
+	CreateDialog(hGlobal, MAKEINTRESOURCE(frmLPE), 0, LPProc);
+
+
+	for (int i = 0; i < 3; i++)
+	{
+		GlobalVars::gblVars->scrColors[i].create(GetDlgItem(hwndLPE, wndrs[i]), 0, 255);
+		GlobalVars::gblVars->scrColors[i].ChangeScrollbars();
+		// SetScrollPos( UiState::stateManager->GetTilesetWindow(), SB_HORZ, 0, 1 );
+
+	}
+
+	cboScroll.Init(GetDlgItem(hwnd, cboDScroll));
+	cboScroll.Disable();
+	comboArea.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cbArea)));
+	comboRoom.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboRoom)));
+	cboClipData.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboClip)));
+	comboSpriteSet.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboSpriteSet)));
+	cboClipData.Additem("Clipdata");
+	cboClipData.SetListIndex(0);
+	comboSpriteSet.Additem("0");
+	comboSpriteSet.SetListIndex(0);
+	comboRoom.Additem("Rooms");
+	comboRoom.SetListIndex(0);
+
+	comboArea.Additem("Areas");
+	comboArea.SetListIndex(0);
+
+	// etArrays();
+	MPToUse = 0;
+	mpTileset.Width = 1;
+	mpTileset.Height = 1;
+	mpTileset.sX = mpTileset.eX = mpTileset.cX = 0;
+	mpTileset.sY = mpTileset.eY = mpTileset.cY = 0;
+	mpMap.Width = 1;
+	mpMap.Height = 1;
+	mpMap.sX = mpMap.eX = mpMap.cX = 0;
+	mpMap.sY = mpMap.eY = mpMap.cY = 0;
+	//myLoadedPic = Image::Import(GlobalVars::gblVars->AppPath, "dmansbg.png");
+
+}
+BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam)
+{
+	HDC hdc;
+	PAINTSTRUCT ps;
+	char            FilePath[1024] =
+	{
+		0
+	};
+
 	switch (message)
 	{
 
 	case WM_INITDIALOG:
-		RECT k;
-		/*UiState::AutoRect(hwnd, &k);
-		MoveWindow(hwnd, k.left, k.top + 8, k.right, k.bottom, true);*/
-		GlobalVars::gblVars->frameControls = hwnd;
-		CurObjT = 0;
-		CurObjNo = 0;
-
-
-
-		clrIndex = 0;
-		//GlobalVars::gblVars->imgTileset->Create(512, 1024);
-		GlobalVars::gblVars->chkHideSprites.SetCnt(GetDlgItem(hwnd, ID_MAP_SHOWSPRITES));
-		GlobalVars::gblVars->checkBoxForeground.SetCnt(GetDlgItem(hwnd, chkForeground));
-		GlobalVars::gblVars->checkBoxLevel.SetCnt(GetDlgItem(hwnd, chkLevel));
-		GlobalVars::gblVars->checkBoxLevel.value(2);
-
-		GlobalVars::gblVars->checkBoxBackground.SetCnt(GetDlgItem(hwnd, chkBacklayer));
-
-		GlobalVars::gblVars->checkBoxViewBL.Init(UiState::stateManager->GetWindow(), chkViewBG);
-		GlobalVars::gblVars->checkBoxsMove.Init(UiState::stateManager->GetWindow(), chkSMove);
-		GlobalVars::gblVars->checkBoxsResize.Init(UiState::stateManager->GetWindow(), chkSRe);
-		GlobalVars::gblVars->checkBoxsView.Init(UiState::stateManager->GetWindow(), chkSView);
-		GlobalVars::gblVars->checkBoxshowmap.SetCnt(GetDlgItem(hwnd, chkSM));
-		GlobalVars::gblVars->checkBoxshowtileset.SetCnt(GetDlgItem(hwnd, chkST));
-		GlobalVars::gblVars->chkEditSprites.Init(UiState::stateManager->GetWindow(), chkSprites);
-		GlobalVars::gblVars->chkBoxED.SetCnt(GetDlgItem(hwnd, chkDoors));
-
-		// GlobalVars::gblVars->CheckBoxes[chkESC].SetCnt(GetDlgItem(Main,chkSprites));
-		GlobalVars::gblVars->chkMC[0].SetCnt(GetDlgItem(hwnd, chkForeground2));
-		GlobalVars::gblVars->chkMC[1].SetCnt(GetDlgItem(hwnd, chkLevel2));
-		GlobalVars::gblVars->chkMC[2].SetCnt(GetDlgItem(hwnd, chkBacklayer2));
-		GlobalVars::gblVars->chkMC[3].SetCnt(GetDlgItem(hwnd, chkClip2));
-		chkDoTrans.Init(UiState::stateManager->GetWindow(), ID_MAP_SHOWTRANSPARENCY);
-		chkDoTrans.SetCheckState(true);
-
-		GlobalVars::gblVars->checkBoxshowmap.value(1);
-		GlobalVars::gblVars->checkBoxshowtileset.value(1);
-		GlobalVars::gblVars->chkAnimatez.Init(UiState::stateManager->GetWindow(), ID_MAP_ANIMATE);
-		GlobalVars::gblVars->chkAnimatez.SetCheckState(true);
-
-
-
-
-		CreateDialog(hGlobal, MAKEINTRESOURCE(frmSceneryEditor), 0, SceneProc);
-
-
-
-		CreateDialog(hGlobal, MAKEINTRESOURCE(fraTBE), 0, TSAProc);
-
-		CreateDialog(hGlobal, MAKEINTRESOURCE(frmClipboard), 0, ClipBoardProc);
-		CreateDialog(hGlobal, MAKEINTRESOURCE(fraBGI), 0, BGiProc);
-		CreateDialog(hGlobal, MAKEINTRESOURCE(frmLPE), 0, LPProc);
-
-
-		for (int i = 0; i < 3; i++)
-		{
-			GlobalVars::gblVars->scrColors[i].create(GetDlgItem(hwndLPE, wndrs[i]), 0, 255);
-			GlobalVars::gblVars->scrColors[i].ChangeScrollbars();
-			// SetScrollPos( UiState::stateManager->GetTilesetWindow(), SB_HORZ, 0, 1 );
-
-		}
-
-		cboScroll.Init(GetDlgItem(hwnd, cboDScroll));
-		cboScroll.Disable();
-		comboArea.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cbArea)));
-		comboRoom.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboRoom)));
-		cboClipData.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboClip)));
-		comboSpriteSet.Init(GetDlgItem(hwnd, (int)MAKEINTRESOURCE(cboSpriteSet)));
-		cboClipData.Additem("Clipdata");
-		cboClipData.SetListIndex(0);
-		comboSpriteSet.Additem("0");
-		comboSpriteSet.SetListIndex(0);
-		comboRoom.Additem("Rooms");
-		comboRoom.SetListIndex(0);
-
-		comboArea.Additem("Areas");
-		comboArea.SetListIndex(0);
-
-		// etArrays();
-		MPToUse = 0;
-		mpTileset.Width = 1;
-		mpTileset.Height = 1;
-		mpTileset.sX = mpTileset.eX = mpTileset.cX = 0;
-		mpTileset.sY = mpTileset.eY = mpTileset.cY = 0;
-		mpMap.Width = 1;
-		mpMap.Height = 1;
-		mpMap.sX = mpMap.eX = mpMap.cX = 0;
-		mpMap.sY = mpMap.eY = mpMap.cY = 0;
-		//myLoadedPic = Image::Import(GlobalVars::gblVars->AppPath, "dmansbg.png");
+		InitControls(hwnd);
 		break;
 
 	case  WM_WINDOWPOSCHANGED:
@@ -528,11 +534,11 @@ BOOL CALLBACK  fraMainProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 
 	{
 
-		hdc = BeginPaint(hwnd, &ps);
+		//hdc = BeginPaint(hwnd, &ps);
 
 
-		EndPaint(hwnd, &ps);
-		ReleaseDC(hwnd, hdc);
+		//EndPaint(hwnd, &ps);
+		//ReleaseDC(hwnd, hdc);
 
 
 	}

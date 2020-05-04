@@ -35,11 +35,11 @@ BOOL CALLBACK ScrollWndProc(HWND hwnd, unsigned int message, WPARAM wParam, LPAR
 
 		break;
 	case WM_COMMAND:
-	{
+	{	thisState= RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetState();
+
 		switch (LOWORD(wParam))
 		{
-			thisState= RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetState();
-
+		
 		case btnAddScroll:
 			memset(&blankData.rect, 0, sizeof(MousePointer));
 			blankData.rect.sX = 0;

@@ -43,27 +43,22 @@ int DrawSpritePAl(HDC hdc, long* palette, int X, int Y, int palcol, int size=16)
 
 BOOL CALLBACK  SpriteSetEditorProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam) {
 
-	cEntityManager* mgr;
+	cEntityManager* entMgr;
 	if (RD1Engine::theGame && RD1Engine::theGame->mainRoom)
 	{
-		mgr = RD1Engine::theGame->mainRoom->mgrEntities;
+		entMgr = RD1Engine::theGame->mainRoom->mgrEntities;
 	}
 	cSpriteSetEditor* theSpriteSet = cSpriteSetEditor::SpriteSet;
 	PAINTSTRUCT ps;
 	HDC hdc;
 	unsigned char curdetail = 0;
-	unsigned char newdetail = 0;
 	unsigned short i = 0;
 	unsigned long off = 0;
 	int  id = 0;
 	unsigned long j = 0;
 	RECT wnd;
 	
-	cEntityManager *entMgr;
-	if (RD1Engine::theGame->mainRoom->mgrEntities)
-	{
-		entMgr = RD1Engine::theGame->mainRoom->mgrEntities;
-	}
+
 	char buffer[3] = { 0 };
 	switch (message)
 	{
@@ -81,8 +76,8 @@ BOOL CALLBACK  SpriteSetEditorProc(HWND hWnd, unsigned int message, WPARAM wPara
 		switch (LOWORD(wParam)) {
 		case lstSprites:
 			if (HIWORD(wParam) == LBN_SELCHANGE) {
-
-				cSpriteSetEditor::SpriteSet->GetSetData(currentRomType, cSpriteSetEditor::SpriteSet->SpriteSets.GetListIndex(), mgr);//sprite manager should contain the index 
+				if (entMgr == NULL) break;
+				cSpriteSetEditor::SpriteSet->GetSetData(currentRomType, cSpriteSetEditor::SpriteSet->SpriteSets.GetListIndex(), entMgr);//sprite manager should contain the index 
 				cSpriteSetEditor::SpriteSet->GetSpritesPalAndTiles(currentRomType);
 
 				//SendMessage(hWnd, WM_COMMAND, 0x000104a7, 0);
@@ -105,7 +100,7 @@ BOOL CALLBACK  SpriteSetEditorProc(HWND hWnd, unsigned int message, WPARAM wPara
 		
 			GlobalVars::gblVars->ReadObjectDetailsFromROM = false;
 			GlobalVars::gblVars->SSE = true;
-			cSpriteSetEditor::SpriteSet->GetSetData(currentRomType, 0, mgr);
+			cSpriteSetEditor::SpriteSet->GetSetData(currentRomType, 0, entMgr);
 			cSpriteSetEditor::SpriteSet->GetSpritesPalAndTiles(currentRomType);
 
 			InvalidateRect(cSpriteSetEditor::SpriteSet->PalView, 0, 1);
@@ -114,7 +109,7 @@ BOOL CALLBACK  SpriteSetEditorProc(HWND hWnd, unsigned int message, WPARAM wPara
 			GlobalVars::gblVars->SSE = true;
 			break;
 		case lstPopulation:
-			if (HIWORD(wParam) == LBN_SELCHANGE) {
+			if (HIWORD(wParam) == LBN_SELCHANGE && entMgr != NULL) {
 				if (theSpriteSet->SpritePreview)
 				{
 					delete theSpriteSet->SpritePreview;
@@ -148,15 +143,15 @@ BOOL CALLBACK  SpriteSetEditorProc(HWND hWnd, unsigned int message, WPARAM wPara
 			RD1Engine::theGame->titleInstance->SeekSpriteTable(cSpriteSetEditor::SpriteSet->SpriteSets.GetListIndex());
 
 			for (i = 0; i < RD1Engine::theGame->mgrOAM->maxsprite ; i++) {
-				MemFile::currentFile->fwrite(&mgr->spriteset[i].spriteID, 1, 1);
-				MemFile::currentFile->fwrite(&mgr->spriteset[i].sprdetail, 1, 1);
+				MemFile::currentFile->fwrite(&entMgr->spriteset[i].spriteID, 1, 1);
+				MemFile::currentFile->fwrite(&entMgr->spriteset[i].sprdetail, 1, 1);
 			}
 			SendMessage(hWnd, WM_COMMAND, HIWORD(LBN_SELCHANGE) | LOWORD(lstSprites), 0);
 			//SendMessage(hwndMain(), WM_COMMAND, 0x00010408, 0);
 			break;
 		case cmdSavePal:
 			GlobalVars::gblVars->SSE = true;
-			RD1Engine::theGame->mainRoom->mgrSpriteObjects->SavePal(mgr->palinfo, mgr->spriteset, cSpriteSetEditor::SpriteSet->SpriteSetData.pal);
+			RD1Engine::theGame->mainRoom->mgrSpriteObjects->SavePal(entMgr->palinfo, entMgr->spriteset, cSpriteSetEditor::SpriteSet->SpriteSetData.pal);
 			GBA.Reopen();
 			GlobalVars::gblVars->SSE = false;
 			//SendMessage(hwndMain(), WM_COMMAND, 0x00010408, 0);
@@ -198,7 +193,7 @@ BOOL CALLBACK  SpriteSetEditorProc(HWND hWnd, unsigned int message, WPARAM wPara
 LRESULT CALLBACK cSSEPalProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam) {
 	HDC hdc;
 	PAINTSTRUCT ps;
-	int buf = 0;
+	
 	int i = 0;
 	char tpal[256] = { 0 };
 

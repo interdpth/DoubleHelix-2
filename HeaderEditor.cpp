@@ -28,7 +28,6 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 	unsigned char Width = 0;
 	unsigned char Height = 0;
 	bool drawRoom = false;
-	RD1Engine* game;
 	RHeader* roomHeader = RD1Engine::theGame->mainRoom->roomHeader;
 	MapManager* mgr = RD1Engine::theGame->mainRoom->mapMgr;
 	int i = 0;
@@ -600,7 +599,6 @@ int BackUpAllHeaders() {
 	int ai = 0;//Area Index;
 	int ri = 0;//Room Index
 	int lc = 0;
-	FILE* fp = NULL;
 	unsigned char  roomarray[0x3c];
 
 

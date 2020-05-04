@@ -20,7 +20,6 @@ SamusEditorClass::~SamusEditorClass()
 int SamusEditorClass::SetupPreview(SamusBase* base)
 {
 	
-	long GFXPnt = 0;
 	long PalPnt = 0;
 	long palsize = 0;
 	long addybuf = 0;
@@ -33,8 +32,6 @@ int SamusEditorClass::SetupPreview(SamusBase* base)
 
 	unsigned char *decompbuf = new unsigned char[32687];
 
-	
-	CompHeader thiscompheader;
 	unsigned short transferpal[256] = { 0 };
 
 	int  X = 0;
@@ -46,7 +43,7 @@ int SamusEditorClass::SetupPreview(SamusBase* base)
 
 	memcpy(SpritePreview->PreRAM, base->Sprite_tiles, 0x8000);
 	
-
+	SpritePreview->OAM.clear();
 	//SpritePreview->maxparts = 0;
 //	SpritePreview->OAM.clear();
 	i = 0;

@@ -6,8 +6,8 @@
 #include "..\Win32GBAImageClasses\BackBuffer.h"
 #include "SamusEditorClass.h"
 #include <Windows.h>
-#include "sCombo.h"
-#include "sChecks.h"
+#include "..\RNA_UI\sCombo.h"
+#include "..\RNA_UI\sChecks.h"
 #include "resource.h"
 
 #include <map>
@@ -136,7 +136,7 @@ void DrawSamus()
 
 }
 
-#define lstSelchange 0x00010408
+
 BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam) {
 	HDC hdc;
 	PAINTSTRUCT ps;
@@ -175,6 +175,7 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 			if (HIWORD(wParam) == CBN_SELCHANGE)
 			{
 				string myText = cboPose.GetText(cboPose.GetListIndex());
+				mf->theSprite->PreviewSprite.GetFullImage()->Clear();
 				mf->SamusPose = poseLookup[myText];
 				mf->Logic();
 				mf->Load();

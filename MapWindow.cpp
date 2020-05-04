@@ -7,6 +7,7 @@
 #include "TilesetManager.h"
 #include "UiState.h"
 #include "MapUtils.h"
+void CalculateMapScrolls(int width, int height);
 RECT toolsRect;
 extern HWND hTabControl;
 extern HANDLE handle_out;
@@ -115,7 +116,7 @@ void Draw(HDC hdc)
 	int h = (int)(adjustHeight);
 	StretchBlt(hdc, 0, 0, (int)adjustWidth, (int)adjustHeight, RD1Engine::theGame->ThisBackBuffer.DC(),
 
-		RD1Engine::theGame->mainRoom->currentHorizScroll * 16, RD1Engine::theGame->mainRoom->currentVertScroll * 16, viewRect.right, viewRect.bottom, SRCCOPY);
+	RD1Engine::theGame->mainRoom->currentHorizScroll * 16, RD1Engine::theGame->mainRoom->currentVertScroll * 16, viewRect.right, viewRect.bottom, SRCCOPY);
 
 	if (GlobalVars::gblVars->ViewClip.value() != 1)
 	{
@@ -151,7 +152,7 @@ void HandleScrolling(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPar
 	{
 
 	case WM_VSCROLL:	// exact same idea, but V scroll instead of H scrollFindMeAScroll
-		MapVertScroll->UpdateScroll(wParam, 1, vsbMap, sVMap);
+		MapVertScroll->UpdateScroll(wParam);
 		if (theRoom != NULL)
 		{
 			RD1Engine::theGame->mainRoom->currentVertScroll = MapVertScroll->GetIndex();
@@ -159,7 +160,7 @@ void HandleScrolling(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPar
 		InvalidateRect(hWnd, 0, 1);
 		break;
 	case WM_HSCROLL:
-		MapHorizScroll->UpdateScroll(wParam, NULL, hsbMap, sHMap);
+		MapHorizScroll->UpdateScroll(wParam);
 		if (theRoom != NULL)
 		{
 			RD1Engine::theGame->mainRoom->currentHorizScroll = MapHorizScroll->GetIndex();
@@ -285,8 +286,8 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		GetWindowRect(GetDlgItem(UiState::stateManager->GetWindow(), grpMap), &toolsRect);
 		MapHorizScroll = new WindowScrollbar(hWnd, false);
 		MapVertScroll = new WindowScrollbar(hWnd, true);
-		MapVertScroll->ChangeScrollbars(vsbMap, sVMap);
-		MapHorizScroll->ChangeScrollbars(hsbMap, sHMap);
+		MapVertScroll->ChangeScrollbars();
+		MapHorizScroll->ChangeScrollbars();
 		SetTimer(hWnd, theTimer + 1, 15, (TIMERPROC)NULL);
 		break;
 	case WM_TIMER:
@@ -342,7 +343,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		{
 			break;
 		}
-		if (!RD1Engine::theGame || !RD1Engine::theGame->mainRoom || !RD1Engine::theGame->mainRoom->mapMgr || !RD1Engine::theGame->mainRoom->mapMgr || !RD1Engine::theGame->mainRoom->mapMgr->created)
+		if (!RD1Engine::theGame || !RD1Engine::theGame->mainRoom || !RD1Engine::theGame->mainRoom->mapMgr || !RD1Engine::theGame->mainRoom->mapMgr->created)
 		{
 			return 0;
 		}
@@ -468,6 +469,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		//Gotta Make sure the size isn't out of bounds.
 		if (lParam != 0) {
 			UiState::stateManager->ResizeMap(hTabControl);
+			CalculateMapScrolls(CurMapWidth, CurMapHeight);
 		}
 		break;
 	case WM_DESTROY:

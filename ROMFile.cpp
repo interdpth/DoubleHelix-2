@@ -20,8 +20,8 @@ void CalculateMapScrolls(int width, int height)
 {
 	RECT rcMap;
 	GetWindowRect(UiState::stateManager->GetMapWindow(), &rcMap);
-	int newHorizMax = width - (rcMap.right - rcMap.left) / 23;
-	int newVertMax= height - (rcMap.bottom - rcMap.top) /23;		// maximu
+	int newHorizMax = width - ((rcMap.right - rcMap.left)/16);
+	int newVertMax= height - ((rcMap.bottom - rcMap.top)/16);		// maximu
 
 	int horizIndex = MapHorizScroll->GetIndex();
 	int vertIndex = MapVertScroll->GetIndex();
@@ -30,8 +30,8 @@ void CalculateMapScrolls(int width, int height)
 	MapHorizScroll->SetMax(newHorizMax);//BaseGame::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData)->X/16;	// maximum H scroll
 	MapVertScroll->SetMax(newVertMax);
 
-	MapVertScroll->ChangeScrollbars(1, sVMap);
-	MapHorizScroll->ChangeScrollbars(0, sHMap);
+	MapVertScroll->ChangeScrollbars();
+	MapHorizScroll->ChangeScrollbars();
 }
 int DrawLevel() {
 
@@ -47,17 +47,13 @@ int DrawLevel() {
 	//   GlobalVars::gblVars->checkBoxViewF.value(i);
 	//	GlobalVars::gblVars->checkBoxViewL.value(i);
 	//	GlobalVars::gblVars->checkBoxViewB.value(i);
-	RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+	//RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 	//}
 	CurMapWidth = buffLeveldata->X;
 	CurMapHeight = buffLeveldata->Y;
 	CalculateMapScrolls(CurMapWidth, CurMapHeight);
 	room->currentHorizScroll = 0;
 	room->currentVertScroll = 0;
-	/*   frmMain.hsbMap.max = (ThisRoom.X) - 25
-	frmMain.vsbMap.max = (ThisRoom.Y) - 17
-	#define sHMap 1
-#define sVMap 2*/
 	InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 
 
@@ -65,20 +61,6 @@ int DrawLevel() {
 }
 
 
-
-
-int LoadROM() {
-	RD1Engine::theGame->LoadAreaTable();
-	RD1Engine::theGame->GetArrays();
-	
-		SetUpCombos();
-	
-
-	//GlobalVars::gblVars->AppPath
-		
-
-	return 0;
-}
 
 
 
@@ -101,7 +83,7 @@ void OpenRom()
 {
 	char* fileLoc = new char[512];
 	memset(fileLoc, 0, 512);
-	sprintf(fileLoc, "%s", "C:\\DHTest\\MF.gba");
+	sprintf(fileLoc, "%s", "C:\\DHTest\\MF.gba\0");
 	if (RD1Engine::theGame)
 	{
 		delete RD1Engine::theGame;
@@ -136,6 +118,12 @@ void OpenRom()
 
 			theTitle = SupportedTitles::titleMF;
 			sprintf(prefix, "%s", "MF");
+		}
+		else if (GameConfiguration::LiteralCompare(ROMNAME, (char*)WarioLand::CodeName))
+		{
+
+			theTitle = SupportedTitles::titleWL;
+			sprintf(prefix, "%s", "WL");
 		}
 		else
 		{
@@ -175,8 +163,6 @@ void OpenRom()
 			return; 
 		}
 		RD1Engine::theGame = new RD1Engine(theTitle, GlobalVars::gblVars->frameTables, &GlobalVars::gblVars->BGImage, GlobalVars::gblVars->TileImage, GlobalVars::gblVars->imgTileset);
-	//	GlobalVars::gblVars->StatEditor = new cStatEd(RD1Engine::theGame->currentRomType);
-
 
 		char filepath[1024] = { 0 };
 
@@ -184,15 +170,18 @@ void OpenRom()
 		sprintf(filepath, "%s\\%s\\Music.txt", GlobalVars::gblVars->AppPath, prefix);
 
 
-		LoadCombos(&cMusic, filepath, 255);
+		//fixitmattLoadCombos(&cMusic, filepath, 255);
 
 		// char que
 	
 	
-		LoadROM();
-		RD1Engine::theGame->mgrDoors->GetDoorArray(GBA.ROM);
-		RD1Engine::theGame->mgrScrolls->GetScrollArray(GBA.ROM);
+		RD1Engine::theGame->LoadROM();
 
+
+
+
+
+		SetUpCombos();
 		EnableConnections();
 		cboClipData.Enable();
 		comboSpriteSet.Enable();
@@ -226,7 +215,7 @@ void OpenRom()
 		}
 		comboArea.SetListIndex(0);
 		//GlobalVars::gblVars->StatEditor->Switch();
- 		GlobalVars::gblVars->TextEditor->Create(currentRomType, hGlobal, TextPicProc);
+ //		GlobalVars::gblVars->TextEditor->Create(currentRomType, hGlobal, TextPicProc);
 		unsigned long BIC = 0;
 		MemFile::currentFile->seek(0x7c0430);
 		MemFile::currentFile->fread(&BIC, 1, 4);

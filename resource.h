@@ -2,6 +2,7 @@
 // Microsoft Visual C++ generated include file.
 // Used by res.rc
 //
+#define IDFRAMESTUFFDLG                 9
 #define cmdTS                           23
 #define frmSceneryEditor                101
 #define frmMain                         102
@@ -38,7 +39,7 @@
 #define IDD_DIALOG1                     157
 #define frmSamusEditor                  157
 #define IDR_MENU2                       160
-#define IDD_DIALOG2                     162
+#define IDD_DIALOG2                     164
 #define picButton                       1001
 #define vsbScroll                       1002
 #define IDC_COMBO1                      1003
@@ -262,6 +263,7 @@
 #define cmdSFD                          1211
 #define cmdSPD                          1212
 #define txtTimer2                       1212
+#define txtFrameTimer                   1212
 #define fraSprPreview2                  1213
 #define cmdDeletePart                   1213
 #define cboShape                        1214
@@ -272,12 +274,17 @@
 #define fraSprAnimPreview               1216
 #define lblLevel                        1217
 #define txtGFX1                         1217
+#define txtCCurGfx                      1217
 #define lblBackLayer                    1218
 #define txtGFX2                         1218
+#define txtCommonGfx                    1218
 #define lblClipdata                     1219
 #define txtFPOff3                       1219
+#define txtCurPal                       1219
 #define fraInfo                         1220
 #define txtFPOff4                       1220
+#define txtGlobalPal                    1220
+#define txtCommonPal                    1220
 #define IDC_BUTTON2                     1221
 #define chkDTrans                       1222
 #define IDC_BUTTON4                     1222
@@ -354,7 +361,6 @@
 #define lblOAM0                         1287
 #define cboPriority                     1288
 #define btnTest                         1289
-#define cboPriority2                    1289
 #define cboSpriteChoice                 1289
 #define btnCHeader                      1290
 #define cboPriority3                    1290
@@ -376,6 +382,7 @@
 #define IDC_CHECK10                     1305
 #define cboPoseitem                     1306
 #define chkAnimates                     1307
+#define IDC_CHECK1                      1309
 #define IDC_CHECK11                     1314
 #define IDC_CHECK12                     1315
 #define IDC_CHECK13                     1316
@@ -463,9 +470,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        164
+#define _APS_NEXT_RESOURCE_VALUE        166
 #define _APS_NEXT_COMMAND_VALUE         40078
-#define _APS_NEXT_CONTROL_VALUE         1309
+#define _APS_NEXT_CONTROL_VALUE         1310
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

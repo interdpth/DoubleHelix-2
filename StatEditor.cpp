@@ -15,6 +15,7 @@ BOOL CALLBACK  StatEditorProc(HWND hWnd, unsigned int message, WPARAM wParam, LP
 	switch (message)
 	{
 	case WM_INITDIALOG:
+		
 		GlobalVars::gblVars->StatEditor->me = hWnd;
 		GlobalVars::gblVars->StatEditor->InitDialog();
 		break;

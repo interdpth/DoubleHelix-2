@@ -1,8 +1,8 @@
 #pragma once
 #include <windows.h>
-#include "sCombo.h"
+#include "..\RNA_UI\sCombo.h"
 #include "..\Win32GBAImageClasses\image.h"
-#include "sChecks.h"
+#include "..\RNA_UI\sChecks.h"
 
 
 class MiniMapClass{

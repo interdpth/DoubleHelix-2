@@ -15,7 +15,7 @@ public:
 	SpriteObject* SpritePreview;
 
 	int animCounter = 0;
-	unsigned short currentTile = -1;
+	unsigned short currentTile = 0xffff;
 	BackBuffer animBuffer;
 	int SetupPreview(SamusBase* base);
 	SamusEditorClass();

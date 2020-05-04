@@ -1,6 +1,6 @@
 #pragma once
 #include "clsScroll.h"
-#include "sChecks.h"
+#include "..\RNA_UI\sChecks.h"
 #include "MinimapClass.h"
 #include "cTextEditor.h"
 #include "cStatEd.h"
@@ -10,7 +10,7 @@
 #include "..\Win32GBAImageClasses\backbuffer.h"
 #include "cStatEd.h"
 #include "SamusEditorClass.h"
-#include "sMenuItem.h"
+#include "../RNA_UI/sMenuItem.h"
 BOOL CALLBACK  TextEditorProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 class cOAMEdit;
 class cStatEd;

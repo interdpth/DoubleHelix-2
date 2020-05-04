@@ -30,7 +30,7 @@ bool RefreshTileset()
 
 LRESULT CALLBACK TilesetProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
-
+	LeakFinder::finder->PollHeap();
 	PAINTSTRUCT ps;
 	HDC hdc;
 	RECT coord;
@@ -158,7 +158,7 @@ LRESULT CALLBACK TilesetProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 
 
 	case WM_PAINT:
-
+		LeakFinder::finder->PollHeap();
 
 
 		hdc = BeginPaint(hWnd, &ps);
@@ -181,6 +181,7 @@ LRESULT CALLBACK TilesetProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 		 
 		EndPaint(hWnd, &ps);
 		ReleaseDC(hWnd, hdc);
+		LeakFinder::finder->PollHeap();
 		return 0;
 		break;
 	case WM_INITDIALOG:

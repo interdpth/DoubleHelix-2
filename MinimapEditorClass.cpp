@@ -43,8 +43,6 @@ int MiniMapClass::Create() {
 	int y = 0;
 	int tc = 0;
 	int i = 0;
-	char buf[256];
-	
 	switch (currentRomType) {
 	case 0:
 		if (GBA.ROM) {

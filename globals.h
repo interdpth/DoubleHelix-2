@@ -10,9 +10,9 @@
 #include "GBAMethods.h"
 #include "nMapBuffer.h"
 #include "GlobalFunctions.h"
-#include "sChecks.h"
-#include "sCombo.h"
-#include "sMenuItem.h"
+#include "..\RNA_UI\sChecks.h"
+#include "..\RNA_UI\sCombo.h"
+#include "..\RNA_UI\sMenuItem.h"
 //int DrawPSprite( SprGBuf* SpriteDetails);
 //int DecodeSprite(SprGBuf* tSprite,unsigned long Offset);
 EXT WINDOWPLACEMENT IsTSA;

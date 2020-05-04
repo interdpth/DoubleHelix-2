@@ -7,7 +7,7 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "afxres.h"
+#include  <windows.h>
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -18,7 +18,9 @@
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-
+#ifndef IDC_STATIC
+#define IDC_STATIC				-1
+#endif
 /////////////////////////////////////////////////////////////////////////////
 //
 // Dialog
@@ -37,14 +39,14 @@ BEGIN
     PUSHBUTTON      "Save",cmdSave,130,31,52,12
     GROUPBOX        "Controls",IDC_STATIC,7,46,176,63
     CONTROL         "Edit Foreground",chkForeground,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,56,64,8
-    CONTROL         "Edit Level Layer",chkLevel,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,87,61,71,9
+    CONTROL         "Edit Level Layer",chkLevel,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,91,61,71,9
     CONTROL         "Edit Backlayer",chkBacklayer,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,65,73,9
     GROUPBOX        "Clipdata:",fraClip,7,154,223,27
     COMBOBOX        cboClip,13,163,213,136,CBS_DROPDOWNLIST | WS_DISABLED | WS_VSCROLL
     LTEXT           "Static",lblClip,174,19,94,8
     GROUPBOX        "Tile Information",IDC_STATIC,129,7,144,22
     LTEXT           "Clip Data:",IDC_STATIC,140,19,32,8
-    CONTROL         "Edit Clip Data",chkClip,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,91,72,61,9
+    CONTROL         "Edit Clip Data",chkClip,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,96,72,61,9
     GROUPBOX        "Map View",grpMap,189,31,90,105
     CONTROL         "View Foreground",chkViewF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,50,72,10
     CONTROL         "View Level Layer",chkViewL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,61,68,11
@@ -71,6 +73,7 @@ BEGIN
     CONTROL         "Resize Doors",chkResizeDoors,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,94,95,59,12
     GROUPBOX        "Current Object",grpBoxObj,291,7,294,188
     CONTROL         "Animate Sprites",chkDTrans2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,196,124,77,8
+    COMBOBOX        IDC_COMBO4,259,14,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
 END
 
 frmDoor DIALOGEX 0, 0, 276, 143
@@ -390,6 +393,7 @@ BEGIN
     PUSHBUTTON      "Add secondary",IDC_BUTTON2,16,89,56,14
     PUSHBUTTON      "Delete Secondary",IDC_BUTTON4,16,107,71,10
     GROUPBOX        "Secondary Display",IDC_STATIC,7,48,93,72
+    CONTROL         "Secondary ",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,64,33,52,10
 END
 
 frmClipboard DIALOG 0, 0, 307, 202
@@ -630,7 +634,7 @@ BEGIN
     CONTROL         "Check2",IDC_CHECK18,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,401,184,39,10
 END
 
-IDD_DIALOG2 DIALOGEX 0, 0, 401, 170
+IDFRAMESTUFFDLG DIALOGEX 0, 0, 401, 170
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dialog"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
@@ -647,19 +651,31 @@ BEGIN
     PUSHBUTTON      "Save",cmdSave,81,25,50,14
     COMBOBOX        cboFrameTableCombo,25,28,48,120,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Timer:",IDC_STATIC,75,108,24,9
-    EDITTEXT        txtTimer2,77,119,50,12,ES_AUTOHSCROLL
+    EDITTEXT        txtFrameTimer,77,119,50,12,ES_AUTOHSCROLL
     LTEXT           "Pal Section",IDC_STATIC,286,81,53,11
     PUSHBUTTON      "Load GFX1",btnLoadGFX1,161,97,60,14
     LTEXT           "GFX Section",IDC_STATIC,162,79,48,12
-    EDITTEXT        txtGFX1,215,79,50,12,ES_AUTOHSCROLL
+    EDITTEXT        txtCCurGfx,215,79,50,12,ES_AUTOHSCROLL
     PUSHBUTTON      "Load Pal",IDC_BUTTON8,278,101,50,14
-    EDITTEXT        txtFPOff3,348,79,43,12,ES_AUTOHSCROLL
+    EDITTEXT        txtCurPal,335,79,43,12,ES_AUTOHSCROLL
     LTEXT           "Common Pal",IDC_STATIC,282,31,53,11
     PUSHBUTTON      "Load GFX1",btnLoadGFX3,157,47,60,14
     LTEXT           "Common GFX",IDC_STATIC,158,29,48,12
-    EDITTEXT        txtGFX2,211,28,50,12,ES_AUTOHSCROLL
+    EDITTEXT        txtCommonGfx,211,28,50,12,ES_AUTOHSCROLL
     PUSHBUTTON      "Load Pal",IDC_BUTTON9,274,50,50,14
-    EDITTEXT        txtFPOff4,343,31,43,12,ES_AUTOHSCROLL
+    EDITTEXT        txtCommonPal,343,31,43,12,ES_AUTOHSCROLL
+END
+
+IDD_DIALOG2 DIALOGEX 0, 0, 309, 176
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,198,155,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,252,155,50,14
+    LTEXT           "Static",IDC_STATIC,0,0,19,8
+    GROUPBOX        "Static",IDC_STATIC,0,0,48,40
+    COMBOBOX        IDC_COMBO1,205,39,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
 END
 
 
@@ -865,12 +881,20 @@ BEGIN
         BOTTOMMARGIN, 243
     END
 
-    IDD_DIALOG2, DIALOG
+    IDFRAMESTUFFDLG, DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 394
         TOPMARGIN, 7
         BOTTOMMARGIN, 159
+    END
+
+    IDD_DIALOG2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 169
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -1179,6 +1203,11 @@ BEGIN
 END
 
 frmLPE AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDFRAMESTUFFDLG AFX_DIALOG_LAYOUT
 BEGIN
     0
 END

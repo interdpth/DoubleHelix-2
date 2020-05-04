@@ -7,9 +7,6 @@
 
 BOOL CALLBACK MapDataProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
-	int i;
-	char cboBuf[100];
-
 	switch (message)
 	{
 
