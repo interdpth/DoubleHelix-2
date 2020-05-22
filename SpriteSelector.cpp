@@ -44,7 +44,7 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			break;
 		case btnDeleteObj:
 			RD1Engine::theGame->mainRoom->mgrSpriteObjects->DeleteSpriteObject(comboSpriteSet.GetListIndex(), RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetObjId());
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+			UiState::stateManager->ForceRedraw();
 			RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetObjId(0);
 			UiState::stateManager->ShowObj();
 			break;
@@ -60,7 +60,7 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 				  InvalidateRect(hwndSS,0,1);
 				break;
 			case cmdNext:
-				if((dispic+1)== RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites.size()) return 0;
+				if(!(dispic < RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites.size()-1)) return 0;
 				  dispic+=1;
 				  sprintf(buf,"Sprite: %d",dispic);
 				  SetWindowText(GetDlgItem(hWnd,lblSpriteblah),buf);
@@ -87,7 +87,7 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 
 			hdc = BeginPaint(hWnd, &ps);
 
-
+		
 
 			//GetWindowRect(GetDlgItem(hWnd,fraSpriteSS),&sprdst);
 			targetFrame->theSprite->PreviewSprite.GetFullImage()->Blit(hdc, 64, 100,

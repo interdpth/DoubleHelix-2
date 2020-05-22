@@ -30,7 +30,6 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 	bool drawRoom = false;
 	RHeader* roomHeader = RD1Engine::theGame->mainRoom->roomHeader;
 	MapManager* mgr = RD1Engine::theGame->mainRoom->mapMgr;
-	int i = 0;
 	switch (message)
 	{
 	case WM_INITDIALOG:
@@ -142,7 +141,7 @@ BOOL CALLBACK  HeaderProced(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 	}
 	if (drawRoom)
 	{
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+		UiState::stateManager->ForceRedraw();
 	}
 	//	return DefWindowProc(hWnd, message, wParam, lParam);
 	return 0;

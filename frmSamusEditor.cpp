@@ -93,19 +93,58 @@ void InitUI()
 	poseLookup["FrozenAndFalling"] = 0x31;
 	poseLookup["FrozenInMorphBall"] = 0x32;
 	poseLookup["FrozenInMorphballFalling"] = 0x33;
-			poseLookup["UnlockSecurity"] = 0x34;
-			poseLookup["Saving"] = 0x35;
-			poseLookup["OnNavPad"] = 0x36;
-			poseLookup["DownloadAbility"] = 0x37;
-			poseLookup["FacingForward"] = 0x39;
-			poseLookup["FacingBackward"] = 0x3A;
-			poseLookup["LoadSave"] = 0x3D;
-			poseLookup["SamusDying"] = 0x3E;
-			poseLookup["HitByOmega"] = 0x3F;
-			poseLookup["GrabbedByYakuza"] = 0x40;
-			for (map<string, int>::iterator it = poseLookup.begin(); it != poseLookup.end(); ++it) {
-				cboPose.Additem((char*)(it->first.data()));				
-			}
+	poseLookup["UnlockSecurity"] = 0x34;
+	poseLookup["Saving"] = 0x35;
+	poseLookup["OnNavPad"] = 0x36;
+	poseLookup["DownloadAbility"] = 0x37;
+	poseLookup["FacingForward"] = 0x39;
+	poseLookup["FacingBackward"] = 0x3A;
+	poseLookup["LoadSave"] = 0x3D;
+	poseLookup["SamusDying"] = 0x3E;
+	poseLookup["HitByOmega"] = 0x3F;
+	poseLookup["GrabbedByYakuza"] = 0x40;
+	for (map<string, int>::iterator it = poseLookup.begin(); it != poseLookup.end(); ++it) {
+		cboPose.Additem((char*)(it->first.data()));
+	}
+}
+
+bool SetFlagStatus(int id)
+{
+	switch (id)
+	{
+	
+	case chkCharge: mf->BeamStatus ^= 1; break;
+	case chkWide: mf->BeamStatus ^= 2; break;
+	case chkPlasma: mf->BeamStatus ^= 4; break;
+	case chkWave:mf->BeamStatus ^= 8;  break;
+	case chkIce: mf->BeamStatus ^= 0x10; break;
+
+	
+	
+	case chkMissil: mf->MissileBombStatus ^= 1; break;
+	case chkSuperMissiles:  mf->MissileBombStatus ^= 2; break;
+	case chkIceMissiles:  mf->MissileBombStatus ^= 4; break;
+	case chkDiffusionMissiles:  mf->MissileBombStatus ^= 8; break;
+	case chkBombs:  mf->MissileBombStatus ^= 0x10; break;
+	case chkPBs: mf->MissileBombStatus ^= 0x20; break;
+
+
+	case chkHiJump:  mf->SamusSuitStatus ^= 1;  break;
+	case chkSpeedBooster:  mf->SamusSuitStatus ^= 2; break;
+	case chkSpaceJump: mf->SamusSuitStatus ^= 4; break;
+	case chkScrewAttack: mf->SamusSuitStatus ^= 8; break;
+	case chkVaria: mf->SamusSuitStatus ^= 0x10; break;
+	case chkGravity:mf->SamusSuitStatus ^= 0x20; break;
+	case chkMorphball:mf->SamusSuitStatus ^= 0x40; break;
+	case chkSaxSuit:mf->SamusSuitStatus ^= 0x80; break;
+
+
+	case chkHoldMissiles: mf->MissilesSelected = !mf->MissilesSelected; break;
+	case chkFaceRight:mf->SamusSuitStatus = !mf->SamusSuitStatus; break;
+	default:
+		return false;
+	}
+	return true;
 }
 void DrawSamus()
 {
@@ -118,7 +157,7 @@ void DrawSamus()
 	samusBuffer = new BackBuffer();
 	samusBuffer->Create(1024, 1024);
 
-	GlobalVars::gblVars->sec->SetupPreview(base);
+	GlobalVars::gblVars->sec->SetupSamusPreview(base);
 
 	GFX = new Image();
 	GFX->Create(512, 512);
@@ -157,7 +196,7 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 
 		GlobalVars::gblVars->sec->hwndSamusEditor = hWnd;
 		cboPose.SetListIndex(0);
-		
+
 		break;
 	case WM_TIMER:
 		switch (wParam)
@@ -169,8 +208,21 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		break;
 
 	case WM_COMMAND:
+		if (SetFlagStatus(LOWORD(wParam)))
+		{
+			string myText = cboPose.GetText(cboPose.GetListIndex());
+			mf->theSprite->PreviewSprite.GetFullImage()->Clear();
+			mf->SamusPose = poseLookup[myText];
+			mf->Logic();
+			mf->Load();
+			mf->PackSamus();
+			DrawSamus();
+			InvalidateRect(hWnd, 0, true);
+		}
 		switch (LOWORD(wParam))
 		{
+
+			
 		case cboPoseitem:
 			if (HIWORD(wParam) == CBN_SELCHANGE)
 			{
@@ -202,12 +254,11 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		//	0,
 		//	0);
 
-		StretchBlt(hdc, 50, 10, width * 2, height * 2, GlobalVars::gblVars->sec->SpritePreview->PreviewSprite.GetFullImage()->DC(), 0, 0, width, height, SRCCOPY);
-
+		StretchBlt(hdc, 64, 1, width * 3, height * 3, GlobalVars::gblVars->sec->SpritePreview->PreviewSprite.GetFullImage()->DC(), 0, 0, width * 3, height * 3, SRCCOPY);
 
 		if (GFX)
 		{
-			BitBlt(hdc, 0, 100, 256, 256, GFX->DC(), 0, 0, SRCCOPY);
+			BitBlt(hdc, 18, 185, 256, 256, GFX->DC(), 0, 0, SRCCOPY);
 		}
 
 		EndPaint(hWnd, &ps);

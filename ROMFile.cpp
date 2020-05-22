@@ -37,7 +37,6 @@ int DrawLevel() {
 
 	int i = 0;
 	RoomClass* room = RD1Engine::theGame->mainRoom;
-	//	GlobalVars::gblVars->imgMap->Clear();
 	nMapBuffer* buffForeground = room->mapMgr->GetLayer(MapManager::ForeGround);
 	nMapBuffer* buffLeveldata = room->mapMgr->GetLayer(MapManager::LevelData);
 	nMapBuffer* buffBacklayer = room->mapMgr->GetLayer(MapManager::Backlayer);
@@ -54,7 +53,6 @@ int DrawLevel() {
 	CalculateMapScrolls(CurMapWidth, CurMapHeight);
 	room->currentHorizScroll = 0;
 	room->currentVertScroll = 0;
-	InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 
 
 	return 0;

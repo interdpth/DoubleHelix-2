@@ -78,7 +78,7 @@ BOOL CALLBACK   LPProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
          if (currentRomType == 0)
          {
 
-             MemFile::currentFile->seek(RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader->bTileset].pTiles - 0x8000000); // Seek 
+             MemFile::currentFile->seek(RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader->bTileset]->pTiles - 0x8000000); // Seek 
                                                                                             // the 
                                                                                             // endcoded 
                                                                                             // pal
@@ -90,7 +90,7 @@ BOOL CALLBACK   LPProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
          } else if (currentRomType == 1)
          {
 
-            MemFile::currentFile->seek(RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader->bTileset].pTiles - 0x8000000); // Seek 
+            MemFile::currentFile->seek(RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader->bTileset]->pTiles - 0x8000000); // Seek 
                                                                                               // the 
                                                                                               // endcoded 
                                                                                               // pal
@@ -172,12 +172,12 @@ int             LoadColor(long Pal)
 
 //Hello welcome to load color. 
    curclr = Pal;
-   Colors.rgbRed   = GetRValue((unsigned long) GBAGraphics::VRAM->PcPalMem[curclr]); /*
+   Colors.rgbRed   = GetRValue(GBAGraphics::VRAM->PcPalMem[curclr]); /*
                                                        * get R, G, and B out
                                                        * of DWORD 
                                                        */
-   Colors.rgbGreen = GetGValue((unsigned long) GBAGraphics::VRAM->PcPalMem[curclr]);
-   Colors.rgbBlue  = GetBValue((unsigned long) GBAGraphics::VRAM->PcPalMem[curclr]);
+   Colors.rgbGreen = GetGValue(GBAGraphics::VRAM->PcPalMem[curclr]);
+   Colors.rgbBlue  = GetBValue(GBAGraphics::VRAM->PcPalMem[curclr]);
    Colors.rgbReserved = 0;
 
    GlobalVars::gblVars->scrColors[0].curpos = Colors.rgbRed;

@@ -311,14 +311,10 @@ int MetroidTextEditor::EncodeText(int TitleChoice) {
 
 
 	int i = 0;
-	int ii = 0;//used for looking inside strings
 	int iii = 0;
-	int itemcount = 0;
-	int strcounter = 0;
 
 
 	unsigned short marker = 0xFF00;
-	unsigned short nb[1024] = { 0 };
 	unsigned long offset = 0;
 	unsigned short returned = 0;
 	//GetWindowText(GetDlgItem(tMain,txtString),stupidstring,1024);
@@ -326,7 +322,7 @@ int MetroidTextEditor::EncodeText(int TitleChoice) {
 	//int a = strlen(curtext);
 
 	//Just find it a new home.
-	offset = GBA.FindFreeSpace(strcounter * 2, 0xFF);
+	offset = GBA.FindFreeSpace(strlen(curtext) * 2 + 2, 0xFF);
 	MemFile::currentFile->seek(offset);
 	MemFile::currentFile->fwrite(encodedData->data(), 2, encodedData->size());
 	MemFile::currentFile->fwrite(&marker, 2, 1);
@@ -361,8 +357,9 @@ int MetroidTextEditor::EncodeText(int TitleChoice) {
 
 
 
-int MetroidTextEditor::Create(int TitleChoice, HINSTANCE MainInstance, WNDPROC wnd) {
-	int i = 0;
+int MetroidTextEditor::Create(int TitleChoice, HINSTANCE MainInstance, WNDPROC wnd)
+{
+
 	GlobalVars::gblVars->TextEditor->pixelflag = 0;
 	memset(GBA.GBAPal, 0, 512);
 	memset(curtext, 0, 2048);

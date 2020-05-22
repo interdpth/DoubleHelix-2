@@ -203,8 +203,7 @@ int cClipboard::CopyTiles(LPARAM lParam, int surface) {//Surface is where to pla
 
 
 int cClipboard::Erase(int board, int slot) {
-	int i = 0;
-
+	
 	//if (slot == 0xFFFF) {
 	//	memset(&thisclipboard[board], 0xFFFF, 2048);
 	//	cbi[board].Clear();

@@ -188,7 +188,7 @@ GBA.Reopen();
 
 
 long* gfxPointer = NULL;
-gfxPointer = &RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader->bTileset].gBackground;
+gfxPointer = &RD1Engine::theGame->mgrTileset->RoomTilesets[RD1Engine::theGame->mainRoom->roomHeader->bTileset]->gBackground;
 
 *gfxPointer = offsets[3]+0x8000000;
 
@@ -243,7 +243,7 @@ for(i=0;i<3;i++){ //Choses i val
 RD1Engine::theGame->mgrTileset->SaveTileset(RD1Engine::theGame->mainRoom->roomHeader->bTileset);
 SaveHeader(2);
 //BaseGame::theGame->mgrTileset->GetCBG();
-RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+UiState::stateManager->ForceRedraw();
 	
  delete[] tempbuff;
  delete[] superbuff;

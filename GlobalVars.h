@@ -33,7 +33,7 @@ public:
 	sChecks checkBoxBackground;
 	sChecks checkBoxClip;
 	sChecks chkBoxED;
-	sChecks chkHideSprites;
+	sMenuItem chkHideSprites;
 	bool ViewForeground;
 sMenuItem checkBoxViewF;
 	bool ViewLevel;
@@ -48,7 +48,7 @@ sMenuItem checkBoxViewF;
 	sMenuItem checkBoxsMove;
 	sMenuItem checkBoxsResize;
 	sMenuItem checkBoxsView;
-	sMenuItem chkEditSprites;
+	sChecks chkEditSprites;
 
     cStatEd* StatEditor;
 	

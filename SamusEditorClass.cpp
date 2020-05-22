@@ -17,7 +17,7 @@ SamusEditorClass::~SamusEditorClass()
 }
 
 
-int SamusEditorClass::SetupPreview(SamusBase* base)
+int SamusEditorClass::SetupSamusPreview(SamusBase* base)
 {
 	
 	long PalPnt = 0;

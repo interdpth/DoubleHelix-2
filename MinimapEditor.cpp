@@ -96,7 +96,7 @@ BOOL CALLBACK  MiniProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 			}
 			break;
 		case cmdMMSave:
-			throw new exception("MINMAP SAVE BROKE TOO");
+
 			if(drawmm)MiniMapClass::miniMapEditor->SaveMap();
 		
 		//	ho=((RD1Engine::theGame->RoomOffsets[comboArea.GetListIndex()]-0x8000000) + comboRoom.GetListIndex()*0x3C);

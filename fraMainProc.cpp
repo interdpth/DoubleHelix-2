@@ -17,8 +17,9 @@ void DrawStatusFromUI()
 
 	RD1Engine::theGame->DrawStatus.Scrolls = GlobalVars::gblVars->ScrollCheck.value();
 
-	RD1Engine::theGame->DrawStatus.SpriteRect = !GlobalVars::gblVars->chkHideSprites.value();
+	RD1Engine::theGame->DrawStatus.SpriteRect = !GlobalVars::gblVars->chkHideSprites.GetCheckState();
 }
+
 void CheckZoom(int zoomid)
 {
 	HMENU mainMenu = GetMenu(UiState::stateManager->GetWindow());
@@ -39,11 +40,15 @@ void DisableByState(sChecks* chkToUse)
 	GlobalVars::gblVars->checkBoxClip.value(0);
 	GlobalVars::gblVars->checkBoxLevel.value(0);
 	GlobalVars::gblVars->ScrollCheck.value(0);
-	GlobalVars::gblVars->chkEditSprites.SetCheckState(false);
+	GlobalVars::gblVars->chkEditSprites.value(0);
 	GlobalVars::gblVars->chkBoxED.value(0);
 
-	SendMessage(GetDlgItem(GlobalVars::gblVars->frameControls, chkResizeDoors), BM_SETCHECK, 0, 0);
+	
 	chkToUse->value(curval);
+	if (GlobalVars::gblVars->chkBoxED.val == 0)
+	{
+		SendMessage(GetDlgItem(GlobalVars::gblVars->frameControls, chkResizeDoors), BM_SETCHECK, 0, 0);
+	}
 }
 
 int UpdateHeaderControls()
@@ -135,8 +140,8 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		break;
 	case chkSprites:
 	case ID_MAP_SHOWSPRITES:
-	
-		someval = GlobalVars::gblVars->chkEditSprites.GetCheckState();
+		DisableByState(&GlobalVars::gblVars->chkEditSprites);
+		someval = GlobalVars::gblVars->chkEditSprites.value();
 		RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetState(someval == 1 ? editingStates::SPRITE : editingStates::MAP);
 		UiState::stateManager->ShowObj();
 		break;
@@ -160,12 +165,12 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		if (currentRomType == -1)
 			return 0;
 		RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround)->Dirty = 1;
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+		UiState::stateManager->ForceRedraw();
 		break;
 	case cboClip:
 		if (HIWORD(wParam) == CBN_SELCHANGE)
 		{
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+			UiState::stateManager->ForceRedraw();
 		}
 		break;
 
@@ -181,30 +186,22 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		if (HIWORD(wParam) == CBN_SELCHANGE)
 		{
 			RD1Engine::theGame->mainRoom->LoadUpSprites(comboSpriteSet.GetListIndex(), &SpriteImage);
-			RD1Engine::theGame->DrawStatus.dirty = true;
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-
-			InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
-
+			UiState::stateManager->ForceRedraw();
 		}
 		break;
+
 	case chkScroll:
 		DisableByState(&GlobalVars::gblVars->ScrollCheck);
 		EnableWindow(cboScroll.GetHwnd(), GlobalVars::gblVars->ScrollCheck.value());
 		if (GBA.ROM &&  GlobalVars::gblVars->ScrollCheck.value() == 1) {
 			RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetState(editingStates::SCROLL);
-			RD1Engine::theGame->DrawStatus.dirty = true;
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-
 		}
 		else 
 		{
 			RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetState(editingStates::MAP);
 		}
-		RD1Engine::theGame->DrawStatus.dirty = true;
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
 		if (GlobalVars::gblVars->ScrollCheck.value()) UiState::stateManager->ShowObj();
-		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
+		UiState::stateManager->ForceRedraw();
 		break;
 	case cmdSave:
 		//throw new exception("SAVE IS BROKE");
@@ -216,7 +213,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		//else {
 
 
-		//	RD1Engine::theGame->SaveLevel(BIC);
+			RD1Engine::theGame->SaveLevel();
 		//	UpdateHeaderControls();
 		//	UiState::stateManager->UpdateMapObjectWindow();
 		//}	RD1EnginareaManager->GetCurrentArea()->Save();// RoomOffsets[comboArea.GetListIndex()] - 0x8000000) + (comboRoom.GetListIndex() * 0x3C);
@@ -232,7 +229,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 	case cboDScroll:
 		if (HIWORD(wParam) == CBN_SELCHANGE)
 		{
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+			UiState::stateManager->ForceRedraw();
 		}
 		break;
 	case  ID_MAP_ANIMATE:
@@ -267,7 +264,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 	case ID_MAP_VIEWBACKGROUND:
 		if (!LoadingLevel)
 			DrawStatusFromUI();
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+		UiState::stateManager->ForceRedraw();
 		break;
 	case chkSRe:
 		GlobalVars::gblVars->checkBoxsMove.SetCheckState(false);
@@ -278,7 +275,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 
 	case ID_MAP_SHOWCLIPDATA:
 		DrawStatusFromUI();
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+		UiState::stateManager->ForceRedraw();
 
 		break;
 	case cboArea:
@@ -347,10 +344,10 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 			//	RoomBuff = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Clipdata);
 			//	/*RoomBuff->UndoBuff->UndoNum = 0;
 			//	RoomBuff->UndoBuff->Set((RoomBuff->X*RoomBuff->Y) * 2, RoomBuff->TileBuf2D);*/
-		//	DoesaBridgeExist();
-			//UserEnableConnections();
+			DoesaBridgeExist();
+			UserEnableConnections();
 			LoadScrollControls(RD1Engine::theGame->mgrScrolls->GetScrollInfo());
-			//UpdateHeaderControls();
+			UpdateHeaderControls();
 			DrawLevel();
 
 			UiState::stateManager->ResetCursor();
@@ -361,25 +358,26 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 			//MyTSAEditor.DrawThisTileset();
 		//	MyTSAEditor.LoadTSA();
 			loadit = true;
-			//SendMessage(hwnd, WM_COMMAND, 0x00010408, 0); // Update cboSprite 
+			SendMessage(hwnd, WM_COMMAND, 0x00010408, 0); // Update cboSprite 
 			//											  // with SelChange
 
-			//LoadHeaderControls();
+			LoadHeaderControls();
 			//for (i = 0; i < 16; i++)
 			//   ClipBoard.Erase(i, 0xFFFF);
 			LoadingLevel = 0;
 
-			InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
+		
 			SendMessage(UiState::stateManager->GetMapWindow(), WM_SIZE, 0, 1); // If lparam is 0 nothing
 
 			RECT            t;
 			TabResize();
+		
 			GetWindowRect(UiState::stateManager->GetMapWindow(), &t);
 			MoveWindow(UiState::stateManager->GetMapWindow(), t.left, t.top, 512, 496, 1);
 			UiState::stateManager->UpdateMapObjectWindow();
 
-			InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
-			//InvalidateRect(MiniMapClass::miniMapEditor->hwndMiniMap, 0, 1);
+			
+			UiState::stateManager->ForceRedraw();
 		}
 		}
 		break;
@@ -408,20 +406,20 @@ void InitControls(HWND hwnd)
 
 	clrIndex = 0;
 	//GlobalVars::gblVars->imgTileset->Create(512, 1024);
-	GlobalVars::gblVars->chkHideSprites.SetCnt(GetDlgItem(hwnd, ID_MAP_SHOWSPRITES));
+	GlobalVars::gblVars->chkHideSprites.Init(hwnd, ID_MAP_SHOWSPRITES);
 	GlobalVars::gblVars->checkBoxForeground.SetCnt(GetDlgItem(hwnd, chkForeground));
 	GlobalVars::gblVars->checkBoxLevel.SetCnt(GetDlgItem(hwnd, chkLevel));
 	GlobalVars::gblVars->checkBoxLevel.value(2);
-
+	GlobalVars::gblVars->checkBoxClip.SetCnt(GetDlgItem(hwnd, chkClip));
 	GlobalVars::gblVars->checkBoxBackground.SetCnt(GetDlgItem(hwnd, chkBacklayer));
-
+	GlobalVars::gblVars->ScrollCheck.SetCnt(GetDlgItem(hwnd, chkScroll));
 	GlobalVars::gblVars->checkBoxViewBL.Init(UiState::stateManager->GetWindow(), chkViewBG);
 	GlobalVars::gblVars->checkBoxsMove.Init(UiState::stateManager->GetWindow(), chkSMove);
 	GlobalVars::gblVars->checkBoxsResize.Init(UiState::stateManager->GetWindow(), chkSRe);
 	GlobalVars::gblVars->checkBoxsView.Init(UiState::stateManager->GetWindow(), chkSView);
 	GlobalVars::gblVars->checkBoxshowmap.SetCnt(GetDlgItem(hwnd, chkSM));
 	GlobalVars::gblVars->checkBoxshowtileset.SetCnt(GetDlgItem(hwnd, chkST));
-	GlobalVars::gblVars->chkEditSprites.Init(UiState::stateManager->GetWindow(), chkSprites);
+	GlobalVars::gblVars->chkEditSprites.SetCnt(GetDlgItem(hwnd, chkSprites));
 	GlobalVars::gblVars->chkBoxED.SetCnt(GetDlgItem(hwnd, chkDoors));
 
 	// GlobalVars::gblVars->CheckBoxes[chkESC].SetCnt(GetDlgItem(Main,chkSprites));

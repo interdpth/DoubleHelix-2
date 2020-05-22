@@ -17,9 +17,8 @@ cOAMEdit::cOAMEdit()
 	//Create();
 	tileImage = new Image();
 	tileImage->Destroy();
-	tileImage->Create(512, 512);
+	tileImage->Create(512, 256);
 
-	_OamDataHandle = 0;
 	currentEditing = EditType::SPRITES;
 
 	hwndAnimationWindow = 0;
@@ -94,8 +93,6 @@ int cOAMEdit::GetSpriteData(int id, int titleType) {//Fillsout the SprGBuf // ls
 	GetFrames(theOffset, id, titleType);
 	currentFrames->SetStaticFrame(0);
 	currentFrames->GetStaticFrame()->theSprite->id = id;
-
-
 	return 0;
 }
 
@@ -205,14 +202,13 @@ int cOAMEdit::UpdatePartUI(bool updateSizes) {
 	sprintf(labelText, "OAM2: %X", thisOAM->theSprite->OAM[thispart].enOAM.OAM1);
 	SetWindowText(GetDlgItem(_oamWindow, lblOAM2), labelText);
 
-
-	//SetWindowText(GetDlgItem(me, txtGFX2), )
 	return 0;
 }
 // &cOAMEdit::OamEditor->currentFrames->GetStaticFrame()
 int cOAMEdit::LoadTiles(Image* tileImage2, Frame* targetFrame)
 {
 	SpriteObject*currentSprite = targetFrame->theSprite;
+
 	currentSprite->sprTileBuffer->Load(currentSprite->PreRAM, 1023);
 	if (GlobalVars::gblVars->TileImage != NULL) {
 		tileImage2->SetPalette(currentSprite->PreviewPal);
@@ -243,10 +239,10 @@ int cOAMEdit::DrawSelObj(HDC hdc) {
 int cOAMEdit::InitDlg() {
 	int i = 0;
 	char sillystring[16] = { 0 };
-	cboFrameTable.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, cboFrameTableCombo));
+	cboFrameTable.Init(GetDlgItem(_oamWindow, cboFrameTableCombo));
 	cboXPos.Init(GetDlgItem(_oamWindow, cboX));
 	cboYPos.Init(GetDlgItem(_oamWindow, cboY));
-	cboFrames.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, cboFrameIndex));
+	cboFrames.Init(GetDlgItem(_oamWindow, cboFrameIndex));
 	cboPartNo.Init(GetDlgItem(_oamWindow, cboParts));
 	cboShapes.Init(GetDlgItem(_oamWindow, cboShape));
 	cboSizes.Init(GetDlgItem(_oamWindow, cboSize));//Changes based on cboShape
@@ -260,18 +256,19 @@ int cOAMEdit::InitDlg() {
 	cboShapes.SetListIndex(0);
 	cboPal.Init(GetDlgItem(_oamWindow, cboBPal));
 	UpdateSize();
-	txtFrameOffset.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, txtFPOff));
-	txtTimerv.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, txtFrameTimer));
+	txtFrameOffset.Init(GetDlgItem(_oamWindow, txtFPOff));
+	txtTimerv.Init(GetDlgItem(_oamWindow, txtFrameTimer));
 
-	txtGlobalGfx.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, txtCommonGfx));
-	txtGlobalPalc.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, txtCommonPal));
-	txtCurrentGfx.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, txtCCurGfx));
-	txtCurrentPal.Init(GetDlgItem(cOAMEdit::OamEditor->_OamDataHandle, txtCurPal));
+	txtGlobalGfx.Init(GetDlgItem(_oamWindow, txtCommonGfx));
+	txtGlobalPalc.Init(GetDlgItem(_oamWindow, txtCommonPal));
+	txtCurrentGfx.Init(GetDlgItem(_oamWindow, txtCCurGfx));
+	txtCurrentPal.Init(GetDlgItem(_oamWindow, txtCurPal));
 
 
 
 
 	cboFrames.Clear();
+	lstSprite.Additem("CUSTOM");
 	for (i = 0; i < 0xFF; i++)
 	{
 		sprintf(sillystring, "%X", i);
@@ -301,6 +298,7 @@ int cOAMEdit::InitDlg() {
 	CreateSpriteHWND();
 	CreateSpriteAnimationHWND();
 	CreatePartHWND();
+	lstSprite.SetListIndex(0x11);
 	return 0;
 }
 
@@ -350,7 +348,7 @@ unsigned long cOAMEdit::Save(SaveOptions savetype, char* variableThing) {
 			tmpFrame->frameOffset = GBA.FindFreeSpace(size, 0xFF);
 		}
 		RD1Engine::theGame->mgrOAM->SaveSprite(savetype, tmpFrame->theSprite, tmpFrame->frameOffset);
-		char wndstr[256] = { 0 };
+		
 
 
 

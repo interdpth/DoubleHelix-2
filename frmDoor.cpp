@@ -67,7 +67,7 @@ BOOL CALLBACK DwProc (HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam
 			editingStates CurState = RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetState();
 			if (CurState == editingStates::DOOR) {
 				curMgr->AddDoor(comboRoom.GetListIndex());
-				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+				UiState::stateManager->ForceRedraw();
 			}
 			//EndDialog(DoorWin,0);
 		}
@@ -76,7 +76,7 @@ BOOL CALLBACK DwProc (HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam
 			editingStates CurState = RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetState();
 			if (CurState == editingStates::DOOR && Index != -1) {
 				curMgr->DeleteDoor(comboRoom.GetListIndex(), curMgr->CurrentRoomDoorIndexes[Index]);
-				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+				UiState::stateManager->ForceRedraw();
 			}
 			//EndDialog(DoorWin,0);
 		}
@@ -232,7 +232,7 @@ int DoorManager::SaveThisDoor(int DoorNo){
 	RD1Engine::theGame->mgrDoors->LoadThisDoor(DoorNo);
 	//DisplayDoors();
 	//InvalidateRect(UiState::stateManager->GetMapWindow(),0,1);
-	RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+	UiState::stateManager->ForceRedraw();
 	return 0;
 	
 }

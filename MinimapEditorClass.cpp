@@ -17,10 +17,6 @@ MiniMapClass::~MiniMapClass() {
 
 int MiniMapClass::Zero()
 {
-	int a = 0;
-	int i = 0;
-	
-	
 	RawMap = NULL;
 	
 	memset(&MapList, 0, sizeof(long) * 0xB);
@@ -29,7 +25,7 @@ int MiniMapClass::Zero()
 	
 	DSize=-1;
 	curtile=-1;
-	return a;
+	return 0;
 }
 
 int MiniMapClass::Clear() {
@@ -39,10 +35,6 @@ int MiniMapClass::Clear() {
 }
 int MiniMapClass::Create() {
 
-	int x = 0;
-	int y = 0;
-	int tc = 0;
-	int i = 0;
 	switch (currentRomType) {
 	case 0:
 		if (GBA.ROM) {

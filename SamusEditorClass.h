@@ -17,7 +17,7 @@ public:
 	int animCounter = 0;
 	unsigned short currentTile = 0xffff;
 	BackBuffer animBuffer;
-	int SetupPreview(SamusBase* base);
+	int SetupSamusPreview(SamusBase* base);
 	SamusEditorClass();
 	~SamusEditorClass();
 };

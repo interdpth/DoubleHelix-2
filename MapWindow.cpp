@@ -12,7 +12,7 @@ RECT toolsRect;
 extern HWND hTabControl;
 extern HANDLE handle_out;
 void LoadScrollInfo(int s, Scroller *scroll);
-
+BackBuffer bb;
 //Returns the cfurrent editable buffer.
 nMapBuffer* GetActiveBuffer() {
 	nMapBuffer* tmpBuf = NULL;
@@ -157,7 +157,6 @@ void HandleScrolling(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPar
 		{
 			RD1Engine::theGame->mainRoom->currentVertScroll = MapVertScroll->GetIndex();
 		}
-		InvalidateRect(hWnd, 0, 1);
 		break;
 	case WM_HSCROLL:
 		MapHorizScroll->UpdateScroll(wParam);
@@ -165,8 +164,9 @@ void HandleScrolling(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPar
 		{
 			RD1Engine::theGame->mainRoom->currentHorizScroll = MapHorizScroll->GetIndex();
 		}
-		InvalidateRect(hWnd, 0, 1);
 	}
+
+	UiState::stateManager->ForceRedraw();
 }
 void HandleMouseUpDown(int actualX, int actualY, HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
@@ -282,6 +282,8 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 	switch (message)
 	{
 	case WM_CREATE:
+		bb.Create(8000, 8000);
+
 		utils = new MapUtils(mgrMap);
 		GetWindowRect(GetDlgItem(UiState::stateManager->GetWindow(), grpMap), &toolsRect);
 		MapHorizScroll = new WindowScrollbar(hWnd, false);
@@ -300,42 +302,47 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 
 		if (wParam == theTimer + 1)
 		{
-			if (UpdateSprites()) {
+			if (UpdateSprites() || RD1Engine::theGame->DrawStatus.dirty) {
 				if (RD1Engine::theGame&&RD1Engine::theGame->mainRoom&&RD1Engine::theGame->mainRoom->mapMgr)
 				{
 					RD1Engine::theGame->DrawStatus.dirty = true;
 					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+					bb.Clear();
+					Draw(bb.DC());		
 					InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 				}
 			}
 		}
 		break;
 	case WM_PAINT:
-		if (theRoom != NULL)
-		{
+	
 
 			hdc = BeginPaint(hWnd, &ps);
-
-			Draw(hdc);
-
+		
+	        BitBlt(hdc, 0, 0, 8000, 8000, bb.DC(), 0, 0, SRCCOPY);
+		
 			EndPaint(hWnd, &ps);
 			ReleaseDC(hWnd, hdc);
-		}
+		
+
 		break;
 	case WM_VSCROLL:
 	case WM_HSCROLL:
 		HandleScrolling(hWnd, message, wParam, lParam);
+		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
 		break;
 	case WM_COPYDATA:
 	case WM_COPY:
 	case WM_PASTE:
 		HandleCopyPasteMessages(hWnd, message, wParam, lParam);
+		UiState::stateManager->ForceRedraw();
 		break;
 	case WM_LBUTTONDOWN:
 	case WM_RBUTTONDOWN:
 	case WM_RBUTTONUP:
 	case WM_LBUTTONUP:
 		HandleMouseUpDown(actualX, actualY, hWnd, message, wParam, lParam);
+		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
 		break;
 	case WM_MOUSEMOVE:
 	{
@@ -370,15 +377,15 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 			mpMap.sX = curX;
 
 		}
-		InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
-		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
+		
 		//	UiState::stateManager->UpdateMapObjectWindow(); 
 		UpdateStatusText(actualX, actualY);
 		if (wParam == MK_LBUTTON)
 		{
 			SendMessage(hWnd, 0x201, wParam, lParam);
 		}
-
+		RD1Engine::theGame->DrawStatus.dirty = true;
+		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
 	}
 
 
@@ -388,8 +395,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		///Reset the rects 
 
 		UiState::stateManager->ResetCursor();
-		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
-		InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
+		UiState::stateManager->ForceRedraw();
 		break;
 
 	case WM_KEYDOWN:							// Here's what you're interested in! -- check to see if someone preGlobalVars::gblVars->SSEd a key.
@@ -445,9 +451,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 				Layer->UndoBuff->Set(Layer->X*Layer->Y * 2, Layer->TileBuf2D);
 				Layer->CopyData->Paste(&Layer->TileBuf2D[mpMap.sX + (mpMap.sY*Layer->X)]); //mpMap.sX+( mpMap.sY*Layer->X)]);
 
-				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-
-				InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 0);
+				UiState::stateManager->ForceRedraw();
 				return TRUE;
 
 			case 'A':
@@ -467,9 +471,11 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 
 	case WM_SIZE:
 		//Gotta Make sure the size isn't out of bounds.
-		if (lParam != 0) {
+		if (lParam != 0  && UiState::stateManager->GetMapWindow()!=NULL) {
 			UiState::stateManager->ResizeMap(hTabControl);
 			CalculateMapScrolls(CurMapWidth, CurMapHeight);
+
+			InvalidateRect(UiState::stateManager->GetWindow(), 0, true);
 		}
 		break;
 	case WM_DESTROY:

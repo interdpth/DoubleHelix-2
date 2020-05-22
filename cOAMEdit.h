@@ -29,8 +29,7 @@ public:
 class	FrameManager* currentFrames=NULL;
 
 static cOAMEdit* OamEditor;
-	int UpdateSize();
-	HWND _OamDataHandle;
+	int UpdateSize();	
 	EditType currentEditing;
 	sCombo cboPal;
 	sCombo cboFrames;

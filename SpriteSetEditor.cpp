@@ -194,9 +194,6 @@ LRESULT CALLBACK cSSEPalProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 	HDC hdc;
 	PAINTSTRUCT ps;
 	
-	int i = 0;
-	char tpal[256] = { 0 };
-
 	switch (message)
 	{
 	case WM_PAINT:
@@ -281,7 +278,7 @@ int CheckTheSize(sprite_entry* SE) {
 	unsigned long   i = 0;
 	unsigned long   off = 0;
 	unsigned long   j = 0;
-	unsigned char id = 0;
+
 
 
 

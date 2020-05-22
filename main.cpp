@@ -1,3 +1,4 @@
+
 #include "MainHeader.h"
 #include "MinimapClass.h"
 #include "cClipboard.h"
@@ -26,7 +27,8 @@
 #include <commctrl.h>
 #include "fraMainProc.h"
 #include "cOAMEdit.h"
-
+#include <DynaRec.h>
+void CalculateMapScrolls(int width, int height);
 void DrawStatusFromUI();
 BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 #pragma comment(lib, "comctl32.lib")
@@ -42,7 +44,6 @@ clsUIScroll scrTSV;
 GBAGraphics* TheVRAM;
 nMapBuffer* GetActiveBuffer();
 void CheckZoom(int zoomid);
-int             i;
 
 //Wrapper for MessageBox
 int             sMessage(char *messagestring)
@@ -110,7 +111,7 @@ void TabResize()
 	}
 	MoveWindow(hwndMain(), tabControl.left, tabControl.top, tabControl.right, height, true);
 	SendMessage(UiState::stateManager->StatusBar, WM_SIZE, 0, 0);
-	InvalidateRect(hwndMain(), 0, true);
+	UiState::stateManager->ForceRedraw();
 }
 
 void CreateSpriteEditor()
@@ -121,23 +122,23 @@ void CreateSpriteEditor()
 
 	if (cOAMEdit::OamEditor == NULL)
 	{
-		cOAMEdit::OamEditor = new cOAMEdit();
-		cOAMEdit::OamEditor->InitDlg();
+		cOAMEdit::OamEditor = new cOAMEdit();	
 	}
 
 	if (cOAMEdit::OamEditor->_oamWindow)
 	{
 		DestroyWindow(cOAMEdit::OamEditor->_oamWindow);
-		delete cOAMEdit::OamEditor;
-		cOAMEdit::OamEditor = NULL;
+	
 
 	}
 
 	CreateDialog(hGlobal, MAKEINTRESOURCE(frmOAM), 0, OAMProc);
+
 	ShowWindow(cOAMEdit::OamEditor->_oamWindow, SW_SHOW);
+	SendMessage(cOAMEdit::OamEditor->_oamWindow, WM_COMMAND, MAKELONG(cboSpriteChoice,CBN_SELCHANGE), 0);
 }
 ///Loads a cobomo box
-void LoadCombos(sCombo* Combo, char *FileName, int Max = 255)
+void LoadCombos(sCombo* Combo, const char *FileName, int Max = 255)
 {
 
 	FILE *          text = fopen(FileName, "rt");
@@ -177,16 +178,6 @@ void LoadCombos(sCombo* Combo, char *FileName, int Max = 255)
 ///Returns true if we processed anything controls.
 bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
-	LeakFinder::finder->PollHeap();
-
-	int             sprch = 0;
-	char            cBuf[1024] = { 0 };
-	int             i = 0;
-	int             loadit = 0;
-	long            LevelCounter = 0;
-	unsigned long             BIC = 0;
-	HWND            debug = NULL;
-	int someval = 0;
 	RD1Engine* mainGame = NULL;
 	if (currentRomType == -1)
 		return false;
@@ -205,9 +196,7 @@ bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPar
 		GlobalVars::gblVars->checkBoxViewF.SetCheckState(!curVal);
 		GlobalVars::gblVars->ViewForeground = !curVal;
 		mainGame->DrawStatus.BG0 = !curVal;
-		mainGame->DrawStatus.dirty = true;
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-		InvalidateRect(hwnd, 0, false);
+		UiState::stateManager->ForceRedraw();
 		return true;
 	}
 	case ID_MAP_VIEWLEVELLAYER:
@@ -217,9 +206,7 @@ bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPar
 		GlobalVars::gblVars->checkBoxViewL.SetCheckState(!curVal);
 		GlobalVars::gblVars->ViewLevel = !curVal;
 		mainGame->DrawStatus.BG1 = !curVal;
-		mainGame->DrawStatus.dirty = true;
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-		InvalidateRect(hwnd, 0, false);
+		UiState::stateManager->ForceRedraw();
 		return true;
 	}
 
@@ -230,15 +217,17 @@ bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPar
 		GlobalVars::gblVars->checkBoxViewB.SetCheckState(!curVal);
 		GlobalVars::gblVars->ViewBacklayer = !curVal;
 		mainGame->DrawStatus.BG2 = !curVal;
-		mainGame->DrawStatus.dirty = true;
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-		InvalidateRect(hwnd, 0, false);
+		UiState::stateManager->ForceRedraw();
 		return true;
 	}
 		break;
 
 	case ID_MAP_SHOWSPRITES:
-		//GlobalVars::gblVars->ViewBacklayer = GlobalVars::gblVars->checkBoxViewB.value() == BST_CHECKED;
+		GlobalVars::gblVars->chkHideSprites.SetCheckState(!GlobalVars::gblVars->chkHideSprites.GetCheckState());
+	
+		DrawStatusFromUI();
+		mainGame->DrawStatus.Sprites = !GlobalVars::gblVars->chkHideSprites.GetCheckState();
+		UiState::stateManager->ForceRedraw();
 		return true;
 		break;
 	case ID_DAA:
@@ -297,8 +286,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 
 	case ID_MAP_SHOWSPRITES:
 		DrawStatusFromUI();
-		RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-		InvalidateRect(hwnd, 0, true);
+		UiState::stateManager->ForceRedraw();
 		return true;
 	case mnuEB:
 		if (currentRomType == -1)
@@ -597,14 +585,14 @@ void InitMainControls(HWND hwnd)
 	clrIndex = 0;
 	GlobalVars::gblVars->imgTileset = new Image();
 	GlobalVars::gblVars->imgTileset->Create(16 * 17 + 1, 1024);
-	GlobalVars::gblVars->ViewClip.SetCnt(GetDlgItem(hwnd, ID_MAP_SHOWCLIPDATA));
-	GlobalVars::gblVars->ScrollCheck.SetCnt(GetDlgItem(hwnd, chkScroll));
+	/*GlobalVars::gblVars->ViewClip.SetCnt(GetDlgItem(hwnd, ID_MAP_SHOWCLIPDATA));
+	
 	GlobalVars::gblVars->checkBoxClip.SetCnt(GetDlgItem(hwnd, chkClip));
 	GlobalVars::gblVars->checkBoxViewF.Init(hwnd, ID_MAP_VIEWFOREGROUND);
 	GlobalVars::gblVars->checkBoxViewL.Init(hwnd, ID_MAP_VIEWLEVELLAYER);
 	GlobalVars::gblVars->checkBoxViewB.Init(hwnd, ID_MAP_VIEWBACKLAYER);
 
-	chkDoTrans.SetCheckState(true);
+	chkDoTrans.SetCheckState(true);*/
 	GlobalVars::gblVars->checkBoxshowmap.value(1);
 	GlobalVars::gblVars->checkBoxshowtileset.value(1);
 
@@ -634,7 +622,7 @@ void InitMainControls(HWND hwnd)
 	ChangeScrollbars(hwnd, vsbScroll, sTileset);
 
 
-	for (i = 0; i < 3; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		GlobalVars::gblVars->scrColors[i].create(GetDlgItem(hwndLPE, wndrs[i]), 0, 255);
 		GlobalVars::gblVars->scrColors[i].ChangeScrollbars();
@@ -659,7 +647,8 @@ void InitMainControls(HWND hwnd)
 
 	TabResize();
 
-
+	UiState::stateManager->ResizeMap(hTabControl);
+	CalculateMapScrolls(CurMapWidth, CurMapHeight);
 
 }
 BOOL CALLBACK   DialogProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam)
@@ -667,7 +656,8 @@ BOOL CALLBACK   DialogProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 	LeakFinder::finder->PollHeap();
 	switch (message)
 	{
-
+	case WM_PAINT:
+		break;
 	case WM_INITDIALOG:
 		InitMainControls(hwnd);
 		//LoadTrans("[MainMenu]", 0, hwnd);
@@ -739,7 +729,7 @@ BOOL CALLBACK   DialogProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 				if (!tabs[4])
 				{
 				}
-				if (GlobalVars::gblVars->chkEditSprites.GetCheckState())
+				if (GlobalVars::gblVars->chkEditSprites.value())
 				{
 					hCurrentTab = tabs[4];
 					SpriteTabIndex = 0;
@@ -773,16 +763,16 @@ BOOL CALLBACK   DialogProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 		LeakFinder::finder->PollHeap();
 		return true;
 
-	//case WM_CTLCOLORDLG:
-	//	return (LONG)g_hbrBackground;
-	//case WM_CTLCOLORSTATIC:
-	//{
-	//	HDC hdcStatic = (HDC)wParam;
-	//	SetTextColor(hdcStatic, RGB(255, 255, 255));
-	//	SetBkMode(hdcStatic, TRANSPARENT);
-	//	LeakFinder::finder->PollHeap();
-	//	return (LONG)g_hbrBackground;
-	//}
+	case WM_CTLCOLORDLG:
+		return (LONG)g_hbrBackground;
+	case WM_CTLCOLORSTATIC:
+	{
+		HDC hdcStatic = (HDC)wParam;
+		SetTextColor(hdcStatic, RGB(255, 255, 255));
+		SetBkMode(hdcStatic, TRANSPARENT);
+		LeakFinder::finder->PollHeap();
+		return (LONG)g_hbrBackground;
+	}
 	return true;
 	case WM_DESTROY:
 		bRunApp = 0;
@@ -851,6 +841,8 @@ BOOL WINAPI ConsoleHandlerRoutine(DWORD dwCtrlType)
 HANDLE handle_out;
 int WINAPI      WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	DynaRec::instance = new DynaRec();
+
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_ALWAYS_DF);
 	g_hbrBackground = CreateSolidBrush(RGB(0x2C, 0x2F, 0x33));
 	hwndHeader = NULL;

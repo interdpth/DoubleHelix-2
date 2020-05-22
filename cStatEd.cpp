@@ -349,7 +349,7 @@ int cStatEd::SetupPreview()
 
 		PalPnt = GameConfiguration::mainCFG->GetDataContainer("SpritePal")->Value + (SpritePreview->id - 0x10) * 4;
 
-		palsize = ((RD1Engine::theGame->mgrOAM->MFSpriteSize[(SpritePreview->id - 0x10) << 1] / 2048) * 16);
+		palsize = ((RD1Engine::theGame->mgrOAM->MFSprSize[(SpritePreview->id - 0x10) << 1] / 2048) * 16);
 
 
 	}

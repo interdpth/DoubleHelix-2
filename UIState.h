@@ -41,6 +41,7 @@ public:
 	static UiState* stateManager;
 	void ShowObj();
 	int InitMap();
+	void ForceRedraw();
 	void ResizeMap(HWND srcNeighbor);
 	WindowState GetWindowState();
 	WindowState SetWindowState(WindowState theState);

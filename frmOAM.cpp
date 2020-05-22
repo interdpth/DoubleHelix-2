@@ -34,12 +34,16 @@ LRESULT CALLBACK SpecialKeyDownX(HWND hWnd, unsigned int message, WPARAM wParam,
 LRESULT CALLBACK SpecialKeyDownY(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 HWND hwndXPosText;
 WNDPROC g_pOldhwndXPosText;
-BOOL CALLBACK OAMDataProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
+BOOL  OAMDataProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 sCombo* cboFrameTable;
 
 HWND hwndYPosText;
 WNDPROC g_pOldhwndYPosText;
 
+void Redraw()
+{
+
+}
 unsigned long GetCurrentFrameTable()
 {
 	unsigned long offset = 0;
@@ -152,7 +156,7 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 	oamManager = RD1Engine::theGame->mgrOAM;
 	Frame* tmpFrame = NULL;
 	int id = -1;
-
+	if (oamEditor == NULL) return false;
 	if (oamEditor->currentFrames != NULL)
 	{
 		tmpFrame = oamEditor->currentFrames->GetStaticFrame();
@@ -160,17 +164,17 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 
 	DecodedOAM* deOAM = NULL;
 	int partIndex = 0;
-
+	OAMDataProc(hWnd,  message,  wParam,  lParam);
 	switch (message)
 	{
 
 	case WM_INITDIALOG:
 		sprMgr = RD1Engine::theGame->mainRoom->mgrSpriteObjects;
 		oamEditor->_oamWindow = hWnd;
-
+		oamEditor->InitDlg();
 		animBuffer.Create(2048, 2048);
-		CreateDialog(hGlobal, MAKEINTRESOURCE(IDFRAMESTUFFDLG), 0, OAMDataProc);
-		ShowWindow(cOAMEdit::OamEditor->_OamDataHandle, SW_SHOW);
+	    
+
 		cboPal = &oamEditor->cboPal;
 		cboFrameTable = &oamEditor->cboFrameTable;
 		cboFrames = &oamEditor->cboFrames;
@@ -217,6 +221,15 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 	case WM_COMMAND:
 
 		switch (LOWORD(wParam)) {
+		case btnLoadGFX1:
+		{
+
+			MemFile::currentFile->seek((unsigned long)oamEditor->txtCurrentGfx.GetText());
+			MemFile::currentFile->fread(tmpFrame->theSprite->PreRAM, 1,0x200*32);
+			tmpFrame->theSprite->sprTileBuffer->Load(tmpFrame->theSprite->PreRAM, 1023);
+			oamEditor->LoadTiles(oamEditor->tileImage, tmpFrame);
+		}
+			break;
 		case cboX:
 			if (HIWORD(wParam) == CBN_SELCHANGE || HIWORD(wParam) == VK_RETURN)
 			{
@@ -274,9 +287,21 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 							sprintf(wndstr, "%X", thisTable[i]);
 							cboFrameTable->Additem(wndstr);
 						}
+			
+
+						int GFXPnt = GameConfiguration::mainCFG->GetDataContainer("SpriteGFX")->Value;
+						GFXPnt += (id - 0x10) * 4;
+						int PalPnt = GameConfiguration::mainCFG->GetDataContainer("SpritePal")->Value + (id - 0x10) * 4;
+
+
+						sprintf_s(wndstr, "%8X", GFXPnt);
+						oamEditor->txtCurrentGfx.SetText(wndstr);
+
+						sprintf_s(wndstr, "%8X", PalPnt);
+						oamEditor->txtCurrentPal.SetText(wndstr);
 
 						cboFrameTable->SetListIndex(0);
-						//SendMessage(hWnd, WM_COMMAND, cmdGTO, 0);
+						SendMessage(hWnd, WM_COMMAND, cmdGTO, 0);
 					}
 				}
 			}
@@ -294,7 +319,7 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 					cOAMManager::SetupPreview(&GBA, currentRomType, tmpFrame);
 				}
 
-				oamEditor->LoadTiles(oamEditor->tileImage, tmpFrame);
+				//oamEditor->LoadTiles(oamEditor->tileImage, tmpFrame);
 				LoadPartsControl();
 				cboPartNo->SetListIndex(0);
 				oamEditor->UpdatePartUI();
@@ -414,25 +439,25 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 				//oamEditor->UpdatePartUI(false);
 			}
 			break;
-		case cmdDeleteFrame:
+		case ID_FRAMEOPTIONS_DELETEFRAME:
 			cOAMEdit::OamEditor->currentFrames->DeleteFrame(cboFrames->GetListIndex());
 			ReloadFramesControl();
 			break;
-		case btnNewFrame:
+		case ID_FRAMEOPTIONS_NEWFRAME:
 			cOAMEdit::OamEditor->currentFrames->AddFrame(NULL, lstSprite->GetListIndex());
 			ReloadFramesControl();
 			break;
-		case btnCopyFrame:
+		case ID_FRAMEOPTIONS_COPYFRAME:
 			cOAMEdit::OamEditor->currentFrames->AddFrame(cOAMEdit::OamEditor->currentFrames->GetStaticFrame(), lstSprite->GetListIndex());
 			ReloadFramesControl();
 			break;
 
-		case btnCopyPart:
+		case ID_PARTOPTIONS_COPYPART:
 			cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->AddPart(&cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->theSprite->OAM[cboPartNo->GetListIndex()].enOAM);
 			LoadPartsControl();
 			cboPartNo->SetListIndex(0);
 			break;
-		case cmdDeletePart:
+		case ID_PARTOPTIONS_DELETEPART:
 			partIndex = cboPartNo->GetListIndex();
 
 			oamEditor->currentFrames->GetStaticFrame()->DeletePart(partIndex);
@@ -441,7 +466,7 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			LoadPartsControl();
 
 			break;
-		case btnAddPartZ:
+		case ID_PARTOPTIONS_ADDPART:
 			cOAMEdit::OamEditor->currentFrames->GetStaticFrame()->AddPart(NULL);
 			LoadPartsControl();
 			cboPartNo->SetListIndex(0);
@@ -479,8 +504,7 @@ LRESULT CALLBACK OAMPalProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 		hdc = BeginPaint(hWnd, &ps);
 		if (cOAMEdit::OamEditor->currentFrames != NULL)
 		{
-			DrawSpritePAl(hdc, theFrame->theSprite->PreviewPal, 8);
-
+			DrawSpritePAl(hdc, theFrame->theSprite->PreviewPal, 16);
 		}
 		EndPaint(hWnd, &ps);
 		ReleaseDC(hWnd, hdc);
@@ -591,7 +615,7 @@ LRESULT CALLBACK OAMTileProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 
-		cOAMEdit::OamEditor->tileImage->Blit(hdc, 0, 0, 256, 256, 0, 0);
+		cOAMEdit::OamEditor->tileImage->Blit(hdc, 0, 0, 256,128, 0, 128);
 		SetSizeShapeRect(&tmp);
 		tmp.left = movingX;
 		tmp.top = movingY;
@@ -604,7 +628,7 @@ LRESULT CALLBACK OAMTileProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 		break;
 
 	case WM_LBUTTONDOWN:
-		currentTile = x / 8 + (y / 8) * 32;
+		currentTile = x / 8 + (y / 8) * 32 + 0x200;
 		currentTile = currentTile;
 		movingX = x;
 		movingY = y;
@@ -668,6 +692,7 @@ LRESULT CALLBACK OAMSpriteProc(HWND hWnd, unsigned int message, WPARAM wParam, L
 
 			UpdateStaticSprite();
 			cOAMEdit::OamEditor->UpdatePartUI();
+			InvalidateRect(*hwndSpritePreview, 0, 1);
 		}
 		break;
 	}
@@ -691,22 +716,22 @@ LRESULT CALLBACK AnimationProc(HWND hWnd, unsigned int message, WPARAM wParam, L
 		{
 
 			curFrame = oamEditor->currentFrames->GetAnimatedFrame();
-			if (!curFrame->frameInited) {
+			if (curFrame->animUpdated)
+			{
 				globalVars->OAMED = true;
 				if (GlobalVars::gblVars->frameTables->FramesExist(curFrame->theSprite->id))
 				{
 					cOAMManager::SetupPreview(&GBA, currentRomType, curFrame);
 				}
-				oamEditor->LoadTiles(oamEditor->tileImage, curFrame);
+				//oamEditor->LoadTiles(oamEditor->tileImage, curFrame);
 				oamManager->DecodeOAM(globalVars->OAMED, curFrame->theSprite, curFrame->frameOffset - 0x8000000);
 				globalVars->OAMED = false;
 				oamManager->DrawPSprite(curFrame->theSprite);
 				curFrame->frameInited = true;
 				curFrame->animUpdated = true;
-			}
+		
 
-			if (curFrame->animUpdated)
-			{
+		
 				HBRUSH          br = CreateSolidBrush((COLORREF)RGB(255, 0, 0));
 				RECT            rc;
 
@@ -760,7 +785,8 @@ LRESULT CALLBACK OAMPartProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 
 }
 
-BOOL CALLBACK OAMDataProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
+
+BOOL OAMDataProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 
 {
 
@@ -784,14 +810,6 @@ BOOL CALLBACK OAMDataProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM
 
 	switch (message)
 	{
-
-	case WM_INITDIALOG:
-		sprMgr = RD1Engine::theGame->mainRoom->mgrSpriteObjects;
-		cOAMEdit::OamEditor->_OamDataHandle = hWnd;
-		cOAMEdit::OamEditor->InitDlg();
-		;
-
-		break;
 	case WM_TIMER:
 		switch (wParam)
 		{
@@ -835,7 +853,7 @@ BOOL CALLBACK OAMDataProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM
 					cOAMManager::SetupPreview(&GBA, currentRomType, tmpFrame);
 				}
 
-				oamEditor->LoadTiles(oamEditor->tileImage, tmpFrame);
+				//oamEditor->LoadTiles(oamEditor->tileImage, tmpFrame);
 				LoadPartsControl();
 				cboPartNo->SetListIndex(0);
 				oamEditor->UpdatePartUI();
@@ -845,55 +863,7 @@ BOOL CALLBACK OAMDataProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM
 				InvalidateRect(hWnd, 0, 1);
 				InvalidateRect(*hwndSpritePreview, 0, 1);
 			}
-			break;
-
-		case cmdGTO:
-			offset = GetCurrentFrameTable();
-			if (offset == 0x0cdcdcdc) break;
-			id = oamEditor->currentFrames->GetStaticFrame()->theSprite->id;
-			oamEditor->GetFrames(offset, id, currentRomType);
-			oamEditor->currentFrames->SetStaticFrame(0);
-			oamEditor->currentFrames->GetStaticFrame()->theSprite->id = id;
-
-			ReloadFramesControl();
-
-			oamEditor->SetFrames(cboFrames->GetListIndex());
-
-
-			oamEditor->currentFrames->SetStaticFrame(cboFrames->GetListIndex());
-
-
-			for (i = 0; i < oamEditor->currentFrames->maxframe(); i++) {
-				tmpFrame = oamEditor->currentFrames->theFrames[i];
-
-
-				globalVars->OAMED = true;
-				if (GlobalVars::gblVars->frameTables->FramesExist(tmpFrame->theSprite->id))
-				{
-					cOAMManager::SetupPreview(&GBA, currentRomType, tmpFrame);
-				}
-
-				oamEditor->LoadTiles(oamEditor->tileImage, tmpFrame);
-				oamManager->DecodeOAM(globalVars->OAMED, tmpFrame->theSprite, tmpFrame->frameOffset - 0x8000000);
-				globalVars->OAMED = false;
-				oamManager->DrawPSprite(tmpFrame->theSprite);
-				tmpFrame->frameInited = true;
-				tmpFrame->animUpdated = true;
-			}
-
-			LoadPartsControl();
-			cboPartNo->SetListIndex(0);
-
-
-			globalVars->OAMED = false;
-			oamEditor->UpdatePartUI();
-			//			oamEditor->currentFrames->GetStaticFrame()->theSprite->PreviewSprite.RefreshImage();
-			cboFrames->SetListIndex(0);
-			SendMessage(hWnd, WM_COMMAND, lstSelchange, 0);
-			InvalidateRect(*hwndSpritePreview, 0, 1);
-			InvalidateRect(*hwndAnimationSpritePreview, 0, 1);
-			InvalidateRect(*hwndPal, 0, 1);
-			break;
+			break;		
 		case cmdSave:
 			offset = GetCurrentFrameTable();
 			oamEditor->Save(SaveOptions::OFFSET, (char*)&offset);

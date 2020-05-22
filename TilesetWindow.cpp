@@ -34,7 +34,6 @@ LRESULT CALLBACK TilesetProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 	PAINTSTRUCT ps;
 	HDC hdc;
 	RECT coord;
-	int i = 0;
 	GetWindowRect(UiState::stateManager->GetTilesetWindow(), &coord);
 	TileCurs.X = GetX(lParam);
 	TileCurs.Y = GetY(lParam);
@@ -80,10 +79,7 @@ LRESULT CALLBACK TilesetProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 			if (RefreshTileset()) {
 				if (RD1Engine::theGame&&RD1Engine::theGame->mainRoom&&RD1Engine::theGame->mainRoom->mapMgr)
 				{
-					RD1Engine::theGame->DrawStatus.dirty = true;
-					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-					InvalidateRect(UiState::stateManager->GetTilesetWindow(), 0, 1);
-					InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
+					UiState::stateManager->ForceRedraw();
 				}
 			}
 		}

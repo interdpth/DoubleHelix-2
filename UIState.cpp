@@ -299,6 +299,7 @@ void UiState::ResizeMap(HWND srcNeighbor)
 	RECT viewRect;
 	memset(&viewRect, 0, sizeof(RECT));
 	HWND hWnd = this->GetMapWindow();
+	
 	int width = 16 * 4;
 	int  height = 16 * 4;;
 	if (RD1Engine::theGame==NULL|| RD1Engine::theGame->mainRoom->mapMgr == NULL) return;
@@ -306,7 +307,12 @@ void UiState::ResizeMap(HWND srcNeighbor)
 	RECT srcCoords;
 	GetWindowRect(srcNeighbor, &srcCoords);
 
-	GetWindowRect(hWnd, &viewRect);
+	
+
+	if (hWnd == NULL)
+	{
+		GetWindowRect(hWnd, &viewRect);
+	}
 
 
 	RECT toolsRect;
@@ -323,6 +329,12 @@ void UiState::ResizeMap(HWND srcNeighbor)
 	viewRect.left = toolsRect.right + 1-toolsRect.left + 8;
 	viewRect.right = tmpRect2.right - tmpRect.right-24;// mainRect.right - mainRect.left - toolsRect.right - toolsRect.left - 16;
 	viewRect.bottom = mainRect.bottom - mainRect.top-64;
+
+	if (viewRect.bottom - viewRect.top < toolsRect.bottom - toolsRect.top)
+	{
+		viewRect.bottom = toolsRect.bottom;
+	}
+
 	if (RD1Engine::theGame != NULL&&RD1Engine::theGame->mainRoom != NULL)
 	{
 		mgrMap = RD1Engine::theGame->mainRoom->mapMgr;
@@ -355,12 +367,12 @@ void UiState::ResizeMap(HWND srcNeighbor)
 		height = height > 4 * 16 ? height : 4 * 16;
 		if ((viewRect.right / 16) + MapHorizScroll->GetIndex() > width)
 		{
-			viewRect.right -= ((viewRect.right / 16) + MapHorizScroll->GetIndex() - width - 1) * 16;
+			viewRect.right -= ((viewRect.right / 16) + MapHorizScroll->GetIndex() - width) * 16;
 			viewRect.right >>= 4;
 			viewRect.right <<= 4;
 		}
 		if ((viewRect.bottom / 16) + MapVertScroll->GetIndex() > height) {
-			viewRect.bottom -= ((viewRect.bottom / 16) + MapVertScroll->GetIndex() - width - 1) * 16;
+			viewRect.bottom -= ((viewRect.bottom / 16) + MapVertScroll->GetIndex() - height) * 16;
 			viewRect.bottom >>= 4;
 			viewRect.bottom <<= 4;
 		}
@@ -393,14 +405,13 @@ void UiState::ResizeMap(HWND srcNeighbor)
 void UiState::ResizeTileset(HWND srcNeighbor)
 {
 	RECT viewRect;
-	HWND hWnd = this->GetTilesetWindow();
-	if (RD1Engine::theGame== NULL || RD1Engine::theGame->mainRoom == NULL) return;
-	MapManager* mgrMap = RD1Engine::theGame->mainRoom->mapMgr;
+	HWND hWnd2 = this->GetTilesetWindow();
+	
 	RECT srcCoords;
 	AutoRect(srcNeighbor, &srcCoords);
 
 
-	AutoRect(hWnd, &viewRect);
+	AutoRect(hTabControl, &viewRect);
 
 	RECT mainRect;
 
@@ -415,7 +426,7 @@ void UiState::ResizeTileset(HWND srcNeighbor)
 	viewRect.left = srcCoords.left;
 	// mainRect.right - toolsRect.right;
 	viewRect.bottom = 280;;;// -16;
-    MoveWindow(hWnd, 8, viewRect.top, viewRect.right, viewRect.bottom-16 , 0);
+    MoveWindow(hWnd2, 16, viewRect.top, viewRect.right, viewRect.bottom-16 , 0);
 }
 
 void UiState::MoveOrigin(HWND src, int x, int y, int width, int height, int refresh, RECT* origin)
@@ -427,6 +438,8 @@ void UiState::MoveOrigin(HWND src, int x, int y, int width, int height, int refr
 void UiState ::AutoRect(HWND src, RECT* tgt, bool zeroOut)
 {
 	GetWindowRect(src, tgt);
+
+
 	if (tgt->bottom > tgt->top)
 	{
 		tgt->bottom = abs(tgt->bottom - tgt->top);
@@ -450,4 +463,15 @@ void UiState::ResetCursor()
 	mpMap.Width = 1;
 	mpTileset.Width = mpMap.Width;
 	mpTileset.Height = mpMap.Height;
+}
+
+#define theTimer 2242443242
+//Trigger timers, then trigger redraw
+void UiState::ForceRedraw()
+{
+	if(RD1Engine::theGame!=NULL)RD1Engine::theGame->DrawStatus.dirty = true;
+	SendMessage(GetMapWindow(), WM_TIMER, theTimer + 1, 0);
+	InvalidateRect(GetMapWindow(), 0, false);
+	SendMessage(GetTilesetWindow(), WM_TIMER, theTimer, 0);
+	InvalidateRect(GetTilesetWindow(), 0, false);
 }

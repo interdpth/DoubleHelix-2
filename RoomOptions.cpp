@@ -30,7 +30,7 @@ void ResizeLayer(nMapBuffer* buffLayer, int newWidth, int newHeight) {
 	memset(buffLayer->TileBuf2D, 0, copysize);
 	memcpy(roombuff, buffLayer->TileBuf2D, copysize);
 	delete[]roombuff;
-	RD1Engine::theGame->SaveLevel(-1);
+	RD1Engine::theGame->SaveLevel();
 }
 
 //Windows procedure for this window
@@ -177,12 +177,12 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 		case cmdCLevel:
 			ClearLayer(buffLevel, -1);
 
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+			UiState::stateManager->ForceRedraw();
 			break;
 		case cmdCBack:
 			ClearLayer(buffBackLayer, 0);
 
-			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, 0);
+			UiState::stateManager->ForceRedraw();
 			break;
 		case cmdCClip:
 

@@ -7,7 +7,7 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include  <windows.h>
+#include "afxres.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -18,9 +18,7 @@
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#ifndef IDC_STATIC
-#define IDC_STATIC				-1
-#endif
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Dialog
@@ -357,43 +355,53 @@ BEGIN
     PUSHBUTTON      "Set Sprite",cmdSetSprite,139,126,48,13
 END
 
-frmOAM DIALOGEX 0, 0, 357, 381
+frmOAM DIALOGEX 0, 0, 443, 381
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Sprite Editor"
 MENU IDR_MENU2
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    GROUPBOX        "Tiles Preview",fraTiles,140,180,185,177
-    GROUPBOX        "Palette Preview",fraPal,140,142,201,32
-    GROUPBOX        "Sprite Preview",fraSprPreview,135,15,110,123
-    GROUPBOX        "Part Editor",fraParts,7,141,128,180
-    COMBOBOX        cboParts,69,154,37,94,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Part:",IDC_STATIC,15,154,17,9
-    LTEXT           "Base Pal:",IDC_STATIC,15,182,36,8
-    COMBOBOX        cboBPal,69,178,30,57,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Flip:",IDC_STATIC,15,287,15,9
-    LTEXT           "Shape:",IDC_STATIC,15,253,24,10
-    COMBOBOX        cboShape,69,250,61,102,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Size:",IDC_STATIC,15,270,17,11
-    COMBOBOX        cboSize,69,269,61,109,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    GROUPBOX        "Animation Preview",fraSprAnimPreview,249,15,95,123
-    COMBOBOX        cboX,69,213,35,124,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        cboY,69,229,40,137,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "XPos",IDC_STATIC,15,218,18,8
-    LTEXT           "YPos",IDC_STATIC,15,234,18,8
-    COMBOBOX        cboPriority,69,194,30,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "BG Priority",IDC_STATIC,15,198,34,8
-    CONTROL         "Horizontal",chkHorz2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,69,285,48,14
-    CONTROL         "Vertical",chkVert2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,69,298,48,14
-    COMBOBOX        cboSpriteChoice,15,33,30,137,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Current Sprite",IDC_STATIC,15,21,44,8
-    COMBOBOX        cboPriority3,15,71,30,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Current Secondaries",IDC_STATIC,16,58,65,8
-    PUSHBUTTON      "Save",IDC_BUTTON1,17,123,50,14
-    PUSHBUTTON      "Add secondary",IDC_BUTTON2,16,89,56,14
-    PUSHBUTTON      "Delete Secondary",IDC_BUTTON4,16,107,71,10
-    GROUPBOX        "Secondary Display",IDC_STATIC,7,48,93,72
-    CONTROL         "Secondary ",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,64,33,52,10
+    GROUPBOX        "Tiles Preview",fraTiles,7,197,185,166
+    GROUPBOX        "Palette Preview",fraPal,193,237,201,55
+    GROUPBOX        "Sprite Preview",fraSprPreview,106,73,110,123
+    GROUPBOX        "Part Editor",fraParts,220,92,208,87
+    COMBOBOX        cboParts,281,76,37,94,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Part:",IDC_STATIC,227,76,17,9
+    LTEXT           "Base Pal:",IDC_STATIC,227,104,36,8
+    COMBOBOX        cboBPal,281,100,30,57,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Flip:",IDC_STATIC,330,135,15,9
+    LTEXT           "Shape:",IDC_STATIC,330,101,24,10
+    COMBOBOX        cboShape,378,98,45,102,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Size:",IDC_STATIC,330,119,17,11
+    COMBOBOX        cboSize,378,117,48,109,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Animation Preview",fraSprAnimPreview,7,73,95,123
+    COMBOBOX        cboX,281,135,35,124,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cboY,281,151,40,137,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "XPos",IDC_STATIC,227,140,18,8
+    LTEXT           "YPos",IDC_STATIC,227,156,18,8
+    COMBOBOX        cboPriority,281,116,30,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "BG Priority",IDC_STATIC,227,120,34,8
+    CONTROL         "Horizontal",chkHorz2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,377,133,48,14
+    CONTROL         "Vertical",chkVert2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,377,146,48,14
+    COMBOBOX        cboSpriteChoice,10,26,30,137,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Current Sprite",IDC_STATIC,7,14,44,8
+    PUSHBUTTON      "Save",cmdSave,356,23,50,14
+    GROUPBOX        "Frame Offset",IDC_STATIC,59,15,123,46
+    PUSHBUTTON      "Go to Offset",cmdGTO,67,42,62,17
+    GROUPBOX        "Frame info",fraFrame,187,15,166,54
+    LTEXT           "Frame:",IDC_STATIC,194,26,22,8
+    COMBOBOX        cboFrameIndex,223,23,27,166,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Frame Pointer:",IDC_STATIC,193,39,48,12
+    EDITTEXT        txtFPOff,193,51,50,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Save Frame Data",cmdSFD,268,23,62,11,WS_DISABLED
+    PUSHBUTTON      "Save",cmdSave2,125,23,50,14
+    COMBOBOX        cboFrameTableCombo,69,26,48,120,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Timer:",IDC_STATIC,255,40,24,9
+    EDITTEXT        txtFrameTimer,253,52,50,12,ES_AUTOHSCROLL
+    PUSHBUTTON      " Load GFX",btnLoadGFX1,206,218,50,14
+    EDITTEXT        txtCCurGfx,206,203,50,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Load Pal",btnLoadPal,262,218,50,14
+    EDITTEXT        txtCurPal,265,203,43,12,ES_AUTOHSCROLL
 END
 
 frmClipboard DIALOG 0, 0, 307, 202
@@ -596,42 +604,44 @@ BEGIN
     CONTROL         "",tabMain,"SysTabControl32",0x0,7,11,235,163
 END
 
-frmSamusEditor DIALOGEX 0, 0, 495, 250
+frmSamusEditor DIALOGEX 0, 0, 407, 218
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Samus Graphics"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    COMBOBOX        cboPoseitem,160,72,48,137,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Pose",IDC_STATIC,134,74,16,8
-    COMBOBOX        IDC_COMBO6,146,18,48,40,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Cur Frame",IDC_STATIC,102,20,34,8
-    GROUPBOX        "Graphics",IDC_STATIC,20,126,188,104
-    COMBOBOX        IDC_COMBO7,272,18,48,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Direction",IDC_STATIC,228,21,29,8
-    GROUPBOX        "Suit Status",IDC_STATIC,297,95,62,104
-    CONTROL         "Check2",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,305,110,39,12
-    CONTROL         "Check2",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,304,122,39,10
-    CONTROL         "Check2",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,306,131,39,10
-    CONTROL         "Check2",IDC_CHECK5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,307,143,39,10
-    CONTROL         "Check2",IDC_CHECK6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,308,155,39,12
-    CONTROL         "Check2",IDC_CHECK7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,306,166,39,10
-    CONTROL         "Check2",IDC_CHECK8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,308,176,39,10
-    CONTROL         "Check2",IDC_CHECK9,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,310,187,39,10
-    COMBOBOX        IDC_COMBO8,383,17,48,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Event",IDC_STATIC,339,21,20,8
-    LTEXT           "Status",IDC_STATIC,36,97,149,8
-    CONTROL         "Holding Missiles",IDC_CHECK10,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,315,53,62,12
-    COMBOBOX        IDC_COMBO9,150,35,48,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Absorb X Timer",IDC_STATIC,85,38,49,8
-    GROUPBOX        "BEam Status",IDC_STATIC,388,92,62,104
-    CONTROL         "Check2",IDC_CHECK11,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,396,107,39,12
-    CONTROL         "Check2",IDC_CHECK12,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,395,119,39,10
-    CONTROL         "Check2",IDC_CHECK13,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,397,128,39,10
-    CONTROL         "Check2",IDC_CHECK14,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,398,140,39,10
-    CONTROL         "Check2",IDC_CHECK15,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,399,152,39,12
-    CONTROL         "Check2",IDC_CHECK16,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,397,163,39,10
-    CONTROL         "Check2",IDC_CHECK17,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,399,173,39,10
-    CONTROL         "Check2",IDC_CHECK18,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,401,184,39,10
+    COMBOBOX        cboPoseitem,261,16,48,137,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Pose",IDC_STATIC,233,16,16,8
+    COMBOBOX        IDC_COMBO6,349,17,48,40,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Cur Frame",IDC_STATIC,313,17,34,8
+    GROUPBOX        "Graphics",IDC_STATIC,7,100,224,112
+    GROUPBOX        "Suit Status",IDC_STATIC,233,106,67,104
+    CONTROL         "Hi-Jump",chkHiJump,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,240,121,39,12
+    CONTROL         "Speed Booster",chkSpeedBooster,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,240,133,56,10
+    CONTROL         "Space Jump",chkSpaceJump,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,240,142,54,10
+    CONTROL         "Screw Attack",chkScrewAttack,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,240,154,58,10
+    CONTROL         "Varia",chkVaria,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,240,166,39,12
+    CONTROL         "Gravity",chkGravity,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,240,177,39,10
+    CONTROL         "Morph Ball",chkMorphball,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,240,187,49,10
+    CONTROL         "Sa-x Suit",chkSaxSuit,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,240,198,45,10
+    COMBOBOX        IDC_COMBO8,349,34,48,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Event",IDC_STATIC,323,36,20,8
+    CONTROL         "Holding Missiles",chkHoldMissiles,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,237,41,62,16
+    COMBOBOX        IDC_COMBO9,239,78,48,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Absorb X Timer",IDC_STATIC,237,67,49,8
+    GROUPBOX        "Beam Status",IDC_STATIC,315,52,84,52
+    CONTROL         "Wide",chkWide,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,361,60,31,12
+    CONTROL         "Charge",chkCharge,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,61,39,10
+    CONTROL         "Plasma",chkPlasma,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,75,38,10
+    CONTROL         "Face Right",chkFaceRight,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,237,56,50,10
+    CONTROL         "Wave",chkWave,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,359,75,35,10
+    GROUPBOX        "Missile Status",IDC_STATIC,315,116,84,95
+    CONTROL         "Power Bombs",chkPBs,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,326,191,64,12
+    CONTROL         "Bombs",chkBombs,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,326,180,37,10
+    CONTROL         "Ice",chkIce,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,340,88,26,10
+    CONTROL         "Super Missiles",chkSuperMissiles,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,326,152,62,12
+    CONTROL         "Missiles",chkMissil,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,326,128,39,10
+    CONTROL         "Ice",chkIceMissiles,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,326,140,26,10
+    CONTROL         "Diffusion",chkDiffusionMissiles,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,326,166,44,10
 END
 
 IDFRAMESTUFFDLG DIALOGEX 0, 0, 401, 170
@@ -788,7 +798,7 @@ BEGIN
     frmOAM, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 350
+        RIGHTMARGIN, 436
         TOPMARGIN, 7
         BOTTOMMARGIN, 374
     END
@@ -876,9 +886,9 @@ BEGIN
     frmSamusEditor, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 488
+        RIGHTMARGIN, 400
         TOPMARGIN, 7
-        BOTTOMMARGIN, 243
+        BOTTOMMARGIN, 211
     END
 
     IDFRAMESTUFFDLG, DIALOG
