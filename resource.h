@@ -78,6 +78,7 @@
 #define cboSYP                          1009
 #define vsbMap                          1010
 #define cmdSave                         1015
+#define cmdSave2                        1016
 #define fraTileset                      1017
 #define chkForeground                   1018
 #define chkLevel                        1019
@@ -372,25 +373,48 @@
 #define IDC_TAB1                        1295
 #define tabMain                         1295
 #define IDC_CHECK2                      1297
+#define chkHiJump                       1297
 #define IDC_CHECK3                      1298
+#define chkSpeedBooster                 1298
 #define IDC_CHECK4                      1299
+#define chkSpaceJump                    1299
 #define IDC_CHECK5                      1300
+#define chkScrewAttack                  1300
 #define IDC_CHECK6                      1301
+#define chkVaria                        1301
 #define IDC_CHECK7                      1302
+#define chkGravity                      1302
 #define IDC_CHECK8                      1303
+#define chkMorphball                    1303
 #define IDC_CHECK9                      1304
+#define chkSaxSuit                      1304
 #define IDC_CHECK10                     1305
+#define chkHoldMissiles                 1305
 #define cboPoseitem                     1306
 #define chkAnimates                     1307
 #define IDC_CHECK1                      1309
+#define chkFaceRight                    1309
+#define btnLoadPal                      1310
 #define IDC_CHECK11                     1314
+#define chkWide                         1314
 #define IDC_CHECK12                     1315
+#define chkCharge                       1315
 #define IDC_CHECK13                     1316
+#define chkPlasma                       1316
 #define IDC_CHECK14                     1317
+#define chkWave                         1317
 #define IDC_CHECK15                     1318
 #define IDC_CHECK16                     1319
+#define chkPBs                          1319
 #define IDC_CHECK17                     1320
+#define chkBombs                        1320
 #define IDC_CHECK18                     1321
+#define chkIce                          1323
+#define chkSuperMissiles                1324
+#define chkMissile                      1325
+#define chkMissil                       1325
+#define chkIceMissiles                  1326
+#define chkDiffusionMissiles            1327
 #define DoorID                          9000
 #define mnuOpen                         40001
 #define mnuRR                           40003
@@ -465,6 +489,7 @@
 #define ID_PARTOPTIONS_COPYPART         40075
 #define ID_PARTOPTIONS_ADDPART          40076
 #define ID_PARTOPTIONS_DELETEPART       40077
+#define IDC_STATIC                      -1
 
 // Next default values for new objects
 // 
@@ -472,7 +497,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        166
 #define _APS_NEXT_COMMAND_VALUE         40078
-#define _APS_NEXT_CONTROL_VALUE         1310
+#define _APS_NEXT_CONTROL_VALUE         1311
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
