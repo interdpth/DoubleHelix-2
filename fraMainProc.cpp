@@ -139,7 +139,6 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 		}
 		break;
 	case chkSprites:
-	case ID_MAP_SHOWSPRITES:
 		DisableByState(&GlobalVars::gblVars->chkEditSprites);
 		someval = GlobalVars::gblVars->chkEditSprites.value();
 		RD1Engine::theGame->mainRoom->mapMgr->GetState()->SetState(someval == 1 ? editingStates::SPRITE : editingStates::MAP);

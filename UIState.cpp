@@ -166,7 +166,7 @@ void UiState::UpdateMapObjectWindow()
 		return;
 	}
 	char *buffer = new char[1000];
-	sprintf(buffer, "%02X", RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[comboSpriteSet.GetListIndex()].Max());
+	sprintf(buffer, "%02X", RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[comboSpriteSet.GetListIndex()].size());
 	SetWindowText(GetDlgItem(MapDataWIn, lblSpriteObjectCount), buffer);
 	sprintf(buffer, "%02X", RD1Engine::theGame->mgrScrolls->GetScrollInfo()->Scrolls.size());
 	SetWindowText(GetDlgItem(MapDataWIn, lblCurLabelCount), buffer);

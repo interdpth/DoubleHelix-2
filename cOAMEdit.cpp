@@ -127,7 +127,7 @@ int cOAMEdit::UpdatePartUI(bool updateSizes) {
 
 	int hflip = 0;
 	int vflip = 0;
-
+	
 	int thispart = cboPartNo.GetListIndex();
 	const unsigned char objSizes[3][4][2] =
 	{
@@ -141,22 +141,24 @@ int cOAMEdit::UpdatePartUI(bool updateSizes) {
 		thispart = 0;
 	}
 	Frame* thisOAM = currentFrames->GetStaticFrame();
+	thisOAM->theSprite->IsEdited = true;
 	//Fill it out
-	cboPal.SetListIndex(thisOAM->theSprite->OAM[thispart].deOAM.Palette);
-	VChk.value(thisOAM->theSprite->OAM[thispart].deOAM.VerticalFlip);
-	HChk.value(thisOAM->theSprite->OAM[thispart].deOAM.HorizontalFlip);
-	cboShapes.SetListIndex(thisOAM->theSprite->OAM[thispart].deOAM.ObjShape);
+	OverAllOAM* oam = &thisOAM->theSprite->OAM[thispart];
+	cboPal.SetListIndex(oam->deOAM.Palette);
+	VChk.value(oam->deOAM.VerticalFlip);
+	HChk.value(oam->deOAM.HorizontalFlip);
+	cboShapes.SetListIndex(oam->deOAM.ObjShape);
 
 	if (updateSizes)
 	{
 		UpdateSize();
-		cboSizes.SetListIndex(thisOAM->theSprite->OAM[thispart].deOAM.ObjSize);
+		cboSizes.SetListIndex(oam->deOAM.ObjSize);
 	}
 
-	int    	sx = (thisOAM->theSprite->OAM[thispart].enOAM.OAM1 & 511);
-	sx = thisOAM->theSprite->OAM[thispart].deOAM.xCoord = sx;
-	int 	sy = (thisOAM->theSprite->OAM[thispart].enOAM.OAM0 & 255);
-	sy = thisOAM->theSprite->OAM[thispart].deOAM.yCoord = sy;
+	int    	sx = (oam->enOAM.OAM1 & 511);
+	sx = oam->deOAM.xCoord = sx;
+	int 	sy = (oam->enOAM.OAM0 & 255);
+	sy = oam->deOAM.yCoord = sy;
 
 	cboXPos.SetListIndex(sx);
 	cboYPos.SetListIndex(sy);
@@ -169,25 +171,23 @@ int cOAMEdit::UpdatePartUI(bool updateSizes) {
 	//sy = sy + 16;
 	//Set up the basic tile
 
-	thisOAM->theSprite->OAM[thispart].resolvedX = sx;
+	oam->resolvedX = sx;
 
-	thisOAM->theSprite->OAM[thispart].resolvedX = sy;
+	oam->resolvedX = sy;
 
-
-
-	sprintf(labelText, "Tile: %X", thisOAM->theSprite->OAM[thispart].deOAM.TileNumber);
+	sprintf(labelText, "Tile: %X", oam->deOAM.TileNumber);
 	SetWindowText(GetDlgItem(_oamWindow, lblTileNumber), labelText);
-	cboPal.SetListIndex(((thisOAM->theSprite->OAM[thispart].enOAM.OAM2 & 0xF000)) / 0x1000);
+	cboPal.SetListIndex(((oam->enOAM.OAM2 & 0xF000)) / 0x1000);
 
 	HChk.value(0);
-	if (thisOAM->theSprite->OAM[thispart].enOAM.OAM1 & 0x1000) //XFLIP
+	if (oam->enOAM.OAM1 & 0x1000) //XFLIP
 		HChk.value(1);
 
 	VChk.value(0);
-	if (thisOAM->theSprite->OAM[thispart].enOAM.OAM1 & 0x2000) //YFLIP
+	if (oam->enOAM.OAM1 & 0x2000) //YFLIP
 		VChk.value(1);
-	int width = thisOAM->theSprite->OAM[thispart].enOAM.OAM0 >> 14;
-	int height = thisOAM->theSprite->OAM[thispart].enOAM.OAM1 >> 14;
+	int width = oam->enOAM.OAM0 >> 14;
+	int height = oam->enOAM.OAM1 >> 14;
 	hflip = (HChk.value() ? (objSizes[width][height][0]) - 1 : 0);
 	vflip = (VChk.value() ? (objSizes[width][height][1]) - 1 : 0);
 	rPart.left = ((sx / 8) ^ (hflip / 8)) * 8;
@@ -347,12 +347,7 @@ unsigned long cOAMEdit::Save(SaveOptions savetype, char* variableThing) {
 			int size = 2 + tmpFrame->theSprite->maxparts * 3 + 16;
 			tmpFrame->frameOffset = GBA.FindFreeSpace(size, 0xFF);
 		}
-		RD1Engine::theGame->mgrOAM->SaveSprite(savetype, tmpFrame->theSprite, tmpFrame->frameOffset);
-		
-
-
-
-
+		RD1Engine::theGame->mgrOAM->SaveSprite(savetype, tmpFrame->theSprite, tmpFrame->frameOffset);		
 	}
 
 	if (savetype == SaveOptions::OFFSET)

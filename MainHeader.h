@@ -29,7 +29,7 @@
 #include "IPSPatch.h"
 #include "UIState.h"
 //using namespace std;
-int DoScroll(LPARAM lParam);
+
 int EditLayers(WPARAM wParam,LPARAM lParam);
 
 

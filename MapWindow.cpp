@@ -215,7 +215,6 @@ void HandleMouseUpDown(int actualX, int actualY, HWND hWnd, unsigned int message
 //Update the sprites
 bool UpdateSprites()
 {
-
 	bool updateWindow = false;
 	if (!RD1Engine::theGame)
 	{

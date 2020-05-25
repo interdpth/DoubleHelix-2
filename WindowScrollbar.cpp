@@ -15,7 +15,7 @@ WindowScrollbar::~WindowScrollbar()
 {
 }
 
-int WindowScrollbar::GetMax()
+int WindowScrollbar::Getsize()
 {
 	return _max;
 }
@@ -123,7 +123,7 @@ void WindowScrollbar::UpdateScroll( WPARAM how)
 	// get cur/max scroll
 	
 		curscroll = GetIndex();
-		maxscroll = GetMax();
+		maxscroll = Getsize();
 	
 
 

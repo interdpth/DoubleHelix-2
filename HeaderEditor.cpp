@@ -278,7 +278,7 @@ int LoadHeaderControls() {
 		EnableWindow(cEC.GetHwnd(), 1);
 	case 0:
 		cEC.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bEventSwitch);
-		sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Max());
+		sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].size());
 		SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
 		cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bSpriteIndex1);
 		sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer);
@@ -290,7 +290,7 @@ int LoadHeaderControls() {
 		cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bSpriteIndex2);
 		sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer2);
 		SetWindowText(GetDlgItem(hwndHeader, txtSOffset), itembuf);
-		sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Max());
+		sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].size());
 		SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
 		break;
 	case 2:
@@ -299,7 +299,7 @@ int LoadHeaderControls() {
 		cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bSpriteIndex3);
 		sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer3);
 		SetWindowText(GetDlgItem(hwndHeader, txtSOffset), itembuf);
-		sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2].Max());
+		sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2].size());
 		SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
 		break;
 	}
@@ -318,22 +318,22 @@ int ChangeSprites() {
 	int sprites = 0;
 
 	unsigned long* offsets[3] = { &RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer,&RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer2,&RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer3 };
-	nEnemyList* cursz[3] = { &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0], &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1], &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2] };
+	vector<nEnemies>* cursz[3] = { &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0], &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1], &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2] };
 
 
 	memcpy(procstring, blah, 1024);
-	sprites = LoadInput(cursz[set]->Max());
+	sprites = LoadInput(cursz[set]->size());
 	//We now have how many 
 	if (sprites < 0) sprites = 0;
 	if (sprites > 16)sprites = 16;
 	//Then see if sprites is bigger then current sets max
 
-	if (sprites > (cursz[set]->Max()))//Bigger let's find some space
+	if (sprites > (cursz[set]->size()))//Bigger let's find some space
 		*offsets[set] = GBA.FindFreeSpace(sprites * 3 + 32, 0xFF) + 0x8000000;//Find more than enough free bytes
 
 	MemFile::currentFile->seek(*offsets[set] - 0x8000000);
-	for (i = 0; i < cursz[set]->Max(); i++)
-		MemFile::currentFile->fwrite(&cursz[set]->Enemies[i], 3, 1);
+	for (i = 0; i < cursz[set]->size(); i++)
+		MemFile::currentFile->fwrite(&cursz[set]->at(i), 3, 1);
 
 
 	//Put 3 bytes to say we're done
@@ -384,7 +384,7 @@ int SaveHeader(unsigned char call) {
 			EnableWindow(cEC.GetHwnd(), 1);
 		case 0:
 			cEC.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bEventSwitch);
-			sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].Max());
+			sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0].size());
 			SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
 			cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bSpriteIndex1);
 			sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer);
@@ -396,7 +396,7 @@ int SaveHeader(unsigned char call) {
 			cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bSpriteIndex2);
 			sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer2);
 			SetWindowText(GetDlgItem(hwndHeader, txtSOffset), itembuf);
-			sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].Max());
+			sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1].size());
 			SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
 			break;
 		case 2:
@@ -405,7 +405,7 @@ int SaveHeader(unsigned char call) {
 			cSG.SetListIndex(RD1Engine::theGame->mainRoom->roomHeader->bSpriteIndex3);
 			sprintf(itembuf, "%X", RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer3);
 			SetWindowText(GetDlgItem(hwndHeader, txtSOffset), itembuf);
-			sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2].Max());
+			sprintf(itembuf, "Spriteset %X has %X number of sprites", comboSpriteSetHeader.GetListIndex(), RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2].size());
 			SetWindowText(GetDlgItem(hwndHeader, lblNumber), itembuf);
 			break;
 		}

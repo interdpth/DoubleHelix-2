@@ -4,7 +4,7 @@ void LoadScrollInfo(int s, Scroller *scroll);
 
 MapUtils::MapUtils(MapManager*  mgr)
 {
-	
+
 }
 
 
@@ -28,14 +28,14 @@ void MapUtils::HandleRightClick(editingStates thisState, int mouseX, int mouseY,
 			int doornum = RD1Engine::theGame->mgrDoors->GetDoor(RD1Engine::theGame->mainRoom->Room, mouseX, mouseY);
 			_mapMgr->GetState()->SetObjId(doornum);
 			if (td != -1) {
-				UiState::stateManager->ShowObj();
+
 				RD1Engine::theGame->mgrDoors->LoadThisDoor(doornum);
 				UiState::stateManager->ShowObj();
 				return;
 			}
 		}
 		else if (thisState == editingStates::SPRITE) {
-			int spriteno = Gimmeasprite(mouseX,mouseY, objlist);
+			int spriteno = Gimmeasprite(mouseX, mouseY, objlist);
 			_mapMgr->GetState()->SetObjId(spriteno);
 			SpriteTabIndex = spriteno;
 			UiState::stateManager->ShowObj();
@@ -62,8 +62,7 @@ void MapUtils::HandleLeftClick(editingStates thisState, int mouseX, int mouseY, 
 	_mapMgr = RD1Engine::theGame->mainRoom->mapMgr;
 	if (thisState == editingStates::SPRITE) {
 		int spriteno = Gimmeasprite(mouseX, mouseY, spritelistindex);
-		_mapMgr->GetState()->SetObjId(spriteno);
-		_mapMgr->GetState()->SetAction(editingActions::MOVE);
+		_mapMgr->GetState()->SetAction(spriteno, editingActions::MOVE);
 	}
 	else if (thisState == editingStates::DOOR)
 	{
@@ -72,8 +71,7 @@ void MapUtils::HandleLeftClick(editingStates thisState, int mouseX, int mouseY, 
 			int doornum = RD1Engine::theGame->mgrDoors->GetDoor(RD1Engine::theGame->mainRoom->Room, mouseX, mouseY);
 			if (doornum != -1)
 			{
-				_mapMgr->GetState()->SetObjId(RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[doornum]);
-				_mapMgr->GetState()->SetAction(editingActions::MOVE);
+				_mapMgr->GetState()->SetAction(RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[doornum], editingActions::MOVE);
 
 			}
 		}
@@ -85,8 +83,7 @@ void MapUtils::HandleLeftClick(editingStates thisState, int mouseX, int mouseY, 
 			int scrollid = RD1Engine::theGame->mgrScrolls->Findmeascroll(mouseX, mouseY, cboScroll.GetListIndex());
 			if (scrollid != 0xffffffff)
 			{
-				_mapMgr->GetState()->SetObjId(scrollid);
-				_mapMgr->GetState()->SetAction(editingActions::MOVE);
+				_mapMgr->GetState()->SetAction(scrollid, editingActions::MOVE);
 			}
 		}
 	}
@@ -104,57 +101,51 @@ int  MapUtils::Gimmeasprite(int X, int Y, int objlist)
 	int             y = 0;
 	int             width = 0;
 	int             height = 0;
-	nEnemyList *ThisEnemy = &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[objlist];
-	 //RD1Engine::theGame->mainRoom->mgrSpriteObjects->OverallSize;
-	for (i = 0; i < ThisEnemy->Max(); i++)
+	vector<nEnemies> *ThisEnemy = &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[objlist];
+	//RD1Engine::theGame->mainRoom->mgrSpriteObjects->OverallSize;
+	for (i = 0; i < ThisEnemy->size(); i++)
 	{
-		int index = (ThisEnemy->Enemies[i].Creature & 0xF) - 1;
-		std::vector<FrameManager*> mgr =RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites;
+		int index = (ThisEnemy->at(i).Creature & 0xF) - 1;
+		std::vector<FrameManager*> mgr = RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites;
 		RECT* thisOverall = &mgr.at(index)->theFrames[0]->theSprite->Borders;
-		width = thisOverall[(ThisEnemy->Enemies[i].Creature & 0xF) - 1].right - thisOverall[(ThisEnemy->Enemies[i].Creature & 0xF) - 1].left;
+		width = thisOverall[index].right - thisOverall[index].left;
+		height = thisOverall[index].bottom - thisOverall[index].top;
 
-		height = thisOverall[(ThisEnemy->Enemies[i].Creature & 0xF) - 1].bottom - thisOverall[(ThisEnemy->Enemies[i].Creature & 0xF) - 1].top;
-		x = ThisEnemy->Enemies[i].X;
-		y = ThisEnemy->Enemies[i].Y;
-
+		x = ThisEnemy->at(i).X;
+		y = ThisEnemy->at(i).Y;
 		
-			int SpriteX = x * 16;; //((Sprites->Enemies[i].X) - ((SpriteWidth/8)*8) / 16) * 16;
-			int SpriteY = y * 16;//(Sprites->Enemies[i].Y - ((SpriteHeight / 8) * 8) / 16) * 16;
-			PosModify* modifer = &RD1Engine::theGame->poseModifier[mgr.at(index)->theFrames[0]->theSprite->id];
+		int SpriteX = x * 16;; //((Sprites->at(i).X) - ((SpriteWidth/8)*8) / 16) * 16;
+		int SpriteY = y * 16;//(Sprites->at(i).Y - ((SpriteHeight / 8) * 8) / 16) * 16;
+		PosModify* modifer = &RD1Engine::theGame->poseModifier[mgr.at(index)->theFrames[0]->theSprite->id];
 
-			if (modifer)
-			{
-				SpriteX += modifer->x;
-				SpriteY += modifer->y;
-			}
-
-			
-				int adjustedXorigin = 0;
-				int adjustedYorigin = 0;
-				if (thisOverall->left < 0)
-				{
-					adjustedXorigin = 0 - thisOverall->left;
-				}
-
-				if (thisOverall->top < 0)
-				{
-					adjustedYorigin = 0 - thisOverall->top;
-
-				}
-			
-				
-					SpriteX = SpriteX - adjustedXorigin - 4;
-
-					SpriteY = SpriteY - adjustedYorigin + 4;
+		if (modifer)
+		{
+			SpriteX += modifer->x;
+			SpriteY += modifer->y;
+		}
 
 
-					x = SpriteX / 16;
-					y = SpriteY / 16;
+		int adjustedXorigin = 0;
+		int adjustedYorigin = 0;
+		if (thisOverall->left < 0)
+		{
+			adjustedXorigin = 0 - thisOverall->left;
+		}
+
+		if (thisOverall->top < 0)
+		{
+			adjustedYorigin = 0 - thisOverall->top;
+
+		}
 
 
-		
+		SpriteX = SpriteX - adjustedXorigin - 4;
+
+		SpriteY = SpriteY - adjustedYorigin + 4;
 
 
+		x = SpriteX / 16;
+		y = SpriteY / 16;
 
 		if (((x) <= X) &&
 			((x + width / 16) >= X) &&
@@ -299,12 +290,12 @@ int MapUtils::EditLayers(WPARAM wParam, LPARAM lParam) {
 	{
 		EditThisLayer(RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData), wParam, lParam, 1, Tile);
 	}
-	else			if (GlobalVars::gblVars->checkBoxBackground.value() == 1 || GlobalVars::gblVars->chkMC[2].value() == 1)
+	else if (GlobalVars::gblVars->checkBoxBackground.value() == 1 || GlobalVars::gblVars->chkMC[2].value() == 1)
 	{
 		EditThisLayer(RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer), wParam, lParam, 1, Tile);
 
 	}
-	else				if (GlobalVars::gblVars->checkBoxClip.value() == 1 || GlobalVars::gblVars->chkMC[3].value() == 1)
+	else if (GlobalVars::gblVars->checkBoxClip.value() == 1 || GlobalVars::gblVars->chkMC[3].value() == 1)
 	{
 		EditThisLayer(RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Clipdata), wParam, lParam, 0, cboClipData.GetListIndex());
 	}

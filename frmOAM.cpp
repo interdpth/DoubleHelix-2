@@ -204,14 +204,14 @@ BOOL CALLBACK	OAMProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		case theTimer:
 			//init
 			if (oamEditor->currentFrames != NULL) {
-				Frame* animatedFrame = oamEditor->currentFrames->GetAnimatedFrame();
+				/*Frame* animatedFrame = oamEditor->currentFrames->GetAnimatedFrame();
 				if (animatedFrame != NULL)
 				{
 					if (oamEditor->currentFrames->Animate())
 					{
 						InvalidateRect(*hwndAnimationSpritePreview, 0, 1);
 					}
-				}
+				}*/
 			}
 
 			break;
@@ -787,10 +787,7 @@ LRESULT CALLBACK OAMPartProc(HWND hWnd, unsigned int message, WPARAM wParam, LPA
 
 
 BOOL OAMDataProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
-
 {
-
-
 
 	cOAMEdit* oamEditor = cOAMEdit::OamEditor;
 	int i = 0;

@@ -12,7 +12,7 @@ public:
 	
 	WindowScrollbar(HWND hwnd, bool vertical);
 	~WindowScrollbar();
-	int GetMax();
+	int Getsize();
 	void SetMax(int max);
 	int GetIndex(); 
 	void SetIndex(int newindex);
