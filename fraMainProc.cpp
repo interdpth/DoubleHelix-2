@@ -32,6 +32,7 @@ void CheckZoom(int zoomid)
 	CheckMenuItem(mainMenu, zoomIDs[zoomid], MF_CHECKED);
 
 }
+
 void DisableByState(sChecks* chkToUse)
 {
 	int curval = chkToUse->value();

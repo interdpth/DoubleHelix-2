@@ -101,18 +101,18 @@ int  MapUtils::Gimmeasprite(int X, int Y, int objlist)
 	int             y = 0;
 	int             width = 0;
 	int             height = 0;
-	vector<nEnemies> *ThisEnemy = &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[objlist];
+	vector<ObjectSprite*> *ThisEnemy = &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[objlist];
 	//RD1Engine::theGame->mainRoom->mgrSpriteObjects->OverallSize;
 	for (i = 0; i < ThisEnemy->size(); i++)
 	{
-		int index = (ThisEnemy->at(i).Creature & 0xF) - 1;
+		int index = (ThisEnemy->at(i)->Creature & 0xF) - 1;
 		std::vector<FrameManager*> mgr = RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites;
 		RECT* thisOverall = &mgr.at(index)->theFrames[0]->theSprite->Borders;
 		width = thisOverall[index].right - thisOverall[index].left;
 		height = thisOverall[index].bottom - thisOverall[index].top;
 
-		x = ThisEnemy->at(i).X;
-		y = ThisEnemy->at(i).Y;
+		x = ThisEnemy->at(i)->XPosition();
+		y = ThisEnemy->at(i)->YPosition();
 		
 		int SpriteX = x * 16;; //((Sprites->at(i).X) - ((SpriteWidth/8)*8) / 16) * 16;
 		int SpriteY = y * 16;//(Sprites->at(i).Y - ((SpriteHeight / 8) * 8) / 16) * 16;
