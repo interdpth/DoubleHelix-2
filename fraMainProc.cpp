@@ -345,7 +345,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 			//	RoomBuff->UndoBuff->Set((RoomBuff->X*RoomBuff->Y) * 2, RoomBuff->TileBuf2D);*/
 			DoesaBridgeExist();
 			UserEnableConnections();
-			LoadScrollControls(RD1Engine::theGame->mgrScrolls->GetScrollInfo());
+			RD1Engine::theGame->mgrScrolls->LoadScrollControls();
 			UpdateHeaderControls();
 			DrawLevel();
 

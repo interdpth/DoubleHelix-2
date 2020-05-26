@@ -3,12 +3,9 @@
 #include "GlobalVars.h"
 #include "resource.h"
 #include "clsRoomScrolls.h"
-void LoadScrollControls(Scroller *scroll);
 
 BOOL CALLBACK ScrollWndProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
-	
-	scrollData blankData;
 	editingStates thisState = editingStates::MAP;
 	switch (message)
 	{
@@ -25,8 +22,8 @@ BOOL CALLBACK ScrollWndProc(HWND hwnd, unsigned int message, WPARAM wParam, LPAR
 	case WM_INITDIALOG:	// when dialog is first created
 		ScrollWIn = hwnd;
 
-		
-		
+
+
 		break;
 	case BN_CLICKED:
 
@@ -35,45 +32,37 @@ BOOL CALLBACK ScrollWndProc(HWND hwnd, unsigned int message, WPARAM wParam, LPAR
 
 		break;
 	case WM_COMMAND:
-	{	thisState= RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetState();
+	{
+		thisState = RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetState();
 
 		switch (LOWORD(wParam))
 		{
-		
 		case btnAddScroll:
-			memset(&blankData.rect, 0, sizeof(MousePointer));
-			blankData.rect.sX = 0;
-			blankData.rect.sY = 0;
-			blankData.rect.Height = 1;
-			blankData.rect.Width = 1;
-			blankData.unkData = 0xFFFFFFFF;
-			
-			RD1Engine::theGame->mgrScrolls->GetScrollInfo()->Scrolls.push_back(blankData);
-			RD1Engine::theGame->mgrScrolls->GetScrollInfo()->Number = RD1Engine::theGame->mgrScrolls->GetScrollInfo()->Scrolls.size();
-
-			LoadScrollControls(RD1Engine::theGame->mgrScrolls->GetScrollInfo());
+		{
+			ObjectScroll* tmp = new ObjectScroll();
+			tmp->unkData1 = 0xFFFF;
+			tmp->unkData2 = 0xFFFF;
+			RD1Engine::theGame->mgrScrolls->Scrolls.push_back(tmp);
+			RD1Engine::theGame->mgrScrolls->LoadScrollControls();
 			UiState::stateManager->ForceRedraw();
-				break;
+		}
+		break;
 		case btnDeleteScroll:
 			if (thisState == editingStates::SCROLL) {
 				int scrollid = RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetObjId();
 				if (scrollid != 0xffffffff)
 				{
-
-					RD1Engine::theGame->mgrScrolls->GetScrollInfo()->Scrolls.erase(RD1Engine::theGame->mgrScrolls->GetScrollInfo()->Scrolls.begin() + scrollid);
+					RD1Engine::theGame->mgrScrolls->Scrolls.erase(RD1Engine::theGame->mgrScrolls->Scrolls.begin() + scrollid);
+					RD1Engine::theGame->mgrScrolls->LoadScrollControls();
 				}
-			}
-			RD1Engine::theGame->mgrScrolls->GetScrollInfo()->Number = RD1Engine::theGame->mgrScrolls->GetScrollInfo()->Scrolls.size();
-			LoadScrollControls(RD1Engine::theGame->mgrScrolls->GetScrollInfo());
+			}		
+		
 			break;
 		}
 	}
-		break;
+	break;
 
 	case WM_VSCROLL:	// exact same idea, but V scroll instead of H scroll
-
-
-
 
 	case WM_MOVE:
 

@@ -18,7 +18,7 @@ int InitPosArray();
 int DrawThisScene(unsigned char Scene);
 
 int LoadData();
-int DrawScrolls(int ScrollToDraw, Scroller *scroll);
+int DrawScrolls(int ScrollToDraw);
 int SetupHeaderControls();
 int LoadHeaderControls();
 int ChangeSprites();

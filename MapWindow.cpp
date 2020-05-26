@@ -11,7 +11,6 @@ void CalculateMapScrolls(int width, int height);
 RECT toolsRect;
 extern HWND hTabControl;
 extern HANDLE handle_out;
-void LoadScrollInfo(int s, Scroller *scroll);
 BackBuffer bb;
 //Returns the cfurrent editable buffer.
 nMapBuffer* GetActiveBuffer() {
@@ -317,13 +316,10 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		break;
 	case WM_PAINT:
 	
-
-			hdc = BeginPaint(hWnd, &ps);
-		
-	        BitBlt(hdc, 0, 0, 8000, 8000, bb.DC(), 0, 0, SRCCOPY);
-		
-			EndPaint(hWnd, &ps);
-			ReleaseDC(hWnd, hdc);
+		hdc = BeginPaint(hWnd, &ps);		
+	    BitBlt(hdc, 0, 0, 4000, 4000, bb.DC(), 0, 0, SRCCOPY);
+		EndPaint(hWnd, &ps);
+		ReleaseDC(hWnd, hdc);
 		
 
 		break;

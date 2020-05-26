@@ -714,7 +714,7 @@ BOOL CALLBACK   DialogProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 				if (GlobalVars::gblVars->ScrollCheck.value())
 				{
 					hCurrentTab = tabs[3];
-					LoadScrollInfo(0, RD1Engine::theGame->mgrScrolls->GetScrollInfo());
+					RD1Engine::theGame->mgrScrolls->LoadScrollInfo(0);
 				}
 				else
 				{

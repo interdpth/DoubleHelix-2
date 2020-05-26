@@ -65,8 +65,6 @@ int DrawLevel() {
 extern sCombo cMusic;
 extern sCombo cmTileset;
 
-void LoadScrollInfo(int s, Scroller *scroll);
-void LoadScrollControls(Scroller *scroll);
 extern clsUIScroll scrMapV;
 extern clsUIScroll scrMapH;
 extern clsUIScroll scrTSV;
@@ -119,7 +117,6 @@ void OpenRom()
 		}
 		else if (GameConfiguration::LiteralCompare(ROMNAME, (char*)WarioLand::CodeName))
 		{
-
 			theTitle = SupportedTitles::titleWL;
 			sprintf(prefix, "%s", "WL");
 		}
@@ -196,7 +193,6 @@ void OpenRom()
 			{
 				comboArea.SetListIndex(DefArea);
 			}
-
 
 		}
 		else if (theTitle == SupportedTitles::titleMF)

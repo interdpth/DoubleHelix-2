@@ -1,6 +1,5 @@
 #include "MapUtils.h"
 
-void LoadScrollInfo(int s, Scroller *scroll);
 
 MapUtils::MapUtils(MapManager*  mgr)
 {
@@ -47,7 +46,7 @@ void MapUtils::HandleRightClick(editingStates thisState, int mouseX, int mouseY,
 
 
 				UiState::stateManager->ShowObj();
-				LoadScrollInfo(scrollid, RD1Engine::theGame->mgrScrolls->GetScrollInfo());
+				RD1Engine::theGame->mgrScrolls->LoadScrollInfo(scrollid);
 			}
 		}
 		//InvalidateRect(hWnd, 0, 1);
@@ -61,6 +60,22 @@ void MapUtils::HandleLeftClick(editingStates thisState, int mouseX, int mouseY, 
 {
 	if (RD1Engine::theGame->mainRoom->mapMgr == NULL) return;
 
+	//if (thisState == editingStates::SPRITE) 
+	//{
+	//	int spriteno = Gimmeasprite(mouseX, mouseY, spritelistindex);
+	//	_mapMgr->GetState()->SetAction(spriteno, editingActions::MOVE);
+	//}
+	//else if (thisState == editingStates::DOOR)
+	//{
+	//	if (RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetAction() != editingActions::MOVE)
+	//	{
+	//		int doornum = RD1Engine::theGame->mgrDoors->GetDoor(RD1Engine::theGame->mainRoom->Room, mouseX, mouseY);
+	//		if (doornum != -1)
+	//		{
+	//			_mapMgr->GetState()->SetAction(RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[doornum], editingActions::MOVE);
+	//		}
+	//	}
+	//}
 	if (thisState == editingStates::SPRITE) 
 	{
 		int spriteno = Gimmeasprite(mouseX, mouseY, spritelistindex);
