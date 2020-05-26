@@ -251,6 +251,8 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 	{
 		theRoom = RD1Engine::theGame->mainRoom;
 		mgrMap = theRoom->mapMgr;
+		delete utils;
+		utils = new MapUtils(mgrMap);
 	}
 	nMapBuffer* Layer;
 	PAINTSTRUCT ps;
@@ -386,8 +388,6 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		RD1Engine::theGame->DrawStatus.dirty = true;
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
 	}
-
-
 
 	break;
 	case WM_RBUTTONDBLCLK:

@@ -278,8 +278,7 @@ BEGIN
     LTEXT           "Scroll through the list on the right, when done click ok to choose your new sprite.",IDC_STATIC,13,23,118,25
     GROUPBOX        "Sprite",fraSpriteSS,16,49,106,87
     LTEXT           "Sprite: 0",lblSpriteblah,149,15,37,9
-    PUSHBUTTON      "OK",cmdSSOk,78,140,56,19
-    PUSHBUTTON      "Cancel",cmdSSCancel,13,141,60,19
+    PUSHBUTTON      "OK",cmdSSOk,149,130,56,13
     PUSHBUTTON      "Next",cmdNext,152,52,40,15
     PUSHBUTTON      "Previous",cmdPrev,152,28,43,15
     PUSHBUTTON      "Add Object",btnAddObject,151,79,50,14
@@ -776,7 +775,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 213
         TOPMARGIN, 7
-        BOTTOMMARGIN, 167
+        BOTTOMMARGIN, 150
     END
 
     fraStat, DIALOG

@@ -161,7 +161,7 @@ void UiState::ShowObjWindow(HWND AffectedHwnd, int x, int y, int OriginalWidth, 
 
 void UiState::UpdateMapObjectWindow()
 {
-	if (!RD1Engine::theGame->mainRoom->mapMgr->created)
+	if (RD1Engine::theGame->mainRoom->mapMgr ==NULL || !RD1Engine::theGame->mainRoom->mapMgr->created)
 	{
 		return;
 	}

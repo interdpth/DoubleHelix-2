@@ -14,7 +14,7 @@
     <ProjectGuid>{CF72C827-4139-46D4-A027-036E657C2E75}</ProjectGuid>
     <RootNamespace>DoubleHelix</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -27,6 +27,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
+    <UseDebugLibraries>true</UseDebugLibraries>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -45,18 +46,18 @@
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>..\grit\libgrit;C:\GLEW\lib\Release\Win32;..\grit\cldib;..\RD1Enginesource\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\grit\libgrit;C:\GLEW\lib\Release\Win32;..\grit\cldib;..\RD1Enginesource\Debug;$(LibraryPath);C:\Users\Endeavor3\Documents\GitHub\DynaRec\Debug</LibraryPath>
     <ExecutablePath>C:\GLEW\bin\Release\Win32;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>C:\GLEW\include\GL;..\grit\libgrit;..\grit\cldib;..\RD1Enginesource;..\RNA_UI;$(IncludePath)</IncludePath>
+    <IncludePath>C:\GLEW\include\GL;..\grit\libgrit;..\grit\cldib;..\RD1Enginesource;..\RNA_UI;$(IncludePath);C:\Users\Endeavor3\Documents\GitHub\DynaRec</IncludePath>
     <CodeAnalysisRuleSet>E:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\RD1Enginesource;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\GLEW\lib\Release\Win32;..\RD1Enginesource\Release;..\RD1Enginesource;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\RD1Enginesource;..\RNA_UI;$(IncludePath);C:\Users\Endeavor3\Documents\GitHub\DynaRec</IncludePath>
+    <LibraryPath>\Release;..\grit\libgrit;C:\GLEW\lib\Release\Win32;..\grit\cldib;..\RD1Enginesource\Release;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\Users\Endeavor3\Documents\GitHub\DoubleHelix 2\Release\;C:\Users\Endeavor3\Documents\GitHub\RD1Enginesource;C:\Users\Endeavor3\Documents\GitHub\DynaRec\Debug</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -66,12 +67,13 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader />
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <BrowseInformation>true</BrowseInformation>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
-      <EnablePREfast>true</EnablePREfast>
+      <EnablePREfast>false</EnablePREfast>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
@@ -92,17 +94,20 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader />
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <StringPooling>true</StringPooling>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <AdditionalOptions>winmm.lib %(AdditionalOptions)</AdditionalOptions>
@@ -113,7 +118,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>RD1Engine.lib;FreeImage.lib;opengl32.lib;Msimg32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>mRNA_UI.lib;RD1Engine.lib;FreeImage.lib;opengl32.lib;Msimg32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -130,7 +135,6 @@
     <ClCompile Include="cTED.cpp" />
     <ClCompile Include="cTSAEditorClass.cpp" />
     <ClCompile Include="Door Connections.cpp" />
-    <ClCompile Include="DynIO.cpp" />
     <ClCompile Include="frmDoor.cpp" />
     <ClCompile Include="frmMapData.cpp" />
     <ClCompile Include="frmRepoint.cpp" />
@@ -166,6 +170,7 @@
     <ClCompile Include="Translation.cpp" />
     <ClCompile Include="TSAEditor.cpp" />
     <ClCompile Include="UIState.cpp" />
+    <ClCompile Include="UI\HandleMenu.cpp" />
     <ClCompile Include="UndoBuffer.cpp" />
     <ClCompile Include="WindowScrollbar.cpp" />
   </ItemGroup>
@@ -181,13 +186,12 @@
     <ClInclude Include="Dec.h" />
     <ClInclude Include="DHProject.h" />
     <ClInclude Include="Door Connections.h" />
-    <ClInclude Include="DynIO.h" />
-    <ClInclude Include="ExpandAndRepointResource.h" />
     <ClInclude Include="fraMainProc.h" />
     <ClInclude Include="frmRepoint.h" />
     <ClInclude Include="GlobalFunctions.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="GlobalVars.h" />
+    <ClInclude Include="IObject.h" />
     <ClInclude Include="IPSPatch.h" />
     <ClInclude Include="MainHeader.h" />
     <ClInclude Include="MainWindow.h" />
@@ -217,6 +221,14 @@
   <ItemGroup>
     <Text Include="fusionSpritePositions.txt" />
     <Text Include="ZeroMissionSpritePositions.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DynaRec\DynaRec.vcxproj">
+      <Project>{74005785-e3da-45fa-ad37-37857b1e2777}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\MemFile\MemFile.vcxproj">
+      <Project>{37d2fab3-95a4-495e-851b-baa993fc25e2}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

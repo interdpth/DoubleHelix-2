@@ -2,12 +2,8 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="DHProject.cpp" />
-    <ClCompile Include="cSSE.cpp" />
-    <ClCompile Include="cStatEd.cpp" />
     <ClCompile Include="cTED.cpp" />
-    <ClCompile Include="cTSAEditorClass.cpp" />
     <ClCompile Include="Door Connections.cpp" />
-    <ClCompile Include="DynIO.cpp" />
     <ClCompile Include="globals.cpp" />
     <ClCompile Include="GlobalVars.cpp" />
     <ClCompile Include="HeaderEditor.cpp" />
@@ -59,30 +55,40 @@
     <ClCompile Include="fraMainProc.cpp" />
     <ClCompile Include="TSAEditor.cpp" />
     <ClCompile Include="MapWindow.cpp" />
-    <ClCompile Include="frmSamusEditor.cpp" />
     <ClCompile Include="SamusEditorClass.cpp" />
     <ClCompile Include="AppData.cpp" />
     <ClCompile Include="WindowScrollbar.cpp" />
-    <ClCompile Include="clsScroll.cpp" />
     <ClCompile Include="MapUtils.cpp" />
     <ClCompile Include="SpriteSelector.cpp" />
     <ClCompile Include="SpriteSetEditor.cpp" />
-    <ClCompile Include="cOAMEdit.cpp" />
     <ClCompile Include="frmOAM.cpp">
       <Filter>Editor\Dialogs</Filter>
     </ClCompile>
     <ClCompile Include="OAMWinProcedureInit.cpp" />
+    <ClCompile Include="UI\HandleMenu.cpp" />
+    <ClCompile Include="cStatEd.cpp" />
+    <ClCompile Include="clsScroll.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="cOAMEdit.cpp">
+      <Filter>Editor\DialogClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="cSSE.cpp">
+      <Filter>Editor\DialogClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="cTSAEditorClass.cpp" />
+    <ClCompile Include="frmSamusEditor.cpp">
+      <Filter>SamusEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="IObject.cpp">
+      <Filter>Editor\Interfaces</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cSSE.h" />
-    <ClInclude Include="cStatEd.h" />
     <ClInclude Include="cTextEditor.h" />
-    <ClInclude Include="cTSAEditorClass.h" />
     <ClInclude Include="Dec.h" />
     <ClInclude Include="DHProject.h" />
     <ClInclude Include="Door Connections.h" />
-    <ClInclude Include="DynIO.h" />
-    <ClInclude Include="ExpandAndRepointResource.h" />
     <ClInclude Include="GlobalFunctions.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="GlobalVars.h" />
@@ -107,10 +113,22 @@
     <ClInclude Include="SamusEditorClass.h" />
     <ClInclude Include="AppData.h" />
     <ClInclude Include="WindowScrollbar.h" />
-    <ClInclude Include="clsScroll.h" />
     <ClInclude Include="MapUtils.h" />
     <ClInclude Include="MinimapClass.h" />
-    <ClInclude Include="cOAMEdit.h" />
+    <ClInclude Include="cStatEd.h" />
+    <ClInclude Include="clsScroll.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="cOAMEdit.h">
+      <Filter>Editor\DialogClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="cSSE.h">
+      <Filter>Editor\DialogClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="cTSAEditorClass.h" />
+    <ClInclude Include="IObject.h">
+      <Filter>Editor\Interfaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res.rc" />
@@ -150,6 +168,15 @@
     </Filter>
     <Filter Include="SamusEditor">
       <UniqueIdentifier>{84c209ea-7cee-4f22-aa14-070a5449e533}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Dialogs\NewFilter1">
+      <UniqueIdentifier>{a563c3d4-6fae-4b0c-a5e5-1d6a62c46796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\DialogClasses">
+      <UniqueIdentifier>{7f3e7932-80ab-4b96-aa34-b48fc2621304}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Interfaces">
+      <UniqueIdentifier>{07c25b18-2a0a-4d95-8767-9951ab694d98}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

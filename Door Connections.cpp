@@ -56,7 +56,7 @@ int DoesaBridgeExist(){//Will find any connection for this room only.
 			if((Area == DoorConnections.DoorConnects[i].sA1)  || (Area == DoorConnections.DoorConnects[i].sA2) ){
 				if((DoorConnections.DoorConnects[i].D1 == RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[ii]) ||
 				   (DoorConnections.DoorConnects[i].D2 == RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[ii]) ){
-					sDoor* thisDoor = &RD1Engine::theGame->mgrDoors->Doors[DoorConnections.DoorConnects[i].D1].rawDoor;
+					sDoor* thisDoor = RD1Engine::theGame->mgrDoors->Doors[DoorConnections.DoorConnects[i].D1]->GetDoor();
 					if((thisDoor->OwnerRoom == Room)){
 						ConnectExists++;
 						PSCE[ConnectExists] =i;

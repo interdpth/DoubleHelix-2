@@ -319,7 +319,6 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 				char numstr[4] = { 0 };
 				sprintf(numstr, "%d", i);
 				comboSpriteSet.Additem(numstr);
-
 			}
 			comboSpriteSet.SetListIndex(0);
 			ShowWindow(ExtendedOptWND, SW_HIDE);

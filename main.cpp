@@ -296,7 +296,6 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			fp = fopen(cBuf, "w+");
 			if (fp)
 			{
-
 				nMapBuffer* tmap = RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::LevelData);
 				RD1Engine::theGame->ThisBackBuffer.SaveToFile(fp);
 				fclose(fp);
@@ -697,7 +696,7 @@ BOOL CALLBACK   DialogProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARA
 				if (GlobalVars::gblVars->chkBoxED.value())
 				{
 					hCurrentTab = tabs[2];
-					RD1Engine::theGame->mgrDoors->LoadThisDoor(0);
+					RD1Engine::theGame->mgrDoors->LoadDoor(0);
 				}
 				else
 				{

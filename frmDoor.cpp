@@ -91,9 +91,9 @@ BOOL CALLBACK DwProc (HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam
 			SaveConnections();
 		}
 		if(LOWORD(wParam)==cboConn){
-			curMgr->Doors[curMgr->CurrentRoomDoorIndexes[CurDoor]].rawDoor.DestDoor = (unsigned char)doorConnection.GetListIndex();
+			curMgr->Doors[curMgr->CurrentRoomDoorIndexes[CurDoor]]->GetDoor()->DestDoor = (unsigned char)doorConnection.GetListIndex();
 			
-			curMgr->ConnectDoor(curMgr->Doors[curMgr->CurrentRoomDoorIndexes[CurDoor]].rawDoor.DestDoor);
+			curMgr->ConnectDoor(curMgr->Doors[curMgr->CurrentRoomDoorIndexes[CurDoor]]->GetDoor()->DestDoor);
 			
 		}
 		if(LOWORD(wParam) == cboConnect){
@@ -136,23 +136,25 @@ BOOL CALLBACK DwProc (HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam
 	return 0;
 }
 
-int DoorManager::LoadThisDoor(int DoorNo) {
+int DoorManager::LoadDoor(int DoorNo) {
 
 									   char	cboBuf[512] = {0};
 									   if (DoorNo == -1) return 0;
 									   int CurrentRoomIndex = CurrentRoomDoorIndexes[DoorNo];
 									   sprintf(cboBuf,"Room Door: %d \n Actual Door: %X",DoorNo,CurrentRoomDoorIndexes[DoorNo]);
 									   SetWindowText(GetDlgItem(DoorWin,lblDoor),cboBuf);
-									   cboDoorTyp.SetListIndex(Doors[CurrentRoomIndex].rawDoor.DoorType);
-									   doorConnection.SetListIndex(Doors[CurrentRoomIndex].rawDoor.DestDoor);
-									   cboDoorOwner.SetListIndex(Doors[CurrentRoomIndex].rawDoor.OwnerRoom);
-									   sprintf(cboBuf,"%X",Doors[CurrentRoomIndex].rawDoor.xExitDistance);
+									   sDoor* curDoor = Doors.at(CurrentRoomIndex)->GetDoor();
+
+									   cboDoorTyp.SetListIndex(curDoor->DoorType);
+									   doorConnection.SetListIndex(curDoor->DestDoor);
+									   cboDoorOwner.SetListIndex(curDoor->OwnerRoom);
+									   sprintf(cboBuf,"%X", curDoor->xExitDistance);
 									   SetWindowText(GetDlgItem(DoorWin,txtLength),cboBuf);
-									   nHScroll[sWidth] = (Doors[CurrentRoomIndex].virtualDoor.Width - Doors[CurrentRoomIndex].virtualDoor.sX)+1;
-									   nVScroll[sHeight] = (Doors[CurrentRoomIndex].virtualDoor.Height - Doors[CurrentRoomIndex].virtualDoor.sY)+1;
-									   sprintf(cboBuf,"%d",(Doors[CurrentRoomIndex].virtualDoor.Width - Doors[CurrentRoomIndex].virtualDoor.sX)+1);
+									   nHScroll[sWidth] = (curDoor->DWidth - curDoor->XEntrance)+1;
+									   nVScroll[sHeight] = (curDoor->DHeight - curDoor->YEntrance)+1;
+									   sprintf(cboBuf,"%d",(curDoor->DWidth - curDoor->XEntrance)+1);
 									   SetWindowText(GetDlgItem(DoorWin,txtDWidth),cboBuf);
-									   sprintf(cboBuf,"%d",(Doors[CurrentRoomIndex].virtualDoor.Height - Doors[CurrentRoomIndex].virtualDoor.sY)+1);
+									   sprintf(cboBuf,"%d",(curDoor->DHeight - curDoor->YEntrance)+1);
 									   SetWindowText(GetDlgItem(DoorWin,txtDHeight),cboBuf);
 
 
@@ -169,20 +171,22 @@ int DoorManager::LoadThisDoor(int DoorNo) {
 int DoorManager::ConnectDoor(unsigned char TD) {
 
 	char Buf[512];
-	unsigned char condoor = RD1Engine::theGame->mgrDoors->Doors[TD].rawDoor.DestDoor;
+	unsigned char condoor = RD1Engine::theGame->mgrDoors->Doors[TD]->GetDoor()->DestDoor;
+	sDoor* door = RD1Engine::theGame->mgrDoors->Doors[condoor]->GetDoor();
+     	
 
 	sprintf(Buf, "Door: %X", TD);
 	SetWindowText(GetDlgItem(DoorWin, lblCDoor), Buf);
 
-	condoor = RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->Doors[TD].rawDoor.DestDoor].rawDoor.DoorType;
+	condoor = door->DoorType;
 	sprintf(Buf, "%X", condoor);
 	SetWindowText(GetDlgItem(DoorWin, lblDoorType), Buf);
 
-	condoor = RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->Doors[TD].rawDoor.DestDoor].rawDoor.OwnerRoom;
+	condoor = door->OwnerRoom;
 	sprintf(Buf, "%X", condoor);
 	SetWindowText(GetDlgItem(DoorWin, lblOwnerRoom), Buf);
 
-	condoor = RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->Doors[TD].rawDoor.DestDoor].rawDoor.xExitDistance;
+	condoor = door->xExitDistance;
 	sprintf(Buf, "%d", condoor);
 	SetWindowText(GetDlgItem(DoorWin, lblCDWidth), Buf);
 
@@ -207,29 +211,30 @@ int DoorManager::SaveThisDoor(int DoorNo){
 	
 	sprintf(cboBuf,"Room Door: %d \n Actual Door: %d",DoorNo,RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]);
 	SetWindowText(GetDlgItem(DoorWin,lblDoor),cboBuf);
-	RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].rawDoor.DoorType = (unsigned char)cboDoorTyp.GetListIndex();
-	RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].rawDoor.DestDoor= (unsigned char)doorConnection.GetListIndex();
-	RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].rawDoor.OwnerRoom=(unsigned char)cboDoorOwner.GetListIndex();
+	sDoor* door = RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]]->GetDoor();
+	door->DoorType = (unsigned char)cboDoorTyp.GetListIndex();
+	door->DestDoor= (unsigned char)doorConnection.GetListIndex();
+	door->OwnerRoom=(unsigned char)cboDoorOwner.GetListIndex();
 	GetWindowText(GetDlgItem(DoorWin,txtLength),cboBuf,3);
 	sscanf(cboBuf,"%X",&blah);
 	if(blah > 255) blah = 255;
 	if(blah < 0) blah = 0;
-	sprintf(cboBuf,"%X",RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].rawDoor.xExitDistance);
-	RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].rawDoor.xExitDistance = blah;
+	sprintf(cboBuf,"%X", door->xExitDistance);
+	door->xExitDistance = blah;
 	
 	
 	GetWindowText(GetDlgItem(DoorWin,txtDWidth),cboBuf,4);
 	sscanf(cboBuf,"%d",&blah);
-    RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].virtualDoor.Width = blah+ RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].virtualDoor.sX-1;
+	door->DWidth = blah+ door->XEntrance-1;
 	
 
 	GetWindowText(GetDlgItem(DoorWin,txtDHeight),cboBuf,4);
 	sscanf(cboBuf,"%X",&blah);
-	RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].virtualDoor.Height = blah + RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].virtualDoor.sY-1;
-	blah =	RD1Engine::theGame->mgrDoors->Doors[RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo]].rawDoor.DestDoor;
-	RD1Engine::theGame->mgrDoors->Doors[blah].rawDoor.DestDoor = RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo];
+	door->DHeight = blah + door->YEntrance-1;
+	blah = door->DestDoor;
+	door->DestDoor = RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[DoorNo];
 	RD1Engine::theGame->mgrDoors->SaveDoors(RD1Engine::theGame->mainRoom->Area);
-	RD1Engine::theGame->mgrDoors->LoadThisDoor(DoorNo);
+	RD1Engine::theGame->mgrDoors->LoadDoor(DoorNo);
 	//DisplayDoors();
 	//InvalidateRect(UiState::stateManager->GetMapWindow(),0,1);
 	UiState::stateManager->ForceRedraw();

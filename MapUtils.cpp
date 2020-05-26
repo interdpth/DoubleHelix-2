@@ -4,7 +4,7 @@ void LoadScrollInfo(int s, Scroller *scroll);
 
 MapUtils::MapUtils(MapManager*  mgr)
 {
-
+	_mapMgr = mgr;
 }
 
 
@@ -14,8 +14,6 @@ MapUtils::~MapUtils()
 
 void MapUtils::HandleRightClick(editingStates thisState, int mouseX, int mouseY, int objlist)
 {
-	if (RD1Engine::theGame->mainRoom->mapMgr == NULL) return;
-	_mapMgr = RD1Engine::theGame->mainRoom->mapMgr;
 	int td = 0;
 	if ((thisState != editingStates::SPRITE  && thisState != editingStates::DOOR) || (thisState == editingStates::DOOR &&  SendMessage(GetDlgItem(hwndMain(), chkResizeDoors), BM_GETCHECK, 0, 0) == 1))
 	{
@@ -29,7 +27,7 @@ void MapUtils::HandleRightClick(editingStates thisState, int mouseX, int mouseY,
 			_mapMgr->GetState()->SetObjId(doornum);
 			if (td != -1) {
 
-				RD1Engine::theGame->mgrDoors->LoadThisDoor(doornum);
+				RD1Engine::theGame->mgrDoors->LoadDoor(doornum);
 				UiState::stateManager->ShowObj();
 				return;
 			}
@@ -56,11 +54,15 @@ void MapUtils::HandleRightClick(editingStates thisState, int mouseX, int mouseY,
 	}
 
 }
+
+
+
 void MapUtils::HandleLeftClick(editingStates thisState, int mouseX, int mouseY, int spritelistindex, int wParam, int lParam)
 {
 	if (RD1Engine::theGame->mainRoom->mapMgr == NULL) return;
-	_mapMgr = RD1Engine::theGame->mainRoom->mapMgr;
-	if (thisState == editingStates::SPRITE) {
+
+	if (thisState == editingStates::SPRITE) 
+	{
 		int spriteno = Gimmeasprite(mouseX, mouseY, spritelistindex);
 		_mapMgr->GetState()->SetAction(spriteno, editingActions::MOVE);
 	}
@@ -72,7 +74,6 @@ void MapUtils::HandleLeftClick(editingStates thisState, int mouseX, int mouseY, 
 			if (doornum != -1)
 			{
 				_mapMgr->GetState()->SetAction(RD1Engine::theGame->mgrDoors->CurrentRoomDoorIndexes[doornum], editingActions::MOVE);
-
 			}
 		}
 	}
@@ -94,7 +95,7 @@ void MapUtils::HandleLeftClick(editingStates thisState, int mouseX, int mouseY, 
 
 }
 
-int  MapUtils::Gimmeasprite(int X, int Y, int objlist)
+int MapUtils::Gimmeasprite(int X, int Y, int objlist)
 {
 	int             i = 0;
 	int             x = 0;
@@ -105,7 +106,8 @@ int  MapUtils::Gimmeasprite(int X, int Y, int objlist)
 	//RD1Engine::theGame->mainRoom->mgrSpriteObjects->OverallSize;
 	for (i = 0; i < ThisEnemy->size(); i++)
 	{
-		int index = (ThisEnemy->at(i)->Creature & 0xF) - 1;
+		int index = (ThisEnemy->at(i)->Creature& 0xF) - 1;
+
 		std::vector<FrameManager*> mgr = RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites;
 		RECT* thisOverall = &mgr.at(index)->theFrames[0]->theSprite->Borders;
 		width = thisOverall[index].right - thisOverall[index].left;
@@ -135,9 +137,7 @@ int  MapUtils::Gimmeasprite(int X, int Y, int objlist)
 		if (thisOverall->top < 0)
 		{
 			adjustedYorigin = 0 - thisOverall->top;
-
 		}
-
 
 		SpriteX = SpriteX - adjustedXorigin - 4;
 
