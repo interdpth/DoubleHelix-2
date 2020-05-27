@@ -15,9 +15,9 @@ void DrawStatusFromUI()
 {
 	RD1Engine::theGame->DrawStatus.Clipdata = GlobalVars::gblVars->ViewClip.value();
 
-	RD1Engine::theGame->DrawStatus.Scrolls = GlobalVars::gblVars->ScrollCheck.value();
+	RD1Engine::theGame->DrawStatus.ScrollsFlag = GlobalVars::gblVars->mnuShowScroll.GetCheckState();
 
-	RD1Engine::theGame->DrawStatus.SpriteRect = !GlobalVars::gblVars->chkHideSprites.GetCheckState();
+	RD1Engine::theGame->DrawStatus.SpriteRect = !GlobalVars::gblVars->mnuItemHideSprites.GetCheckState();
 }
 
 void CheckZoom(int zoomid)
@@ -289,6 +289,7 @@ int  HandleDetections2(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lP
 
 			LevelCounter = RD1Engine::theGame->titleInstance->GetRoomCount(area);
 			comboRoom.Clear();
+			RD1Engine::theGame->mgrDoors->SetupDoors(area);
 			for (i = 0; i < LevelCounter; i++)
 			{
 				sprintf(cBuf, "%X", i);
@@ -405,7 +406,8 @@ void InitControls(HWND hwnd)
 
 	clrIndex = 0;
 	//GlobalVars::gblVars->imgTileset->Create(512, 1024);
-	GlobalVars::gblVars->chkHideSprites.Init(hwnd, ID_MAP_SHOWSPRITES);
+	GlobalVars::gblVars->mnuItemHideSprites.Init(hwnd, ID_MAP_SHOWSPRITES);
+	GlobalVars::gblVars->mnuShowScroll.Init(hwnd, ID_MAP_SHOWSCROLLS);
 	GlobalVars::gblVars->checkBoxForeground.SetCnt(GetDlgItem(hwnd, chkForeground));
 	GlobalVars::gblVars->checkBoxLevel.SetCnt(GetDlgItem(hwnd, chkLevel));
 	GlobalVars::gblVars->checkBoxLevel.value(2);

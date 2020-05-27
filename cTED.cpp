@@ -136,6 +136,7 @@ int MetroidTextEditor::DecodeText(unsigned long offset) {
 
 
 
+
 		MemFile::currentFile->seek(offset);
 		MemFile::currentFile->fread(binarystring, 2, txtlength);
 

@@ -5,9 +5,7 @@ HINSTANCE hMap;
 WNDCLASSEX wcMap;
 HINSTANCE hTileset;
 extern HWND hTabControl;
-BOOL CALLBACK   DialogProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam);
-BOOL CALLBACK DwProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam);
-BOOL CALLBACK SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
+
 //WINUSERAPI
 //INT_PTR
 //WINAPI
@@ -101,7 +99,6 @@ void UiState::ShowTilesetMap(bool set)
 }
 
 void UiState::ShowObj() {
-
 	return;
 	if (!RD1Engine::theGame || !RD1Engine::theGame->mainRoom || !RD1Engine::theGame->mainRoom->mapMgr->created)
 	{

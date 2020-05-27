@@ -24,26 +24,14 @@ void clsRoomScrolls::LoadScrollControls()
 
 void clsRoomScrolls::LoadScrollInfo(int s) {
 	char txtbuffer[1024];
-	//////unsigned char bytes[4];
+	
+	unsigned short data = Scrolls[s]->unkData1;
 
-	////unsigned long data = Scrolls[s].unkData;
-	////memcpy(&bytes, &data, 4);
+	sprintf(txtbuffer, "%X", Scrolls[s]->unkData1);
+	SetWindowText(GetDlgItem(ScrollWIn, txtByte1), txtbuffer);
 
-
-	////sprintf(txtbuffer, "%X", bytes[0]);
-	////SetWindowText(GetDlgItem(ScrollWIn, txtByte1), txtbuffer);
-
-	////sprintf(txtbuffer, "%X", bytes[1]);
-	////SetWindowText(GetDlgItem(ScrollWIn, txtByte2), txtbuffer);
-
-	////sprintf(txtbuffer, "%X", bytes[2]);
-	////SetWindowText(GetDlgItem(ScrollWIn, txtByte3), txtbuffer);
-
-	////sprintf(txtbuffer, "%X", bytes[3]);
-	////SetWindowText(GetDlgItem(ScrollWIn, txtByte4), txtbuffer);
-
-	//sprintf(txtbuffer, "%X", data);
-	//SetWindowText(GetDlgItem(ScrollWIn, txtLong), txtbuffer);
+	sprintf(txtbuffer, "%X", Scrolls[s]->unkData2);
+	SetWindowText(GetDlgItem(ScrollWIn, txtByte2), txtbuffer);	
 
 }
 

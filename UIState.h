@@ -28,7 +28,9 @@ enum WindowState
 	EXPERT=2
 };
 
-
+BOOL CALLBACK DialogProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK DwProc(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 class UiState
 {
 public:

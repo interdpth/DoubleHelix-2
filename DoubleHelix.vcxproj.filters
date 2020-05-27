@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="DHProject.cpp" />
-    <ClCompile Include="cTED.cpp" />
     <ClCompile Include="Door Connections.cpp" />
     <ClCompile Include="globals.cpp" />
     <ClCompile Include="GlobalVars.cpp" />
@@ -80,14 +78,11 @@
     <ClCompile Include="frmSamusEditor.cpp">
       <Filter>SamusEditor</Filter>
     </ClCompile>
-    <ClCompile Include="IObject.cpp">
-      <Filter>Editor\Interfaces</Filter>
+    <ClCompile Include="cTED.cpp">
+      <Filter>Editor\DialogClasses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cTextEditor.h" />
-    <ClInclude Include="Dec.h" />
-    <ClInclude Include="DHProject.h" />
     <ClInclude Include="Door Connections.h" />
     <ClInclude Include="GlobalFunctions.h" />
     <ClInclude Include="globals.h" />
@@ -127,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="cTSAEditorClass.h" />
     <ClInclude Include="IObject.h">
+      <Filter>Editor\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="cTextEditor.h">
       <Filter>Editor\Interfaces</Filter>
     </ClInclude>
   </ItemGroup>

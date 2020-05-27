@@ -221,12 +221,19 @@ bool ProcessControls(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPar
 		return true;
 	}
 		break;
+	case ID_MAP_SHOWSCROLLS:
+		GlobalVars::gblVars->mnuShowScroll.SetCheckState(!GlobalVars::gblVars->mnuShowScroll.GetCheckState());
 
+		DrawStatusFromUI();
+	
+		UiState::stateManager->ForceRedraw();
+		return true;
+		break;
 	case ID_MAP_SHOWSPRITES:
-		GlobalVars::gblVars->chkHideSprites.SetCheckState(!GlobalVars::gblVars->chkHideSprites.GetCheckState());
+		GlobalVars::gblVars->mnuItemHideSprites.SetCheckState(!GlobalVars::gblVars->mnuItemHideSprites.GetCheckState());
 	
 		DrawStatusFromUI();
-		mainGame->DrawStatus.Sprites = !GlobalVars::gblVars->chkHideSprites.GetCheckState();
+		mainGame->DrawStatus.Sprites = !GlobalVars::gblVars->mnuItemHideSprites.GetCheckState();
 		UiState::stateManager->ForceRedraw();
 		return true;
 		break;

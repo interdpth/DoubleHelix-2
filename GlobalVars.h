@@ -33,7 +33,8 @@ public:
 	sChecks checkBoxBackground;
 	sChecks checkBoxClip;
 	sChecks chkBoxED;
-	sMenuItem chkHideSprites;
+	sMenuItem mnuItemHideSprites;
+	sMenuItem mnuShowScroll;
 	bool ViewForeground;
 sMenuItem checkBoxViewF;
 	bool ViewLevel;

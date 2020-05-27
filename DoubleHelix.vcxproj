@@ -124,7 +124,6 @@
   <ItemGroup>
     <ClCompile Include="AppData.cpp" />
     <ClCompile Include="clsScroll.cpp" />
-    <ClCompile Include="DHProject.cpp" />
     <ClCompile Include="fraMainProc.cpp" />
     <ClCompile Include="BGImportEditor.cpp" />
     <ClCompile Include="cClipboard.cpp" />
@@ -183,8 +182,6 @@
     <ClInclude Include="cStatEd.h" />
     <ClInclude Include="cTextEditor.h" />
     <ClInclude Include="cTSAEditorClass.h" />
-    <ClInclude Include="Dec.h" />
-    <ClInclude Include="DHProject.h" />
     <ClInclude Include="Door Connections.h" />
     <ClInclude Include="fraMainProc.h" />
     <ClInclude Include="frmRepoint.h" />

@@ -21,7 +21,6 @@ bool RefreshTileset()
 
 		if (retVal)
 		{
-
 			RD1Engine::theGame->mgrTileset->Render(GlobalVars::gblVars->imgTileset);
 		}
 	}

@@ -22,8 +22,6 @@ BOOL CALLBACK ScrollWndProc(HWND hwnd, unsigned int message, WPARAM wParam, LPAR
 	case WM_INITDIALOG:	// when dialog is first created
 		ScrollWIn = hwnd;
 
-
-
 		break;
 	case BN_CLICKED:
 

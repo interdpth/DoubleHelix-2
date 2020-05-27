@@ -22,20 +22,20 @@ void MapUtils::HandleRightClick(editingStates thisState, int mouseX, int mouseY,
 	{
 		if (thisState == editingStates::DOOR)
 		{
-			int doornum = RD1Engine::theGame->mgrDoors->GetDoor(RD1Engine::theGame->mainRoom->Room, mouseX, mouseY);
-			_mapMgr->GetState()->SetObjId(doornum);
-			if (td != -1) {
-
-				RD1Engine::theGame->mgrDoors->LoadDoor(doornum);
+			int td = RD1Engine::theGame->mgrDoors->GetDoor(RD1Engine::theGame->mainRoom->Room, mouseX, mouseY);
+			if (td != -1) 
+			{			
+				_mapMgr->GetState()->SetObjId(td);
+				RD1Engine::theGame->mgrDoors->LoadDoor(td);
 				UiState::stateManager->ShowObj();
 				return;
 			}
 		}
-		else if (thisState == editingStates::SPRITE) {
+		else if (thisState == editingStates::SPRITE)
+		{
 			int spriteno = Gimmeasprite(mouseX, mouseY, objlist);
 			_mapMgr->GetState()->SetObjId(spriteno);
-			SpriteTabIndex = spriteno;
-			UiState::stateManager->ShowObj();
+			SpriteTabIndex = spriteno;	
 			LoadCurSprite();
 		}
 		else if (thisState == editingStates::SCROLL) {
@@ -43,18 +43,12 @@ void MapUtils::HandleRightClick(editingStates thisState, int mouseX, int mouseY,
 			if (scrollid != -1)
 			{
 				_mapMgr->GetState()->SetObjId(scrollid);
-
-
-				UiState::stateManager->ShowObj();
 				RD1Engine::theGame->mgrScrolls->LoadScrollInfo(scrollid);
 			}
 		}
-		//InvalidateRect(hWnd, 0, 1);
 	}
 
 }
-
-
 
 void MapUtils::HandleLeftClick(editingStates thisState, int mouseX, int mouseY, int spritelistindex, int wParam, int lParam)
 {
@@ -107,7 +101,6 @@ void MapUtils::HandleLeftClick(editingStates thisState, int mouseX, int mouseY, 
 	{
 		EditLayers(wParam, lParam);
 	}
-
 }
 
 int MapUtils::Gimmeasprite(int X, int Y, int objlist)
@@ -181,8 +174,6 @@ int  MapUtils::EditThisLayer(nMapBuffer * Layer, WPARAM wParam, LPARAM lParam, b
 { // Layer to use, XY value, if it's bigger then 16x16
 
 	int             baseX = (GetX(lParam) / 16) + MapHorizScroll->GetIndex();
-
-
 	int             baseY = (GetY(lParam) / 16) + MapVertScroll->GetIndex();
 
 	int             y = 0;
@@ -281,10 +272,10 @@ int  MapUtils::EditThisLayer(nMapBuffer * Layer, WPARAM wParam, LPARAM lParam, b
 	Layer->DrawRect.right = ( mpMap.sX+  mpMap.Width+MapHorizScroll->GetIndex()  );*/
 	Layer->Dirty = Layer->SDirty = 1;
 	RD1Engine::theGame->DrawStatus.dirty = true;
-	RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+	
 	//DrawLevel();
 	SetWindowText(UiState::stateManager->GetMapWindow(), "Map");
-	InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
+	UiState::stateManager->ForceRedraw();
 	return 0;
 
 
@@ -296,8 +287,6 @@ int MapUtils::EditLayers(WPARAM wParam, LPARAM lParam) {
 	int i = 0;
 	int Layer[4] = { 0 };
 
-
-
 	if (GlobalVars::gblVars->checkBoxForeground.value() == 1 || GlobalVars::gblVars->chkMC[0].value() == 1) {
 		EditThisLayer(RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::ForeGround), wParam, lParam, 1, Tile);
 	}
@@ -308,7 +297,6 @@ int MapUtils::EditLayers(WPARAM wParam, LPARAM lParam) {
 	else if (GlobalVars::gblVars->checkBoxBackground.value() == 1 || GlobalVars::gblVars->chkMC[2].value() == 1)
 	{
 		EditThisLayer(RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Backlayer), wParam, lParam, 1, Tile);
-
 	}
 	else if (GlobalVars::gblVars->checkBoxClip.value() == 1 || GlobalVars::gblVars->chkMC[3].value() == 1)
 	{

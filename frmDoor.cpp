@@ -11,11 +11,8 @@ BOOL CALLBACK DwProc (HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam
 {
 	int i;
 	char cboBuf[100];
-	if (RD1Engine::theGame == NULL)
-	{
-	return	DefWindowProc(hwnd, message, wParam, lParam);
-	}
-	DoorManager *curMgr = RD1Engine::theGame->mgrDoors;
+	
+
 	switch (message)
 	{
 	case WM_CTLCOLORDLG:
@@ -62,6 +59,13 @@ BOOL CALLBACK DwProc (HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam
 		
 		break;
 	case WM_COMMAND:
+	{
+		
+		if (RD1Engine::theGame == NULL)
+		{
+			return	DefWindowProc(hwnd, message, wParam, lParam);
+		}
+		DoorManager *curMgr = RD1Engine::theGame->mgrDoors;
 		if (LOWORD(wParam) == btnAddDoor) {
 			int Index = RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetObjId();
 			editingStates CurState = RD1Engine::theGame->mainRoom->mapMgr->GetState()->GetState();
@@ -80,25 +84,24 @@ BOOL CALLBACK DwProc (HWND hwnd,unsigned int message,WPARAM wParam,LPARAM lParam
 			}
 			//EndDialog(DoorWin,0);
 		}
-		if(LOWORD(wParam) == IDCANCEL) {
-			EndDialog(DoorWin,0);
-		}
-		if(LOWORD(wParam)==cmdSaveDoor){
+
+		if (LOWORD(wParam) == cmdSaveDoor) {
 			curMgr->SaveThisDoor(CurDoor);
 		}
 		if (LOWORD(wParam) == cmdSaveConn)
 		{
 			SaveConnections();
 		}
-		if(LOWORD(wParam)==cboConn){
+		if (LOWORD(wParam) == cboConn) {
 			curMgr->Doors[curMgr->CurrentRoomDoorIndexes[CurDoor]]->GetDoor()->DestDoor = (unsigned char)doorConnection.GetListIndex();
-			
+
 			curMgr->ConnectDoor(curMgr->Doors[curMgr->CurrentRoomDoorIndexes[CurDoor]]->GetDoor()->DestDoor);
-			
+
 		}
-		if(LOWORD(wParam) == cboConnect){
+		if (LOWORD(wParam) == cboConnect) {
 			SetConnections((unsigned char)doorConnection.GetListIndex());
 		}
+	}
 		break;
 		
 	case WM_VSCROLL:	// exact same idea, but V scroll instead of H scroll
