@@ -466,9 +466,18 @@ void UiState::ResetCursor()
 //Trigger timers, then trigger redraw
 void UiState::ForceRedraw()
 {
-	if(RD1Engine::theGame!=NULL)RD1Engine::theGame->DrawStatus.dirty = true;
+	if (RD1Engine::theGame != NULL)
+	{
+		RD1Engine::theGame->DrawStatus.dirty = true;
+		RD1Engine::theGame->DrawStatus.BG0 = true;
+		RD1Engine::theGame->DrawStatus.BG1 = true;
+		RD1Engine::theGame->DrawStatus.BG2 = true;
+		RD1Engine::theGame->DrawStatus.BG3 = true;
+		RD1Engine::theGame->DrawStatus.Doors = true;
+		RD1Engine::theGame->DrawStatus.Sprites = true;
+	}
 	SendMessage(GetMapWindow(), WM_TIMER, theTimer + 1, 0);
-	InvalidateRect(GetMapWindow(), 0, false);
+	//InvalidateRect(GetMapWindow(), 0, false);
 	SendMessage(GetTilesetWindow(), WM_TIMER, theTimer, 0);
 	InvalidateRect(GetTilesetWindow(), 0, false);
 }

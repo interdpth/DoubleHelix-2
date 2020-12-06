@@ -25,7 +25,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
     <UseDebugLibraries>true</UseDebugLibraries>
   </PropertyGroup>
@@ -46,9 +46,9 @@
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>..\grit\libgrit;C:\GLEW\lib\Release\Win32;..\grit\cldib;..\RD1Enginesource\Debug;$(LibraryPath);C:\Users\Endeavor3\Documents\GitHub\DynaRec\Debug</LibraryPath>
+    <LibraryPath>..\grit\libgrit;C:\GLEW\lib\Release\Win32;..\grit\cldib;..\RD1Enginesource\Debug;$(LibraryPath);C:\Users\Endeavor3\Documents\GitHub\DynaRec\Debug;C:\Users\Endeavor3\Documents\GitHub\DoubleHelix 2\packages\pthreads.2.9.1.4\build\native\lib\v110\Win32\Release\static\cdecl</LibraryPath>
     <ExecutablePath>C:\GLEW\bin\Release\Win32;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>C:\GLEW\include\GL;..\grit\libgrit;..\grit\cldib;..\RD1Enginesource;..\RNA_UI;$(IncludePath);C:\Users\Endeavor3\Documents\GitHub\DynaRec</IncludePath>
+    <IncludePath>C:\GLEW\include\GL;..\grit\libgrit;..\grit\cldib;..\RD1Enginesource;..\RNA_UI;$(IncludePath);C:\Users\Endeavor3\Documents\GitHub\DynaRec;C:\Users\Endeavor3\Documents\GitHub\DoubleHelix 2\packages\pthreads.2.9.1.4\build\native\lib\v110\Win32\Release\static\cdecl</IncludePath>
     <CodeAnalysisRuleSet>E:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
@@ -57,7 +57,7 @@
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>..\RD1Enginesource;..\RNA_UI;$(IncludePath);C:\Users\Endeavor3\Documents\GitHub\DynaRec</IncludePath>
-    <LibraryPath>\Release;..\grit\libgrit;C:\GLEW\lib\Release\Win32;..\grit\cldib;..\RD1Enginesource\Release;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\Users\Endeavor3\Documents\GitHub\DoubleHelix 2\Release\;C:\Users\Endeavor3\Documents\GitHub\RD1Enginesource;C:\Users\Endeavor3\Documents\GitHub\DynaRec\Debug</LibraryPath>
+    <LibraryPath>\Release;..\grit\libgrit;C:\GLEW\lib\Release\Win32;..\grit\cldib;..\RD1Enginesource\Release;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\Users\Endeavor3\Documents\GitHub\DoubleHelix 2\Release\;C:\Users\Endeavor3\Documents\GitHub\RD1Enginesource;C:\Users\Endeavor3\Documents\GitHub\DynaRec\Debug;C:\Users\Endeavor3\Documents\GitHub\DoubleHelix 2\packages\pthreads.2.9.1.4\build\native\lib\v110\Win32\Release\static\cdecl</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -84,7 +84,7 @@
       <SuppressStartupBanner>false</SuppressStartupBanner>
       <AdditionalOptions>/EDITANDCONTINUE %(AdditionalOptions)</AdditionalOptions>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalDependencies>mRNA_UId.lib;RD1Engined.lib;opengl32.lib;Msimg32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>mRNA_UId.lib;RD1Engined.lib;opengl32.lib;Msimg32.lib;glew32.lib;%(AdditionalDependencies);libpthread-static.lib</AdditionalDependencies>
       <Profile>true</Profile>
       <ShowProgress>LinkVerbose</ShowProgress>
     </Link>
@@ -118,7 +118,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>mRNA_UI.lib;RD1Engine.lib;FreeImage.lib;opengl32.lib;Msimg32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>mRNA_UI.lib;RD1Engine.lib;FreeImage.lib;opengl32.lib;Msimg32.lib;glew32.lib;%(AdditionalDependencies);libpthread;libpthread.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -229,6 +229,8 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\pthreads.redist.2.9.1.4\build\native\pthreads.redist.targets" Condition="Exists('packages\pthreads.redist.2.9.1.4\build\native\pthreads.redist.targets')" />
+    <Import Project="packages\pthreads.2.9.1.4\build\native\pthreads.targets" Condition="Exists('packages\pthreads.2.9.1.4\build\native\pthreads.targets')" />
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
@@ -238,5 +240,7 @@
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
     </PropertyGroup>
+    <Error Condition="!Exists('packages\pthreads.redist.2.9.1.4\build\native\pthreads.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\pthreads.redist.2.9.1.4\build\native\pthreads.redist.targets'))" />
+    <Error Condition="!Exists('packages\pthreads.2.9.1.4\build\native\pthreads.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\pthreads.2.9.1.4\build\native\pthreads.targets'))" />
   </Target>
 </Project>

@@ -7,6 +7,10 @@
 #include "TilesetManager.h"
 #include "UiState.h"
 #include "MapUtils.h"
+#define PTW32_STATIC_LIB
+#define HAVE_STRUCT_TIMESPEC
+#include <pthread.h>
+
 void CalculateMapScrolls(int width, int height);
 RECT toolsRect;
 extern HWND hTabControl;
@@ -64,7 +68,8 @@ void UpdateStatusText(int actualX, int actualY)
 
 	}
 }
-
+#define NUM_THREADS 5
+bool threadProcess;
 //Handles drawing the room
 void Draw(HDC hdc)
 {
@@ -117,11 +122,8 @@ void Draw(HDC hdc)
 
 	RD1Engine::theGame->mainRoom->currentHorizScroll * 16, RD1Engine::theGame->mainRoom->currentVertScroll * 16, viewRect.right, viewRect.bottom, SRCCOPY);
 
-	if (GlobalVars::gblVars->ViewClip.value() != 1)
-	{
-		DrawTileRect(hdc, mpMap, 16);
-	}
 }
+
 MapUtils* utils;
 void HandleCopyPasteMessages(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
@@ -183,15 +185,17 @@ void HandleMouseUpDown(int actualX, int actualY, HWND hWnd, unsigned int message
 
 	switch (message)
 	{
-
+    
+	case WM_MOUSEMOVE:
+	case WM_RBUTTONDOWN:
 	case WM_LBUTTONDOWN:
 		if (wParam & MK_LBUTTON)
 		{
 			editingStates thisState = mgrMap->GetState()->GetState();// ->GetState();//Wait what
 			utils->HandleLeftClick(thisState, actualX, actualY, comboSpriteSet.GetListIndex(), wParam, lParam);
 		}
-		break;
-	case WM_RBUTTONDOWN:
+	
+	
 
 		if (LOWORD(wParam) == MK_RBUTTON)
 		{
@@ -238,6 +242,36 @@ bool UpdateSprites()
 	return updateWindow;
 }
 
+void *PrintHello(void *threadid) {
+	threadProcess = true;
+	while (true)
+	{
+		if (threadProcess && RD1Engine::theGame&&RD1Engine::theGame->mainRoom&&RD1Engine::theGame->mainRoom->mapMgr)
+		{
+			if (UpdateSprites() || RD1Engine::theGame->DrawStatus.dirty)
+			{
+				RD1Engine::theGame->DrawStatus.dirty = true;
+				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+				bb.Clear();
+				Draw(bb.DC());
+				
+				threadProcess = false;
+			}
+		}		
+		Sleep(23);
+	}
+}
+
+int spin() {
+	pthread_t thread;
+	int rc;
+	int i=0;
+
+	return rc = pthread_create(&thread, NULL, PrintHello, (void *)i);
+
+
+
+}
 
 LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
@@ -282,7 +316,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 	switch (message)
 	{
 	case WM_CREATE:
-		bb.Create(8000, 8000);
+		bb.Create(6000, 6000);
 
 		utils = new MapUtils(mgrMap);
 		GetWindowRect(GetDlgItem(UiState::stateManager->GetWindow(), grpMap), &toolsRect);
@@ -290,7 +324,8 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		MapVertScroll = new WindowScrollbar(hWnd, true);
 		MapVertScroll->ChangeScrollbars();
 		MapHorizScroll->ChangeScrollbars();
-		SetTimer(hWnd, theTimer + 1, 15, (TIMERPROC)NULL);
+		spin();
+		SetTimer(hWnd, theTimer + 1, 10, (TIMERPROC)NULL);
 		break;
 	case WM_TIMER:
 		//Update sprite animations and tileset
@@ -302,22 +337,23 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 
 		if (wParam == theTimer + 1)
 		{
-			if (UpdateSprites() || RD1Engine::theGame->DrawStatus.dirty) {
-				if (RD1Engine::theGame&&RD1Engine::theGame->mainRoom&&RD1Engine::theGame->mainRoom->mapMgr)
-				{
-					RD1Engine::theGame->DrawStatus.dirty = true;
-					RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-					bb.Clear();
-					Draw(bb.DC());		
+			threadProcess = true;
 					InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
-				}
-			}
+				
+			
 		}
 		break;
 	case WM_PAINT:
 	
 		hdc = BeginPaint(hWnd, &ps);		
-	    BitBlt(hdc, 0, 0, 4000, 4000, bb.DC(), 0, 0, SRCCOPY);
+	    
+		
+		BitBlt(hdc, 0, 0, 4000, 4000, bb.DC(), 0, 0, SRCCOPY);
+
+		if (GlobalVars::gblVars->ViewClip.value() != 1)
+		{
+			DrawTileRect(hdc, mpMap, 16);
+		}
 		EndPaint(hWnd, &ps);
 		ReleaseDC(hWnd, hdc);
 		
@@ -353,7 +389,8 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		}
 		editingStates thisState = mgrMap->GetState()->GetState();
 		editingActions thisAction = mgrMap->GetState()->GetAction();
-		if (thisAction == editingActions::RESIZE && LOWORD(wParam) == MK_RBUTTON) {
+		if (thisAction == editingActions::RESIZE && LOWORD(wParam) == MK_RBUTTON) 
+		{
 			if (thisState == editingStates::SCROLL) {
 
 				int scrollid = RD1Engine::theGame->mgrScrolls->Findmeascroll(actualX, actualY, cboScroll.GetListIndex());
@@ -365,8 +402,20 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 			}
 			theRoom->mapMgr->Resize(thisState, thisAction, wParam, lParam, &mpMap);
 		}
-		else if (LOWORD(wParam) == MK_LBUTTON) {
-			theRoom->mapMgr->MoveObject(lParam, comboSpriteSet.GetListIndex());
+		else if (LOWORD(wParam) == MK_LBUTTON) 
+		{
+			mgrMap->GetState()->SetAction(editingActions::MOVE);
+			if (thisState == editingStates::MAP) 
+			{
+				mpMap.sY = GetY(lParam) / 16;
+				mpMap.sX = GetX(lParam) / 16;
+				utils->EditLayers(wParam, lParam);
+			}
+			else 
+			{
+				theRoom->mapMgr->MoveObject(lParam, comboSpriteSet.GetListIndex());
+			}
+		
 		}
 		else
 		{
@@ -377,10 +426,10 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		
 		//	UiState::stateManager->UpdateMapObjectWindow(); 
 		UpdateStatusText(actualX, actualY);
-		if (wParam == MK_LBUTTON)
+	/*	if (wParam == MK_LBUTTON)
 		{
 			SendMessage(hWnd, 0x201, wParam, lParam);
-		}
+		}*/
 		RD1Engine::theGame->DrawStatus.dirty = true;
 		InvalidateRect(UiState::stateManager->GetMapWindow(), 0, true);
 	}
@@ -474,7 +523,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		}
 		break;
 	case WM_DESTROY:
-
+		pthread_exit(NULL);
 		break;
 
 	}

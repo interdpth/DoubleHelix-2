@@ -1,5 +1,5 @@
 #include "MapUtils.h"
-
+#include "UIState.h"
 
 MapUtils::MapUtils(MapManager*  mgr)
 {
@@ -156,9 +156,9 @@ int MapUtils::Gimmeasprite(int X, int Y, int objlist)
 		y = SpriteY / 16;
 
 		if (((x) <= X) &&
-			((x + width / 16) >= X) &&
+			((x + width) >= X) &&
 			((y) <= Y) &&
-			((y + height / 16) >= Y))
+			((y + height) >= Y))
 		{
 
 
@@ -275,7 +275,6 @@ int  MapUtils::EditThisLayer(nMapBuffer * Layer, WPARAM wParam, LPARAM lParam, b
 	
 	//DrawLevel();
 	SetWindowText(UiState::stateManager->GetMapWindow(), "Map");
-	UiState::stateManager->ForceRedraw();
 	return 0;
 
 
@@ -302,6 +301,8 @@ int MapUtils::EditLayers(WPARAM wParam, LPARAM lParam) {
 	{
 		EditThisLayer(RD1Engine::theGame->mainRoom->mapMgr->GetLayer(MapManager::Clipdata), wParam, lParam, 0, cboClipData.GetListIndex());
 	}
+
+	UiState::stateManager->ForceRedraw();
 	return 0;
 }
 
