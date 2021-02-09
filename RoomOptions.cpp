@@ -25,9 +25,8 @@ void ResizeLayer(nMapBuffer* buffLayer, int newWidth, int newHeight) {
 	buffLayer->X = newWidth;
 	buffLayer->Y = newHeight;
 
-	delete[] buffLayer->TileBuf2D;
-	buffLayer->TileBuf2D = new unsigned short[copysize / 2];
-	memset(buffLayer->TileBuf2D, 0, copysize);
+	
+	memset(buffLayer->TileBuf2D, 0, 0xFF*0xFF*2);
 	memcpy(roombuff, buffLayer->TileBuf2D, copysize);
 	delete[]roombuff;
 	RD1Engine::theGame->SaveLevel();

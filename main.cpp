@@ -132,7 +132,7 @@ void CreateSpriteEditor()
 
 	}
 
-	CreateDialog(hGlobal, MAKEINTRESOURCE(frmOAM), 0, OAMProc);
+	CreateDialog(hGlobal, MAKEINTRESOURCE(frmOAM), 0, (DLGPROC)OAMProc);
 
 	ShowWindow(cOAMEdit::OamEditor->_oamWindow, SW_SHOW);
 	SendMessage(cOAMEdit::OamEditor->_oamWindow, WM_COMMAND, MAKELONG(cboSpriteChoice,CBN_SELCHANGE), 0);
@@ -365,14 +365,14 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			return 0;
 		if (GlobalVars::gblVars->sec->hwndSamusEditor == NULL)
 		{
-			CreateDialog(hGlobal, MAKEINTRESOURCE(frmSamusEditor), 0, SamusProc);
+			CreateDialog(hGlobal, MAKEINTRESOURCE(frmSamusEditor), 0, (DLGPROC)SamusProc);
 			ShowWindow(GlobalVars::gblVars->sec->hwndSamusEditor, SW_SHOW);
 		}
 		return true;
 	case mnuSSE:
 		if (currentRomType == -1)
 			return 0;
-		CreateDialog(hGlobal, MAKEINTRESOURCE(fraSSE), 0, SpriteSetEditorProc);
+		CreateDialog(hGlobal, MAKEINTRESOURCE(fraSSE), 0, (DLGPROC)SpriteSetEditorProc);
 		ShowWindow(cSpriteSetEditor::SpriteSet->me, SW_SHOW);
 		return true;
 	case mnuTSA:
@@ -385,7 +385,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			return true;
 		if (hwndHeader == NULL)
 		{
-			CreateDialog(hGlobal, MAKEINTRESOURCE(frmHeader), 0, HeaderProced);
+			CreateDialog(hGlobal, MAKEINTRESOURCE(frmHeader), 0,(DLGPROC) HeaderProced);
 
 		}
 		if (hwndHeader) {
@@ -399,7 +399,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			return true;
 		if (ExtendedOptWND == NULL)
 		{
-			CreateDialog(hGlobal, MAKEINTRESOURCE(frmRoomStuff), 0, ExtendedProc);
+			CreateDialog(hGlobal, MAKEINTRESOURCE(frmRoomStuff), 0, (DLGPROC)ExtendedProc);
 		}
 
 		ShowWindow(ExtendedOptWND, SW_SHOW);
@@ -422,7 +422,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			return 0;
 		if (!GlobalVars::gblVars->TextEditor->tMain)
 		{
-			CreateDialog(hGlobal, MAKEINTRESOURCE(frmTE), 0, TextEditorProc);
+			CreateDialog(hGlobal, MAKEINTRESOURCE(frmTE), 0, (DLGPROC)TextEditorProc);
 		}
 		ShowWindow(GlobalVars::gblVars->TextEditor->tMain, SW_SHOW);
 		return true;
@@ -431,7 +431,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 			return 0;
 		if (!GlobalVars::gblVars->StatEditor) {
 			GlobalVars::gblVars->StatEditor = new cStatEd(currentRomType);
-			CreateDialog(hGlobal, MAKEINTRESOURCE(fraStat), 0, StatEditorProc);
+			CreateDialog(hGlobal, MAKEINTRESOURCE(fraStat), 0, (DLGPROC)StatEditorProc);
 		}
 		if (GlobalVars::gblVars->StatEditor->me) {
 			
@@ -445,7 +445,7 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 		if (currentRomType == -1)
 			return 0;
 		if (!hwndMM) {
-			CreateDialog(hGlobal, MAKEINTRESOURCE(frmMiniMap), 0, MiniProc);
+			CreateDialog(hGlobal, MAKEINTRESOURCE(frmMiniMap), 0, (DLGPROC)MiniProc);
 
 		}
 
@@ -548,15 +548,15 @@ void InitMainControls(HWND hwnd)
 
 
 
-		tabs[0] = CreateDialog(hGlobal, MAKEINTRESOURCE(fraMain), hTabControl, fraMainProc); // Setting dialog to tab one by default
+		tabs[0] = CreateDialog(hGlobal, MAKEINTRESOURCE(fraMain), hTabControl, (DLGPROC)fraMainProc); // Setting dialog to tab one by default
 
-		tabs[1] = CreateDialog(hGlobal, MAKEINTRESOURCE(frmMapData), hTabControl, MapDataProc);
+		tabs[1] = CreateDialog(hGlobal, MAKEINTRESOURCE(frmMapData), hTabControl, (DLGPROC)MapDataProc);
 
-		tabs[2] = CreateDialog(hGlobal, MAKEINTRESOURCE(frmDoor), hTabControl, DwProc);
+		tabs[2] = CreateDialog(hGlobal, MAKEINTRESOURCE(frmDoor), hTabControl, (DLGPROC)DwProc);
 
-		tabs[3] = CreateDialog(hGlobal, MAKEINTRESOURCE(frmScroll), hTabControl, ScrollWndProc);
+		tabs[3] = CreateDialog(hGlobal, MAKEINTRESOURCE(frmScroll), hTabControl, (DLGPROC)ScrollWndProc);
 
-		tabs[4] = CreateDialog(hGlobal, MAKEINTRESOURCE(fraSS), hTabControl, SSProc);
+		tabs[4] = CreateDialog(hGlobal, MAKEINTRESOURCE(fraSS), hTabControl, (DLGPROC)SSProc);
 
 		hCurrentTab = tabs[0];
 

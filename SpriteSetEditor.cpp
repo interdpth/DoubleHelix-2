@@ -63,6 +63,7 @@ BOOL CALLBACK  SpriteSetEditorProc(HWND hWnd, unsigned int message, WPARAM wPara
 	switch (message)
 	{
 	case WM_INITDIALOG:
+#define GWL_HINSTANCE -6
 		cSpriteSetEditor::SpriteSet->me = hWnd;
 		cSpriteSetEditor::SpriteSet->Create((HINSTANCE)GetWindowLong(hWnd, GWL_HINSTANCE));
 		break;

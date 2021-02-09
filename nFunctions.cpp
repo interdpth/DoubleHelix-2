@@ -73,7 +73,7 @@ int             LoadInput(long val)
 {
 	int             blah;
 
-	blah = DialogBox(hGlobal, MAKEINTRESOURCE(frmInputBox), 0, (int(__stdcall *) (struct HWND__ *, unsigned int, unsigned int, long)) InputBoxProc);
+	blah = DialogBox(hGlobal, MAKEINTRESOURCE(frmInputBox), 0, (DLGPROC) InputBoxProc);
 	if (blah > -1)
 		return blah;
 	return val;

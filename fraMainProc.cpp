@@ -439,15 +439,15 @@ void InitControls(HWND hwnd)
 
 
 
-	CreateDialog(hGlobal, MAKEINTRESOURCE(frmSceneryEditor), 0, SceneProc);
+	CreateDialog(hGlobal, MAKEINTRESOURCE(frmSceneryEditor), 0, (DLGPROC)SceneProc);
 
 
 
-	CreateDialog(hGlobal, MAKEINTRESOURCE(fraTBE), 0, TSAProc);
+	CreateDialog(hGlobal, MAKEINTRESOURCE(fraTBE), 0, (DLGPROC)TSAProc);
 
-	CreateDialog(hGlobal, MAKEINTRESOURCE(frmClipboard), 0, ClipBoardProc);
-	CreateDialog(hGlobal, MAKEINTRESOURCE(fraBGI), 0, BGiProc);
-	CreateDialog(hGlobal, MAKEINTRESOURCE(frmLPE), 0, LPProc);
+	CreateDialog(hGlobal, MAKEINTRESOURCE(frmClipboard), 0, (DLGPROC)ClipBoardProc);
+	CreateDialog(hGlobal, MAKEINTRESOURCE(fraBGI), 0, (DLGPROC)BGiProc);
+	CreateDialog(hGlobal, MAKEINTRESOURCE(frmLPE), 0, (DLGPROC)LPProc);
 
 
 	for (int i = 0; i < 3; i++)

@@ -219,7 +219,7 @@ void HandleMouseUpDown(int actualX, int actualY, HWND hWnd, unsigned int message
 bool UpdateSprites()
 {
 	bool updateWindow = false;
-	if (!RD1Engine::theGame)
+	if (!RD1Engine::theGame && RD1Engine::theGame->mainRoom!=NULL)
 	{
 		return false;
 	}
@@ -227,7 +227,9 @@ bool UpdateSprites()
 	{
 		return false;
 	}
-	vector<FrameManager*> *sprites = &RD1Engine::theGame->mainRoom->mgrSpriteObjects->RoomSprites;
+	RoomClass* room = RD1Engine::theGame->mainRoom;
+	if (room->lockRoom) return false;
+	vector<FrameManager*> *sprites = &room->mgrSpriteObjects->RoomSprites;
 	for (int spriteCounter = 0; spriteCounter < sprites->size(); spriteCounter++)
 	{
 		Frame* animatedFrame = sprites->at(spriteCounter)->GetAnimatedFrame();
@@ -241,37 +243,44 @@ bool UpdateSprites()
 	}
 	return updateWindow;
 }
-
+bool DontPanic() {
+	return RD1Engine::theGame && RD1Engine::theGame->mainRoom != NULL && RD1Engine::theGame->mainRoom->mapMgr && !RD1Engine::theGame->mainRoom->lockSprites && !RD1Engine::theGame->mainRoom->lockRoom;
+}
 void *PrintHello(void *threadid) {
 	threadProcess = true;
 	while (true)
 	{
-		if (threadProcess && RD1Engine::theGame&&RD1Engine::theGame->mainRoom&&RD1Engine::theGame->mainRoom->mapMgr)
+		if (DontPanic() && !RD1Engine::theGame->roomLock && threadProcess)
+		
 		{
+			RD1Engine::theGame->roomLock = true;
 			if (UpdateSprites() || RD1Engine::theGame->DrawStatus.dirty)
 			{
-				RD1Engine::theGame->DrawStatus.dirty = true;
-				RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
-				bb.Clear();
-				Draw(bb.DC());
-				
+				if (RD1Engine::theGame->mainRoom != NULL) {
+			
+					//RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+					bb.Clear();
+					Draw(bb.DC());
+				}
 				threadProcess = false;
 			}
+			RD1Engine::theGame->roomLock = false;
+		
 		}		
 		Sleep(23);
 	}
 }
 
-int spin() {
-	pthread_t thread;
-	int rc;
-	int i=0;
-
-	return rc = pthread_create(&thread, NULL, PrintHello, (void *)i);
-
-
-
-}
+//int spin() {
+//	pthread_t thread;
+//	int rc;
+//	int i=0;
+//
+//	return rc = pthread_create(&thread, NULL, PrintHello, (void *)i);
+//
+//
+//
+//}
 
 LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam)
 {
@@ -324,7 +333,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		MapVertScroll = new WindowScrollbar(hWnd, true);
 		MapVertScroll->ChangeScrollbars();
 		MapHorizScroll->ChangeScrollbars();
-		spin();
+	//	spin();
 		SetTimer(hWnd, theTimer + 1, 10, (TIMERPROC)NULL);
 		break;
 	case WM_TIMER:
@@ -337,7 +346,14 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 
 		if (wParam == theTimer + 1)
 		{
-			threadProcess = true;
+			if (UpdateSprites() || RD1Engine::theGame->DrawStatus.dirty)
+			{
+				if (RD1Engine::theGame->mainRoom != NULL) {
+			RD1Engine::theGame->DrawRoom(GlobalVars::gblVars->TileImage, &GlobalVars::gblVars->BGImage, -1);
+					bb.Clear();
+					Draw(bb.DC());
+				}
+			}
 					InvalidateRect(UiState::stateManager->GetMapWindow(), 0, 1);
 				
 			

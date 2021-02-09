@@ -90,7 +90,7 @@ void UiState::MakeWindow()
 void UiState::UpdateWindow()
 {
 	MakeWindow();
-	DialogBox(hGlobal, _theString, 0, DialogProc);
+	DialogBox(hGlobal, _theString, 0, (DLGPROC)DialogProc);
 }
 
 void UiState::ShowTilesetMap(bool set)
