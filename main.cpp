@@ -363,10 +363,10 @@ int  HandleDetections(HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lPa
 	case ID_GENERALTOOLS_SAMUSEDITOR:
 		if (currentRomType == -1)
 			return 0;
-		if (GlobalVars::gblVars->sec->hwndSamusEditor == NULL)
+		if (SamusEditorClass::hwndSamusEditor == NULL)
 		{
 			CreateDialog(hGlobal, MAKEINTRESOURCE(frmSamusEditor), 0, (DLGPROC)SamusProc);
-			ShowWindow(GlobalVars::gblVars->sec->hwndSamusEditor, SW_SHOW);
+			ShowWindow(SamusEditorClass::hwndSamusEditor, SW_SHOW);
 		}
 		return true;
 	case mnuSSE:

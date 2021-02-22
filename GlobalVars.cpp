@@ -11,7 +11,7 @@ GlobalVars::GlobalVars()
 	ReadObjectDetailsFromROM = false;
 	
 	memset(AppPath,0,1024);
-	sec = new SamusEditorClass();
+	
 	OAMED = false;;
 
 	TextEditor = new MetroidTextEditor();

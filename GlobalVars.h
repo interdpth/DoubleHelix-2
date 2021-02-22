@@ -52,8 +52,8 @@ sMenuItem checkBoxViewF;
 	sChecks chkEditSprites;
 
     cStatEd* StatEditor;
-	
-	SamusEditorClass* sec;
+	HWND hwndSamusEditor = NULL;
+
 	HWND frameControls;
 	MetroidTextEditor* TextEditor;
 	OamFrameTable* frameTables;
