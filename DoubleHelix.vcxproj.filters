@@ -53,7 +53,6 @@
     <ClCompile Include="fraMainProc.cpp" />
     <ClCompile Include="TSAEditor.cpp" />
     <ClCompile Include="MapWindow.cpp" />
-    <ClCompile Include="SamusEditorClass.cpp" />
     <ClCompile Include="AppData.cpp" />
     <ClCompile Include="WindowScrollbar.cpp" />
     <ClCompile Include="MapUtils.cpp" />
@@ -75,11 +74,12 @@
       <Filter>Editor\DialogClasses</Filter>
     </ClCompile>
     <ClCompile Include="cTSAEditorClass.cpp" />
-    <ClCompile Include="frmSamusEditor.cpp">
-      <Filter>SamusEditor</Filter>
-    </ClCompile>
     <ClCompile Include="cTED.cpp">
       <Filter>Editor\DialogClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="uiSamusEditorClass.cpp" />
+    <ClCompile Include="SamusEditorWinProcs.cpp">
+      <Filter>SamusEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -105,7 +105,6 @@
     <ClInclude Include="TabControls.h" />
     <ClInclude Include="fraMainProc.h" />
     <ClInclude Include="SupportedTitles.h" />
-    <ClInclude Include="SamusEditorClass.h" />
     <ClInclude Include="AppData.h" />
     <ClInclude Include="WindowScrollbar.h" />
     <ClInclude Include="MapUtils.h" />
@@ -127,6 +126,7 @@
     <ClInclude Include="cTextEditor.h">
       <Filter>Editor\Interfaces</Filter>
     </ClInclude>
+    <ClInclude Include="uiSamusEditorClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res.rc" />

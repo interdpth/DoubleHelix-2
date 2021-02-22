@@ -110,7 +110,7 @@ int MapUtils::Gimmeasprite(int X, int Y, int objlist)
 	int             y = 0;
 	int             width = 0;
 	int             height = 0;
-	vector<ObjectSprite*> *ThisEnemy = &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[objlist];
+	vector<MapObjectSprite*> *ThisEnemy = &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[objlist];
 	//RD1Engine::theGame->mainRoom->mgrSpriteObjects->OverallSize;
 	for (i = 0; i < ThisEnemy->size(); i++)
 	{

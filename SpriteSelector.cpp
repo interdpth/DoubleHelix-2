@@ -115,7 +115,7 @@ BOOL CALLBACK  SSProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lPa
 int SetCurSprite() {
 	int beta;
 	int set = comboSpriteSet.GetListIndex();
-	vector<ObjectSprite*> * list = &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[set];
+	vector<MapObjectSprite*> * list = &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[set];
 
 	list->at(SpriteTabIndex)->Creature = list->at(SpriteTabIndex)->Creature & 0xF0 | dispic;
 
@@ -129,7 +129,7 @@ int LoadCurSprite() {     //Sets dispic for starting.
 	}
 
 	SpriteObjectManager* mgrSpriteObjects = RD1Engine::theGame->mainRoom->mgrSpriteObjects;;
-	vector<ObjectSprite*>* SpriteObjects = NULL;
+	vector<MapObjectSprite*>* SpriteObjects = NULL;
 	int newValue = comboSpriteSet.GetListIndex();
 	if (mgrSpriteObjects)
 	{

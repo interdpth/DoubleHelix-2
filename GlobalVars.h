@@ -9,7 +9,7 @@
 #include "OamFrameTable.h"
 #include "..\Win32GBAImageClasses\backbuffer.h"
 #include "cStatEd.h"
-#include "SamusEditorClass.h"
+#include "uiSamusEditorClass.h"
 #include "../RNA_UI/sMenuItem.h"
 BOOL CALLBACK  TextEditorProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 class cOAMEdit;

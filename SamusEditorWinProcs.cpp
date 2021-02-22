@@ -4,7 +4,7 @@
 #include "..\Win32GBAImageClasses\Image.h"
 #include "GlobalVars.h"
 #include "..\Win32GBAImageClasses\BackBuffer.h"
-#include "SamusEditorClass.h"
+#include "uiSamusEditorClass.h"
 #include <Windows.h>
 #include "..\RNA_UI\sCombo.h"
 #include "..\RNA_UI\sChecks.h"

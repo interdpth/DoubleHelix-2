@@ -5,9 +5,17 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -23,7 +31,19 @@
     <CharacterSet>NotSet</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
@@ -35,7 +55,13 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -52,9 +78,22 @@
     <CodeAnalysisRuleSet>E:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>..\grit\libgrit;C:\GLEW\lib\Release\Win32;..\grit\cldib;..\RD1Enginesource\Debug;$(LibraryPath);C:\Users\Endeavor3\Documents\GitHub\DynaRec\Debug;C:\Users\Endeavor3\Documents\GitHub\DoubleHelix 2\packages\pthreads.2.9.1.4\build\native\lib\v110\Win32\Release\static\cdecl</LibraryPath>
+    <ExecutablePath>C:\GLEW\bin\Release\Win32;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\GLEW\include\GL;..\grit\libgrit;..\grit\cldib;..\RD1Enginesource;..\RNA_UI;$(IncludePath);C:\Users\Endeavor3\Documents\GitHub\DynaRec;C:\Users\Endeavor3\Documents\GitHub\DoubleHelix 2\packages\pthreads.2.9.1.4\build\native\lib\v110\Win32\Release\static\cdecl</IncludePath>
+    <CodeAnalysisRuleSet>E:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>..\RD1Enginesource;..\RNA_UI;$(IncludePath);C:\Users\Endeavor3\Documents\GitHub\DynaRec</IncludePath>
+    <LibraryPath>\Release;..\grit\libgrit;C:\GLEW\lib\Release\Win32;..\grit\cldib;..\RD1Enginesource\Release;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\Users\Endeavor3\Documents\GitHub\DoubleHelix 2\Release\;C:\Users\Endeavor3\Documents\GitHub\RD1Enginesource;C:\Users\Endeavor3\Documents\GitHub\DynaRec\Debug;C:\Users\Endeavor3\Documents\GitHub\DoubleHelix 2\packages\pthreads.2.9.1.4\build\native\lib\v110\Win32\Release\static\cdecl</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>..\RD1Enginesource;..\RNA_UI;$(IncludePath);C:\Users\Endeavor3\Documents\GitHub\DynaRec</IncludePath>
     <LibraryPath>\Release;..\grit\libgrit;C:\GLEW\lib\Release\Win32;..\grit\cldib;..\RD1Enginesource\Release;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\Users\Endeavor3\Documents\GitHub\DoubleHelix 2\Release\;C:\Users\Endeavor3\Documents\GitHub\RD1Enginesource;C:\Users\Endeavor3\Documents\GitHub\DynaRec\Debug;C:\Users\Endeavor3\Documents\GitHub\DoubleHelix 2\packages\pthreads.2.9.1.4\build\native\lib\v110\Win32\Release\static\cdecl</LibraryPath>
@@ -92,6 +131,39 @@
       <PreserveSbr>true</PreserveSbr>
     </Bscmake>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <BrowseInformation>true</BrowseInformation>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <EnablePREfast>false</EnablePREfast>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>false</SuppressStartupBanner>
+      <AdditionalOptions>/EDITANDCONTINUE %(AdditionalOptions)</AdditionalOptions>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <AdditionalDependencies>mRNA_UId.lib;RD1Engined.lib;opengl32.lib;Msimg32.lib;glew32.lib;%(AdditionalDependencies);libpthread-static.lib</AdditionalDependencies>
+      <Profile>true</Profile>
+      <ShowProgress>LinkVerbose</ShowProgress>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -117,7 +189,36 @@
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <TargetMachine>MachineX86</TargetMachine>
+      <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalDependencies>mRNA_UI.lib;RD1Engine.lib;FreeImage.lib;opengl32.lib;Msimg32.lib;glew32.lib;%(AdditionalDependencies);libpthread;libpthread.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <StringPooling>true</StringPooling>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>winmm.lib %(AdditionalOptions)</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalDependencies>mRNA_UI.lib;RD1Engine.lib;FreeImage.lib;opengl32.lib;Msimg32.lib;glew32.lib;%(AdditionalDependencies);libpthread;libpthread.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -137,7 +238,7 @@
     <ClCompile Include="frmDoor.cpp" />
     <ClCompile Include="frmMapData.cpp" />
     <ClCompile Include="frmRepoint.cpp" />
-    <ClCompile Include="frmSamusEditor.cpp" />
+    <ClCompile Include="SamusEditorWinProcs.cpp" />
     <ClCompile Include="globals.cpp" />
     <ClCompile Include="GlobalVars.cpp" />
     <ClCompile Include="HeaderEditor.cpp" />
@@ -155,7 +256,7 @@
     <ClCompile Include="RightMouseClick.cpp" />
     <ClCompile Include="ROMFile.cpp" />
     <ClCompile Include="RoomOptions.cpp" />
-    <ClCompile Include="SamusEditorClass.cpp" />
+    <ClCompile Include="uiSamusEditorClass.cpp" />
     <ClCompile Include="SceneryEditor.cpp" />
     <ClCompile Include="ScrollBarHandle.cpp" />
     <ClCompile Include="Scrolls.cpp" />
@@ -196,7 +297,7 @@
     <ClInclude Include="MinimapClass.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ResourceAndDefines.h" />
-    <ClInclude Include="SamusEditorClass.h" />
+    <ClInclude Include="uiSamusEditorClass.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SupportedTitles.h" />
     <ClInclude Include="TabControls.h" />

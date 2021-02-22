@@ -37,16 +37,15 @@ BOOL CALLBACK  ExtendedProc(HWND hWnd, unsigned int message, WPARAM wParam, LPAR
 	char buf[256];
 	unsigned int X = 0;
 	unsigned int Y = 0;
-	unsigned char Width = 0;
-	unsigned char Height = 0;
+
 	int i = 0;
 
-	nMapBuffer* buffForeground;
-	nMapBuffer* buffLevel;
-	nMapBuffer* buffBackLayer;
-	nMapBuffer* buffClipLayer;
-	MapManager* mgr;
-	RoomClass* curRoom;
+	nMapBuffer* buffForeground = nullptr;
+	nMapBuffer* buffLevel = nullptr;
+	nMapBuffer* buffBackLayer = nullptr;
+	nMapBuffer* buffClipLayer = nullptr;
+	MapManager* mgr = nullptr;
+	RoomClass* curRoom = nullptr;
 	if (RD1Engine::theGame &&RD1Engine::theGame->mainRoom&& RD1Engine::theGame->mainRoom->mapMgr) {
 		curRoom = RD1Engine::theGame->mainRoom;
 		mgr = curRoom->mapMgr;

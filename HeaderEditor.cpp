@@ -318,7 +318,7 @@ int ChangeSprites() {
 	int sprites = 0;
 
 	unsigned long* offsets[3] = { &RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer,&RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer2,&RD1Engine::theGame->mainRoom->roomHeader->lSpritePointer3 };
-	vector<ObjectSprite*>* cursz[3] = { &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0], &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1], &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2] };
+	vector<MapObjectSprite*>* cursz[3] = { &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[0], &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[1], &RD1Engine::theGame->mainRoom->mgrSpriteObjects->SpriteObjects[2] };
 
 
 	memcpy(procstring, blah, 1024);
