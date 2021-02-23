@@ -13,6 +13,7 @@
 #include <map>
 #define theTimer 22424242
 
+vector<FusionSamus*> samusSprites;
 FusionSamus* mf;
 
 BackBuffer* samusBuffer;
@@ -28,6 +29,257 @@ sChecks chkMissiles;
 std::map<string, int> suitStatusLookup;
 std::map<string, int> poseLookup;
 std::map<string, int> eventLookup;
+unsigned long GetPointer(unsigned long addr);
+unsigned long Getlong(unsigned long addr);
+
+unsigned char* GetData(unsigned long addr, unsigned long size);
+SamusEditorClass* sec;
+//Samus States.
+signed int samusDirection;
+int facingDirections; 
+int CurrentPose; 
+unsigned long GfxSizeTable;
+void Logic()
+{
+	unsigned char* rawFile = MemFile::currentFile->GetFile();
+	int IsSamusFacingLeft; // r4
+
+	int CopyIndex; // r2
+	int PoseIndex; // r0
+// r6
+	unsigned long currentSizeTable = 0; // r1
+	unsigned long* DifferentAnimTable = 0; // r2
+	int TheDirectionIndex; // r1
+
+	int someIndex; // r5
+	SamusAnim* theCurrentAnim = NULL; // r6
+	unsigned  long* tophalf; // r3
+	unsigned long* legspointer = NULL; // r3
+	unsigned long* CannonBottomTemp; // r0
+	signed __int16 bottomgfxsize; // r0
+
+	unsigned long* CannonBottomHalfFXOffset; // r0
+	unsigned short* NewPalPointer = NULL; // r4
+	unsigned int speedBoostIndex; // r1
+	int indexByXTimer; // r1
+	unsigned short* PalTablePointer = NULL; // r0
+	unsigned short* FinalPalPointer = NULL; // r0
+	int PalIndex; // r1
+	int PalSize; // r2
+	unsigned short* AnotherPalPointer = NULL; // r4
+	unsigned int CurAnimState; // r1
+	int SavingPalIndex; // r1
+	unsigned short* APalTable = NULL; // r0
+	unsigned short* APalPointer = { 0 }; // r1
+	__int32 ChargeBeamStartPalCounter; // r1
+	int chargeCounter; // r1
+	unsigned short* PalPointer = NULL; // r4
+
+	IsSamusFacingLeft = true;// isFacingLeft;
+	if (mf->SamusPose != GettingHurt && mf->Invincibilitytimer)
+		--mf->Invincibilitytimer;
+	if (mf->AbsorbXTimer)
+		--mf->AbsorbXTimer;
+	if (mf->SpeedBoosting)
+	{
+		mf->SpeedBoostingindicator = 1;
+		mf->SpeedBoostingindicatorCurrent = 16;
+	}
+	else if (mf->SpeedBoostingindicatorCurrent)
+	{
+		--mf->SpeedBoostingindicatorCurrent;
+	}
+	else
+	{
+		mf->SpeedBoostingindicator = mf->SpeedBoostingindicatorCurrent;
+	}
+	////backupOfLastpreIndex = lastPreviousPositionIndex;
+	////previousPosIndex = 2 * (lastPreviousPositionIndex & 0x3F);
+	////*(Previous_64_X_positions + previousPosIndex) = Previous_SamusX_position;
+	////*(Previous_64_Y_positions + previousPosIndex) = Previous_SamusY_position;
+	////lastPreviousPositionIndex = backupOfLastpreIndex + 1;
+	////if (backupOfLastpreIndex << 16 > 0x1000000)
+	////	lastPreviousPositionIndex = backupOfLastpreIndex - 127;
+	////if (lastPreviousPositionIndex > 63)
+	////	startNewPrevPositions = 1;
+	CurrentPose = mf->SamusPose;
+	mf->ArmCannonDirection = IsSamusFacingLeft;
+	samusDirection = mf->ArmCannonDirection;
+	facingDirections = samusDirection * 4;
+
+
+	if (mf->SamusPose <= 0x3Fu)
+	{
+		switch (mf->SamusPose)
+		{
+		case Standing:
+		{
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->ArmCannonDirection;
+			unsigned long index = GetPointer(0x28D4C4 + PoseIndex);
+			unsigned long pnta = GetPointer(index);
+
+
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D4C4 + PoseIndex)];
+
+			currentSizeTable = GetPointer(0x28DAE4);
+		}
+		goto SetGFXTablePointer;
+		case TurningAround:
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->ArmCannonDirection;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28d4ec + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DB0C);
+			goto SetGFXTablePointer;
+		case LOOKFORTARGET:
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->ArmCannonDirection;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D514 + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DB34);
+			goto SetGFXTablePointer;
+		case Running:
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->ArmCannonDirection;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D53C + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DB5C);
+			goto SetGFXTablePointer;
+		case Jumping_Falling:
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->ArmCannonDirection;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D55C + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DB7C);
+			goto SetGFXTablePointer;
+		case TurningAndJumpFall:
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->ArmCannonDirection;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D58C + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DBAC);
+			goto SetGFXTablePointer;
+		case Landing:
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->ArmCannonDirection;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D5BC + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DBDC);
+			goto SetGFXTablePointer;
+		case Ducking:
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->ArmCannonDirection;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D634 + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DC54);
+			goto SetGFXTablePointer;
+		case TurnAndDuck:
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->ArmCannonDirection;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D60C + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DC2C);
+			goto SetGFXTablePointer;
+		case ShootAndDuck:
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->ArmCannonDirection;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D634 + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DC54);
+			goto SetGFXTablePointer;
+		case HangLedge:
+		/*	if ((mf->SamusDirection ^ 0x30) & Button_input)
+				samusDirection = (ArmCannonDirection + 1) & 0xFF;*/
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * samusDirection;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D65C + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DC7);
+			goto SetGFXTablePointer;
+		case Skidding:
+			if (mf->MissilesSelected == 1)
+				samusDirection = (mf->ArmCannonDirection + 1) & 0xFF;
+			//DifferentAnimTable = ((SamusAnim**)rawFile[0x28D674]);
+			goto LABEL_40;
+		case ShineSparking:
+			samusDirection = mf->Direction;
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->Direction;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D684 + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DC8C);
+			goto SetGFXTablePointer;
+		case DelayAfterShineSpark:
+			samusDirection = mf->Direction;
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->Direction;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D69C + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DCA4);
+			goto SetGFXTablePointer;
+		case CannonLadder:
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->ArmCannonDirection;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D6B4 + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DCBC);
+			goto SetGFXTablePointer;
+		case ShootUpLadder:
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->ArmCannonDirection;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D6E4 + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DCEC);
+			goto SetGFXTablePointer;
+		case DelayAfterShootingHOrizladder:
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->ArmCannonDirection;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D714 + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DD1C);
+			goto SetGFXTablePointer;
+		case ShootingOnHorizladder:
+			CopyIndex = 4 * IsSamusFacingLeft;
+			PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->ArmCannonDirection;
+			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D744 + PoseIndex)];
+			currentSizeTable = GetPointer(0x28DD4C);
+			goto SetGFXTablePointer;
+		case HitByOmega:
+			samusDirection = (-(mf->Button_input & 0x70) | mf->Button_input & 0x70u) >> 31;
+			DifferentAnimTable = (unsigned long*)&rawFile[0x28D784];
+		LABEL_40:
+			{
+				TheDirectionIndex = 4 * IsSamusFacingLeft;
+
+				mf->Animtable = (SamusAnim*)&DifferentAnimTable[2 * samusDirection + IsSamusFacingLeft];
+				GfxSizeTable = GetPointer(0x28D8DC + ((2 * mf->SamusPose + IsSamusFacingLeft) * 4));
+				someIndex = TheDirectionIndex;
+				goto SetOAM;
+			}
+		default:
+			break;
+		}
+	}
+	CopyIndex = 4 * IsSamusFacingLeft;
+	PoseIndex = 4 * IsSamusFacingLeft + 8 * mf->SamusPose;
+	mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D2BC + PoseIndex)];
+	currentSizeTable = GetPointer(0x28D8DC);
+SetGFXTablePointer:
+	GfxSizeTable = GetPointer(currentSizeTable + PoseIndex);
+	someIndex = CopyIndex;
+
+	 
+	//loopie loop
+	//Get the shit.
+
+
+SetOAM:
+	for each (auto a in samusSprites) delete a;
+	samusSprites.clear();
+
+	for (int i = 0; i < 255;i++)
+	{
+		SamusAnim* curAnim = &mf->Animtable[i];
+		if (curAnim->OAMPointer == 0)
+		{
+			
+			break;
+		}
+		FusionSamus* sprite = new FusionSamus();
+		mf->Copy(sprite);
+		samusSprites.push_back(sprite);
+
+
+	}
+	
+
+}
 
 void InitUI()
 {
@@ -157,7 +409,7 @@ void DrawSamus()
 	samusBuffer = new BackBuffer();
 	samusBuffer->Create(1024, 1024);
 
-	GlobalVars::gblVars->sec->SetupSamusPreview(base);
+	sec->SetupSamusPreview(base);
 
 	GFX = new Image();
 	GFX->Create(512, 512);
@@ -167,7 +419,7 @@ void DrawSamus()
 	TileBuffer tb;
 	tb.Load((unsigned char*)base->Sprite_tiles, 1023);
 
-	GFX->SetPalette(GlobalVars::gblVars->sec->SpritePreview->PreviewPal);
+	GFX->SetPalette(sec->SpritePreview->PreviewPal);
 	GFX->Clear();
 	for (int i = 0; i < 1023; i++) {
 		GFX->Draw(tb, ((i) % 32) * 8, ((i) / 32) * 8, i);
@@ -188,13 +440,15 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 	{
 
 	case WM_INITDIALOG:
+		sec = new SamusEditorClass();
+		SamusEditorClass::hwndSamusEditor = hWnd;
 		samusBuffer = NULL;
 		curFrame = NULL;
 		cboPose.Init(GetDlgItem(hWnd, cboPoseitem));
 		InitUI();
 		mf = new FusionSamus();
 
-		GlobalVars::gblVars->sec->hwndSamusEditor = hWnd;
+		
 		cboPose.SetListIndex(0);
 
 		break;
@@ -213,7 +467,7 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 			string myText = cboPose.GetText(cboPose.GetListIndex());
 			mf->theSprite->PreviewSprite.GetFullImage()->Clear();
 			mf->SamusPose = poseLookup[myText];
-			mf->Logic();
+			Logic();
 			mf->Load();
 			mf->PackSamus();
 			DrawSamus();
@@ -229,7 +483,7 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 				string myText = cboPose.GetText(cboPose.GetListIndex());
 				mf->theSprite->PreviewSprite.GetFullImage()->Clear();
 				mf->SamusPose = poseLookup[myText];
-				mf->Logic();
+				Logic();
 				mf->Load();
 				mf->PackSamus();
 				DrawSamus();
@@ -239,22 +493,22 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		break;
 	case WM_PAINT:
 	{
-		if (!GlobalVars::gblVars->sec->SpritePreview)
+		if (!sec->SpritePreview)
 		{
 			break;
 		}
 
 		hdc = BeginPaint(hWnd, &ps);
-		int height = (GlobalVars::gblVars->sec->SpritePreview->Borders.bottom - GlobalVars::gblVars->sec->SpritePreview->Borders.top);
-		int width = (GlobalVars::gblVars->sec->SpritePreview->Borders.right - GlobalVars::gblVars->sec->SpritePreview->Borders.left);
-		//GlobalVars::gblVars->sec->SpritePreview->PreviewSprite.TransBlit
+		int height = (sec->SpritePreview->Borders.bottom - sec->SpritePreview->Borders.top);
+		int width = (sec->SpritePreview->Borders.right - sec->SpritePreview->Borders.left);
+		//sec->SpritePreview->PreviewSprite.TransBlit
 		//(hdc, 0, 0,
 		//	width,
 		//	height,
 		//	0,
 		//	0);
 
-		StretchBlt(hdc, 64, 1, width * 3, height * 3, GlobalVars::gblVars->sec->SpritePreview->PreviewSprite.GetFullImage()->DC(), 0, 0, width * 3, height * 3, SRCCOPY);
+		StretchBlt(hdc, 64, 1, width * 3, height * 3, sec->SpritePreview->PreviewSprite.GetFullImage()->DC(), 0, 0, width * 3, height * 3, SRCCOPY);
 
 		if (GFX)
 		{
