@@ -24,6 +24,7 @@ Image* GFX;
 sCombo cboDirection;
 sCombo cboPose;
 sCombo cboEvent;
+sCombo cboCurFrame;
 sChecks chkMissiles;
 //SuitStatus check
 std::map<string, int> suitStatusLookup;
@@ -274,8 +275,6 @@ SetOAM:
 		FusionSamus* sprite = new FusionSamus();
 		mf->Copy(sprite);
 		samusSprites.push_back(sprite);
-
-
 	}
 	
 
@@ -400,11 +399,13 @@ bool SetFlagStatus(int id)
 }
 void DrawSamus()
 {
+	if (samusSprites.size() == 0) return;
 	if (samusBuffer)
 	{
 		delete samusBuffer;
 	}
-	SamusBase* base = mf;
+
+	SamusBase* base = samusSprites[cboCurFrame.GetListIndex()];
 
 	samusBuffer = new BackBuffer();
 	samusBuffer->Create(1024, 1024);
@@ -445,6 +446,7 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		samusBuffer = NULL;
 		curFrame = NULL;
 		cboPose.Init(GetDlgItem(hWnd, cboPoseitem));
+		cboCurFrame.Init(GetDlgItem(hWnd, IDC_COMBO6));
 		InitUI();
 		mf = new FusionSamus();
 
@@ -468,15 +470,34 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 			mf->theSprite->PreviewSprite.GetFullImage()->Clear();
 			mf->SamusPose = poseLookup[myText];
 			Logic();
-			mf->Load();
-			mf->PackSamus();
+			cboCurFrame.Clear();
+			for (int i = 0; i < samusSprites.size();i++)
+			{
+
+				FusionSamus* thisMf = samusSprites[i];
+				thisMf->theSprite->PreviewSprite.GetFullImage()->Clear();
+				thisMf->SamusPose = poseLookup[myText];
+
+				thisMf->SetOAM(i, samusDirection, facingDirections, CurrentPose, GfxSizeTable);
+				thisMf->Load();
+				thisMf->PackSamus();
+				char num[4] = { 0 };
+				sprintf(num, "%d", i);
+				cboCurFrame.Additem(num);
+
+			
+			}
+			cboCurFrame.SetListIndex(0);
 			DrawSamus();
 			InvalidateRect(hWnd, 0, true);
 		}
 		switch (LOWORD(wParam))
 		{
 
-			
+		case IDC_COMBO6:
+			DrawSamus();
+			InvalidateRect(hWnd, 0, true);
+			break;
 		case cboPoseitem:
 			if (HIWORD(wParam) == CBN_SELCHANGE)
 			{
@@ -484,8 +505,22 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 				mf->theSprite->PreviewSprite.GetFullImage()->Clear();
 				mf->SamusPose = poseLookup[myText];
 				Logic();
-				mf->Load();
-				mf->PackSamus();
+				cboCurFrame.Clear();
+				for (int i = 0; i < samusSprites.size();i++)
+				{
+
+					FusionSamus* thisMf = samusSprites[i];
+					thisMf->theSprite->PreviewSprite.GetFullImage()->Clear();
+					thisMf->SamusPose = poseLookup[myText];
+
+					thisMf->SetOAM(i, samusDirection, facingDirections, CurrentPose, GfxSizeTable);
+					thisMf->Load();
+					thisMf->PackSamus();
+					char num[4] = { 0 };
+					sprintf(num, "%d", i);
+					cboCurFrame.Additem(num);
+				}
+				cboCurFrame.SetListIndex(0);
 				DrawSamus();
 				InvalidateRect(hWnd, 0, true);
 			}
