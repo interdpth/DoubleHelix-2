@@ -7,8 +7,8 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-//#include "afxres.h"
-#include <Windows.h>
+#include <windows.h>
+
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
@@ -610,7 +610,7 @@ FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     COMBOBOX        cboPoseitem,261,16,48,137,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Pose",IDC_STATIC,233,16,16,8
-    COMBOBOX        IDC_COMBO6,349,17,48,40,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO6,349,17,51,84,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Cur Frame",IDC_STATIC,313,17,34,8
     GROUPBOX        "Graphics",IDC_STATIC,7,100,224,112
     GROUPBOX        "Suit Status",IDC_STATIC,233,106,67,104
@@ -622,16 +622,16 @@ BEGIN
     CONTROL         "Gravity",chkGravity,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,240,177,39,10
     CONTROL         "Morph Ball",chkMorphball,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,240,187,49,10
     CONTROL         "Sa-x Suit",chkSaxSuit,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,240,198,45,10
-    COMBOBOX        IDC_COMBO8,349,34,48,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO8,349,34,48,135,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Event",IDC_STATIC,323,36,20,8
     CONTROL         "Holding Missiles",chkHoldMissiles,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,237,41,62,16
-    COMBOBOX        IDC_COMBO9,239,78,48,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO9,239,78,48,62,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Absorb X Timer",IDC_STATIC,237,67,49,8
     GROUPBOX        "Beam Status",IDC_STATIC,315,52,84,52
     CONTROL         "Wide",chkWide,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,361,60,31,12
     CONTROL         "Charge",chkCharge,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,61,39,10
     CONTROL         "Plasma",chkPlasma,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,320,75,38,10
-    CONTROL         "Face Right",chkFaceRight,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,237,56,50,10
+    CONTROL         "Face Right",chkFacingRIght,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,237,56,50,10
     CONTROL         "Wave",chkWave,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,359,75,35,10
     GROUPBOX        "Missile Status",IDC_STATIC,315,116,84,95
     CONTROL         "Power Bombs",chkPBs,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,326,191,64,12

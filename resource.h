@@ -395,6 +395,7 @@
 #define IDC_CHECK1                      1309
 #define chkFaceRight                    1309
 #define btnLoadPal                      1310
+#define chkFacingRIght                  1311
 #define IDC_CHECK11                     1314
 #define chkWide                         1314
 #define IDC_CHECK12                     1315
@@ -497,7 +498,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        166
 #define _APS_NEXT_COMMAND_VALUE         40078
-#define _APS_NEXT_CONTROL_VALUE         1311
+#define _APS_NEXT_CONTROL_VALUE         1312
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
