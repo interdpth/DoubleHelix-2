@@ -641,6 +641,7 @@ BEGIN
     CONTROL         "Missiles",chkMissil,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,326,128,39,10
     CONTROL         "Ice",chkIceMissiles,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,326,140,26,10
     CONTROL         "Diffusion",chkDiffusionMissiles,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,326,166,44,10
+    PUSHBUTTON      "Export all frames",IDC_BUTTON1,180,60,54,38,BS_MULTILINE
 END
 
 IDFRAMESTUFFDLG DIALOGEX 0, 0, 401, 170
