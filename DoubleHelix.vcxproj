@@ -123,7 +123,7 @@
       <SuppressStartupBanner>false</SuppressStartupBanner>
       <AdditionalOptions>/EDITANDCONTINUE %(AdditionalOptions)</AdditionalOptions>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalDependencies>mRNA_UId.lib;RD1Engined.lib;opengl32.lib;Msimg32.lib;glew32.lib;%(AdditionalDependencies);libpthread-static.lib</AdditionalDependencies>
+      <AdditionalDependencies>mRNA_UId.lib;RD1Engined.lib;opengl32.lib;Msimg32.lib;glew32.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
       <ShowProgress>LinkVerbose</ShowProgress>
     </Link>
@@ -341,7 +341,5 @@
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\pthreads.redist.2.9.1.4\build\native\pthreads.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\pthreads.redist.2.9.1.4\build\native\pthreads.redist.targets'))" />
-    <Error Condition="!Exists('packages\pthreads.2.9.1.4\build\native\pthreads.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\pthreads.2.9.1.4\build\native\pthreads.targets'))" />
   </Target>
 </Project>

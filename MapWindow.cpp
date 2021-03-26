@@ -7,9 +7,6 @@
 #include "TilesetManager.h"
 #include "UiState.h"
 #include "MapUtils.h"
-#define PTW32_STATIC_LIB
-#define HAVE_STRUCT_TIMESPEC
-#include <pthread.h>
 
 void CalculateMapScrolls(int width, int height);
 RECT toolsRect;
@@ -539,7 +536,7 @@ LRESULT CALLBACK MapProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM 
 		}
 		break;
 	case WM_DESTROY:
-		pthread_exit(NULL);
+		
 		break;
 
 	}
