@@ -145,8 +145,8 @@ void Logic(int newPose)
 		case Standing:
 		{
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * mf->ArmCannonDirection;
-			unsigned long index = GetPointer(0x28D4C4+ PoseIndex);
+			PoseIndex = CopyIndex + 8 * mf->ArmCannonDirection;
+			unsigned long index = GetPointer(0x28D4C4 + PoseIndex);
 			unsigned long pnta = GetPointer(index);
 
 
@@ -157,55 +157,55 @@ void Logic(int newPose)
 		goto SetGFXTablePointer;
 		case TurningAround:
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * mf->ArmCannonDirection;
+			PoseIndex = CopyIndex + 8 * mf->ArmCannonDirection;
 			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28d4ec + PoseIndex)];
 			currentSizeTable = GetPointer(0x28DB0C);
 			goto SetGFXTablePointer;
 		case LOOKFORTARGET:
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * mf->ArmCannonDirection;
+			PoseIndex = CopyIndex + 8 * mf->ArmCannonDirection;
 			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D514 + PoseIndex)];
 			currentSizeTable = GetPointer(0x28DB34);
 			goto SetGFXTablePointer;
 		case Running:
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * mf->ArmCannonDirection;
+			PoseIndex = CopyIndex + 8 * mf->ArmCannonDirection;
 			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D53C + PoseIndex)];
 			currentSizeTable = GetPointer(0x28DB5C);
 			goto SetGFXTablePointer;
 		case Jumping_Falling:
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * mf->ArmCannonDirection;
+			PoseIndex = CopyIndex + 8 * mf->ArmCannonDirection;
 			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D55C + PoseIndex)];
 			currentSizeTable = GetPointer(0x28DB7C);
 			goto SetGFXTablePointer;
 		case TurningAndJumpFall:
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * mf->ArmCannonDirection;
+			PoseIndex = CopyIndex + 8 * mf->ArmCannonDirection;
 			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D58C + PoseIndex)];
 			currentSizeTable = GetPointer(0x28DBAC);
 			goto SetGFXTablePointer;
 		case Landing:
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * mf->ArmCannonDirection;
+			PoseIndex = CopyIndex + 8 * mf->ArmCannonDirection;
 			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D5BC + PoseIndex)];
 			currentSizeTable = GetPointer(0x28DBDC);
 			goto SetGFXTablePointer;
 		case Ducking:
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * mf->ArmCannonDirection;
+			PoseIndex = CopyIndex + 8 * mf->ArmCannonDirection;
 			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D634 + PoseIndex)];
 			currentSizeTable = GetPointer(0x28DC54);
 			goto SetGFXTablePointer;
 		case TurnAndDuck:
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * mf->ArmCannonDirection;
+			PoseIndex = CopyIndex + 8 * mf->ArmCannonDirection;
 			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D60C + PoseIndex)];
 			currentSizeTable = GetPointer(0x28DC2C);
 			goto SetGFXTablePointer;
 		case ShootAndDuck:
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * mf->ArmCannonDirection;
+			PoseIndex = CopyIndex + 8 * mf->ArmCannonDirection;
 			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D634 + PoseIndex)];
 			currentSizeTable = GetPointer(0x28DC54);
 			goto SetGFXTablePointer;
@@ -213,19 +213,19 @@ void Logic(int newPose)
 			/*	if ((mf->SamusDirection ^ 0x30) & Button_input)
 					samusDirection = (ArmCannonDirection + 1) & 0xFF;*/
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * samusDirection;
+			PoseIndex = CopyIndex + 8 * samusDirection;
 			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D65C + PoseIndex)];
 			currentSizeTable = GetPointer(0x28DC7);
 			goto SetGFXTablePointer;
 		case Skidding:
 			if (mf->MissilesSelected == 1)
 				samusDirection = (mf->ArmCannonDirection + 1) & 0xFF;
-		DifferentAnimTable = 0x28D674;
+			DifferentAnimTable = 0x28D674;
 			goto LABEL_40;
 		case ShineSparking:
 			samusDirection = mf->Direction;
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * mf->Direction;
+			PoseIndex = CopyIndex + 8 * mf->Direction;
 			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D684 + PoseIndex)];
 			currentSizeTable = GetPointer(0x28DC8C);
 			goto SetGFXTablePointer;
@@ -238,25 +238,25 @@ void Logic(int newPose)
 			goto SetGFXTablePointer;
 		case CannonLadder:
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * mf->ArmCannonDirection;
+			PoseIndex = CopyIndex + 8 * mf->ArmCannonDirection;
 			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D6B4 + PoseIndex)];
 			currentSizeTable = GetPointer(0x28DCBC);
 			goto SetGFXTablePointer;
 		case ShootUpLadder:
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * mf->ArmCannonDirection;
+			PoseIndex = CopyIndex + 8 * mf->ArmCannonDirection;
 			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D6E4 + PoseIndex)];
 			currentSizeTable = GetPointer(0x28DCEC);
 			goto SetGFXTablePointer;
 		case DelayAfterShootingHOrizladder:
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * mf->ArmCannonDirection;
+			PoseIndex = CopyIndex + 8 * mf->ArmCannonDirection;
 			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D714 + PoseIndex)];
 			currentSizeTable = GetPointer(0x28DD1C);
 			goto SetGFXTablePointer;
 		case ShootingOnHorizladder:
 			CopyIndex = 4 * IsSamusFacingLeft;
-			PoseIndex = CopyIndex  + 8 * mf->ArmCannonDirection;
+			PoseIndex = CopyIndex + 8 * mf->ArmCannonDirection;
 			mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D744 + PoseIndex)];
 			currentSizeTable = GetPointer(0x28DD4C);
 			goto SetGFXTablePointer;
@@ -266,11 +266,11 @@ void Logic(int newPose)
 		LABEL_40:
 			{
 				TheDirectionIndex = 4 * IsSamusFacingLeft;
-				DifferentAnimTable = *((unsigned long*)&rawFile[DifferentAnimTable + samusDirection*4]);
+				DifferentAnimTable = *((unsigned long*)&rawFile[DifferentAnimTable + samusDirection * 4]);
 				//Now pointing to samus animarray.
-				mf->Animtable = (SamusAnim*)((unsigned long*) &rawFile[DifferentAnimTable-0x8000000] +TheDirectionIndex);
-			
-				GfxSizeTable = GetPointer(0x28D8DC) + (( mf->SamusPose * 4 + IsSamusFacingLeft) * 4);
+				mf->Animtable = (SamusAnim*)((unsigned long*)&rawFile[DifferentAnimTable - 0x8000000] + TheDirectionIndex);
+
+				GfxSizeTable = GetPointer(0x28D8DC) + ((mf->SamusPose * 4 + IsSamusFacingLeft) * 4);
 				someIndex = TheDirectionIndex;
 				goto SetOAM;
 			}
@@ -279,7 +279,7 @@ void Logic(int newPose)
 		}
 	}
 	CopyIndex = 4 * IsSamusFacingLeft;
-	PoseIndex = CopyIndex  + 8 * mf->SamusPose;
+	PoseIndex = CopyIndex + 8 * mf->SamusPose;
 	mf->Animtable = (SamusAnim*)&rawFile[GetPointer(0x28D2BC + PoseIndex)];
 	currentSizeTable = GetPointer(0x28D8DC);
 SetGFXTablePointer:
@@ -312,7 +312,7 @@ SetOAM:
 void InitUI()
 {
 	HWND hWnd = SamusEditorClass::hwndSamusEditor;
-	
+
 	cboPose.Init(GetDlgItem(hWnd, cboPoseitem));
 	cboCurFrame.Init(GetDlgItem(hWnd, IDC_COMBO6));
 	chkHoldingMissiles.SetCnt(GetDlgItem(hWnd, chkHoldMissiles));
@@ -327,7 +327,7 @@ void InitUI()
 		sprintf(buf, "%X", i);
 		cboAbsorbX.Additem(buf);
 		cboEvent.Additem(buf);
-   }
+	}
 
 
 	//Beams
@@ -505,26 +505,26 @@ void DrawSamus()
 }
 void LoadSamus()
 {
-	
+
 	string myText = cboPose.GetText(cboPose.GetListIndex());
 	int pose = poseLookup[myText];
-					Logic(pose);
-				cboCurFrame.Clear();
-				for (int i = 0; i < samusSprites.size();i++)
-				{
+	Logic(pose);
+	cboCurFrame.Clear();
+	for (int i = 0; i < samusSprites.size();i++)
+	{
 
-					FusionSamus* thisMf = samusSprites[i];
-				
-					thisMf->GetOAM(i, samusDirection, facingDirections, CurrentPose, GfxSizeTable);
-					thisMf->Load();
-					thisMf->UnpackSamus();
-					thisMf->DrawMe();
-					sec->SetupSamusPreview(thisMf);
-					char num[4] = { 0 };
-					sprintf(num, "%d", i);
-					cboCurFrame.Additem(num);
-				}
-				cboCurFrame.SetListIndex(0);
+		FusionSamus* thisMf = samusSprites[i];
+
+		thisMf->GetOAM(i, samusDirection, facingDirections, CurrentPose, GfxSizeTable);
+		thisMf->Load();
+		thisMf->UnpackSamus();
+		thisMf->DrawMe();
+		sec->SetupSamusPreview(thisMf);
+		char num[4] = { 0 };
+		sprintf(num, "%d", i);
+		cboCurFrame.Additem(num);
+	}
+	cboCurFrame.SetListIndex(0);
 }
 #include <GritNative.h>
 LPSTR* CommandLineToArgvA(LPSTR lpCmdLine, INT* pNumArgs);
@@ -587,20 +587,20 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		case IDC_BUTTON1:
 		{
 			BackBuffer* newImage = new BackBuffer();//64 * samusSprites.size(), 64);
-			int wd = 64+2;
-			int ht = 64+2;
+			int wd = 64 + 2;
+			int ht = 64 + 2;
 			newImage->Create(wd * samusSprites.size(), ht);
 			SetBkMode(newImage->DC(), TRANSPARENT);
 			SetTextColor(newImage->DC(), RGB(255, 255, 255));
 
 			newImage->Clear();
 			int i = 0;
-			for each(auto obj in samusSprites)
+			for each (auto obj in samusSprites)
 			{
 				RECT            myrect;
 				HBRUSH          curbrush = CreateSolidBrush((long)RGB(255, 255, 0));
 
-				myrect.left = i*66;
+				myrect.left = i * 66;
 				myrect.top = 0;
 				myrect.right = 66 + myrect.left;
 				myrect.bottom = 66 + i * 66;
@@ -611,14 +611,14 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 				myrect.bottom = 66 + i * 66 + 1;
 				FrameRect(newImage->DC(), &myrect, curbrush);
 				DeleteObject(curbrush);
-				obj->theSprite->PreviewSprite.GetFullImage()->Blit(newImage->DC(), (i) * wd + 2, 2, wd,ht, 0, 0); i++;			
+				obj->theSprite->PreviewSprite.GetFullImage()->Blit(newImage->DC(), (i)*wd + 2, 2, wd, ht, 0, 0); i++;
 			}
 			FILE* fp = fopen("F:/lol.bmp", "w+b");
 			newImage->SaveToFile(fp);
 			fclose(fp);
 			delete newImage;
 		}
-			break;
+		break;
 		case cmdImport: {
 			//Import the image with grit
 			//we just need the GFX and pal.
@@ -626,11 +626,11 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 			GritInterface* newInterface = new GritInterface(NULL);
 			char param[1024];
 			int numargs = 4;
-			sprintf_s(param, 1024, "%s %s -gt -gB 4 -pe 32", file, file);
+			sprintf_s(param, 1024, "%s %s -gt -gB 4 -pe 48", file, file);
 			char** params = CommandLineToArgvA(param, &numargs);
 			//char radiostring[3][32] = { "-Ah 32 -Aw 32","-Ah 64 -Aw 32","-Ah 32 -Aw 64" };
 
-			
+
 			auto rec = newInterface->run_main(numargs, params);
 
 			LocalFree(params);
@@ -639,46 +639,121 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 			fclose(fp);
 			//Get the info
 			int numSprites = rec->areaRight / (64);
+
 			for (int spriteCounter = 0; spriteCounter < numSprites; spriteCounter++)
 			{
-
+				unsigned char* gfxtop = rec->_gfxRec.data + 256 * spriteCounter;
+				unsigned char* bottomtop = rec->_gfxRec.data + (256 * spriteCounter) + rec->_gfxRec.height /(2* numSprites);;
 				//So first all of them share the same pal. 
 				FusionSamus* thisMf = samusSprites[spriteCounter];
 				std::memcpy(thisMf->Suit_color, rec->_palRec.data, 2 * rec->_palRec.height);
-				unsigned char* gfxtop = rec->_gfxRec.data + spriteCounter*64;
+
 				SamusPiece* pieces[] = { thisMf->SamusTop, thisMf->SamusBottom };
 				for (int i = 0;i < 2;i++)//3 one day
 				{
-					pieces[i]->bottomLen = 2*8;
+					pieces[i]->bottomLen = 2 * 8;
 					pieces[i]->topLen = 2 * 8;
 
 					if (pieces[i]->topGFX)
 					{
 						delete[] pieces[i]->topGFX;
 					}
-					pieces[i]->topGFX = new unsigned char[32*8 * 2];
-
-					//Draw from bitmap to memory
-
-
-
-					memcpy(pieces[i]->topGFX, gfxtop, 32*8);gfxtop += numSprites*8*32;
-					memcpy(&pieces[i]->topGFX[8 * 32], gfxtop, 32 * 8);gfxtop += numSprites * 8 * 32;
 					if (pieces[i]->bottomGFX)
 					{
 						delete[] pieces[i]->bottomGFX;
 					}
-					pieces[i]->bottomGFX = new unsigned char[32* 8 * 2];
-					memcpy(pieces[i]->bottomGFX, gfxtop, 32 * 8 );gfxtop += numSprites * 8 * 32;
-					memcpy(&pieces[i]->bottomGFX[ 8 * 32], gfxtop, 32 * 8);gfxtop += numSprites * 8 * 32;
+					pieces[i]->bottomGFX = new unsigned char[32 * 8 *4 ];
+					pieces[i]->topGFX = new unsigned char[32 * 8 * 4];
+					memset(pieces[i]->bottomGFX, 0,32 * 8 * 4);
+					memset(pieces[i]->topGFX, 0, 32 * 8 *4);
+					//Draw from bitmap to memory
+
+
+					unsigned char* datPointer = pieces[i]->topGFX;
+					memcpy(datPointer, gfxtop, 32 * 8);gfxtop += numSprites * 8 * 32;datPointer += 8 * 32;
+					memcpy(datPointer, gfxtop, 32 * 8);gfxtop += numSprites * 8 * 32;datPointer += 8 * 32;
+					memcpy(datPointer, gfxtop, 32 * 8);gfxtop += numSprites * 8 * 32;datPointer += 8 * 32;
+					memcpy(datPointer, gfxtop, 32 * 8);gfxtop += numSprites * 8 * 32;datPointer += 8 * 32;
+
+					datPointer = pieces[i]->bottomGFX;
+					memcpy(datPointer, bottomtop, 32 * 8);bottomtop += numSprites * 8 * 32;datPointer += 8 * 32;
+					memcpy(datPointer, bottomtop, 32 * 8);bottomtop += numSprites * 8 * 32;datPointer += 8 * 32;
+					memcpy(datPointer, bottomtop, 32 * 8);bottomtop += numSprites * 8 * 32;datPointer += 8 * 32;
+					memcpy(datPointer, bottomtop, 32 * 8);bottomtop += numSprites * 8 * 32;datPointer += 8 * 32;
 				}
+
+				//Draw oam
+
+			//4 3 by 2 tiles
+				OverAllOAM part1;
+				memset(&part1, 0, sizeof(OverAllOAM));
+				OverAllOAM part2;
+				memset(&part2, 0, sizeof(OverAllOAM));
+				OverAllOAM part3;
+				memset(&part3, 0, sizeof(OverAllOAM));
+				OverAllOAM part4;
+				memset(&part4, 0, sizeof(OverAllOAM));
+
+
+				OverAllOAM part5;
+				memset(&part5, 0, sizeof(OverAllOAM));
+				OverAllOAM part6;
+				memset(&part6, 0, sizeof(OverAllOAM));
+				OverAllOAM part7;
+				memset(&part7, 0, sizeof(OverAllOAM));
+				OverAllOAM part8;
+				memset(&part8, 0, sizeof(OverAllOAM));
+				OverAllOAM part9;
+				memset(&part9, 0, sizeof(OverAllOAM));
+				OverAllOAM part10;
+				memset(&part10, 0, sizeof(OverAllOAM));
+				thisMf->theSprite->OAM.clear();
+				thisMf->theSprite->maxparts = 5;
+			/*	FrameManager::PackOAM(&part1, 0,      -8, -16, 2, 2, 0, 0, 0);
+				FrameManager::PackOAM(&part2, 8,      -8, -8, 2, 2, 0, 0, 0);
+				FrameManager::PackOAM(&part3, 48,     -8, 0, 2, 2, 0, 0, 0);
+				FrameManager::PackOAM(&part4, 64,     -8,  8, 2, 2, 0, 0, 0);*/
+
+
+				/*int xLeftPos = 8;
+				FrameManager::PackOAM(&part1, 0 , xLeftPos, -16, 2, 2, 0, 0, 0);
+				FrameManager::PackOAM(&part2, 8 , xLeftPos, 0, 2, 2, 0, 0, 0);
+				FrameManager::PackOAM(&part3, 19, xLeftPos,  16, 2, 2, 0, 0, 0);
+				FrameManager::PackOAM(&part4, 32 , xLeftPos,  32, 2, 2, 0, 0, 0);
+				FrameManager::PackOAM(&part5, 48, xLeftPos, 48, 2, 2, 0, 0, 0);*/
+
+
+				FrameManager::PackOAM(&part1, 0 ,  8, 0, 2, 2, 0, 0, 0);	
+				FrameManager::PackOAM(&part2, 8 ,  8, 86, 2, 2, 0, 0, 0);
+				FrameManager::PackOAM(&part3, 19,  8+32,  0, 2, 2, 0, 0, 0);
+				FrameManager::PackOAM(&part4, 32 , 8+32+32, 0, 2, 2, 0, 0, 0);	
+				FrameManager::PackOAM(&part5, 48,  8+64 + 32, 16, 2, 2, 0, 0, 0);
+
+
+
+				//FrameManager::PackOAM(&part6, 10, 24, -8, 2, 2, 0, 0, 0);
+				//FrameManager::PackOAM(&part7, 21, 24, 0, 2, 2, 0, 0, 0);
+				//FrameManager::PackOAM(&part8, 34, 24, 8, 2, 2, 0, 0, 0);
+				//FrameManager::PackOAM(&part9, 44, 8, 16, 2, 2, 0, 0, 0);
+				//FrameManager::PackOAM(&part10, 46, 24, 16, 2, 2, 0, 0, 0);
+				thisMf->theSprite->OAM.push_back(part1);
+				thisMf->theSprite->OAM.push_back(part2);
+				thisMf->theSprite->OAM.push_back(part3);
+				thisMf->theSprite->OAM.push_back(part4);
+				thisMf->theSprite->OAM.push_back(part5);
+				//thisMf->theSprite->OAM.push_back(part6);
+				//thisMf->theSprite->OAM.push_back(part7);
+				//thisMf->theSprite->OAM.push_back(part8);
+				//thisMf->theSprite->OAM.push_back(part9);
+				//thisMf->theSprite->OAM.push_back(part10);
+
 				thisMf->Load();
 				thisMf->DrawMe();
 			}
 			delete rec;
 
 		}
-			break;
+					  break;
 		}
 		break;
 	case WM_PAINT:
