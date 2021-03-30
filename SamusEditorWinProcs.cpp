@@ -626,7 +626,7 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 			GritInterface* newInterface = new GritInterface(NULL);
 			char param[1024];
 			int numargs = 4;
-			sprintf_s(param, 1024, "%s %s -gt -gB 4 -pe 48", file, file);
+			sprintf_s(param, 1024, "%s %s -gt -gB 4 -pn 32", file, file);
 			char** params = CommandLineToArgvA(param, &numargs);
 			//char radiostring[3][32] = { "-Ah 32 -Aw 32","-Ah 64 -Aw 32","-Ah 32 -Aw 64" };
 
@@ -708,7 +708,7 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 				OverAllOAM part10;
 				memset(&part10, 0, sizeof(OverAllOAM));
 				thisMf->theSprite->OAM.clear();
-				thisMf->theSprite->maxparts = 5;
+				thisMf->theSprite->maxparts = 3;
 			/*	FrameManager::PackOAM(&part1, 0,      -8, -16, 2, 2, 0, 0, 0);
 				FrameManager::PackOAM(&part2, 8,      -8, -8, 2, 2, 0, 0, 0);
 				FrameManager::PackOAM(&part3, 48,     -8, 0, 2, 2, 0, 0, 0);
@@ -723,32 +723,34 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 				FrameManager::PackOAM(&part5, 48, xLeftPos, 48, 2, 2, 0, 0, 0);*/
 
 
-				FrameManager::PackOAM(&part1, 0 ,  8, 0, 2, 2, 0, 0, 0);	
-				FrameManager::PackOAM(&part2, 8 ,  8, 86, 2, 2, 0, 0, 0);
-				FrameManager::PackOAM(&part3, 19,  8+32,  0, 2, 2, 0, 0, 0);
-				FrameManager::PackOAM(&part4, 32 , 8+32+32, 0, 2, 2, 0, 0, 0);	
-				FrameManager::PackOAM(&part5, 48,  8+64 + 32, 16, 2, 2, 0, 0, 0);
-
-
+				//FrameManager::PackOAM(&part1, 0 ,  8, -16, 2, 2, 0, 0, 0);	
+				//FrameManager::PackOAM(&part2, 8 ,  8, -8, 2, 2, 0, 0, 0);
+			    FrameManager::PackOAM(&part3, 40,  8,  0, 2, 2, 0, 0, 0);
+			    FrameManager::PackOAM(&part4, 20,  8,  8, 2, 2, 0, 0, 0);
+				FrameManager::PackOAM(&part5, 64 , 8, 16, 2, 2, 0, 0, 0);	
+			//	FrameManager::PackOAM(&part5, 40,  8, 24, 2, 2, 0, 0, 0);
+				
 
 				//FrameManager::PackOAM(&part6, 10, 24, -8, 2, 2, 0, 0, 0);
 				//FrameManager::PackOAM(&part7, 21, 24, 0, 2, 2, 0, 0, 0);
 				//FrameManager::PackOAM(&part8, 34, 24, 8, 2, 2, 0, 0, 0);
 				//FrameManager::PackOAM(&part9, 44, 8, 16, 2, 2, 0, 0, 0);
 				//FrameManager::PackOAM(&part10, 46, 24, 16, 2, 2, 0, 0, 0);
-				thisMf->theSprite->OAM.push_back(part1);
-				thisMf->theSprite->OAM.push_back(part2);
+				//thisMf->theSprite->OAM.push_back(part1);
+			//	thisMf->theSprite->OAM.push_back(part2);
 				thisMf->theSprite->OAM.push_back(part3);
 				thisMf->theSprite->OAM.push_back(part4);
-				thisMf->theSprite->OAM.push_back(part5);
+			    thisMf->theSprite->OAM.push_back(part5);
 				//thisMf->theSprite->OAM.push_back(part6);
 				//thisMf->theSprite->OAM.push_back(part7);
 				//thisMf->theSprite->OAM.push_back(part8);
 				//thisMf->theSprite->OAM.push_back(part9);
 				//thisMf->theSprite->OAM.push_back(part10);
+				thisMf->theSprite->PreviewSprite.RefreshImage();
 
 				thisMf->Load();
 				thisMf->DrawMe();
+				thisMf->theSprite->PreviewSprite.RefreshImage();
 			}
 			delete rec;
 
@@ -764,8 +766,17 @@ BOOL CALLBACK	SamusProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM l
 		}
 
 		hdc = BeginPaint(hWnd, &ps);
+
 		int height = (sec->SpritePreview->Borders.bottom - sec->SpritePreview->Borders.top);
 		int width = (sec->SpritePreview->Borders.right - sec->SpritePreview->Borders.left);
+		RECT b;
+		memset(&b, 0, sizeof(RECT));
+		b.left = 64;
+		b.top = 1;
+		b.bottom = height*3;
+		b.right = width*3;
+
+		FillRect(hdc, &b, (HBRUSH)(COLOR_WINDOW + 1));
 		//sec->SpritePreview->PreviewSprite.TransBlit
 		//(hdc, 0, 0,
 		//	width,
